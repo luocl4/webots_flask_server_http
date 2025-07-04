@@ -1,0 +1,4312 @@
+[
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "Box_1",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "Box_2",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "Box_3",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "Box_4",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "Box_5",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "Box_6",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "Box_7",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "Box_8",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Box_9",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "Box_10",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "Box_11",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "Box_12",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Box_13",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "goodbox",
+                "position": [
+                    -1.73,
+                    -0.03,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1.06",
+                    "1.32",
+                    "2"
+                ],
+                "describe": "箱子，用于放置机器人夹取的物品",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 15
+            },
+            {
+                "name": "conver",
+                "position": [
+                    1.9,
+                    0.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -180.0
+                },
+                "size": [
+                    "1.2",
+                    "3.1",
+                    "0.87"
+                ],
+                "describe": "传送带，用于传送物体",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "3",
+                "is_moving": false,
+                "id": 16
+            },
+            {
+                "name": "Obstacle_Box_1",
+                "position": [
+                    -3.29,
+                    2.75,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 17
+            },
+            {
+                "name": "Obstacle_Box_2",
+                "position": [
+                    -2.59,
+                    -2.55,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 18
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "Box_1",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "Box_2",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "Box_3",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "Box_4",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "Box_5",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "Box_6",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "Box_7",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "Box_8",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Box_9",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "Box_10",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "Box_11",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "Box_12",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Box_13",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "goodbox",
+                "position": [
+                    -1.73,
+                    -0.03,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1.06",
+                    "1.32",
+                    "2"
+                ],
+                "describe": "箱子，用于放置机器人夹取的物品",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 15
+            },
+            {
+                "name": "conver",
+                "position": [
+                    1.9,
+                    0.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -180.0
+                },
+                "size": [
+                    "1.2",
+                    "3.1",
+                    "0.87"
+                ],
+                "describe": "传送带，用于传送物体",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "3",
+                "is_moving": false,
+                "id": 16
+            },
+            {
+                "name": "Obstacle_Box_1",
+                "position": [
+                    -3.29,
+                    2.75,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 17
+            },
+            {
+                "name": "Obstacle_Box_2",
+                "position": [
+                    -2.59,
+                    -2.55,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 18
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "Box_1",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "Box_2",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "Box_3",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "Box_4",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "Box_5",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "Box_6",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "Box_7",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "Box_8",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Box_9",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "Box_10",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "Box_11",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "Box_12",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Box_13",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "goodbox",
+                "position": [
+                    -1.73,
+                    -0.03,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1.06",
+                    "1.32",
+                    "2"
+                ],
+                "describe": "箱子，用于放置机器人夹取的物品",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 15
+            },
+            {
+                "name": "conver",
+                "position": [
+                    1.9,
+                    0.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -180.0
+                },
+                "size": [
+                    "1.2",
+                    "3.1",
+                    "0.87"
+                ],
+                "describe": "传送带，用于传送物体",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "3",
+                "is_moving": false,
+                "id": 16
+            },
+            {
+                "name": "Obstacle_Box_1",
+                "position": [
+                    -3.29,
+                    2.75,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 17
+            },
+            {
+                "name": "Obstacle_Box_2",
+                "position": [
+                    -2.59,
+                    -2.55,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 18
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "Box_1",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "Box_2",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "Box_3",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "Box_4",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "Box_5",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "Box_6",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "Box_7",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "Box_8",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Box_9",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "Box_10",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "Box_11",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "Box_12",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Box_13",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "goodbox",
+                "position": [
+                    -1.73,
+                    -0.03,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1.06",
+                    "1.32",
+                    "2"
+                ],
+                "describe": "箱子，用于放置机器人夹取的物品",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 15
+            },
+            {
+                "name": "conver",
+                "position": [
+                    1.9,
+                    0.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -180.0
+                },
+                "size": [
+                    "1.2",
+                    "3.1",
+                    "0.87"
+                ],
+                "describe": "传送带，用于传送物体",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "3",
+                "is_moving": false,
+                "id": 16
+            },
+            {
+                "name": "Obstacle_Box_1",
+                "position": [
+                    -3.29,
+                    2.75,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 17
+            },
+            {
+                "name": "Obstacle_Box_2",
+                "position": [
+                    -2.59,
+                    -2.55,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 18
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "Box_1",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "Box_2",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "Box_3",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "Box_4",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "Box_5",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "Box_6",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "Box_7",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "Box_8",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Box_9",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "Box_10",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "Box_11",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "Box_12",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Box_13",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "goodbox",
+                "position": [
+                    -1.73,
+                    -0.03,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1.06",
+                    "1.32",
+                    "2"
+                ],
+                "describe": "箱子，用于放置机器人夹取的物品",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 15
+            },
+            {
+                "name": "conver",
+                "position": [
+                    1.9,
+                    0.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -180.0
+                },
+                "size": [
+                    "1.2",
+                    "3.1",
+                    "0.87"
+                ],
+                "describe": "传送带，用于传送物体",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "3",
+                "is_moving": false,
+                "id": 16
+            },
+            {
+                "name": "Obstacle_Box_1",
+                "position": [
+                    -3.29,
+                    2.75,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 17
+            },
+            {
+                "name": "Obstacle_Box_2",
+                "position": [
+                    -2.59,
+                    -2.55,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 18
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "Box_1",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "Box_2",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "Box_3",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "Box_4",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "Box_5",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "Box_6",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "Box_7",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "Box_8",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Box_9",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "Box_10",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "Box_11",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "Box_12",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Box_13",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "goodbox",
+                "position": [
+                    -1.73,
+                    -0.03,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1.06",
+                    "1.32",
+                    "2"
+                ],
+                "describe": "箱子，用于放置机器人夹取的物品",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 15
+            },
+            {
+                "name": "conver",
+                "position": [
+                    1.9,
+                    0.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -180.0
+                },
+                "size": [
+                    "1.2",
+                    "3.1",
+                    "0.87"
+                ],
+                "describe": "传送带，用于传送物体",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "3",
+                "is_moving": false,
+                "id": 16
+            },
+            {
+                "name": "Obstacle_Box_1",
+                "position": [
+                    -3.29,
+                    2.75,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 17
+            },
+            {
+                "name": "Obstacle_Box_2",
+                "position": [
+                    -2.59,
+                    -2.55,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 18
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "Box_1",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "Box_2",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "Box_3",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "Box_4",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "Box_5",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "Box_6",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "Box_7",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "Box_8",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Box_9",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "Box_10",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "Box_11",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "Box_12",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Box_13",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "goodbox",
+                "position": [
+                    -1.73,
+                    -0.03,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1.06",
+                    "1.32",
+                    "2"
+                ],
+                "describe": "箱子，用于放置机器人夹取的物品",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 15
+            },
+            {
+                "name": "conver",
+                "position": [
+                    1.9,
+                    0.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -180.0
+                },
+                "size": [
+                    "1.2",
+                    "3.1",
+                    "0.87"
+                ],
+                "describe": "传送带，用于传送物体",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "3",
+                "is_moving": false,
+                "id": 16
+            },
+            {
+                "name": "Obstacle_Box_1",
+                "position": [
+                    -3.29,
+                    2.75,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 17
+            },
+            {
+                "name": "Obstacle_Box_2",
+                "position": [
+                    -2.59,
+                    -2.55,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 18
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "Box_1",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "Box_2",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "Box_3",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "Box_4",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "Box_5",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "Box_6",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "Box_7",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "Box_8",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Box_9",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "Box_10",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "Box_11",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "Box_12",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Box_13",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "goodbox",
+                "position": [
+                    -1.73,
+                    -0.03,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1.06",
+                    "1.32",
+                    "2"
+                ],
+                "describe": "箱子，用于放置机器人夹取的物品",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 15
+            },
+            {
+                "name": "conver",
+                "position": [
+                    1.9,
+                    0.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -180.0
+                },
+                "size": [
+                    "1.2",
+                    "3.1",
+                    "0.87"
+                ],
+                "describe": "传送带，用于传送物体",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "3",
+                "is_moving": false,
+                "id": 16
+            },
+            {
+                "name": "Obstacle_Box_1",
+                "position": [
+                    -3.29,
+                    2.75,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 17
+            },
+            {
+                "name": "Obstacle_Box_2",
+                "position": [
+                    -2.59,
+                    -2.55,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 18
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "Box_1",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "Box_2",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "Box_3",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "Box_4",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "Box_5",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "Box_6",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "Box_7",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "Box_8",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Box_9",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "Box_10",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "Box_11",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "Box_12",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Box_13",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "goodbox",
+                "position": [
+                    -1.73,
+                    -0.03,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1.06",
+                    "1.32",
+                    "2"
+                ],
+                "describe": "箱子，用于放置机器人夹取的物品",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 15
+            },
+            {
+                "name": "conver",
+                "position": [
+                    1.9,
+                    0.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -180.0
+                },
+                "size": [
+                    "1.2",
+                    "3.1",
+                    "0.87"
+                ],
+                "describe": "传送带，用于传送物体",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "3",
+                "is_moving": false,
+                "id": 16
+            },
+            {
+                "name": "Obstacle_Box_1",
+                "position": [
+                    -3.29,
+                    2.75,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 17
+            },
+            {
+                "name": "Obstacle_Box_2",
+                "position": [
+                    -2.59,
+                    -2.55,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 18
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "Box_1",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "Box_2",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "Box_3",
+                "position": [
+                    4.0,
+                    -0.7,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "Box_4",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "Box_5",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "Box_6",
+                "position": [
+                    4.1,
+                    0.3,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "Box_7",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "Box_8",
+                "position": [
+                    4.4,
+                    1.3,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 150.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Box_9",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "Box_10",
+                "position": [
+                    -0.04,
+                    3.0,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -45.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "Box_11",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "Box_12",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.2
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Box_13",
+                "position": [
+                    -0.82,
+                    2.68,
+                    0.4
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1",
+                    "0.6",
+                    "0.3"
+                ],
+                "describe": "塑料箱，装机器人夹取的物品",
+                "ability": [
+                    "grasp"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "goodbox",
+                "position": [
+                    -1.73,
+                    -0.03,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 90.0
+                },
+                "size": [
+                    "1.06",
+                    "1.32",
+                    "2"
+                ],
+                "describe": "箱子，用于放置机器人夹取的物品",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 15
+            },
+            {
+                "name": "conver",
+                "position": [
+                    1.9,
+                    0.0,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -180.0
+                },
+                "size": [
+                    "1.2",
+                    "3.1",
+                    "0.87"
+                ],
+                "describe": "传送带，用于传送物体",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "3",
+                "is_moving": false,
+                "id": 16
+            },
+            {
+                "name": "Obstacle_Box_1",
+                "position": [
+                    -3.29,
+                    2.75,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 17
+            },
+            {
+                "name": "Obstacle_Box_2",
+                "position": [
+                    -2.59,
+                    -2.55,
+                    0.0
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "1.02",
+                    "1.07",
+                    "1.27"
+                ],
+                "describe": "平板，用于放置货物",
+                "ability": [
+                    "None"
+                ],
+                "obj_type": "4",
+                "is_moving": false,
+                "id": 18
+            }
+        ],
+        "message": "World status updated by supervisor."
+    }
+]

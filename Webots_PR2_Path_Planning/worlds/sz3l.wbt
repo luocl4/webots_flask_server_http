@@ -1,0 +1,412 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/CardboardBox.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position -2.999874542550854 0.00012545780390931045 47.65508891463678
+}
+TexturedBackground {
+}
+Solid {
+  translation 1.4 -0.3 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.3 0.3 0.3
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/charas(1).STL"
+        ]
+      }
+    }
+  ]
+  name "charac"
+}
+CardboardBox {
+  translation 3.2 0.8 0.5
+  size 0.4 0.4 0.5
+  mass -1
+}
+CardboardBox {
+  translation 3.2 0.4 0.5
+  name "cardboard box(1)"
+  size 0.4 0.4 0.5
+  mass -1
+}
+CardboardBox {
+  translation 2.8 0.4 0.5
+  name "cardboard box(2)"
+  size 0.4 0.4 0.5
+  mass -1
+}
+CardboardBox {
+  translation 2.8 0.8 0.5
+  name "cardboard box(3)"
+  size 0.4 0.4 0.5
+  mass -1
+}
+CardboardBox {
+  translation 3.2 0.8 0.9
+  name "cardboard box(4)"
+  size 0.4 0.4 0.5
+  mass -1
+}
+CardboardBox {
+  translation 3.2 0.4 0.9
+  name "cardboard box(5)"
+  size 0.4 0.4 0.5
+  mass -1
+}
+Solid {
+  translation 4.7 -0.3 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.6 0.6 0.6
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/cases(1).STL"
+        ]
+      }
+    }
+  ]
+  name "cases1"
+}
+Solid {
+  translation 4.7 -1.56 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.6 0.6 0.6
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/cases(1).STL"
+        ]
+      }
+    }
+  ]
+  name "cases2"
+}
+CardboardBox {
+  translation 2.8 0.4 0.9
+  name "cardboard box(6)"
+  size 0.4 0.4 0.5
+  mass -1
+}
+CardboardBox {
+  translation 2.8 0.8 0.9
+  name "cardboard box(7)"
+  size 0.4 0.4 0.5
+  mass -1
+}
+TexturedBackgroundLight {
+}
+Solid {
+  translation 2.3 0 0.1
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.7 0.5 0.1
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/boards(1).STL"
+        ]
+      }
+    }
+  ]
+  name "carboards"
+}
+Solid {
+  translation -0.7 0.4 0
+  rotation 0 0 1 -1.5708003061004252
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/robot2s(1).STL"
+        ]
+      }
+    }
+  ]
+  name "robots2"
+}
+Solid {
+  translation 13 0 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/zhuzi.STL"
+        ]
+      }
+    }
+  ]
+  name "zhuzi"
+}
+Solid {
+  translation 13 0 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.2 0.2 0.2
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/floor.STL"
+        ]
+      }
+    }
+  ]
+  name "floor"
+}
+Solid {
+  translation -3.6 0 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          ambientIntensity 0.7
+          diffuseColor 0.1 0.4 0.5
+          emissiveColor 0.1 0.2 0
+          specularColor 0.2 0 0
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/tablegreens(1).STL"
+        ]
+      }
+    }
+  ]
+  name "tables"
+}
+Solid {
+  translation 13 0 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.5 0.5 0.5
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/low.STL"
+        ]
+      }
+    }
+  ]
+  name "dizuo"
+}
+Solid {
+  translation -3 0 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "../protos/stl/1.jpeg"
+          ]
+        }
+      }
+      geometry Cylinder {
+        height 0.001
+        radius 0.27
+      }
+    }
+  ]
+  name "biaozhu1"
+}
+Solid {
+  translation 4 -4 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "../protos/stl/1.jpeg"
+          ]
+        }
+      }
+      geometry Cylinder {
+        height 0.001
+        radius 0.27
+      }
+    }
+  ]
+  name "biaozhu2"
+}
+Solid {
+  translation 22 -1 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "../protos/stl/1.jpeg"
+          ]
+        }
+      }
+      geometry Cylinder {
+        height 0.001
+        radius 0.27
+      }
+    }
+  ]
+  name "biaozhu3"
+}
+Solid {
+  translation 30 -2 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "../protos/stl/1.jpeg"
+          ]
+        }
+      }
+      geometry Cylinder {
+        height 0.001
+        radius 0.27
+      }
+    }
+  ]
+  name "biaozhu4"
+}
+Solid {
+  translation 2.3 -1.9 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.7 0.7 0.7
+          emissiveColor 0.1 0.4 0.4
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/goshelvess(1).STL"
+        ]
+      }
+    }
+  ]
+  name "goshelvess"
+}
+Solid {
+  translation 4.7 1.7 0
+  rotation 0 0 1 1.5708003061004252
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/robot1s(1).STL"
+        ]
+      }
+    }
+  ]
+  name "robots1"
+}
+Solid {
+  translation 2.3 0 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.7 0.5 0.1
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/cars(1).STL"
+        ]
+      }
+    }
+  ]
+  name "car"
+}
+Solid {
+  translation 13 0 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/smallwall.STL"
+        ]
+      }
+    }
+  ]
+  name "smallwall"
+}
+CardboardBox {
+  translation 3.5 -2.9 0.3
+  rotation 0 0 1 -1.5707996938995747
+  name "cardboard box(8)"
+  size 0.3 0.4 0.4
+}
+CardboardBox {
+  translation 2.7 -2.9 0.3
+  rotation 0 0 1 -1.5707996938995747
+  name "cardboard box(9)"
+  size 0.3 0.4 0.4
+}
+Solid {
+  translation 13 0 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl/allwall.STL"
+        ]
+      }
+    }
+  ]
+  name "allwall"
+}

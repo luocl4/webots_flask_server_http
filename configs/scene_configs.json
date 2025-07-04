@@ -1,0 +1,24 @@
+{
+    "1": {
+        "id": "1",
+        "name": "Path Planning Scene",
+        "version": "2.1.0",
+        "world_file": "path_planning.wbt", 
+        "corners": [[4, 4], [-4, -4], [4, -4], [-4, 4]],
+        "working_dir": "/home/luocl/Desktop/webots_flask_server_http1/Webots_PR2_Path_Planning/worlds",
+        "label_point": [{"p1": {"x": 0, "y": 0, "z": 0}}],
+        "description": "路径规划场景"
+    },
+    "2": {
+        "id": "2",
+        "name": "Box Moving Scene",
+        "version": "1.3.0",
+        "world_file": "ssslb.wbt", 
+        "corners": [[4.5, 2.7], [-4.5, -2.7], [4.5, -2.7], [-4.5, 2.7]],
+        "working_dir": "/home/luocl/Desktop/webots_flask_server_http1/Webots_PR2_Path_Planning/worlds",
+        "label_point": [{"p1": {"x": 0.8, "y": 0, "z": 0}},
+                        {"p2": {"x": 4.0, "y": -1.7, "z": 0}}, 
+                        {"p3": {"x": -3.6, "y": 0, "z": 0}}],
+        "description": "物料搬运场景"
+    }
+}
