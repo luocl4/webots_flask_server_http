@@ -63,7 +63,7 @@ class ArmIk:
     """
     def __init__(
         self,
-        model_file="/home/luocl/Desktop/webots_flask_server_http/Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf",
+        model_file="../../../Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf",
         box_file="./models/box/box_panels.urdf",
         end_frames_name = ["urdf_arm", "left_gripper_robotiq_85_base_link", "right_gripper_robotiq_85_base_link"],
         constraint_tol=9e-3,

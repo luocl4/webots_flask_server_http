@@ -59,11 +59,26 @@ pick_robot_goals={}
 place_robot_goals={}
 robot_stop_flag = False
 robot_status_dict = {}
+result_pick=False
+fail_pick=False
+fail_place=False
+result_place=False
 robot_status = {"robot_position": (0, 0), "status": ""}  # 存储机器人的位置和状态信息
 
 ability_dict = {
-    "move" : "移动",
-    "grasp" : "抓取"
+    "place_left" : "左-放置",
+    "place_right": "右-放置",
+    "place_left_right" : "双手-放置",
+    "move":"移动",
+    "turn":"转身",
+    "wipe_left":"左-擦拭",
+    "wipe_right":"右-擦拭",
+    "squat":"下蹲",
+    "grab_left":"左-抓取",
+    "grab_right":"右-抓取",
+    "grab_left_right":"双手-抓取",
+    "bend":"弯腰",
+    "identify":"识别",
 }
 
 command_queue = deque()
@@ -110,7 +125,7 @@ def load_scene_configs():
                 "version": "2.1.0",
                 "world_file": "path_planning.wbt", 
                 "corners": [[4, 4], [-4, -4], [4, -4], [-4, 4]],
-                "working_dir": "/home/luocl/Desktop/webots_flask_server_http1/Webots_PR2_Path_Planning/worlds",
+                "working_dir": "./Webots_PR2_Path_Planning/worlds",
                 "label_point": [{"p1": {"x": 0, "y": 0, "z": 0}}],
                 "description": "路径规划场景"
             },
@@ -256,7 +271,7 @@ def get_robot_command():
 @app.route('/robot_status', methods=['POST'])
 def update_robot_status():
     """更新机器人状态"""
-    global robot_status, robot_goals, robot_status_dict,capture_robot_goals,pick_robot_goals,place_robot_goals
+    global result_pick,result_place,robot_status, robot_goals, robot_status_dict,capture_robot_goals,pick_robot_goals,place_robot_goals,fail_pick,fail_place
     data = request.get_json()
     # 获取status字典（如果存在）
     status_dict = data.get('status')
@@ -264,8 +279,23 @@ def update_robot_status():
         # 检查task和status字段是否存在
         task = status_dict.get('task')
         status_value = status_dict.get('status')
+
+        if task == "pick":
+            result_pick=True
+            if status_value == "fail":
+                fail_pick = True
+            else:
+                fail_pick = False
+                res = status_dict.get('res')
+        elif task == "place":
+            result_place=True
+            if status_value == "fail":
+                fail_place = True
+            else:
+                fail_place = False
+                res = status_dict.get('res')
         
-        if task == "capture" and status_value == "success":
+        if task == "capture" or task == "pick" or task == "place":
             # print(data)
             capture_robot_goals={}
             pick_robot_goals={}
@@ -608,13 +638,15 @@ def start_webots():
             logger.info("等待Supervisor更新世界状态...")
             
             # 设置超时时间（秒）
-            timeout = 30
+            timeout = 600
             start_time = time.time()
             
             # 等待supervisor_world_status_log更新或超时
+            # print(supervisor_world_status_log)
             while not supervisor_world_status_log and time.time() - start_time < timeout:
                 time.sleep(0.5)
-            
+                
+            print(supervisor_world_status_log)
             if supervisor_world_status_log:
                 logger.info("Supervisor已更新世界状态，场景加载完成")
                 return jsonify({
@@ -1413,11 +1445,26 @@ def capture_set_goal():
         capture_robot_goals['right_goal_pos']=right_goal_pos
         capture_robot_goals['right_angle']=right_angle
 
+        # 循环检查字典是否为空（示例：最多等待10次，每次间隔0.1秒）
+        max_attempts = 20
+        attempt = 0
+        while attempt < max_attempts:
+            if not capture_robot_goals:  # 字典为空时返回
+                return jsonify({
+                    "code": 200,
+                    "message": "目标已清空，操作完成",
+                    "cur_pos": [6.1, 6.2, 6.3]
+                }), 200
+            # 模拟等待（实际场景中可能是其他异步操作）
+            time.sleep(1)
+            attempt += 1
+
+         # 超过最大尝试次数后返回
         return jsonify({
-            "code": 200,
-            "message": "success",
-            "cur_pos": [6.1,6.2,6.3]
-        }), 200
+            "code": 408,
+            "message": "请稍后使用pick_result接口查询",
+        }), 408
+
 
     except Exception as e:
         return jsonify({"code": 400, "message": "The target for capture cannot be reached."}), 400
@@ -1435,10 +1482,12 @@ def pick_set_goal():
     - goal_angle:要进行抓取的姿态，默认为从上往下抓,[-3.14,0,0]
     - goal_arm:规划左手："left"，右手："right"，双手:"both"
     """
-    global pick_robot_goals, current_loaded_scene, supervisor_world_status_log
+    global pick_robot_goals, current_loaded_scene, supervisor_world_status_log,result_pick,fail_pick
 
     try:
+        result_pick = False
         data = request.get_json()
+        logger.info(f"[set_robot_goal] 接收到抓取命令: {data}")
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
         
@@ -1466,16 +1515,21 @@ def pick_set_goal():
 
         # 左手臂相关参数，默认值设为合理的空列表或零值
         left_cur_pos = data.get('left_cur_pos', [-0.01749985 , 0.29927  ,  -0.21073727])
+        left_cur_pos = [0.0, 0.0, 0.0]
         left_angle = data.get('left_angle', [3.14, 0.0, 0.0])
+        if not left_angle:
+            left_angle = [3.14, 0.0, 0.0]
 
         # 右手臂相关参数，默认值设为合理的空列表或零值
         right_cur_pos = data.get('right_cur_pos', [-0.01749985  ,-0.29927 ,   -0.21073727])
         right_angle = data.get('right_angle', [-3.02456926, -0.00675474,  0.09522905])
-
+        if not right_angle:
+            right_angle = [-3.02456926, -0.00675474,  0.09522905]
+        logger.info(f"{scene_id}, {robot_id}, {goal_arm}, {left_cur_pos}, {left_angle}, {right_cur_pos}, {right_angle}")
         # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
         if pick_robot_goals:
-            logger.info(f"[set_robot_goal] 清理机器人(ID:{object_id})的旧目标状态")
+            logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")
 
         pick_robot_goals['scene_id']=scene_id
         pick_robot_goals['robot_id']=robot_id
@@ -1486,14 +1540,32 @@ def pick_set_goal():
         pick_robot_goals['right_cur_pos']=right_cur_pos
         pick_robot_goals['right_angle']=right_angle
 
+        # 循环检查字典是否为空（示例：最多等待10次，每次间隔0.1秒）
+        max_attempts = 15
+        attempt = 0
+        while attempt < max_attempts:
+            # print("fail_pick",fail_pick)
+            if fail_pick:
+                fail_pick = False
+                return jsonify({"code": 400, "message": "The target for capture cannot be reached."}), 400
+            if not pick_robot_goals:  # 字典为空时返回
+                return jsonify({
+                    "code": 200,
+                    "message": "目标已清空，操作完成",
+                    "cur_pos": [6.1, 6.2, 6.3]
+                }), 200
+            # 模拟等待（实际场景中可能是其他异步操作）
+            time.sleep(1)
+            attempt += 1
+
+         # 超过最大尝试次数后返回
         return jsonify({
-            "code": 200,
-            "message": "success",
-            "cur_pos": [6.1,6.2,6.3]
-        }), 200
+            "code": 408,
+            "message": "请稍后使用pick_result接口查询",
+        }), 408
 
     except Exception as e:
-        return jsonify({"code": 400, "message": "The target for capture cannot be reached."}), 400
+        return jsonify({"code": 400, "message": "pick fail"}), 400
 
 @app.route('/api/v1/capture/place',methods=['POST'])
 def place_set_goal():
@@ -1508,11 +1580,12 @@ def place_set_goal():
     - goal_angle:要进行抓取的姿态，默认为从上往下抓,[-3.14,0,0]
     - goal_arm:规划左手："left"，右手："right"，双手:"both"
     """
-    global place_robot_goals, current_loaded_scene, supervisor_world_status_log
+    global place_robot_goals, current_loaded_scene, supervisor_world_status_log,result_place,fail_place
 
     try:
+        result_place = False
         data = request.get_json()
-        # print(data)
+        logger.info(f"[set_robot_goal] 接收到放置命令: {data}")
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
         
@@ -1539,7 +1612,7 @@ def place_set_goal():
         # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
         if place_robot_goals:
-            logger.info(f"[set_robot_goal] 清理机器人(ID:{object_id})的旧目标状态")
+            logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")
 
         place_robot_goals['scene_id']=scene_id
         place_robot_goals['robot_id']=robot_id
@@ -1550,15 +1623,180 @@ def place_set_goal():
         place_robot_goals['right_goal_pos']=right_goal_pos
         place_robot_goals['right_angle']=right_angle
 
+        # 循环检查字典是否为空（示例：最多等待10次，每次间隔0.1秒）
+        max_attempts = 15
+        attempt = 0
+        while attempt < max_attempts:
+            if fail_place:
+                fail_place = False
+                return jsonify({"code": 400, "message": "The target for capture cannot be reached."}), 400
+            if not place_robot_goals:  # 字典为空时返回
+                return jsonify({
+                    "code": 200,
+                    "message": "目标已清空，操作完成",
+                    "cur_pos": [6.1, 6.2, 6.3]
+                }), 200
+            # 模拟等待（实际场景中可能是其他异步操作）
+            time.sleep(1)
+            attempt += 1
+        return jsonify({
+            "code": 408,
+            "message": "请稍后使用place_result接口查询",
+        }), 408
+
+    except Exception as e:
+        return jsonify({"code": 400, "message": f"place fail  {e}"}), 400
+  
+@app.route('/api/v1/capture/pick_result',methods=['GET'])
+def pick_result():
+    global result_pick,result_place
+    # print(result_pick)
+    res = result_pick
+    if(res == True):
+        result_pick = False
+    return jsonify({"code": 200, "message": res}), 200
+
+@app.route('/api/v1/capture/place_result',methods=['GET'])
+def place_result():
+    global result_pick,result_place
+    res = result_place
+    if(res == True):
+        result_place = False
+    return jsonify({"code": 200, "message": res}), 200
+
+@app.route('/api/v1/capture/get_pick_pos',methods=['GET'])
+def get_pick_pos():
+    """
+    获取物品相对于机器人的相对坐标
+    
+    请求参数:
+    - id: 场景ID（需与当前加载场景匹配）
+    - robot_id: 机器人的ID
+    - object_id: 目标物品的ID
+    """
+    global supervisor_world_status_log, current_loaded_scene
+    
+    try:
+        # 获取请求参数
+        data = request.get_json()
+        if not data:
+            return jsonify({
+                "code": 400,
+                "message": "参数为空，请提供场景ID、机器人ID和物品ID"
+            }), 400
+        
+        # 验证必填参数
+        required_fields = ['id', 'robot_id', 'object_id']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({
+                    "code": 400,
+                    "message": f"缺少参数: {field}"
+                }), 400
+        
+        # 解析参数
+        scene_id = str(data['id'])
+        try:
+            robot_id = int(data['robot_id'])
+            object_id = int(data['object_id'])
+        except ValueError:
+            return jsonify({
+                "code": 400,
+                "message": "robot_id和object_id必须为整数"
+            }), 400
+        
+        # 验证场景匹配性
+        # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
+        #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
+        #     return jsonify({
+        #         "code": 409,
+        #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求场景: '{scene_id}'"
+        #     }), 409
+        
+        # 检查是否有世界状态数据
+        if not supervisor_world_status_log:
+            return jsonify({
+                "code": 404,
+                "message": "暂无世界状态数据，请确保场景已正确加载"
+            }), 404
+        
+        # 获取最新的世界状态数据
+        latest_log_entry = supervisor_world_status_log[-1]
+        nodes_data = latest_log_entry.get('data', [])
+        print(nodes_data)
+        
+        # 查找机器人和目标物品的绝对坐标
+        robot_abs_pos = None  # 机器人绝对坐标 (x, y, z)
+        object_abs_pos = None  # 物品绝对坐标 (x, y, z)
+        
+        for node in nodes_data:
+            node_id = node.get('id')
+            # 匹配机器人ID
+            if node_id == robot_id:
+                robot_abs_pos = node.get('position', [0, 0, 0])
+                # 确保坐标是长度为3的列表
+                if not isinstance(robot_abs_pos, list) or len(robot_abs_pos) < 3:
+                    robot_abs_pos = [0, 0, 0]
+            # 匹配物品ID
+            if node_id == object_id:
+                object_abs_pos = node.get('position', [0, 0, 0])
+                # 确保坐标是长度为3的列表
+                if not isinstance(object_abs_pos, list) or len(object_abs_pos) < 3:
+                    object_abs_pos = [0, 0, 0]
+        
+        # 检查是否找到机器人和物品
+        if robot_abs_pos is None:
+            return jsonify({
+                "code": 404,
+                "message": f"未找到ID为 {robot_id} 的机器人"
+            }), 404
+        
+        if object_abs_pos is None:
+            return jsonify({
+                "code": 404,
+                "message": f"未找到ID为 {object_id} 的物品"
+            }), 404
+        
+        # 计算相对坐标（物品相对于机器人的坐标）
+        # 公式：相对坐标 = 物品绝对坐标 - 机器人绝对坐标
+        relative_x = safe_float(object_abs_pos[0]) - safe_float(robot_abs_pos[0])
+        relative_y = safe_float(object_abs_pos[1]) - safe_float(robot_abs_pos[1])
+        relative_z = safe_float(object_abs_pos[2]) - safe_float(robot_abs_pos[2])
+        
+        # 整理返回数据
         return jsonify({
             "code": 200,
             "message": "success",
-            "cur_pos": [6.1,6.2,6.3]
+            "data": {
+                # 绝对坐标信息（用于调试和验证）
+                "absolute_coordinates": {
+                    "robot": {
+                        "x": f"{safe_float(robot_abs_pos[0]):.4f}",
+                        "y": f"{safe_float(robot_abs_pos[1]):.4f}",
+                        "z": f"{safe_float(robot_abs_pos[2]):.4f}"
+                    },
+                    "object": {
+                        "x": f"{safe_float(object_abs_pos[0]):.4f}",
+                        "y": f"{safe_float(object_abs_pos[1]):.4f}",
+                        "z": f"{safe_float(object_abs_pos[2]):.4f}"
+                    }
+                },
+                # 相对坐标信息（物品相对于机器人）
+                "relative_coordinates": {
+                    "x": f"{relative_x:.4f}",  # X轴相对距离
+                    "y": f"{relative_y:.4f}",  # Y轴相对距离
+                    "z": f"{relative_z:.4f}"   # Z轴相对距离
+                }
+            }
         }), 200
-
+        
     except Exception as e:
-        return jsonify({"code": 400, "message": "The target for capture cannot be reached."}), 400
-  
+        logger.error(f"获取相对坐标时出错: {str(e)}")
+        return jsonify({
+            "code": 500,
+            "message": f"服务器错误: {str(e)}"
+        }), 500
+
 # ================= 定期打印状态线程 =================
 def print_status():
     """定期打印服务器状态到终端以保持连接活跃"""

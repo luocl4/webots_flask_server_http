@@ -1,0 +1,28 @@
+2025-07-09 06:40:41,910 - logger - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-09 06:40:41,911 - logger - WARNING - GPS sensor 'gps' not found.
+2025-07-09 06:40:51,886 - logger - WARNING - 警告: GPS传感器未找到，机器人移动功能可能无法正常工作
+2025-07-09 06:40:51,890 - logger - INFO - 成功从文件 /webots/Webots_PR2_Path_Planning/controllers/BFS_exercise_1_kuavo_lb/obstacle_map.txt 读取地图，大小: 108x180
+2025-07-09 06:40:51,890 - logger - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20
+2025-07-09 07:05:46,083 - logger - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-09 07:05:46,083 - logger - INFO - GPS sensor 'gps' 已启用
+2025-07-09 07:05:52,931 - logger - INFO - 成功从文件 /webots/Webots_PR2_Path_Planning/controllers/BFS_exercise_1_kuavo_lb/obstacle_map.txt 读取地图，大小: 108x180
+2025-07-09 07:05:52,931 - logger - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20
+2025-07-09 07:17:42,413 - logger - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-09 07:17:42,413 - logger - WARNING - GPS sensor 'gps' not found.
+2025-07-09 07:17:52,639 - logger - WARNING - 警告: GPS传感器未找到，机器人移动功能可能无法正常工作
+2025-07-09 07:17:52,643 - logger - INFO - 成功从文件 /webots/Webots_PR2_Path_Planning/controllers/BFS_exercise_1_kuavo_lb/obstacle_map.txt 读取地图，大小: 108x180
+2025-07-09 07:17:52,643 - logger - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20
+2025-07-09 07:20:23,389 - logger - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-09 07:20:23,389 - logger - WARNING - GPS sensor 'gps' not found.
+2025-07-09 07:20:33,660 - logger - WARNING - 警告: GPS传感器未找到，机器人移动功能可能无法正常工作
+2025-07-09 07:20:33,663 - logger - INFO - 成功从文件 /webots/Webots_PR2_Path_Planning/controllers/BFS_exercise_1_kuavo_lb/obstacle_map.txt 读取地图，大小: 108x180
+2025-07-09 07:20:33,663 - logger - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20
+2025-07-09 07:48:33,999 - logger - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-09 07:48:33,999 - logger - INFO - GPS sensor 'gps' 已启用
+2025-07-09 07:48:40,462 - logger - INFO - 成功从文件 /webots/Webots_PR2_Path_Planning/controllers/BFS_exercise_1_kuavo_lb/obstacle_map.txt 读取地图，大小: 108x180
+2025-07-09 07:48:40,462 - logger - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20
+2025-07-09 07:53:13,880 - logger - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-09 07:53:13,880 - logger - WARNING - GPS sensor 'gps' not found.
+2025-07-09 07:53:23,941 - logger - WARNING - 警告: GPS传感器未找到，机器人移动功能可能无法正常工作
+2025-07-09 07:53:23,945 - logger - INFO - 成功从文件 /webots/Webots_PR2_Path_Planning/controllers/BFS_exercise_1_kuavo_lb/obstacle_map.txt 读取地图，大小: 108x180
+2025-07-09 07:53:23,945 - logger - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20

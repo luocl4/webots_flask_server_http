@@ -978,6 +978,8 @@ def run_arm_pick(goal_arm):
     vacuum.enablePresence(timestep)
     vacuum.turnOn()
     set_gripper_position(right_gripper_motors, CLOSE_GRIPPER_POS)
+    set_gripper_position(left_gripper_motors, CLOSE_GRIPPER_POS)
+
     # robot.step(MOVE_DURATION_STEPS)
     # time.sleep(1)
 
@@ -1141,9 +1143,11 @@ def run_arm_place(goal_arm):
     vacuum.enablePresence(timestep)
     vacuum.turnOff()
     set_gripper_position(right_gripper_motors, OPEN_GRIPPER_POS)
+    set_gripper_position(left_gripper_motors, OPEN_GRIPPER_POS)
     # robot.step(MOVE_DURATION_STEPS)
     # time.sleep(1)
-    set_gripper_position(right_gripper_motors, INIT_GRIPPER_POS)
+    # set_gripper_position(right_gripper_motors, INIT_GRIPPER_POS)
+    # set_gripper_position(left_gripper_motors, INIT_GRIPPER_POS)
     print("\n--- 抓取放置任务完成 ---")
     
     # # 9.
@@ -1153,6 +1157,130 @@ def run_arm_place(goal_arm):
     #     tolerance=0.02, max_steps=80
     # )
     # time.sleep(1)
+
+
+def get_pick_result(goal_arm="both"):
+    """
+    根据指定机械臂判断抓取是否成功，通过检查夹爪关节位置是否处于关闭状态
+    
+    Args:
+        goal_arm: 目标机械臂，可选"left"、"right"或"both"，默认"right"
+    """
+    results = {}
+    
+    # 处理单个机械臂的检查逻辑
+    def check_arm(arm_name):
+        if arm_name == "left":
+            gripper_sensors = left_gripper_sensors
+            close_positions = CLOSE_GRIPPER_POS
+        elif arm_name == "right":
+            gripper_sensors = right_gripper_sensors
+            close_positions = CLOSE_GRIPPER_POS
+        else:
+            print(f"错误: 不支持的机械臂类型: {arm_name}")
+            return False
+        
+        # 检查传感器是否存在
+        if not gripper_sensors:
+            print(f"错误: 未找到{arm_name}夹爪位置传感器，无法判断抓取状态")
+            return False
+        
+        # 获取夹爪当前关节位置
+        current_positions = [sensor.getValue() for sensor in gripper_sensors]
+        print(f"{arm_name}夹爪当前关节位置: {[round(pos, 4) for pos in current_positions]}")
+        
+        # 定义位置偏差阈值（允许的最大偏差弧度）
+        position_threshold = 0.1  
+        
+        # 检查每个关节是否接近关闭位置
+        is_closed = True
+        for i, pos in enumerate(current_positions):
+            if i < len(close_positions):
+                close_pos = close_positions[i]
+                if abs(pos - close_pos) > position_threshold:
+                    is_closed = False
+                    break
+            else:
+                print(f"警告: 关闭位置定义不足，缺少第{i}个关节的目标值")
+                is_closed = False
+                break
+        
+        # 生成结果信息
+        status = "成功" if is_closed else "失败"
+        print(f"{arm_name}机械臂抓取结果: {status} (夹爪{'已关闭' if is_closed else '未关闭'})")
+        return is_closed
+    
+    # 根据goal_arm参数执行不同的检查策略
+    if goal_arm == "both":
+        results["left"] = check_arm("left")
+        results["right"] = check_arm("right")
+        # 只有当左右机械臂都成功时，总结果才为True
+        total_result = all(results.values())
+        print(f"双机械臂抓取总结果: {'成功' if total_result else '失败'}")
+        return total_result
+    else:
+        return check_arm(goal_arm)
+
+
+def get_place_result(goal_arm="both"):
+    """
+    根据指定机械臂判断放置操作是否成功（夹爪是否处于打开状态）
+    
+    Args:
+        goal_arm: 目标机械臂，可选"left"、"right"或"both"，默认"right"
+    """
+    results = {}
+    
+    # 处理单个机械臂的检查逻辑
+    def check_arm(arm_name):
+        if arm_name == "left":
+            gripper_sensors = left_gripper_sensors
+        elif arm_name == "right":
+            gripper_sensors = right_gripper_sensors
+        else:
+            print(f"错误: 不支持的机械臂类型: {arm_name}")
+            return False
+        
+        # 检查传感器是否存在
+        if not gripper_sensors:
+            print(f"错误: 未找到{arm_name}夹爪位置传感器，无法判断放置状态")
+            return False
+        
+        # 获取夹爪当前关节位置
+        current_positions = [sensor.getValue() for sensor in gripper_sensors]
+        print(f"{arm_name}夹爪当前关节位置: {[round(pos, 4) for pos in current_positions]}")
+        
+        # 定义位置偏差阈值（允许的最大偏差弧度）
+        position_threshold = 0.1  
+        
+        # 检查每个关节是否接近打开位置
+        is_open = True
+        for i, pos in enumerate(current_positions):
+            if i < len(OPEN_GRIPPER_POS):
+                open_pos = OPEN_GRIPPER_POS[i]
+                if abs(pos - open_pos) > position_threshold:
+                    is_open = False
+                    break
+            else:
+                print(f"警告: 打开位置定义不足，缺少第{i}个关节的目标值")
+                is_open = False
+                break
+        
+        # 生成结果信息
+        status = "成功" if is_open else "失败"
+        print(f"{arm_name}机械臂放置结果: {status} (夹爪{'已打开' if is_open else '未打开'})")
+        return is_open
+    
+    # 根据goal_arm参数执行不同的检查策略
+    if goal_arm == "both":
+        results["left"] = check_arm("left")
+        results["right"] = check_arm("right")
+        # 只有当左右机械臂都成功打开时，总结果才为True
+        total_result = all(results.values())
+        print(f"双机械臂放置总结果: {'成功' if total_result else '失败'}")
+        return total_result
+    else:
+        return check_arm(goal_arm)
 
 
 # --- 定义机械臂、夹爪和头部关节名称 ---
@@ -1352,7 +1480,7 @@ while robot.step(timestep) != -1:
                 send_robot_status(current_robot_position, status_info)
                 # 初始化双臂规划器
                 planner = ArmIk(
-                    model_file="/home/luocl/Desktop/webots_flask_server_http1/Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf"
+                    model_file="../../../Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf"
                 )
                 # 创建机器人运动学控制器实例，bu启用可视化
                 arm_ik = ArmIk(visualize=False)
@@ -1412,14 +1540,9 @@ while robot.step(timestep) != -1:
                 run_arm_sequence(goal_arm)
             elif source == "robot_pick":
                 goal_arm = command_data.get('goal_arm')
-                status_info = {
-                    "status": "success",
-                    "task":"capture"
-                    }
-                send_robot_status(current_robot_position, status_info)
                 # 初始化双臂规划器
                 planner = ArmIk(
-                    model_file="/home/luocl/Desktop/webots_flask_server_http1/Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf"
+                    model_file="../../../Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf"
                 )
                 # 创建机器人运动学控制器实例，bu启用可视化
                 arm_ik = ArmIk(visualize=False)
@@ -1452,41 +1575,49 @@ while robot.step(timestep) != -1:
                 print("r_hand_pose:",r_hand_pose)
                 sol_q = arm_ik.computeIK(q0, l_hand_pose, r_hand_pose, l_hand_rpy,r_hand_rpy)
                 print("sol_q22222222222222:",sol_q)
-                if goal_arm == "left" or goal_arm == "both":
-                    grasp_left_arm_pose = sol_q[7:12]
-                if goal_arm == "right" or goal_arm == "both":
-                    grasp_right_arm_pose = sol_q[18:23]
-                # grasp_right_arm_pose = [-1.7, -4.55066382e-02 , 1.69054925e-01 , 1.47089804e+00  ,4.53473656e-02]        
-                print("grasp_left_arm_pose:",grasp_left_arm_pose)
-                print("grasp_right_arm_pose:",grasp_right_arm_pose)
+                if sol_q is None:
+                    status_info = {
+                        "status": "fail",
+                        "task":"pick",
+                    }
+                else:
+                    if goal_arm == "left" or goal_arm == "both":
+                        grasp_left_arm_pose = sol_q[7:12]
+                    if goal_arm == "right" or goal_arm == "both":
+                        grasp_right_arm_pose = sol_q[18:23]
+                    # grasp_right_arm_pose = [-1.7, -4.55066382e-02 , 1.69054925e-01 , 1.47089804e+00  ,4.53473656e-02]        
+                    print("grasp_left_arm_pose:",grasp_left_arm_pose)
+                    print("grasp_right_arm_pose:",grasp_right_arm_pose)
 
-                # 3.移动并放置
-                # l_hand_pose = np.array(command_data.get('left_goal_pos'))
-                # r_hand_pose = np.array(command_data.get('right_goal_pos'))
-                # l_hand_rpy = np.array(command_data.get('left_angle'))
-                # r_hand_rpy = np.array(command_data.get('right_angle'))
-                # print("l_hand_pose:",l_hand_pose)
-                # print("r_hand_pose:",r_hand_pose)
-                # sol_q = arm_ik.computeIK(q0, l_hand_pose, r_hand_pose, l_hand_rpy,r_hand_rpy)
-                # print("sol_q33333333333333:",sol_q)
-                # if goal_arm == "left" or goal_arm == "both":
-                #     place_left_arm_pose = sol_q[7:12]
-                # if goal_arm == "right" or goal_arm == "both":
-                #     place_right_arm_pose = sol_q[18:23]
-                # print("place_left_arm_pose:",place_left_arm_pose)
-                # print("place_right_arm_pose:",place_right_arm_pose)
-                # 这里添加你的控制逻辑
-                run_arm_pick(goal_arm)
-            elif source == "robot_place":
-                goal_arm = command_data.get('goal_arm')
-                status_info = {
-                    "status": "success",
-                    "task":"capture"
+                    # 3.移动并放置
+                    # l_hand_pose = np.array(command_data.get('left_goal_pos'))
+                    # r_hand_pose = np.array(command_data.get('right_goal_pos'))
+                    # l_hand_rpy = np.array(command_data.get('left_angle'))
+                    # r_hand_rpy = np.array(command_data.get('right_angle'))
+                    # print("l_hand_pose:",l_hand_pose)
+                    # print("r_hand_pose:",r_hand_pose)
+                    # sol_q = arm_ik.computeIK(q0, l_hand_pose, r_hand_pose, l_hand_rpy,r_hand_rpy)
+                    # print("sol_q33333333333333:",sol_q)
+                    # if goal_arm == "left" or goal_arm == "both":
+                    #     place_left_arm_pose = sol_q[7:12]
+                    # if goal_arm == "right" or goal_arm == "both":
+                    #     place_right_arm_pose = sol_q[18:23]
+                    # print("place_left_arm_pose:",place_left_arm_pose)
+                    # print("place_right_arm_pose:",place_right_arm_pose)
+                    # 这里添加你的控制逻辑
+                    run_arm_pick(goal_arm)
+                    res = get_pick_result(goal_arm)
+                    status_info = {
+                        "status": "success",
+                        "task":"pick",
+                        "res":res
                     }
                 send_robot_status(current_robot_position, status_info)
+            elif source == "robot_place":
+                goal_arm = command_data.get('goal_arm')
                 # 初始化双臂规划器
                 planner = ArmIk(
-                    model_file="/home/luocl/Desktop/webots_flask_server_http1/Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf"
+                    model_file="../../../Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf"
                 )
                 # 创建机器人运动学控制器实例，bu启用可视化
                 arm_ik = ArmIk(visualize=False)
@@ -1536,15 +1667,27 @@ while robot.step(timestep) != -1:
                 print("r_hand_pose:",r_hand_pose)
                 sol_q = arm_ik.computeIK(q0, l_hand_pose, r_hand_pose, l_hand_rpy,r_hand_rpy)
                 print("sol_q33333333333333:",sol_q)
-                if goal_arm == "left" or goal_arm == "both":
-                    place_left_arm_pose = sol_q[7:12]
-                if goal_arm == "right" or goal_arm == "both":
-                    place_right_arm_pose = sol_q[18:23]
-                print("place_left_arm_pose:",place_left_arm_pose)
-                print("place_right_arm_pose:",place_right_arm_pose)
-                # 这里添加你的控制逻辑
-                run_arm_place(goal_arm)
-
+                if sol_q is None:
+                    status_info = {
+                        "status": "fail",
+                        "task":"place",
+                    }
+                else:
+                    if goal_arm == "left" or goal_arm == "both":
+                        place_left_arm_pose = sol_q[7:12]
+                    if goal_arm == "right" or goal_arm == "both":
+                        place_right_arm_pose = sol_q[18:23]
+                    print("place_left_arm_pose:",place_left_arm_pose)
+                    print("place_right_arm_pose:",place_right_arm_pose)
+                    # 这里添加你的控制逻辑
+                    run_arm_place(goal_arm)
+                    res = get_place_result(goal_arm)
+                    status_info = {
+                        "status": "success",
+                        "task":"place",
+                        "res":res
+                    }
+                send_robot_status(current_robot_position, status_info)
     except requests.exceptions.ConnectionError:
         pass
     except json.JSONDecodeError:

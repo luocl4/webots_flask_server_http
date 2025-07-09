@@ -5,6 +5,8 @@ EXTERNPROTO "../protos/PlasticFruitBox.proto"
 EXTERNPROTO "../protos/Pr2.proto"
 EXTERNPROTO "../protos/urdf_arm_mix/urdf_arm.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/CardboardBox.proto"
+
 
 WorldInfo {
 }
@@ -204,7 +206,7 @@ DEF PR2_ROBOT urdf_arm {
   translation -1.2 0.9 0.83182
   rotation 0.008961498554393378 0.999912439749681 -0.009736753950891696 0.0035793637077443444
   controller "BFS_exercise_1_kuavo_lb"
-  customData "{\"describe\": \"路径规划测试用机器人\", \"ability\": \"move__grasp\", \"size\": \"0.77__0.71__1.58\"}"
+  customData "{\"describe\": \"路径规划测试用机器人\", \"ability\": \"move__grab_left__grab_right__grab_left_right__place_left__place_right__place_left_right\", \"size\": \"0.77__0.71__1.58\"}"
   extensionSlot1 [
     InertialUnit {
     }

@@ -212,7 +212,7 @@ def parse_wbt_file(wbt_file_path):
 
 if __name__ == "__main__":
     # 测试代码
-    test_file = "/home/luocl/Desktop/webots_flask_server_http1/Webots_PR2_Path_Planning/worlds/path_planning.wbt"
+    test_file = "./Webots_PR2_Path_Planning/worlds/path_planning.wbt"
     if os.path.exists(test_file):
         # 测试parse_wbt_file函数
         result = parse_wbt_file(test_file)

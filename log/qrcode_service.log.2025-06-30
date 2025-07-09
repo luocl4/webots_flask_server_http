@@ -1,0 +1,460 @@
+2025-06-30 03:36:05,867 - INFO - ================================================================================
+2025-06-30 03:36:05,867 - INFO - 🚀 整合的Webots控制服务器启动中...
+2025-06-30 03:36:05,867 - INFO - 📍 服务器地址: http://localhost:30114
+2025-06-30 03:36:05,867 - INFO - 📖 API文档: http://localhost:30114
+2025-06-30 03:36:05,867 - INFO - 🎮 Webots进程控制、机器人状态管理、相机图像服务已整合
+2025-06-30 03:36:05,867 - INFO - 🔄 服务器重启API: POST /api/v1/server/restart
+2025-06-30 03:36:05,867 - INFO - ⏰ 状态打印间隔: 20秒
+2025-06-30 03:36:05,867 - INFO - 🛑 按 CTRL+C 退出
+2025-06-30 03:36:05,867 - INFO - ================================================================================
+2025-06-30 03:36:05,867 - INFO - 🔍 正在加载场景配置...
+2025-06-30 03:36:05,867 - INFO - 场景配置文件加载成功: /webots/configs/scene_configs.json
+2025-06-30 03:36:05,867 - INFO - 正在扫描场景中的标签点...
+2025-06-30 03:36:05,868 - INFO - 场景配置更新完成
+2025-06-30 03:36:05,868 - INFO - 整合Flask服务器启动
+2025-06-30 03:36:11,043 - INFO - 未找到运行中的Webots进程
+2025-06-30 03:36:11,045 - INFO - 未找到运行中的Xvfb进程
+2025-06-30 03:36:11,045 - ERROR - 保存主日志文件失败: Object of type deque is not JSON serializable
+Traceback (most recent call last):
+  File "/webots/integrated_server.py", line 389, in save_main_log_on_exit
+    json.dump(request_response_log, f, indent=4, ensure_ascii=False)
+  File "/usr/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/usr/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type deque is not JSON serializable
+2025-06-30 03:36:11,046 - ERROR - 保存 Supervisor 日志文件失败: Object of type deque is not JSON serializable
+Traceback (most recent call last):
+  File "/webots/integrated_server.py", line 399, in save_supervisor_log_on_exit
+    json.dump(supervisor_world_status_log, f, indent=4, ensure_ascii=False)
+  File "/usr/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/usr/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type deque is not JSON serializable
+2025-06-30 03:36:11,046 - INFO - 整合Flask服务器停止
+2025-06-30 03:36:11,046 - INFO - 服务器已安全停止
+2025-06-30 03:38:02,420 - INFO - ================================================================================
+2025-06-30 03:38:02,420 - INFO - 🚀 整合的Webots控制服务器启动中...
+2025-06-30 03:38:02,420 - INFO - 📍 服务器地址: http://localhost:30114
+2025-06-30 03:38:02,420 - INFO - 📖 API文档: http://localhost:30114
+2025-06-30 03:38:02,421 - INFO - 🎮 Webots进程控制、机器人状态管理、相机图像服务已整合
+2025-06-30 03:38:02,421 - INFO - 🔄 服务器重启API: POST /api/v1/server/restart
+2025-06-30 03:38:02,421 - INFO - ⏰ 状态打印间隔: 20秒
+2025-06-30 03:38:02,421 - INFO - 🛑 按 CTRL+C 退出
+2025-06-30 03:38:02,421 - INFO - ================================================================================
+2025-06-30 03:38:02,421 - INFO - 🔍 正在加载场景配置...
+2025-06-30 03:38:02,421 - INFO - 场景配置文件加载成功: /webots/configs/scene_configs.json
+2025-06-30 03:38:02,421 - INFO - 正在扫描场景中的标签点...
+2025-06-30 03:38:02,422 - INFO - 场景配置更新完成
+2025-06-30 03:38:02,422 - INFO - 整合Flask服务器启动
+2025-06-30 03:38:12,925 - INFO - 启动前清理所有Webots进程...
+2025-06-30 03:38:12,928 - INFO - 未找到运行中的Webots进程
+2025-06-30 03:38:12,930 - INFO - 未找到运行中的Xvfb进程
+2025-06-30 03:38:12,931 - INFO - 清空Supervisor世界状态日志
+2025-06-30 03:38:12,931 - INFO - 选择场景: scene_2 - Box Moving Scene v1.2.0
+2025-06-30 03:38:12,936 - INFO - Webots进程启动成功，PID: 46, 场景: Box Moving Scene, 场景ID: 2, 版本: 1.2.0
+2025-06-30 03:38:12,936 - INFO - 等待Supervisor更新世界状态...
+2025-06-30 03:38:37,965 - INFO - Supervisor已更新世界状态，场景加载完成
+2025-06-30 03:39:03,721 - INFO - 找到 3 个 Webots 进程
+2025-06-30 03:39:03,721 - INFO - 发送SIGTERM到Webots进程 46
+2025-06-30 03:39:03,821 - INFO - 发送SIGTERM到Webots进程 58
+2025-06-30 03:39:03,921 - INFO - 发送SIGTERM到Webots进程 61
+2025-06-30 03:39:05,025 - INFO - 所有Webots进程已成功终止
+2025-06-30 03:39:05,027 - INFO - 找到 2 个 Xvfb 进程
+2025-06-30 03:39:05,027 - INFO - 发送SIGTERM到Xvfb进程 46
+2025-06-30 03:39:05,127 - INFO - 发送SIGTERM到Xvfb进程 55
+2025-06-30 03:39:06,231 - WARNING - 发现 1 个残留的Xvfb进程，强制杀死
+2025-06-30 03:39:06,231 - WARNING - 强制杀死Xvfb进程 46
+2025-06-30 03:39:06,231 - INFO - 已清理当前场景信息
+2025-06-30 03:39:06,231 - ERROR - 保存主日志文件失败: Object of type deque is not JSON serializable
+Traceback (most recent call last):
+  File "/webots/integrated_server.py", line 389, in save_main_log_on_exit
+    json.dump(request_response_log, f, indent=4, ensure_ascii=False)
+  File "/usr/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/usr/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type deque is not JSON serializable
+2025-06-30 03:39:06,233 - INFO - Supervisor 世界状态日志已保存至 log/supervisor_world_status_log.json
+2025-06-30 03:39:06,234 - INFO - 整合Flask服务器停止
+2025-06-30 03:39:06,234 - INFO - 服务器已安全停止
+2025-06-30 03:39:09,753 - INFO - ================================================================================
+2025-06-30 03:39:09,754 - INFO - 🚀 整合的Webots控制服务器启动中...
+2025-06-30 03:39:09,754 - INFO - 📍 服务器地址: http://localhost:30114
+2025-06-30 03:39:09,754 - INFO - 📖 API文档: http://localhost:30114
+2025-06-30 03:39:09,754 - INFO - 🎮 Webots进程控制、机器人状态管理、相机图像服务已整合
+2025-06-30 03:39:09,754 - INFO - 🔄 服务器重启API: POST /api/v1/server/restart
+2025-06-30 03:39:09,754 - INFO - ⏰ 状态打印间隔: 20秒
+2025-06-30 03:39:09,754 - INFO - 🛑 按 CTRL+C 退出
+2025-06-30 03:39:09,754 - INFO - ================================================================================
+2025-06-30 03:39:09,754 - INFO - 🔍 正在加载场景配置...
+2025-06-30 03:39:09,754 - INFO - 场景配置文件加载成功: /webots/configs/scene_configs.json
+2025-06-30 03:39:09,754 - INFO - 正在扫描场景中的标签点...
+2025-06-30 03:39:09,755 - INFO - 场景配置更新完成
+2025-06-30 03:39:09,755 - INFO - 整合Flask服务器启动
+2025-06-30 03:42:35,405 - INFO - 启动前清理所有Webots进程...
+2025-06-30 03:42:35,409 - INFO - 未找到运行中的Webots进程
+2025-06-30 03:42:35,411 - INFO - 未找到运行中的Xvfb进程
+2025-06-30 03:42:35,411 - INFO - 清空Supervisor世界状态日志
+2025-06-30 03:42:35,412 - INFO - 选择场景: scene_2 - Box Moving Scene v1.2.0
+2025-06-30 03:42:35,421 - INFO - Webots进程启动成功，PID: 370, 场景: Box Moving Scene, 场景ID: 2, 版本: 1.2.0
+2025-06-30 03:42:35,421 - INFO - 等待Supervisor更新世界状态...
+2025-06-30 03:42:58,948 - INFO - Supervisor已更新世界状态，场景加载完成
+2025-06-30 03:45:43,341 - INFO - 找到 3 个 Webots 进程
+2025-06-30 03:45:43,341 - INFO - 发送SIGTERM到Webots进程 370
+2025-06-30 03:45:43,441 - INFO - 发送SIGTERM到Webots进程 382
+2025-06-30 03:45:43,541 - INFO - 发送SIGTERM到Webots进程 385
+2025-06-30 03:45:44,645 - INFO - 所有Webots进程已成功终止
+2025-06-30 03:45:44,648 - INFO - 找到 2 个 Xvfb 进程
+2025-06-30 03:45:44,648 - INFO - 发送SIGTERM到Xvfb进程 370
+2025-06-30 03:45:44,748 - INFO - 发送SIGTERM到Xvfb进程 379
+2025-06-30 03:45:45,853 - WARNING - 发现 1 个残留的Xvfb进程，强制杀死
+2025-06-30 03:45:45,853 - WARNING - 强制杀死Xvfb进程 370
+2025-06-30 03:45:45,853 - INFO - 已清理当前场景信息
+2025-06-30 03:45:45,853 - ERROR - 保存主日志文件失败: Object of type deque is not JSON serializable
+Traceback (most recent call last):
+  File "/webots/integrated_server.py", line 389, in save_main_log_on_exit
+    json.dump(request_response_log, f, indent=4, ensure_ascii=False)
+  File "/usr/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/usr/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type deque is not JSON serializable
+2025-06-30 03:45:45,858 - INFO - Supervisor 世界状态日志已保存至 log/supervisor_world_status_log.json
+2025-06-30 03:45:45,858 - INFO - 整合Flask服务器停止
+2025-06-30 03:45:45,858 - INFO - 服务器已安全停止
+2025-06-30 03:47:28,602 - INFO - ================================================================================
+2025-06-30 03:47:28,602 - INFO - 🚀 整合的Webots控制服务器启动中...
+2025-06-30 03:47:28,602 - INFO - 📍 服务器地址: http://localhost:30114
+2025-06-30 03:47:28,602 - INFO - 📖 API文档: http://localhost:30114
+2025-06-30 03:47:28,602 - INFO - 🎮 Webots进程控制、机器人状态管理、相机图像服务已整合
+2025-06-30 03:47:28,602 - INFO - 🔄 服务器重启API: POST /api/v1/server/restart
+2025-06-30 03:47:28,603 - INFO - ⏰ 状态打印间隔: 20秒
+2025-06-30 03:47:28,603 - INFO - 🛑 按 CTRL+C 退出
+2025-06-30 03:47:28,603 - INFO - ================================================================================
+2025-06-30 03:47:28,603 - INFO - 🔍 正在加载场景配置...
+2025-06-30 03:47:28,603 - INFO - 场景配置文件加载成功: /webots/configs/scene_configs.json
+2025-06-30 03:47:28,603 - INFO - 正在扫描场景中的标签点...
+2025-06-30 03:47:28,604 - INFO - 场景配置更新完成
+2025-06-30 03:47:28,605 - INFO - 整合Flask服务器启动
+2025-06-30 03:47:38,630 - INFO - 启动前清理所有Webots进程...
+2025-06-30 03:47:38,633 - INFO - 未找到运行中的Webots进程
+2025-06-30 03:47:38,636 - INFO - 未找到运行中的Xvfb进程
+2025-06-30 03:47:38,636 - INFO - 清空Supervisor世界状态日志
+2025-06-30 03:47:38,636 - INFO - 选择场景: 2 - Box Moving Scene v1.2.0
+2025-06-30 03:47:38,646 - INFO - Webots进程启动成功，PID: 46, 场景: Box Moving Scene, 场景ID: 2, 版本: 1.2.0
+2025-06-30 03:47:38,646 - INFO - 等待Supervisor更新世界状态...
+2025-06-30 03:47:56,185 - INFO - Supervisor已更新世界状态，场景加载完成
+2025-06-30 03:48:00,837 - INFO - 找到 3 个 Webots 进程
+2025-06-30 03:48:00,838 - INFO - 发送SIGTERM到Webots进程 46
+2025-06-30 03:48:00,938 - INFO - 发送SIGTERM到Webots进程 58
+2025-06-30 03:48:01,038 - INFO - 发送SIGTERM到Webots进程 61
+2025-06-30 03:48:02,142 - INFO - 所有Webots进程已成功终止
+2025-06-30 03:48:02,143 - INFO - 找到 2 个 Xvfb 进程
+2025-06-30 03:48:02,143 - INFO - 发送SIGTERM到Xvfb进程 46
+2025-06-30 03:48:02,244 - INFO - 发送SIGTERM到Xvfb进程 55
+2025-06-30 03:48:03,347 - WARNING - 发现 1 个残留的Xvfb进程，强制杀死
+2025-06-30 03:48:03,348 - WARNING - 强制杀死Xvfb进程 46
+2025-06-30 03:48:03,348 - INFO - 已清理当前场景信息
+2025-06-30 03:48:03,348 - ERROR - 保存主日志文件失败: Object of type deque is not JSON serializable
+Traceback (most recent call last):
+  File "/webots/integrated_server.py", line 389, in save_main_log_on_exit
+    json.dump(request_response_log, f, indent=4, ensure_ascii=False)
+  File "/usr/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/usr/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type deque is not JSON serializable
+2025-06-30 03:48:03,350 - INFO - Supervisor 世界状态日志已保存至 log/supervisor_world_status_log.json
+2025-06-30 03:48:03,350 - INFO - 整合Flask服务器停止
+2025-06-30 03:48:03,350 - INFO - 服务器已安全停止
+2025-06-30 03:48:26,290 - INFO - ================================================================================
+2025-06-30 03:48:26,291 - INFO - 🚀 整合的Webots控制服务器启动中...
+2025-06-30 03:48:26,291 - INFO - 📍 服务器地址: http://localhost:30114
+2025-06-30 03:48:26,291 - INFO - 📖 API文档: http://localhost:30114
+2025-06-30 03:48:26,291 - INFO - 🎮 Webots进程控制、机器人状态管理、相机图像服务已整合
+2025-06-30 03:48:26,291 - INFO - 🔄 服务器重启API: POST /api/v1/server/restart
+2025-06-30 03:48:26,291 - INFO - ⏰ 状态打印间隔: 20秒
+2025-06-30 03:48:26,291 - INFO - 🛑 按 CTRL+C 退出
+2025-06-30 03:48:26,291 - INFO - ================================================================================
+2025-06-30 03:48:26,291 - INFO - 🔍 正在加载场景配置...
+2025-06-30 03:48:26,291 - INFO - 场景配置文件加载成功: /webots/configs/scene_configs.json
+2025-06-30 03:48:26,291 - INFO - 正在扫描场景中的标签点...
+2025-06-30 03:48:26,292 - INFO - 场景配置更新完成
+2025-06-30 03:48:26,296 - INFO - 整合Flask服务器启动
+2025-06-30 03:48:34,016 - INFO - 启动前清理所有Webots进程...
+2025-06-30 03:48:34,018 - INFO - 未找到运行中的Webots进程
+2025-06-30 03:48:34,021 - INFO - 未找到运行中的Xvfb进程
+2025-06-30 03:48:34,021 - INFO - 清空Supervisor世界状态日志
+2025-06-30 03:48:34,021 - INFO - 选择场景: 2 - Box Moving Scene v1.2.0
+2025-06-30 03:48:34,026 - INFO - Webots进程启动成功，PID: 324, 场景: Box Moving Scene, 场景ID: 2, 版本: 1.2.0
+2025-06-30 03:48:34,026 - INFO - 等待Supervisor更新世界状态...
+2025-06-30 03:48:49,549 - INFO - Supervisor已更新世界状态，场景加载完成
+2025-06-30 06:50:15,271 - INFO - 找到 3 个 Webots 进程
+2025-06-30 06:50:15,271 - INFO - 发送SIGTERM到Webots进程 324
+2025-06-30 06:50:15,372 - INFO - 发送SIGTERM到Webots进程 336
+2025-06-30 06:50:15,472 - INFO - 发送SIGTERM到Webots进程 339
+2025-06-30 06:50:16,575 - WARNING - 发现 2 个残留的Webots进程，强制杀死
+2025-06-30 06:50:16,576 - WARNING - 强制杀死Webots进程 336
+2025-06-30 06:50:16,576 - WARNING - 强制杀死Webots进程 339
+2025-06-30 06:50:16,578 - INFO - 找到 2 个 Xvfb 进程
+2025-06-30 06:50:16,579 - INFO - 发送SIGTERM到Xvfb进程 324
+2025-06-30 06:50:16,679 - INFO - 发送SIGTERM到Xvfb进程 333
+2025-06-30 06:50:17,782 - WARNING - 发现 1 个残留的Xvfb进程，强制杀死
+2025-06-30 06:50:17,783 - WARNING - 强制杀死Xvfb进程 324
+2025-06-30 06:50:17,783 - INFO - 已清理当前场景信息
+2025-06-30 06:50:17,783 - ERROR - 保存主日志文件失败: Object of type deque is not JSON serializable
+Traceback (most recent call last):
+  File "/webots/integrated_server.py", line 389, in save_main_log_on_exit
+    json.dump(request_response_log, f, indent=4, ensure_ascii=False)
+  File "/usr/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/usr/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type deque is not JSON serializable
+2025-06-30 06:50:17,805 - INFO - Supervisor 世界状态日志已保存至 log/supervisor_world_status_log.json
+2025-06-30 06:50:17,805 - INFO - 整合Flask服务器停止
+2025-06-30 06:50:17,805 - INFO - 服务器已安全停止
+2025-06-30 06:50:18,969 - INFO - ================================================================================
+2025-06-30 06:50:18,970 - INFO - 🚀 整合的Webots控制服务器启动中...
+2025-06-30 06:50:18,970 - INFO - 📍 服务器地址: http://localhost:30114
+2025-06-30 06:50:18,970 - INFO - 📖 API文档: http://localhost:30114
+2025-06-30 06:50:18,970 - INFO - 🎮 Webots进程控制、机器人状态管理、相机图像服务已整合
+2025-06-30 06:50:18,970 - INFO - 🔄 服务器重启API: POST /api/v1/server/restart
+2025-06-30 06:50:18,970 - INFO - ⏰ 状态打印间隔: 20秒
+2025-06-30 06:50:18,970 - INFO - 🛑 按 CTRL+C 退出
+2025-06-30 06:50:18,970 - INFO - ================================================================================
+2025-06-30 06:50:18,970 - INFO - 🔍 正在加载场景配置...
+2025-06-30 06:50:18,970 - INFO - 场景配置文件加载成功: /webots/configs/scene_configs.json
+2025-06-30 06:50:18,970 - INFO - 正在扫描场景中的标签点...
+2025-06-30 06:50:18,971 - INFO - 场景配置更新完成
+2025-06-30 06:50:18,971 - INFO - 整合Flask服务器启动
+2025-06-30 06:50:23,741 - INFO - 启动前清理所有Webots进程...
+2025-06-30 06:50:23,743 - INFO - 未找到运行中的Webots进程
+2025-06-30 06:50:23,745 - INFO - 未找到运行中的Xvfb进程
+2025-06-30 06:50:23,746 - INFO - 清空Supervisor世界状态日志
+2025-06-30 06:50:23,746 - INFO - 选择场景: 2 - Box Moving Scene v1.2.0
+2025-06-30 06:50:23,752 - INFO - Webots进程启动成功，PID: 2025, 场景: Box Moving Scene, 场景ID: 2, 版本: 1.2.0
+2025-06-30 06:50:23,752 - INFO - 等待Supervisor更新世界状态...
+2025-06-30 06:50:38,267 - INFO - Supervisor已更新世界状态，场景加载完成
+2025-06-30 06:56:38,541 - INFO - 找到 3 个 Webots 进程
+2025-06-30 06:56:38,541 - INFO - 发送SIGTERM到Webots进程 2025
+2025-06-30 06:56:38,641 - INFO - 发送SIGTERM到Webots进程 2037
+2025-06-30 06:56:38,741 - INFO - 发送SIGTERM到Webots进程 2040
+2025-06-30 06:56:39,845 - INFO - 所有Webots进程已成功终止
+2025-06-30 06:56:39,847 - INFO - 找到 2 个 Xvfb 进程
+2025-06-30 06:56:39,847 - INFO - 发送SIGTERM到Xvfb进程 2025
+2025-06-30 06:56:39,947 - INFO - 发送SIGTERM到Xvfb进程 2034
+2025-06-30 06:56:41,051 - WARNING - 发现 1 个残留的Xvfb进程，强制杀死
+2025-06-30 06:56:41,051 - WARNING - 强制杀死Xvfb进程 2025
+2025-06-30 06:56:41,051 - INFO - 已清理当前场景信息
+2025-06-30 06:56:41,051 - ERROR - 保存主日志文件失败: Object of type deque is not JSON serializable
+Traceback (most recent call last):
+  File "/webots/integrated_server.py", line 389, in save_main_log_on_exit
+    json.dump(request_response_log, f, indent=4, ensure_ascii=False)
+  File "/usr/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/usr/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type deque is not JSON serializable
+2025-06-30 06:56:41,068 - INFO - Supervisor 世界状态日志已保存至 log/supervisor_world_status_log.json
+2025-06-30 06:56:41,068 - INFO - 整合Flask服务器停止
+2025-06-30 06:56:41,069 - INFO - 服务器已安全停止
+2025-06-30 06:57:48,950 - INFO - ================================================================================
+2025-06-30 06:57:48,950 - INFO - 🚀 整合的Webots控制服务器启动中...
+2025-06-30 06:57:48,950 - INFO - 📍 服务器地址: http://localhost:30114
+2025-06-30 06:57:48,950 - INFO - 📖 API文档: http://localhost:30114
+2025-06-30 06:57:48,950 - INFO - 🎮 Webots进程控制、机器人状态管理、相机图像服务已整合
+2025-06-30 06:57:48,950 - INFO - 🔄 服务器重启API: POST /api/v1/server/restart
+2025-06-30 06:57:48,950 - INFO - ⏰ 状态打印间隔: 20秒
+2025-06-30 06:57:48,950 - INFO - 🛑 按 CTRL+C 退出
+2025-06-30 06:57:48,950 - INFO - ================================================================================
+2025-06-30 06:57:48,950 - INFO - 🔍 正在加载场景配置...
+2025-06-30 06:57:48,950 - INFO - 场景配置文件加载成功: /webots/configs/scene_configs.json
+2025-06-30 06:57:48,951 - INFO - 正在扫描场景中的标签点...
+2025-06-30 06:57:48,951 - INFO - 场景配置更新完成
+2025-06-30 06:57:48,952 - INFO - 整合Flask服务器启动
+2025-06-30 06:57:57,801 - INFO - 启动前清理所有Webots进程...
+2025-06-30 06:57:57,803 - INFO - 未找到运行中的Webots进程
+2025-06-30 06:57:57,805 - INFO - 未找到运行中的Xvfb进程
+2025-06-30 06:57:57,805 - INFO - 清空Supervisor世界状态日志
+2025-06-30 06:57:57,806 - INFO - 选择场景: 2 - Box Moving Scene v1.2.0
+2025-06-30 06:57:57,811 - INFO - Webots进程启动成功，PID: 3570, 场景: Box Moving Scene, 场景ID: 2, 版本: 1.2.0
+2025-06-30 06:57:57,811 - INFO - 等待Supervisor更新世界状态...
+2025-06-30 06:58:03,535 - INFO - [set_robot_goal] 设置机器人(ID:1)目标位置: [1.100000023841858, 6.300000190734863], 角度: 90.0°
+2025-06-30 06:58:03,535 - INFO - [set_robot_goal] 等待机器人(ID:1)路径规划结果...
+2025-06-30 06:58:03,774 - INFO - 路径规划已完成且成功: 机器人(ID:1), 总段数:5
+2025-06-30 06:58:03,774 - INFO - 机器人状态更新(新格式): ID=1, 位置=(150, 30), 状态='已找到到达目标 (32, 136) 的路径', 进度=0/5
+2025-06-30 06:58:03,835 - INFO - [set_robot_goal] 机器人(ID:1)路径规划成功，总段数: 5
+2025-06-30 06:58:08,827 - INFO - Supervisor已更新世界状态，场景加载完成
+2025-06-30 09:25:05,966 - INFO - [set_robot_goal] 设置机器人(ID:1)目标位置: [1.100000023841858, 6.300000190734863], 角度: 90.0°
+2025-06-30 09:25:05,966 - INFO - [set_robot_goal] 等待机器人(ID:1)路径规划结果...
+2025-06-30 09:25:15,979 - WARNING - [set_robot_goal] 等待机器人(ID:1)路径规划结果超时
+2025-06-30 09:29:09,329 - INFO - [set_robot_goal] 设置机器人(ID:1)目标位置: [1.100000023841858, 6.300000190734863], 角度: 90.0°
+2025-06-30 09:29:09,329 - INFO - [set_robot_goal] 等待机器人(ID:1)路径规划结果...
+2025-06-30 09:29:19,342 - WARNING - [set_robot_goal] 等待机器人(ID:1)路径规划结果超时
+2025-06-30 09:32:41,885 - INFO - [set_robot_goal] 设置机器人(ID:1)目标位置: [1.100000023841858, 6.300000190734863], 角度: 90.0°
+2025-06-30 09:32:41,885 - INFO - [set_robot_goal] 等待机器人(ID:1)路径规划结果...
+2025-06-30 09:32:51,898 - WARNING - [set_robot_goal] 等待机器人(ID:1)路径规划结果超时
+2025-06-30 09:35:09,358 - INFO - [set_robot_goal] 设置机器人(ID:1)目标位置: [1.100000023841858, 6.300000190734863], 角度: 90.0°
+2025-06-30 09:35:09,359 - INFO - [set_robot_goal] 等待机器人(ID:1)路径规划结果...
+2025-06-30 09:35:19,371 - WARNING - [set_robot_goal] 等待机器人(ID:1)路径规划结果超时
+2025-06-30 09:42:19,348 - INFO - [set_robot_goal] 设置机器人(ID:1)目标位置: [1.100000023841858, 6.300000190734863], 角度: 90.0°
+2025-06-30 09:42:19,348 - INFO - [set_robot_goal] 等待机器人(ID:1)路径规划结果...
+2025-06-30 09:42:29,362 - WARNING - [set_robot_goal] 等待机器人(ID:1)路径规划结果超时
+2025-06-30 10:45:05,248 - INFO - 找到 3 个 Webots 进程
+2025-06-30 10:45:05,249 - INFO - 发送SIGTERM到Webots进程 3570
+2025-06-30 10:45:05,349 - INFO - 发送SIGTERM到Webots进程 3582
+2025-06-30 10:45:05,449 - INFO - 发送SIGTERM到Webots进程 3585
+2025-06-30 10:45:06,553 - WARNING - 发现 2 个残留的Webots进程，强制杀死
+2025-06-30 10:45:06,553 - WARNING - 强制杀死Webots进程 3582
+2025-06-30 10:45:06,554 - WARNING - 强制杀死Webots进程 3585
+2025-06-30 10:45:06,556 - INFO - 找到 2 个 Xvfb 进程
+2025-06-30 10:45:06,556 - INFO - 发送SIGTERM到Xvfb进程 3570
+2025-06-30 10:45:06,656 - INFO - 发送SIGTERM到Xvfb进程 3579
+2025-06-30 10:45:07,759 - WARNING - 发现 1 个残留的Xvfb进程，强制杀死
+2025-06-30 10:45:07,759 - WARNING - 强制杀死Xvfb进程 3570
+2025-06-30 10:45:07,760 - INFO - 已清理当前场景信息
+2025-06-30 10:45:07,760 - ERROR - 保存主日志文件失败: Object of type deque is not JSON serializable
+Traceback (most recent call last):
+  File "/webots/integrated_server.py", line 406, in save_main_log_on_exit
+    json.dump(request_response_log, f, indent=4, ensure_ascii=False)
+  File "/usr/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/usr/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type deque is not JSON serializable
+2025-06-30 10:45:07,780 - INFO - Supervisor 世界状态日志已保存至 log/supervisor_world_status_log.json
+2025-06-30 10:45:07,780 - INFO - 整合Flask服务器停止
+2025-06-30 10:45:07,780 - INFO - 服务器已安全停止
+2025-06-30 10:45:51,936 - INFO - ================================================================================
+2025-06-30 10:45:51,936 - INFO - 🚀 整合的Webots控制服务器启动中...
+2025-06-30 10:45:51,936 - INFO - 📍 服务器地址: http://localhost:30114
+2025-06-30 10:45:51,936 - INFO - 📖 API文档: http://localhost:30114
+2025-06-30 10:45:51,936 - INFO - 🎮 Webots进程控制、机器人状态管理、相机图像服务已整合
+2025-06-30 10:45:51,936 - INFO - 🔄 服务器重启API: POST /api/v1/server/restart
+2025-06-30 10:45:51,936 - INFO - ⏰ 状态打印间隔: 20秒
+2025-06-30 10:45:51,936 - INFO - 🛑 按 CTRL+C 退出
+2025-06-30 10:45:51,936 - INFO - ================================================================================
+2025-06-30 10:45:51,936 - INFO - 🔍 正在加载场景配置...
+2025-06-30 10:45:51,937 - INFO - 场景配置文件加载成功: /webots/configs/scene_configs.json
+2025-06-30 10:45:51,937 - INFO - 正在扫描场景中的标签点...
+2025-06-30 10:45:51,937 - INFO - 场景配置更新完成
+2025-06-30 10:45:51,938 - INFO - 整合Flask服务器启动
+2025-06-30 10:45:58,159 - INFO - 启动前清理所有Webots进程...
+2025-06-30 10:45:58,161 - INFO - 未找到运行中的Webots进程
+2025-06-30 10:45:58,163 - INFO - 未找到运行中的Xvfb进程
+2025-06-30 10:45:58,163 - INFO - 清空Supervisor世界状态日志
+2025-06-30 10:45:58,163 - INFO - 选择场景: 2 - Box Moving Scene v1.2.0
+2025-06-30 10:45:58,169 - INFO - Webots进程启动成功，PID: 3944, 场景: Box Moving Scene, 场景ID: 2, 版本: 1.2.0
+2025-06-30 10:45:58,169 - INFO - 等待Supervisor更新世界状态...
+2025-06-30 10:46:12,687 - INFO - Supervisor已更新世界状态，场景加载完成
+2025-06-30 10:48:32,179 - INFO - [set_robot_goal] 设置机器人(ID:1)目标位置: [1.100000023841858, 6.300000190734863], 角度: 90.0°
+2025-06-30 10:48:32,180 - INFO - [set_robot_goal] 等待机器人(ID:1)路径规划结果...
+2025-06-30 10:48:32,488 - INFO - 路径规划已完成且成功: 机器人(ID:1), 总段数:5
+2025-06-30 10:48:32,488 - INFO - 机器人状态更新(新格式): ID=1, 位置=(150, 30), 状态='已找到到达目标 (32, 136) 的路径', 进度=0/5
+2025-06-30 10:48:32,581 - INFO - [set_robot_goal] 机器人(ID:1)路径规划成功，总段数: 5
+2025-06-30 10:51:05,296 - INFO - [set_robot_goal] 设置机器人(ID:1)目标位置: [1.100000023841858, 6.300000190734863], 角度: 90.0°
+2025-06-30 10:51:05,296 - INFO - [set_robot_goal] 等待机器人(ID:1)路径规划结果...
+2025-06-30 10:51:15,327 - WARNING - [set_robot_goal] 等待机器人(ID:1)路径规划结果超时
+2025-06-30 10:55:16,866 - INFO - 启动前清理所有Webots进程...
+2025-06-30 10:55:16,869 - INFO - 找到 3 个 Webots 进程
+2025-06-30 10:55:16,870 - INFO - 发送SIGTERM到Webots进程 3944
+2025-06-30 10:55:16,970 - INFO - 发送SIGTERM到Webots进程 3956
+2025-06-30 10:55:17,070 - INFO - 发送SIGTERM到Webots进程 3959
+2025-06-30 10:55:18,174 - WARNING - 发现 2 个残留的Webots进程，强制杀死
+2025-06-30 10:55:18,174 - WARNING - 强制杀死Webots进程 3956
+2025-06-30 10:55:18,174 - WARNING - 强制杀死Webots进程 3959
+2025-06-30 10:55:18,177 - INFO - 找到 2 个 Xvfb 进程
+2025-06-30 10:55:18,177 - INFO - 发送SIGTERM到Xvfb进程 3944
+2025-06-30 10:55:18,277 - INFO - 发送SIGTERM到Xvfb进程 3953
+2025-06-30 10:55:19,381 - WARNING - 发现 1 个残留的Xvfb进程，强制杀死
+2025-06-30 10:55:19,381 - WARNING - 强制杀死Xvfb进程 3944
+2025-06-30 10:55:19,381 - INFO - 已清理当前场景信息
+2025-06-30 10:55:19,382 - INFO - 清空Supervisor世界状态日志
+2025-06-30 10:55:19,382 - INFO - 选择场景: 1 - Path Planning Scene v2.1.0
+2025-06-30 10:55:19,390 - INFO - Webots进程启动成功，PID: 4653, 场景: Path Planning Scene, 场景ID: 1, 版本: 2.1.0
+2025-06-30 10:55:19,390 - INFO - 等待Supervisor更新世界状态...
+2025-06-30 10:55:31,491 - INFO - 路径规划已完成且成功: 机器人(ID:1), 总段数:5
+2025-06-30 10:55:31,492 - INFO - 机器人状态更新(新格式): ID=1, 位置=(150, 30), 状态='已找到到达目标 (32, 136) 的路径', 进度=0/5
+2025-06-30 10:55:34,910 - INFO - Supervisor已更新世界状态，场景加载完成
+2025-06-30 10:55:58,092 - INFO - [set_robot_goal] 设置机器人(ID:1)目标位置: [1.100000023841858, 6.300000190734863], 角度: 90.0°
+2025-06-30 10:55:58,092 - INFO - [set_robot_goal] 等待机器人(ID:1)路径规划结果...
+2025-06-30 10:56:08,111 - WARNING - [set_robot_goal] 等待机器人(ID:1)路径规划结果超时
+2025-06-30 10:56:24,418 - INFO - 机器人状态更新(新格式): ID=1, 位置=(108, 29), 状态='正在沿路径移动，段 1/5', 进度=1/5
+2025-06-30 10:57:16,321 - INFO - 机器人状态更新(新格式): ID=1, 位置=(109, 69), 状态='正在沿路径移动，段 2/5', 进度=2/5
+2025-06-30 10:58:14,905 - INFO - 找到 3 个 Webots 进程
+2025-06-30 10:58:14,905 - INFO - 发送SIGTERM到Webots进程 4653
+2025-06-30 10:58:15,005 - INFO - 发送SIGTERM到Webots进程 4665
+2025-06-30 10:58:15,106 - INFO - 发送SIGTERM到Webots进程 4668
+2025-06-30 10:58:16,210 - INFO - 所有Webots进程已成功终止
+2025-06-30 10:58:16,212 - INFO - 找到 2 个 Xvfb 进程
+2025-06-30 10:58:16,212 - INFO - 发送SIGTERM到Xvfb进程 4653
+2025-06-30 10:58:16,312 - INFO - 发送SIGTERM到Xvfb进程 4662
+2025-06-30 10:58:17,416 - WARNING - 发现 1 个残留的Xvfb进程，强制杀死
+2025-06-30 10:58:17,416 - WARNING - 强制杀死Xvfb进程 4653
+2025-06-30 10:58:17,416 - INFO - 已清理当前场景信息
+2025-06-30 10:58:17,416 - ERROR - 保存主日志文件失败: Object of type deque is not JSON serializable
+Traceback (most recent call last):
+  File "/webots/integrated_server.py", line 406, in save_main_log_on_exit
+    json.dump(request_response_log, f, indent=4, ensure_ascii=False)
+  File "/usr/lib/python3.10/json/__init__.py", line 179, in dump
+    for chunk in iterable:
+  File "/usr/lib/python3.10/json/encoder.py", line 438, in _iterencode
+    o = _default(o)
+  File "/usr/lib/python3.10/json/encoder.py", line 179, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+TypeError: Object of type deque is not JSON serializable
+2025-06-30 10:58:17,419 - INFO - Supervisor 世界状态日志已保存至 log/supervisor_world_status_log.json
+2025-06-30 10:58:17,419 - INFO - 整合Flask服务器停止
+2025-06-30 10:58:17,420 - INFO - 服务器已安全停止
+2025-06-30 10:58:18,530 - INFO - ================================================================================
+2025-06-30 10:58:18,530 - INFO - 🚀 整合的Webots控制服务器启动中...
+2025-06-30 10:58:18,530 - INFO - 📍 服务器地址: http://localhost:30114
+2025-06-30 10:58:18,530 - INFO - 📖 API文档: http://localhost:30114
+2025-06-30 10:58:18,530 - INFO - 🎮 Webots进程控制、机器人状态管理、相机图像服务已整合
+2025-06-30 10:58:18,530 - INFO - 🔄 服务器重启API: POST /api/v1/server/restart
+2025-06-30 10:58:18,530 - INFO - ⏰ 状态打印间隔: 20秒
+2025-06-30 10:58:18,530 - INFO - 🛑 按 CTRL+C 退出
+2025-06-30 10:58:18,530 - INFO - ================================================================================
+2025-06-30 10:58:18,530 - INFO - 🔍 正在加载场景配置...
+2025-06-30 10:58:18,530 - INFO - 场景配置文件加载成功: /webots/configs/scene_configs.json
+2025-06-30 10:58:18,530 - INFO - 正在扫描场景中的标签点...
+2025-06-30 10:58:18,531 - INFO - 场景配置更新完成
+2025-06-30 10:58:18,531 - INFO - 整合Flask服务器启动
+2025-06-30 10:58:24,404 - INFO - 启动前清理所有Webots进程...
+2025-06-30 10:58:24,407 - INFO - 未找到运行中的Webots进程
+2025-06-30 10:58:24,410 - INFO - 未找到运行中的Xvfb进程
+2025-06-30 10:58:24,410 - INFO - 清空Supervisor世界状态日志
+2025-06-30 10:58:24,410 - INFO - 选择场景: 1 - Path Planning Scene v2.1.0
+2025-06-30 10:58:24,420 - INFO - Webots进程启动成功，PID: 5131, 场景: Path Planning Scene, 场景ID: 1, 版本: 2.1.0
+2025-06-30 10:58:24,421 - INFO - 等待Supervisor更新世界状态...
+2025-06-30 10:58:42,947 - INFO - Supervisor已更新世界状态，场景加载完成
+2025-06-30 10:59:01,434 - INFO - [set_robot_goal] 设置机器人(ID:1)目标位置: [1.100000023841858, 6.300000190734863], 角度: 90.0°
+2025-06-30 10:59:01,435 - INFO - [set_robot_goal] 等待机器人(ID:1)路径规划结果...
+2025-06-30 10:59:01,810 - INFO - 路径规划已完成且成功: 机器人(ID:1), 总段数:5
+2025-06-30 10:59:01,810 - INFO - 机器人状态更新(新格式): ID=1, 位置=(150, 30), 状态='已找到到达目标 (32, 136) 的路径', 进度=0/5
+2025-06-30 10:59:01,836 - INFO - [set_robot_goal] 机器人(ID:1)路径规划成功，总段数: 5
+2025-06-30 10:59:59,409 - INFO - 机器人状态更新(新格式): ID=1, 位置=(108, 29), 状态='正在沿路径移动，段 1/5', 进度=1/5
+2025-06-30 11:01:06,362 - INFO - 机器人状态更新(新格式): ID=1, 位置=(109, 69), 状态='正在沿路径移动，段 2/5', 进度=2/5
+2025-06-30 11:02:33,644 - INFO - 机器人状态更新(新格式): ID=1, 位置=(30, 69), 状态='正在沿路径移动，段 3/5', 进度=3/5
+2025-06-30 11:03:43,340 - INFO - 机器人状态更新(新格式): ID=1, 位置=(30, 135), 状态='正在沿路径移动，段 4/5', 进度=4/5
+2025-06-30 11:04:12,100 - INFO - 机器人 1 到达目标: 已到达目标位置! 距离: 2.24, 已调整到目标偏航角: 90.0度
+2025-06-30 11:04:12,101 - INFO - 机器人状态更新(新格式): ID=1, 位置=(30, 135), 状态='已到达目标位置! 距离: 2.24, 已调整到目标偏航角: 90.0度', 进度=5/5

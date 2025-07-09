@@ -1,0 +1,67 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "../protos/urdf_arm_mix/urdf_arm.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation 0.5822612112348909 -0.5881728864363943 -0.5612704673794606 4.155327132529761
+  position 0.29281275432535836 0.6631143647963142 16.134634289208737
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 8 8
+  floorTileSize 2 2
+}
+DEF PR2_ROBOT urdf_arm {
+  hidden linearVelocity_0 1.5549401833023799e-06 2.405367694998824e-05 -9.19464142963277e-08
+  hidden angularVelocity_0 -0.00042699972907856386 2.818543995528568e-05 0.00031189274118649974
+  hidden rotation_6 0 0 1 1.5419642114969313e-06
+  hidden rotation_15 0 0 1 3.9085379387748307e-07
+  translation -2.5000087045607833 -3.5000194864509884 -0.027993602183515248
+  rotation 0.008961498554393378 0.999912439749681 -0.009736753950891696 0.0035793637077443444
+  controller "BFS_exercise_1_kuavo_709"
+  customData "{\"describe\": \"路径规划测试用机器人\", \"ability\": \"move__grab_left__grab_right__grab_left_right__place_left__place_right__place_left_right\", \"size\": \"0.77__0.71__1.58\"}"
+  extensionSlot1 [
+    InertialUnit {
+    }
+  ]
+  extensionSlot2 [
+    GPS {
+    }
+  ]
+}
+DEF label_1 Solid {
+  translation -2.5 2.5 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "../protos/stl/num_pic/01.png"
+          ]
+        }
+      }
+      geometry Cylinder {
+        height 0.001
+        radius 0.27
+      }
+    }
+  ]
+  name "label_1"
+}
+DEF SUPERVISOR Robot {
+  children [
+  ]
+  name "supervisor_robot"
+  controller "supervisor_monitor_pp"
+  supervisor TRUE
+}

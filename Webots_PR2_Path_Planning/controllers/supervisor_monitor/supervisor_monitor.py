@@ -60,79 +60,120 @@ def safe_float(value, default=0.0):
     except (ValueError, TypeError):
         return default
 
+# NODES_TO_MONITOR = [
+#     {
+#         'id': 1,
+#         'name': "PR2_ROBOT",
+#     },
+#     {
+#         'id': 2,
+#         'name': "Box_1",
+#     },
+#     {
+#         'id': 3,
+#         'name': "Box_2",
+#     },
+#     {
+#         'id': 4,
+#         'name': "Box_3",
+#     },
+#     {
+#         'id': 5,
+#         'name': "Box_4",
+#     },
+#     {
+#         'id': 6,
+#         'name': "Box_5",
+#     },
+#     {
+#         'id': 7,
+#         'name': "Box_6",
+#     },
+#     {
+#         'id': 8,
+#         'name': "Box_7",
+#     },
+#     {
+#         'id': 9,
+#         'name': "Box_8",
+#     },
+#     {
+#         'id': 10,
+#         'name': "Box_9",
+#     },
+#     {
+#         'id': 11,
+#         'name': "Box_10",
+#     },
+#     {
+#         'id': 12,
+#         'name': "Box_11",
+#     },
+#     {
+#         'id': 13,
+#         'name': "Box_12",
+#     },
+#     {
+#         'id': 14,
+#         'name': "Box_13",
+#     },
+#     {
+#         'id': 15,
+#         'name': "goodbox",
+#     },
+#     {
+#         'id': 16,
+#         'name': "conver",
+#     },
+#     {
+#         'id': 17,
+#         'name': "Obstacle_Box_1",
+#     },
+#     {
+#         'id': 18,
+#         'name': "Obstacle_Box_2"
+#     }
+# ]
+
 NODES_TO_MONITOR = [
-    # {
-    #     'id': 1,
-    #     'name': "PR2_ROBOT",
-    # },
     {
-        'id': 2,
-        'name': "Box_1",
+        'id': 1,
+        'name': "PR2_ROBOT",
     },
     {
-        'id': 3,
-        'name': "Box_2",
+        'id':2,
+        'name':"cardboard_box(1)"
     },
     {
-        'id': 4,
-        'name': "Box_3",
+        'id':3,
+        'name':"cardboard_box(2)"
     },
     {
-        'id': 5,
-        'name': "Box_4",
+        'id':4,
+        'name':"cardboard_box(3)"
     },
     {
-        'id': 6,
-        'name': "Box_5",
+        'id':5,
+        'name':"cardboard_box(4)"
     },
     {
-        'id': 7,
-        'name': "Box_6",
+        'id':6,
+        'name':"cardboard_box(5)"
     },
     {
-        'id': 8,
-        'name': "Box_7",
+        'id':7,
+        'name':"cardboard_box(6)"
     },
     {
-        'id': 9,
-        'name': "Box_8",
+        'id':8,
+        'name':"cardboard_box(7)"
     },
     {
-        'id': 10,
-        'name': "Box_9",
-    },
-    {
-        'id': 11,
-        'name': "Box_10",
-    },
-    {
-        'id': 12,
-        'name': "Box_11",
-    },
-    {
-        'id': 13,
-        'name': "Box_12",
-    },
-    {
-        'id': 14,
-        'name': "Box_13",
-    },
-    {
-        'id': 15,
-        'name': "goodbox",
-    },
-    {
-        'id': 16,
-        'name': "conver",
-    },
-    {
-        'id': 17,
-        'name': "Obstacle_Box_1",
-    },
-    {
-        'id': 18,
-        'name': "Obstacle_Box_2"
+        'id':9,
+        'name':"cardboard_box(8)"
     }
+    
+    
 ]
 
 # 存储上一次发送的节点数据，用于判断是否移动。
@@ -237,7 +278,6 @@ def get_node_properties(node_webots_object):
         else:
             # 使用缓存的描述信息
             result = solid_describe_cache[node_def_name]
-        
         if result:
             color_value = result['color']
             size_value = result['size'].split('/') if result['size'] else [0, 0, 0]
@@ -281,7 +321,7 @@ def get_node_properties(node_webots_object):
             size_value = [0, 0, 0]
             describe_value = "无法获取描述"
             ability_value = []
-    elif Type_name == "PlasticFruitBox":
+    elif Type_name == "PlasticFruitBox" or Type_name == 'CardboardBox':
         # 使用缓存的描述信息，避免重复读取字段
         if node_def_name not in solid_describe_cache:
             # 第一次读取，获取并缓存描述信息
@@ -291,7 +331,7 @@ def get_node_properties(node_webots_object):
         else:
             # 使用缓存的描述信息
             result = solid_describe_cache[node_def_name]
-            
+        print(result)
         if result:
             color_value = result['color']
             size_value = result['size'].split('/') if result['size'] else [0, 0, 0]
@@ -351,7 +391,7 @@ def get_obj_describe(node_webots_object):
             if describe_field:
                 describe_value = describe_field.getSFString()
                 # print(f"获取到描述字段: {describe_value}")
-                return describe_value, None
+                return describe_value, None, None
             else:
                 describe_field = node_webots_object.getField('customData')
                 if describe_field:
@@ -362,7 +402,7 @@ def get_obj_describe(node_webots_object):
                     obj_size = custom_data.get("size", "0.0__0.0__0.0").split('__')
                     return describe, ability, obj_size
                 else:
-                    return None, None
+                    return None, None, None
     except Exception as e:
         print(f"获取size字段时出错: {e}")
     
