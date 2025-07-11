@@ -1026,7 +1026,8 @@ def run_arm_pick(goal_arm):
     # # robot.step(MOVE_DURATION_STEPS)
     # # time.sleep(1)
     # set_gripper_position(right_gripper_motors, INIT_GRIPPER_POS)
-    # print("\n--- 抓取放置任务完成 ---")
+    # set_gripper_position(left_gripper_motors, INIT_GRIPPER_POS)
+    logger.info("\n--- 抓取放置任务完成 ---")
     
     # # 9.
     # print("步骤9: 移动右臂到预抓取姿态")
@@ -1158,7 +1159,6 @@ def run_arm_place(goal_arm):
     #     tolerance=0.02, max_steps=80
     # )
     # time.sleep(1)
-
 
 def get_pick_result(goal_arm="both"):
     """
@@ -1387,9 +1387,6 @@ INIT_GRIPPER_POS = [0,0,0,0,0,0]
 # 运动时间步长
 MOVE_DURATION_STEPS = 500  # 每次动作等待的时间步
 
-
-
-
 # 主循环:
 current_robot_position = start
 path = []
@@ -1410,9 +1407,11 @@ while robot.step(timestep) != -1:
         # print(response)
         if response.status_code == 200:
             command_data = response.json()
+            logger.info(command_data)
             source = command_data.get('source')
             print(command_data)
             if source =="robot_goals":
+                logger.info(command_data.get("goal", []))
                 if not command_data:  # 如果返回空数据，说明是停止命令
                     if goal_received:
                         logger.info("收到停止命令，清空当前路径和目标")
@@ -1428,6 +1427,30 @@ while robot.step(timestep) != -1:
                         }
                         send_robot_status(current_robot_position, stop_info)
                     continue
+                elif len(command_data.get("goal", [])) == 0:
+                    logger.info("AAAAAAAAAAAAAAAAAAAAAAA")
+                    new_goal_yaw = command_data.get("goal_angle", 0.0)
+                    new_goal_timestamp = command_data.get("goal_timestamp", time.time())
+                    if new_goal_yaw != goal_yaw or last_goal_timestamp != new_goal_timestamp:
+                        robot.stop_wheels()
+                        goal_received = False
+                        path = []
+                        current_step_index = 0
+                        goal_yaw = new_goal_yaw
+                        last_goal_timestamp = new_goal_timestamp
+                        logger.info(f"收到目标偏航角: {goal_yaw}度")
+                        # 只执行原地旋转
+                        current_heading = robot.get_current_angle_from_imu()
+                        target_heading = math.radians(goal_yaw)
+                        angle_diff = ((target_heading - current_heading + math.pi) % (2*math.pi)) - math.pi
+                        robot.rotate_angle(angle_diff)
+                        # 发送旋转完成状态
+                        rotation_info = {
+                            "status": "旋转完成",
+                            "message": f"已完成原地旋转至目标偏航角 {goal_yaw}°"
+                        }
+                        send_robot_status(current_robot_position, rotation_info)
+                    continue
                 if "goal" in command_data and command_data["goal"]:
                     try:
                         new_goal = command_data.get("goal", [])
@@ -1441,13 +1464,11 @@ while robot.step(timestep) != -1:
                             if path:
                                 print(f"当前路径: {path}")
                             
-                            # 检查是否是新的目标：位置不同、角度不同，或者时间戳不同
                             is_new_goal = (new_goal != goal or 
                                         new_goal_yaw != goal_yaw or 
                                         new_goal_timestamp != last_goal_timestamp)
                             
                             if is_new_goal:
-                                # 停止当前移动并重置所有相关状态以确保新目标能被正常处理
                                 robot.stop_wheels()  # 立即停止轮子转动
                                 print(f"检测到新目标，停止当前移动并重置状态")
                                 print(f"目标变化原因: 位置{'不同' if new_goal != goal else '相同'}, "
@@ -1903,7 +1924,7 @@ while robot.step(timestep) != -1:
                         # 更新状态，表示已达到目标
                         completion_info = {
                             "status": "完成",
-                            "message": f"已到达目标位置! 距离: {final_distance:.2f} 像素, 已调整到目标偏航角: {goal_yaw}度",
+                            "message": f"已到达目标位置! 距离: {final_distance:.2f}, 已调整到目标偏航角: {goal_yaw}度",
                             "object_id": command_data.get("object_id", 1) if 'command_data' in locals() else 1,
                             "total_segments": len(path),
                             "current_segment": len(path),  # 当前段设为总段数，表示已完成
@@ -1949,7 +1970,7 @@ while robot.step(timestep) != -1:
                 dx = goal[0] - current_robot_position[0]
                 dy = goal[1] - current_robot_position[1]
                 
-                # 计算在当前航向上的投影距离
+                # 计算在当前航向上的投影距离（仅在当前朝向上前后移动，不转身）
                 heading_vector_x = math.cos(current_heading)
                 heading_vector_y = math.sin(current_heading)
                 projected_distance = dx * heading_vector_x + dy * heading_vector_y

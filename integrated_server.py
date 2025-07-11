@@ -251,13 +251,12 @@ def get_robot_command():
     else:
         # 找出第一个处于移动状态的机器人
         for object_id, goal_state in robot_goals.items():
-            if goal_state.get('status') == 2 and 'goal_pos' in goal_state:  # 状态2表示移动中
-                # 使用get方法安全地获取值，提供默认值
-                goal_pos = goal_state.get('goal_pos')
+            if goal_state.get('status') == 2 and 'goal_pos' in goal_state:
+                goal_pos = goal_state.get('goal_pos', [])
                 goal_angle = goal_state.get('goal_angle', 0.0)  # 如果没有角度，默认为0
                 start_time = goal_state.get('start_time', datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
                 
-                if goal_pos:  # 确保至少有目标位置
+                if len(goal_pos) == 2:  # 确保至少有目标位置
                     command_to_send = {
                         "goal": [goal_pos[0], goal_pos[1]],
                         "goal_angle": goal_angle,
@@ -266,6 +265,17 @@ def get_robot_command():
                         "source": "robot_goals"  # 标记来源
                     }
                     break
+                elif len(goal_pos) == 0:  # 如果目标位置为空
+                    command_to_send = {
+                        "goal": [],
+                        "goal_angle": goal_angle,
+                        "object_id": object_id,  # 添加object_id信息
+                        "goal_timestamp": start_time,  # 添加时间戳用于区分不同的goal请求
+                        "source": "robot_goals"  # 标记来源
+                    }
+                    break
+    if command_to_send != {}:
+        print(command_to_send)
     
     request_response_log.append({
         "event_type": "get_robot_command",
@@ -1007,7 +1017,6 @@ def move_set_goal():
     print("current_loaded_scene:",current_loaded_scene)
     try:
         data = request.get_json()
-        # print(data)
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
         
@@ -1019,6 +1028,8 @@ def move_set_goal():
         scene_id = str(data['id'])
         object_id = int(data['object_id'])
         goal_pos = data['goal_pos']
+        if isinstance(goal_pos, list) and len(goal_pos) == 0:
+            goal_pos = []
         goal_angle = float(data['goal_angle'])
         
         # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
@@ -1028,9 +1039,11 @@ def move_set_goal():
         #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
         #     }), 409
         
-        if not isinstance(goal_pos, list) or len(goal_pos) != 2:
+        # 验证目标位置格式，允许 goal_pos 为 None
+        if goal_pos is not None and (not isinstance(goal_pos, list) or not (len(goal_pos) == 2 or len(goal_pos) == 0)):
             return jsonify({"code": 400, "message": "目标位置必须是二维坐标数组 [x, y]"}), 400
         
+        # 验证目标偏航角范围
         if goal_angle < -180 or goal_angle > 180:
             return jsonify({"code": 400, "message": "目标角度超出范围"}), 400
         
@@ -1053,6 +1066,15 @@ def move_set_goal():
             "path_planning_logged": False  # 重置路径规划日志标记
         }
         
+        if len(goal_pos) == 0:
+            logger.info(f"[set_robot_goal] 机器人(ID:{object_id})仅设置旋转目标: 角度 {goal_angle}°")
+            new_goal['path_planning_complete'] = True
+            new_goal['total_segments'] = 0
+            new_goal["goal_pos"] = []
+            robot_goals[object_id] = new_goal
+            robot_status_dict[object_id] = 2
+            return jsonify({"code": 200, "message": "success", "total_segments": 0, "is_reachable": True}), 200
+        
         robot_goals[object_id] = new_goal
         robot_status_dict[object_id] = 2  # 2=移动中
         
@@ -1065,6 +1087,7 @@ def move_set_goal():
             "status": 2,
             "message": "机器人进入移动中"
         })
+
         
         # 等待BFS路径规划结果
         max_wait_time = 10  # 最长等待10秒
@@ -1452,7 +1475,8 @@ def capture_set_goal():
         # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
         if capture_robot_goals:
-            logger.info(f"[set_robot_goal] 清理机器人(ID:{object_id})的旧目标状态")
+            # 使用 robot_id 而非 object_id
+            logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")
 
         capture_robot_goals['scene_id']=scene_id
         capture_robot_goals['robot_id']=robot_id
@@ -1714,14 +1738,6 @@ def pick_result():
     res = result_pick
     if(res == True):
         result_pick = False
-    return jsonify({"code": 200, "message": res}), 200
-
-@app.route('/api/v1/capture/place_result',methods=['GET'])
-def place_result():
-    global result_pick,result_place
-    res = result_place
-    if(res == True):
-        result_place = False
     return jsonify({"code": 200, "message": res}), 200
 
 @app.route('/api/v1/capture/get_relative_pos', methods=['GET'])
