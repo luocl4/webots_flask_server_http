@@ -14,39 +14,12 @@ import socketserver
 
 # Configuration for Web communication
 WEB_SERVER_URL = "http://127.0.0.1:5000/world_status"
-CAMERA_STATUS_URL = "http://127.0.0.1:5000/camera_status"
 
 supervisor = Supervisor()
 robot_node = supervisor.getFromDef("PR2_ROBOT")
 wordl_path = supervisor.getWorldPath()
 floor = supervisor.getFromDef("floor")
 timestep = int(supervisor.getBasicTimeStep())
-
-# 获取相机设备
-camera_rgb = None
-camera_dpt = None
-
-def init_devices():
-    global camera_rgb, camera_dpt
-    
-    # 获取RGB相机
-    camera_rgb = supervisor.getDevice('camera_rgb')
-    if camera_rgb:
-        camera_rgb.enable(50)
-        print("RGB相机初始化成功")
-    else:
-        print("警告: 找不到RGB相机")
-        
-    # 获取深度相机
-    camera_dpt = supervisor.getDevice('camera_dpt')
-    if camera_dpt:
-        camera_dpt.enable(50)
-        print("深度相机初始化成功")
-    else:
-        print("警告: 找不到深度相机")
-
-# 调用初始化函数
-init_devices()
 
 def safe_float(value, default=0.0):
     """安全地将值转换为浮点数"""
@@ -498,63 +471,6 @@ def has_moved(current_props, last_props):
 last_send_time = 0
 send_interval = 1.0 # 每秒发送一次状态更新
 
-# 优化深度图发送逻辑
-def send_camera_data():
-    # 处理RGB图像
-    if camera_rgb and camera_rgb.getImage():
-        try:
-            image_data = camera_rgb.getImage()
-            # 将Webots相机图像转换为PIL图像
-            pil_image = Image.frombytes('RGBA', (camera_rgb.getWidth(), camera_rgb.getHeight()), image_data)
-            # 将图像转换为base64字符串
-            img_byte_arr = io.BytesIO()
-            pil_image.save(img_byte_arr, format='PNG')
-            img_byte_arr = img_byte_arr.getvalue()
-            encoded_image = base64.b64encode(img_byte_arr).decode('utf-8')
-            
-            requests.post(CAMERA_STATUS_URL, json={'image': encoded_image})
-        except requests.exceptions.RequestException as e:
-            print(f"Error sending RGB camera data: {e}")
-        except Exception as e:
-            print(f"Error processing RGB camera data: {e}")
-
-    # 处理深度图像
-    if camera_dpt and camera_dpt.getRangeImage():
-        try:
-            depth_data = camera_dpt.getRangeImage()
-            width = camera_dpt.getWidth()
-            height = camera_dpt.getHeight()
-            
-            # 检查深度数据是否有效
-            if depth_data and len(depth_data) == width * height:
-                # 将深度数据转换为numpy数组并重塑为2D
-                depth_array = np.array(depth_data, dtype=np.float32)
-                depth_2d = depth_array.reshape((height, width))
-                
-                # 处理深度数据中的NaN和无穷大值
-                depth_2d = np.nan_to_num(depth_2d, nan=0.0, posinf=10.0, neginf=0.0)
-                
-                # 将深度数据归一化到0-255范围
-                depth_normalized = (depth_2d * 255 / 10.0).clip(0, 255).astype(np.uint8)
-                
-                # 创建PIL图像
-                depth_image = Image.fromarray(depth_normalized, mode='L')
-                
-                # 将图像转换为base64字符串
-                img_byte_arr = io.BytesIO()
-                depth_image.save(img_byte_arr, format='PNG')
-                img_byte_arr = img_byte_arr.getvalue()
-                encoded_depth_image = base64.b64encode(img_byte_arr).decode('utf-8')
-                
-                requests.post(CAMERA_STATUS_URL, json={'depth_image': encoded_depth_image})
-            else:
-                print(f"Invalid depth data: expected {width * height} elements, got {len(depth_data) if depth_data else 0}")
-                
-        except requests.exceptions.RequestException as e:
-            print(f"Error sending depth camera data: {e}")
-        except Exception as e:
-            print(f"Error processing depth camera data: {e}")
-
 while supervisor.step(timestep) != -1:
     current_time = supervisor.getTime()
 
@@ -587,5 +503,3 @@ while supervisor.step(timestep) != -1:
                 print(f"Supervisor INFO: 节点 '{node_s['name']}': 位置={node_s['position']}, 偏航角={node_s['rotation_degrees']['yaw']:.2f}°")
         
         last_send_time = current_time
-
-    # send_camera_data()  # 发送相机数据
