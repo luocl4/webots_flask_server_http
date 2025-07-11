@@ -972,7 +972,7 @@ def run_arm_pick(goal_arm):
             tolerance=0.02, max_steps=80
         )
         # time.sleep(10)
-        # robot.step(7*MOVE_DURATION_STEPS)
+        robot.step(5*MOVE_DURATION_STEPS)
 
     # 4. 夹紧物体
     print("步骤4: 关闭右夹爪抓取物体")
@@ -1381,7 +1381,8 @@ place_right_arm_pose = [ 0.0, -0.8, 0.0, 0.0,0.0,0]                    # 放置�
 
 # 右夹爪控制值 - 需根据夹爪模型调试
 OPEN_GRIPPER_POS = [-0.7,0.7,-0.7,-0.7,0.7,0.7]  # 夹爪完全打开位置
-CLOSE_GRIPPER_POS = [0.2,-0.2,0.2,0.2,-0.2,-0.2]  # 夹爪夹紧位置
+# CLOSE_GRIPPER_POS = [0.25,-0.25,0.25,0.25,-0.25,-0.25]  # 夹爪夹紧位置
+CLOSE_GRIPPER_POS = [0.27,-0.27,0.27,0.27,-0.27,-0.27]  # 夹爪夹紧位置
 INIT_GRIPPER_POS = [0,0,0,0,0,0]
 
 # 运动时间步长

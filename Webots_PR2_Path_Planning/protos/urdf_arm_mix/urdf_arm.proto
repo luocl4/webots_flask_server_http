@@ -880,7 +880,7 @@ PROTO urdf_arm [
                                                                 }
                                                                 geometry Cylinder {
                                                                   height 0.005
-                                                                  radius 0.008
+                                                                  radius 0.01
                                                                 }
                                                               }
                                                             ]
@@ -901,13 +901,13 @@ PROTO urdf_arm [
                                                                 }
                                                                 # 使用Box或其他形状覆盖手指区域
                                                                 geometry Box {
-                                                                  size 0.1 0.05 0.1  # 根据手指尺寸调整
+                                                                  size 0.01 0.03 0.01  # 根据手指尺寸调整
                                                                 }
                                                               }
                                                             ]
                                                             # 关键：使用与可视化形状相同的boundingObject
                                                             boundingObject Box {
-                                                              size 0.1 0.05 0.1  # 与上面的Box尺寸一致
+                                                              size 0.01 0.03 0.01  # 与上面的Box尺寸一致
                                                             }
                                                           }
                                                           # ============================================
@@ -1745,6 +1745,7 @@ PROTO urdf_arm [
             url "meshes_obj/chassis.obj"
           }
           physics Physics {
+            mass 5
             density -1
             centerOfMass [ -0.110380 0.003430 0.301010 ]
             inertiaMatrix [
