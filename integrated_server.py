@@ -1472,7 +1472,6 @@ def capture_set_goal():
         #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
         #     }), 409
 
-        # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
         if capture_robot_goals:
             # 使用 robot_id 而非 object_id
@@ -1578,7 +1577,6 @@ def pick_set_goal():
         #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
         #     }), 409
 
-        # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
         if pick_robot_goals:
             logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")
@@ -1668,7 +1666,6 @@ def place_set_goal():
         #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
         #     }), 409
 
-        # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
         if place_robot_goals:
             logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")

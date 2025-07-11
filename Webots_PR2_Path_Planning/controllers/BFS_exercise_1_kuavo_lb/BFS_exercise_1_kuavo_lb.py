@@ -1163,6 +1163,7 @@ def run_arm_place(goal_arm):
 def get_pick_result(goal_arm="both"):
     """
     根据指定机械臂判断抓取是否成功，通过检查夹爪关节位置是否处于关闭状态
+    TODO:需要修改判断逻辑
     
     Args:
         goal_arm: 目标机械臂，可选"left"、"right"或"both"，默认"right"
@@ -1222,10 +1223,10 @@ def get_pick_result(goal_arm="both"):
     else:
         return check_arm(goal_arm)
 
-
 def get_place_result(goal_arm="both"):
     """
     根据指定机械臂判断放置操作是否成功（夹爪是否处于打开状态）
+    TODO:需要修改判断逻辑
     
     Args:
         goal_arm: 目标机械臂，可选"left"、"right"或"both"，默认"right"
