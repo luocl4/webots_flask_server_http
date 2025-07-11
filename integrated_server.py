@@ -14,6 +14,8 @@ from datetime import datetime
 import wbt_parser
 from logger import logger
 import logging
+import math
+import numpy as np
 
 # 添加控制器目录到系统路径
 controller_path = os.path.join(os.path.dirname(__file__), 
@@ -63,6 +65,8 @@ result_pick=False
 fail_pick=False
 fail_place=False
 result_place=False
+arm_go_pos_robot_goal={}
+fail_arm_go_pos=False
 robot_status = {"robot_position": (0, 0), "status": ""}  # 存储机器人的位置和状态信息
 
 ability_dict = {
@@ -225,7 +229,7 @@ def update_world_status():
 @app.route('/robot_command', methods=['GET'])
 def get_robot_command():
     """获取机器人命令"""
-    global robot_goals, robot_stop_flag,capture_robot_goals,pick_robot_goals,place_robot_goals
+    global robot_goals, robot_stop_flag,capture_robot_goals,pick_robot_goals,place_robot_goals,arm_go_pos_robot_goal
     command_to_send = {}
 
     if robot_stop_flag:
@@ -241,6 +245,9 @@ def get_robot_command():
     elif place_robot_goals:
         command_to_send = place_robot_goals
         command_to_send["source"]="robot_place"
+    elif arm_go_pos_robot_goal:
+        command_to_send = arm_go_pos_robot_goal
+        command_to_send["source"]="arm_go_pos"
     else:
         # 找出第一个处于移动状态的机器人
         for object_id, goal_state in robot_goals.items():
@@ -271,7 +278,7 @@ def get_robot_command():
 @app.route('/robot_status', methods=['POST'])
 def update_robot_status():
     """更新机器人状态"""
-    global result_pick,result_place,robot_status, robot_goals, robot_status_dict,capture_robot_goals,pick_robot_goals,place_robot_goals,fail_pick,fail_place
+    global result_pick,result_place,robot_status, robot_goals, robot_status_dict,capture_robot_goals,pick_robot_goals,place_robot_goals,fail_pick,fail_place,fail_arm_go_pos,arm_go_pos_robot_goal
     data = request.get_json()
     # 获取status字典（如果存在）
     status_dict = data.get('status')
@@ -294,13 +301,19 @@ def update_robot_status():
             else:
                 fail_place = False
                 res = status_dict.get('res')
-        
-        if task == "capture" or task == "pick" or task == "place":
+        elif task == "arm_to_go":
+            if status_value == "fail":
+                fail_arm_go_pos=True
+            else:
+                fail_arm_go_pos=False
+
+        if task == "capture" or task == "pick" or task == "place" or task == "arm_to_go":
             # print(data)
             capture_robot_goals={}
             pick_robot_goals={}
             place_robot_goals={}
             robot_goals = {} 
+            arm_go_pos_robot_goal = {}
             return jsonify({"message": "Status updated"}), 200
     
     
@@ -1401,7 +1414,7 @@ def capture_set_goal():
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
-        
+
         # scene_id = int(data['id'])
         # robot_id = int(data['robot_id'])
         # goal_arm = str(data['goal_arm'])
@@ -1428,6 +1441,13 @@ def capture_set_goal():
         right_cur_pos = data.get('right_cur_pos', [-0.01749985  ,-0.29927 ,   -0.21073727])
         right_goal_pos = data.get('right_goal_pos', [-0.01749985 ,- 0.29927,   -0.21073727])
         right_angle = data.get('right_angle', [-3.02456926, -0.00675474,  0.09522905])
+
+        # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
+        #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
+        #     return jsonify({
+        #         "code": 409,
+        #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
+        #     }), 409
 
         # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
@@ -1515,7 +1535,7 @@ def pick_set_goal():
 
         # 左手臂相关参数，默认值设为合理的空列表或零值
         left_cur_pos = data.get('left_cur_pos', [-0.01749985 , 0.29927  ,  -0.21073727])
-        left_cur_pos = [0.0, 0.0, 0.0]
+        # left_cur_pos = [0.0, 0.0, 0.0]
         left_angle = data.get('left_angle', [3.14, 0.0, 0.0])
         if not left_angle:
             left_angle = [3.14, 0.0, 0.0]
@@ -1526,6 +1546,14 @@ def pick_set_goal():
         if not right_angle:
             right_angle = [-3.02456926, -0.00675474,  0.09522905]
         logger.info(f"{scene_id}, {robot_id}, {goal_arm}, {left_cur_pos}, {left_angle}, {right_cur_pos}, {right_angle}")
+        
+        # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
+        #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
+        #     return jsonify({
+        #         "code": 409,
+        #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
+        #     }), 409
+
         # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
         if pick_robot_goals:
@@ -1593,7 +1621,7 @@ def place_set_goal():
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
-        
+
         # 获取scene_id，若不存在则默认值为0
         scene_id = int(data.get('id', 1))
         # 获取robot_id，若不存在则默认值为1
@@ -1608,6 +1636,13 @@ def place_set_goal():
         # 右手臂相关参数，默认值设为合理的空列表或零值
         right_goal_pos = data.get('right_goal_pos', [-0.01749985 ,- 0.29927,   -0.21073727])
         right_angle = data.get('right_angle', [-3.02456926, -0.00675474,  0.09522905])
+
+        # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
+        #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
+        #     return jsonify({
+        #         "code": 409,
+        #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
+        #     }), 409
 
         # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
@@ -1650,7 +1685,32 @@ def place_set_goal():
 @app.route('/api/v1/capture/pick_result',methods=['GET'])
 def pick_result():
     global result_pick,result_place
-    # print(result_pick)
+
+    data = request.get_json()
+    logger.info(f"[set_robot_goal] 接收到抓取命令: {data}")
+    if not data:
+        return jsonify({"code": 400, "message": "参数为空"}), 400
+    
+    required_fields = ['id', 'robot_id','object_id']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+    
+    # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
+    #         current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
+    #         return jsonify({
+    #             "code": 409,
+    #             "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
+    #         }), 409
+
+    # 获取scene_id，若不存在则默认值为0
+    scene_id = int(data['id'])
+    # 获取robot_id，若不存在则默认值为1
+    robot_id = int(data['robot_id'])
+    # 获取goal_arm，若不存在则默认值为空字符串
+    object_id = int(data['object_id'])
+    # print(scene_id,robot_id,object_id)
+    
     res = result_pick
     if(res == True):
         result_pick = False
@@ -1664,7 +1724,7 @@ def place_result():
         result_place = False
     return jsonify({"code": 200, "message": res}), 200
 
-@app.route('/api/v1/capture/get_pick_pos',methods=['GET'])
+@app.route('/api/v1/capture/get_relative_pos', methods=['GET'])
 def get_pick_pos():
     """
     获取物品相对于机器人的相对坐标
@@ -1705,14 +1765,6 @@ def get_pick_pos():
                 "message": "robot_id和object_id必须为整数"
             }), 400
         
-        # 验证场景匹配性
-        # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
-        #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
-        #     return jsonify({
-        #         "code": 409,
-        #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求场景: '{scene_id}'"
-        #     }), 409
-        
         # 检查是否有世界状态数据
         if not supervisor_world_status_log:
             return jsonify({
@@ -1723,10 +1775,10 @@ def get_pick_pos():
         # 获取最新的世界状态数据
         latest_log_entry = supervisor_world_status_log[-1]
         nodes_data = latest_log_entry.get('data', [])
-        print(nodes_data)
         
-        # 查找机器人和目标物品的绝对坐标
+        # 查找机器人和目标物品的绝对坐标及机器人朝向
         robot_abs_pos = None  # 机器人绝对坐标 (x, y, z)
+        robot_rpy = None      # 机器人朝向 [roll, pitch, yaw]（弧度）
         object_abs_pos = None  # 物品绝对坐标 (x, y, z)
         
         for node in nodes_data:
@@ -1734,9 +1786,24 @@ def get_pick_pos():
             # 匹配机器人ID
             if node_id == robot_id:
                 robot_abs_pos = node.get('position', [0, 0, 0])
+                
+                # 从rotation_degrees字段获取欧拉角并转换为弧度
+                rotation_degrees = node.get('rotation_degrees', {})
+                roll_deg = rotation_degrees.get('roll', 0)
+                pitch_deg = rotation_degrees.get('pitch', 0)
+                yaw_deg = rotation_degrees.get('yaw', 0)
+                
+                # 将角度转换为弧度
+                robot_rpy = [
+                    math.radians(roll_deg),
+                    math.radians(pitch_deg),
+                    math.radians(yaw_deg)
+                ]
+                
                 # 确保坐标是长度为3的列表
                 if not isinstance(robot_abs_pos, list) or len(robot_abs_pos) < 3:
                     robot_abs_pos = [0, 0, 0]
+                    
             # 匹配物品ID
             if node_id == object_id:
                 object_abs_pos = node.get('position', [0, 0, 0])
@@ -1757,11 +1824,36 @@ def get_pick_pos():
                 "message": f"未找到ID为 {object_id} 的物品"
             }), 404
         
-        # 计算相对坐标（物品相对于机器人的坐标）
-        # 公式：相对坐标 = 物品绝对坐标 - 机器人绝对坐标
-        relative_x = safe_float(object_abs_pos[0]) - safe_float(robot_abs_pos[0])
-        relative_y = safe_float(object_abs_pos[1]) - safe_float(robot_abs_pos[1])
-        relative_z = safe_float(object_abs_pos[2]) - safe_float(robot_abs_pos[2])
+        # 提取欧拉角（单位：弧度）
+        roll, pitch, yaw = robot_rpy
+        
+        # 计算物品相对于机器人的偏移向量（世界坐标系）
+        dx = safe_float(object_abs_pos[0]) - safe_float(robot_abs_pos[0])
+        dy = safe_float(object_abs_pos[1]) - safe_float(robot_abs_pos[1])
+        dz = safe_float(object_abs_pos[2]) - safe_float(robot_abs_pos[2])
+        
+        # 计算旋转矩阵（世界坐标系到机器人坐标系的变换）
+        # ZYX顺规（yaw-pitch-roll）旋转矩阵
+        cr = math.cos(roll)
+        sr = math.sin(roll)
+        cp = math.cos(pitch)
+        sp = math.sin(pitch)
+        cy = math.cos(yaw)
+        sy = math.sin(yaw)
+        
+        # 构建旋转矩阵（注意：这里是世界坐标系到机器人坐标系的变换）
+        R = np.array([
+            [cy*cp, cy*sp*sr - sy*cr, cy*sp*cr + sy*sr],
+            [sy*cp, sy*sp*sr + cy*cr, sy*sp*cr - cy*sr],
+            [-sp, cp*sr, cp*cr]
+        ])
+        
+        # 计算相对坐标（将世界坐标系中的偏移向量转换到机器人坐标系）
+        # 注意：这里应该使用旋转矩阵的转置（即逆变换）
+        relative_vector = np.dot(R.T, np.array([dx, dy, dz]))
+        relative_x = relative_vector[0]
+        relative_y = relative_vector[1]
+        relative_z = relative_vector[2]
         
         # 整理返回数据
         return jsonify({
@@ -1783,9 +1875,18 @@ def get_pick_pos():
                 },
                 # 相对坐标信息（物品相对于机器人）
                 "relative_coordinates": {
-                    "x": f"{relative_x:.4f}",  # X轴相对距离
-                    "y": f"{relative_y:.4f}",  # Y轴相对距离
-                    "z": f"{relative_z:.4f}"   # Z轴相对距离
+                    "x": f"{relative_x:.4f}",  # X轴相对距离（机器人坐标系）
+                    "y": f"{relative_y:.4f}",  # Y轴相对距离（机器人坐标系）
+                    "z": f"{relative_z:.4f}"   # Z轴相对距离（机器人坐标系）
+                },
+                # 机器人朝向信息（用于调试）
+                "robot_orientation": {
+                    "roll_rad": f"{roll:.4f}",    # 绕X轴旋转角度（弧度）
+                    "pitch_rad": f"{pitch:.4f}",  # 绕Y轴旋转角度（弧度）
+                    "yaw_rad": f"{yaw:.4f}",      # 绕Z轴旋转角度（弧度）
+                    "roll_deg": f"{roll_deg:.4f}",  # 绕X轴旋转角度（角度）
+                    "pitch_deg": f"{pitch_deg:.4f}",  # 绕Y轴旋转角度（角度）
+                    "yaw_deg": f"{yaw_deg:.4f}"     # 绕Z轴旋转角度（角度）
                 }
             }
         }), 200
@@ -1796,6 +1897,82 @@ def get_pick_pos():
             "code": 500,
             "message": f"服务器错误: {str(e)}"
         }), 500
+
+@app.route('/api/v1/capture/arm_go_pos', methods=['POST'])
+def arm_go_pos():
+    
+    global arm_go_pos_robot_goal, current_loaded_scene, supervisor_world_status_log,result_place,fail_place,fail_arm_go_pos
+
+    try:
+        result_place = False
+        data = request.get_json()
+        logger.info(f"[set_robot_goal] 接收到放置命令: {data}")
+        if not data:
+            return jsonify({"code": 400, "message": "参数为空"}), 400
+        
+        required_fields = ['id', 'robot_id']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+
+        # 获取scene_id，若不存在则默认值为0
+        scene_id = int(data.get('id', 1))
+        # 获取robot_id，若不存在则默认值为1
+        robot_id = int(data.get('robot_id', 1))
+        # 获取goal_arm，若不存在则默认值为空字符串
+        goal_arm = str(data.get('goal_arm', 'both'))
+ 
+        # 左手臂相关参数，默认值设为合理的空列表或零值
+        left_goal_pos = data.get('left_goal_pos', [-0.01749985 , 0.29927    ,-0.21073727])
+        left_angle = data.get('left_angle', [3.14, 0.0, 0.0])
+
+        # 右手臂相关参数，默认值设为合理的空列表或零值
+        right_goal_pos = data.get('right_goal_pos', [-0.01749985 ,- 0.29927,   -0.21073727])
+        right_angle = data.get('right_angle', [-3.02456926, -0.00675474,  0.09522905])
+
+        # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
+        #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
+        #     return jsonify({
+        #         "code": 409,
+        #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
+        #     }), 409
+
+        # 设置机器人目标状态前，先清理旧状态
+        if arm_go_pos_robot_goal:
+            logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")
+
+        arm_go_pos_robot_goal['scene_id']=scene_id
+        arm_go_pos_robot_goal['robot_id']=robot_id
+        arm_go_pos_robot_goal['goal_arm']=goal_arm
+
+        arm_go_pos_robot_goal['left_goal_pos']=left_goal_pos
+        arm_go_pos_robot_goal['left_angle']=left_angle
+        arm_go_pos_robot_goal['right_goal_pos']=right_goal_pos
+        arm_go_pos_robot_goal['right_angle']=right_angle
+
+        # 循环检查字典是否为空（示例：最多等待10次，每次间隔0.1秒）
+        max_attempts = 15
+        attempt = 0
+        while attempt < max_attempts:
+            if fail_arm_go_pos:
+                fail_arm_go_pos = False
+                return jsonify({"code": 400, "message": "The target for arm move cannot be reached."}), 400
+            if not arm_go_pos_robot_goal:  # 字典为空时返回
+                return jsonify({
+                    "code": 200,
+                    "message": "目标已清空，操作完成",
+                    "cur_pos": [6.1, 6.2, 6.3]
+                }), 200
+            # 模拟等待（实际场景中可能是其他异步操作）
+            time.sleep(1)
+            attempt += 1
+        return jsonify({
+            "code": 408,
+            "message": "请稍后使用place_result接口查询",
+        }), 408
+
+    except Exception as e:
+        return jsonify({"code": 400, "message": f"arm move fail  {e}"}), 400
 
 # ================= 定期打印状态线程 =================
 def print_status():

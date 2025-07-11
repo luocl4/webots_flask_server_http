@@ -5,7 +5,7 @@ import requests
 import math
 import sys
 import os
-from controller import Robot, Motor, PositionSensor, Supervisor, VacuumGripper
+from controller import Robot, Motor, PositionSensor, Supervisor, VacuumGripper ,TouchSensor
 from pathlib import Path
 import numpy as np
 
@@ -647,6 +647,7 @@ supervisor = Supervisor()
 # 获取当前世界的仿真步长
 timestep = int(robot.getBasicTimeStep())
 vacuum = robot.getDevice("right_gripper_vacuum")
+
 # --- 辅助函数 ---
 
 def get_motors_and_sensors(names_list):
@@ -797,19 +798,19 @@ def run_arm_sequence(goal_arm):
     # 1. 移动右臂到初始姿态并打开右夹爪
     if goal_arm == "left" or goal_arm == "both":
         print("步骤1: 移动zuo臂到初始姿态并打开夹爪")
-        set_arm_joint_positions_with_feedback(
-            left_arm_motors, left_arm_sensors, initial_left_arm_pose,
-            tolerance=0.02, max_steps=8
-        )
+        # set_arm_joint_positions_with_feedback(
+        #     left_arm_motors, left_arm_sensors, initial_left_arm_pose,
+        #     tolerance=0.02, max_steps=8
+        # )
         set_gripper_position(left_gripper_motors, OPEN_GRIPPER_POS)
         robot.step(MOVE_DURATION_STEPS)
         # time.sleep(1)
     if goal_arm == "right" or goal_arm == "both":
         print("步骤1: 移动右臂到初始姿态并打开夹爪")
-        set_arm_joint_positions_with_feedback(
-            right_arm_motors, right_arm_sensors, initial_right_arm_pose,
-            tolerance=0.02, max_steps=8
-        )
+        # set_arm_joint_positions_with_feedback(
+        #     right_arm_motors, right_arm_sensors, initial_right_arm_pose,
+        #     tolerance=0.02, max_steps=8
+        # )
         set_gripper_position(right_gripper_motors, OPEN_GRIPPER_POS)
         robot.step(MOVE_DURATION_STEPS)
         # time.sleep(1)
@@ -915,22 +916,22 @@ def run_arm_sequence(goal_arm):
 def run_arm_pick(goal_arm):
     # print("\n--- 开始UrdfArm右臂抓取放置任务 ---")
 
-    # 1. 移动右臂到初始姿态并打开右夹爪
+    # # 1. 移动右臂到初始姿态并打开右夹爪
     if goal_arm == "left" or goal_arm == "both":
         print("步骤1: 移动zuo臂到初始姿态并打开夹爪")
-        set_arm_joint_positions_with_feedback(
-            left_arm_motors, left_arm_sensors, initial_left_arm_pose,
-            tolerance=0.02, max_steps=8
-        )
+        # set_arm_joint_positions_with_feedback(
+        #     left_arm_motors, left_arm_sensors, initial_left_arm_pose,
+        #     tolerance=0.02, max_steps=8
+        # )
         set_gripper_position(left_gripper_motors, OPEN_GRIPPER_POS)
         robot.step(MOVE_DURATION_STEPS)
         # time.sleep(1)
     if goal_arm == "right" or goal_arm == "both":
         print("步骤1: 移动右臂到初始姿态并打开夹爪")
-        set_arm_joint_positions_with_feedback(
-            right_arm_motors, right_arm_sensors, initial_right_arm_pose,
-            tolerance=0.02, max_steps=8
-        )
+        # set_arm_joint_positions_with_feedback(
+        #     right_arm_motors, right_arm_sensors, initial_right_arm_pose,
+        #     tolerance=0.02, max_steps=8
+        # )
         set_gripper_position(right_gripper_motors, OPEN_GRIPPER_POS)
         robot.step(MOVE_DURATION_STEPS)
         # time.sleep(1)
@@ -963,7 +964,7 @@ def run_arm_pick(goal_arm):
             tolerance=0.02, max_steps=80
         )
         # time.sleep(10)
-        robot.step(7*MOVE_DURATION_STEPS)
+        # robot.step(7*MOVE_DURATION_STEPS)
     if goal_arm == "right" or goal_arm == "both":
         print("步骤3: 移动右臂到抓取姿态（靠近物体）")
         set_arm_joint_positions_with_feedback(
@@ -971,7 +972,7 @@ def run_arm_pick(goal_arm):
             tolerance=0.02, max_steps=80
         )
         # time.sleep(10)
-        robot.step(7*MOVE_DURATION_STEPS)
+        # robot.step(7*MOVE_DURATION_STEPS)
 
     # 4. 夹紧物体
     print("步骤4: 关闭右夹爪抓取物体")
@@ -1282,6 +1283,25 @@ def get_place_result(goal_arm="both"):
     else:
         return check_arm(goal_arm)
 
+def arm_to_go(goal_arm="both"):
+    if goal_arm == "left" or goal_arm == "both":
+        print("步骤6: 移动zuo臂到放置姿态（目标位置）")
+        # move_robot_linear(dx=-0.5, dy=0.0, dz=0.0)
+        robot.step(MOVE_DURATION_STEPS)  # 等待一步让仿真更新
+        set_arm_joint_positions_with_feedback(
+            left_arm_motors, left_arm_sensors, place_left_arm_pose,
+            tolerance=0.02, max_steps=80
+        )
+        print("left arm move end")
+    if goal_arm == "right" or goal_arm == "both":
+        print("步骤6: 移动右臂到放置姿态（目标位置）")
+        # move_robot_linear(dx=-0.5, dy=0.0, dz=0.0)
+        robot.step(MOVE_DURATION_STEPS)  # 等待一步让仿真更新
+        set_arm_joint_positions_with_feedback(
+            right_arm_motors, right_arm_sensors, place_right_arm_pose,
+            tolerance=0.02, max_steps=80
+        )
+        print("right arm move end")
 
 # --- 定义机械臂、夹爪和头部关节名称 ---
 # 根据 Webots 控制台输出的实际设备名称进行定义
@@ -1313,7 +1333,7 @@ right_arm_joint_names = [
     "zarm_r3_joint",
     "zarm_r4_joint",
     "zarm_r5_joint",
-    # "right_intermediate_joint"
+    "right_intermediate_joint"
 ]
 
 # 右夹爪关节 - 主要控制对象
@@ -1344,24 +1364,24 @@ print("Device initialization complete.")
 # --- 硬编码关节目标位置 ---
 # 所有角度单位为弧度，需根据实际仿真环境调试
 
-initial_left_arm_pose = [0.0, 0.0, 0.0, 0.0,0.0]  # 初始垂直姿态
-pre_grasp_left_arm_pose = [0,0,0,0,0] #准备位置 xyz:[0.2374993  ,-0.33825069 , 0.22093117]     RPY:[-3.02456926, -0.00675474,  0.09522905]
-pre_grasp_left_arm_pose_2 = [0,0,0,0,0]
-grasp_left_arm_pose = [0,0,0,0,0]  # xyz[0.2374993  ,-0.33825069 , 0.10093117]
-pre_place_left_arm_pose = [0,0,0,0,0]                # 放置前预备姿态 xyz[0.2374993  ,-0.38825069 , 0.20093117] 
-place_left_arm_pose = [ 0.0, -0.8, 0.0, 0.0,0.0]                    # 放置姿态 xyz[0.24993  ,-0.38825069 , 0.13093117]
+initial_left_arm_pose = [0.0, 0.0, 0.0, 0.0,0.0,0.0]  # 初始垂直姿态
+pre_grasp_left_arm_pose = [0,0,0,0,0,0] #准备位置 xyz:[0.2374993  ,-0.33825069 , 0.22093117]     RPY:[-3.02456926, -0.00675474,  0.09522905]
+pre_grasp_left_arm_pose_2 = [0,0,0,0,0,0]
+grasp_left_arm_pose = [0,0,0,0,0,0]  # xyz[0.2374993  ,-0.33825069 , 0.10093117]
+pre_place_left_arm_pose = [0,0,0,0,0,0]                # 放置前预备姿态 xyz[0.2374993  ,-0.38825069 , 0.20093117] 
+place_left_arm_pose = [ 0.0, -0.8, 0.0, 0.0,0.0,0]                    # 放置姿态 xyz[0.24993  ,-0.38825069 , 0.13093117]
 
-initial_right_arm_pose = [0.0, 0.0, 0.0, 0.0,0.0]  # 初始垂直姿态
-pre_grasp_right_arm_pose = [-1.97400184e+00,  8.07771850e-02 ,0 , 1.83056540e+00 , 6.98207363e-02] #准备位置 xyz:[0.2374993  ,-0.33825069 , 0.22093117]     RPY:[-3.02456926, -0.00675474,  0.09522905]
-pre_grasp_right_arm_pose_2 = [-1.97400184e+00,  8.07771850e-02 ,0 , 1.83056540e+00 , 6.98207363e-02]
-grasp_right_arm_pose = [-1.7, -4.55066382e-02 , 1.69054925e-01 , 1.47089804e+00  ,4.53473656e-02]  # xyz[0.2374993  ,-0.33825069 , 0.10093117]
-pre_place_right_arm_pose = [-2.3,  8.07771850e-02 ,0 , 1.83056540e+00 , 6.98207363e-02]                # 放置前预备姿态 xyz[0.2374993  ,-0.38825069 , 0.20093117] 
-place_right_arm_pose = [ 0.0, -0.8, 0.0, 0.0,0.0]                    # 放置姿态 xyz[0.24993  ,-0.38825069 , 0.13093117]
+initial_right_arm_pose = [0.0, 0.0, 0.0, 0.0,0.0,0]  # 初始垂直姿态
+pre_grasp_right_arm_pose = [-1.97400184e+00,  8.07771850e-02 ,0 , 1.83056540e+00 , 6.98207363e-02,0] #准备位置 xyz:[0.2374993  ,-0.33825069 , 0.22093117]     RPY:[-3.02456926, -0.00675474,  0.09522905]
+pre_grasp_right_arm_pose_2 = [-1.97400184e+00,  8.07771850e-02 ,0 , 1.83056540e+00 , 6.98207363e-02,0]
+grasp_right_arm_pose = [-1.7, -4.55066382e-02 , 1.69054925e-01 , 1.47089804e+00  ,4.53473656e-02,0]  # xyz[0.2374993  ,-0.33825069 , 0.10093117]
+pre_place_right_arm_pose = [-2.3,  8.07771850e-02 ,0 , 1.83056540e+00 , 6.98207363e-02,0]                # 放置前预备姿态 xyz[0.2374993  ,-0.38825069 , 0.20093117] 
+place_right_arm_pose = [ 0.0, -0.8, 0.0, 0.0,0.0,0]                    # 放置姿态 xyz[0.24993  ,-0.38825069 , 0.13093117]
 
 
 # 右夹爪控制值 - 需根据夹爪模型调试
 OPEN_GRIPPER_POS = [-0.7,0.7,-0.7,-0.7,0.7,0.7]  # 夹爪完全打开位置
-CLOSE_GRIPPER_POS = [0.3,-0.3,0.3,0.3,-0.3,-0.3]  # 夹爪夹紧位置
+CLOSE_GRIPPER_POS = [0.2,-0.2,0.2,0.2,-0.2,-0.2]  # 夹爪夹紧位置
 INIT_GRIPPER_POS = [0,0,0,0,0,0]
 
 # 运动时间步长
@@ -1377,9 +1397,15 @@ current_step_index = 0
 goal_received = False
 last_goal_timestamp = None  # 添加时间戳跟踪
 rotation_test_done = False  # 用于标记旋转测试是否已完成
-
+touch_sensor = robot.getDevice("right_suction_touch_sensor")
+touch_sensor.enable(timestep)
 while robot.step(timestep) != -1:
     try:        
+        touchValues = touch_sensor.getValue()  # 返回标量值，适用于默认类型        
+        if touchValues > 0:
+            print("Robot is touching an object.")
+        else: 
+            print("no touch")
         response = requests.get(WEB_SERVER_URL)
         # print(response)
         if response.status_code == 200:
@@ -1509,14 +1535,21 @@ while robot.step(timestep) != -1:
                 l_hand_rpy = np.array(command_data.get('left_angle'))
                 r_hand_rpy = np.array(command_data.get('right_angle'))
             
+                if goal_arm == "left":
+                    r_hand_pose = [0.0  ,-0.0 , 0.0]
+                    r_hand_rpy = [3.14, 0, 0]
+                elif goal_arm == "right":
+                    l_hand_pose = [0.0  ,0.0 , 0.0]
+                    l_hand_rpy = [-3.14, -0.00675474,  0.09522905]
+
                 print("l_hand_pose:",l_hand_pose)
                 print("r_hand_pose:",r_hand_pose)
                 sol_q = arm_ik.computeIK(q0, l_hand_pose, r_hand_pose, l_hand_rpy,r_hand_rpy)
                 print("sol_q22222222222222:",sol_q)
                 if goal_arm == "left" or goal_arm == "both":
-                    grasp_left_arm_pose = sol_q[7:12]
+                    grasp_left_arm_pose = sol_q[7:13]
                 if goal_arm == "right" or goal_arm == "both":
-                    grasp_right_arm_pose = sol_q[18:23]
+                    grasp_right_arm_pose = sol_q[19:25]
                 # grasp_right_arm_pose = [-1.7, -4.55066382e-02 , 1.69054925e-01 , 1.47089804e+00  ,4.53473656e-02]        
                 print("grasp_left_arm_pose:",grasp_left_arm_pose)
                 print("grasp_right_arm_pose:",grasp_right_arm_pose)
@@ -1540,6 +1573,7 @@ while robot.step(timestep) != -1:
                 run_arm_sequence(goal_arm)
             elif source == "robot_pick":
                 goal_arm = command_data.get('goal_arm')
+                goal_arm
                 # 初始化双臂规划器
                 planner = ArmIk(
                     model_file="../../../Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf"
@@ -1571,6 +1605,13 @@ while robot.step(timestep) != -1:
                 l_hand_rpy = np.array(command_data.get('left_angle'))
                 r_hand_rpy = np.array(command_data.get('right_angle'))
             
+                if goal_arm == "left":
+                    r_hand_pose = [0.0  ,-0.0 , 0.0]
+                    r_hand_rpy = [3.14, 0, 0]
+                elif goal_arm == "right":
+                    l_hand_pose = [0.0  ,0.0 , 0.0]
+                    l_hand_rpy = [-3.14, -0.00675474,  0.09522905]
+
                 print("l_hand_pose:",l_hand_pose)
                 print("r_hand_pose:",r_hand_pose)
                 sol_q = arm_ik.computeIK(q0, l_hand_pose, r_hand_pose, l_hand_rpy,r_hand_rpy)
@@ -1582,9 +1623,9 @@ while robot.step(timestep) != -1:
                     }
                 else:
                     if goal_arm == "left" or goal_arm == "both":
-                        grasp_left_arm_pose = sol_q[7:12]
+                        grasp_left_arm_pose = sol_q[7:13]
                     if goal_arm == "right" or goal_arm == "both":
-                        grasp_right_arm_pose = sol_q[18:23]
+                        grasp_right_arm_pose = sol_q[19:25]
                     # grasp_right_arm_pose = [-1.7, -4.55066382e-02 , 1.69054925e-01 , 1.47089804e+00  ,4.53473656e-02]        
                     print("grasp_left_arm_pose:",grasp_left_arm_pose)
                     print("grasp_right_arm_pose:",grasp_right_arm_pose)
@@ -1663,6 +1704,14 @@ while robot.step(timestep) != -1:
                 r_hand_pose = np.array(command_data.get('right_goal_pos'))
                 l_hand_rpy = np.array(command_data.get('left_angle'))
                 r_hand_rpy = np.array(command_data.get('right_angle'))
+
+                if goal_arm == "left":
+                    r_hand_pose = [0.0  ,0.0 , 0.0]
+                    r_hand_rpy = [3.14, 0, 0]
+                elif goal_arm == "right":
+                    l_hand_pose = [0.0  ,0.0 , 0.0]
+                    l_hand_rpy = [-3.14, -0.00675474,  0.09522905]
+
                 print("l_hand_pose:",l_hand_pose)
                 print("r_hand_pose:",r_hand_pose)
                 sol_q = arm_ik.computeIK(q0, l_hand_pose, r_hand_pose, l_hand_rpy,r_hand_rpy)
@@ -1674,9 +1723,9 @@ while robot.step(timestep) != -1:
                     }
                 else:
                     if goal_arm == "left" or goal_arm == "both":
-                        place_left_arm_pose = sol_q[7:12]
+                        place_left_arm_pose = sol_q[7:13]
                     if goal_arm == "right" or goal_arm == "both":
-                        place_right_arm_pose = sol_q[18:23]
+                        place_right_arm_pose = sol_q[19:25]
                     print("place_left_arm_pose:",place_left_arm_pose)
                     print("place_right_arm_pose:",place_right_arm_pose)
                     # 这里添加你的控制逻辑
@@ -1686,6 +1735,56 @@ while robot.step(timestep) != -1:
                         "status": "success",
                         "task":"place",
                         "res":res
+                    }
+                send_robot_status(current_robot_position, status_info)
+            elif source == "arm_go_pos":
+                goal_arm = command_data.get('goal_arm')
+
+                # 初始化双臂规划器
+                planner = ArmIk(
+                    model_file="../../../Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf"
+                )
+                # 创建机器人运动学控制器实例，bu启用可视化
+                arm_ik = ArmIk(visualize=False)
+                
+                # 获取初始关节角度
+                q0 = arm_ik.get_init_q()
+                # 3.移动并放置
+                l_hand_pose = np.array(command_data.get('left_goal_pos'))
+                r_hand_pose = np.array(command_data.get('right_goal_pos'))
+                l_hand_rpy = np.array(command_data.get('left_angle'))
+                r_hand_rpy = np.array(command_data.get('right_angle'))
+
+                if goal_arm == "left":
+                    r_hand_pose = [0.0  ,0.0 , 0.0]
+                    r_hand_rpy = [3.14, 0, 0]
+                elif goal_arm == "right":
+                    l_hand_pose = [0.0  ,0.0 , 0.0]
+                    l_hand_rpy = [-3.14, -0.00675474,  0.09522905]
+
+                print("l_hand_pose:",l_hand_pose)
+                print("r_hand_pose:",r_hand_pose)
+                sol_q = arm_ik.computeIK(q0, l_hand_pose, r_hand_pose, l_hand_rpy,r_hand_rpy)
+                print("sol_q33333333333333:",sol_q)
+                if sol_q is None:
+                    status_info = {
+                        "status": "fail",
+                        "task":"arm_to_go",
+                    }
+                else:
+                    if goal_arm == "left" or goal_arm == "both":
+                        place_left_arm_pose = sol_q[7:13]
+                    if goal_arm == "right" or goal_arm == "both":
+                        place_right_arm_pose = sol_q[19:25]
+                    print("place_left_arm_pose:",place_left_arm_pose)
+                    print("place_right_arm_pose:",place_right_arm_pose)
+                    # 这里添加你的控制逻辑
+                    arm_to_go(goal_arm)
+                    # res = True
+                    status_info = {
+                        "status": "success",
+                        "task":"arm_to_go",
+                        "res":True
                     }
                 send_robot_status(current_robot_position, status_info)
     except requests.exceptions.ConnectionError:

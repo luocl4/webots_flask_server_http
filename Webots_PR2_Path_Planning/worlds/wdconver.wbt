@@ -13,6 +13,7 @@ EXTERNPROTO "../protos/urdf_arm_mix/urdf_arm.proto"
 EXTERNPROTO "../protos/BipedS48.proto"
 
 WorldInfo {
+  basicTimeStep 16
   contactProperties [
     ContactProperties {
       maxContactJoints 100
@@ -248,7 +249,7 @@ DEF cardboard_box(3) CardboardBox {
   description "None//可以抓取放置的物体//黄色//grab_left/grab_right/grab_left_right/place_left/place_right/place_left_right//None//2"
 }
 DEF cardboard_box(4) CardboardBox {
-  translation -1.08 -1.1 0.924882
+  translation -1.011 -0.539028 0.92455
   name "cardboard_box(4)"
   size 0.05 0.05 0.05
   mass 1

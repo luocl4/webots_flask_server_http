@@ -70,7 +70,7 @@ class ArmIk:
         solver_tol=1.0e-2,
         ori_cost_weight=10,
         ori_vector_tol=30,
-        ori_constraint_tol=0.15,
+        ori_constraint_tol=0.5,
         torso_tol=1.0e-6,
         torso_ori_tol=1.0e-6,
         iterations_limit=300,
@@ -78,7 +78,7 @@ class ArmIk:
         torso_xy_bound=0.1,
         geometry_distance_min=0.005,
         geometry_distance_max=100,
-        eef_z_bias=0,
+        eef_z_bias=-0.11,
         use_custom_eef=True,
         box_rpy=[0, 0, 0],
         box_pos=[0, 0, 0],
@@ -687,7 +687,7 @@ class ArmIk:
             torso_z: 躯干z轴位置(米)
         """
         self.__torso_yaw_rad = torso_yaw
-        self.__init_q = np.zeros(44)  # 机器人所有关节数为40
+        self.__init_q = np.zeros(46)  # 机器人所有关节数为40
         self.__init_q[0] = 1.0
           
     def get_arm_length(self):

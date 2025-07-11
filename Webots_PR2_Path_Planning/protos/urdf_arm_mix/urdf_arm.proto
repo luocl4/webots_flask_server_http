@@ -2,7 +2,7 @@
 # license: Apache License 2.0
 # license url: http://www.apache.org/licenses/LICENSE-2.0
 # This is a proto file for Webots for the urdf_arm
-# Extracted from: /home/rebot801/Wangwei/develop/webots_flask_server_http/Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf
+# Extracted from: /home/luocl/Desktop/webots_flask_server_http/Webots_PR2_Path_Planning/protos/urdf_arm_mix/urdf/urdf_arm_mix.urdf
 
 PROTO urdf_arm [
   field  SFVec3f     translation     0 0 0
@@ -149,288 +149,334 @@ PROTO urdf_arm [
                                     DEF l_hand_yaw_visual CadShape {
                                       url "meshes_obj/l_hand_yaw.obj"
                                     }
-                                    Solid {
-                                      translation 0.000000 0.000000 -0.100000
-                                      rotation 1.000000 0.000000 0.000000 3.140000
-                                      children [
-                                        DEF robotiq_85_base_link_fine_visual CadShape {
-                                          url "meshes_obj/robotiq_85_base_link_fine.obj"
+                                    HingeJoint {
+                                      jointParameters HingeJointParameters {
+                                        anchor 0.000000 0.000000 -0.100000
+                                        dampingConstant 0.1
+                                        staticFriction 0.05
+                                      }
+                                      device [
+                                        RotationalMotor {
+                                          name "left_intermediate_joint"
+                                          maxVelocity 5.0
+                                          minPosition -1.57
+                                          maxPosition 1.57
+                                          maxTorque 10.0
                                         }
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            axis 0.000000 -1.000000 0.000000
-                                            anchor 0.030601 0.000000 0.062792
-                                          }
-                                          device [
-                                            RotationalMotor {
-                                              name "left_gripper_finger_joint"
-                                              maxVelocity 2.0
-                                              minPosition -0.7
-                                              maxPosition 0.7
-                                              maxTorque 1000.0
-                                            }
-                                            PositionSensor {
-                                              name "left_gripper_finger_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint Solid {
-                                            translation 0.030601 0.000000 0.062792
-                                            children [
-                                              DEF outer_knuckle_fine_visual CadShape {
-                                                url "meshes_obj/outer_knuckle_fine.obj"
-                                              }
-                                              Solid {
-                                                translation 0.031691 0.000000 -0.001934
-                                                children [
-                                                  DEF outer_finger_fine_visual CadShape {
-                                                    url "meshes_obj/outer_finger_fine.obj"
-                                                  }
-                                                ]
-                                                name "left_gripper_left_outer_finger"
-                                                boundingObject DEF outer_finger_coarse Mesh {
-                                                  url "meshes_obj/outer_finger_coarse.obj"
-                                                }
-                                                physics Physics {
-                                                  density -1
-                                                  mass 0.027309
-                                                  centerOfMass [ 0.001315 0.000000 0.021540 ]
-                                                  inertiaMatrix [
-                                                    8.516296e-06 6.913333e-06 2.250068e-06
-                                                    2.581743e-19 3.838295e-07 -7.585899e-19
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                            name "left_gripper_left_outer_knuckle"
-                                            boundingObject DEF outer_knuckle_coarse Mesh {
-                                              url "meshes_obj/outer_knuckle_coarse.obj"
-                                            }
-                                            physics Physics {
-                                              density -1
-                                              mass 0.006848
-                                              centerOfMass [ 0.017833 0.000000 0.002144 ]
-                                              inertiaMatrix [
-                                                2.668320e-07 1.388923e-06 1.266033e-06
-                                                1.661423e-15 1.459456e-07 2.829512e-15
-                                              ]
-                                            }
-                                          }
+                                        PositionSensor {
+                                          name "left_intermediate_joint_sensor"
                                         }
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            axis 0.000000 -1.000000 0.000000
-                                            anchor 0.012700 0.000000 0.069307
+                                      ]
+                                      endPoint Solid {
+                                        translation 0.000000 0.000000 -0.100000
+                                        children [
+                                          Shape {
+                                            appearance DEF left_intermediate_link_material PBRAppearance {
+                                              baseColor 0.500000 0.500000 1.000000
+                                              roughness 1.000000
+                                              metalness 0
+                                            }
+                                            geometry Box {
+                                               size 0.050000 0.050000 0.020000
+                                            }
                                           }
-                                          device [
-                                            RotationalMotor {
-                                              name "left_gripper_left_inner_knuckle_joint"
-                                              maxVelocity 2.0
-                                              minPosition -1.0
-                                              maxPosition 0.8757
-                                              maxTorque 1000.0
-                                            }
-                                            PositionSensor {
-                                              name "left_gripper_left_inner_knuckle_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint Solid {
-                                            translation 0.012700 0.000000 0.069307
+                                          Solid {
+                                            rotation 1.000000 0.000000 0.000000 3.140000
                                             children [
-                                              DEF inner_knuckle_fine_visual CadShape {
-                                                url "meshes_obj/inner_knuckle_fine.obj"
+                                              DEF robotiq_85_base_link_fine_visual CadShape {
+                                                url "meshes_obj/robotiq_85_base_link_fine.obj"
                                               }
                                               HingeJoint {
                                                 jointParameters HingeJointParameters {
                                                   axis 0.000000 -1.000000 0.000000
-                                                  anchor 0.034585 0.000000 0.045497
+                                                  anchor 0.030601 0.000000 0.062792
                                                 }
                                                 device [
                                                   RotationalMotor {
-                                                    name "left_gripper_left_inner_finger_joint"
+                                                    name "left_gripper_finger_joint"
                                                     maxVelocity 2.0
-                                                    minPosition -1.0
-                                                    maxPosition 0.8757
+                                                    minPosition -0.7
+                                                    maxPosition 0.7
                                                     maxTorque 1000.0
                                                   }
                                                   PositionSensor {
-                                                    name "left_gripper_left_inner_finger_joint_sensor"
+                                                    name "left_gripper_finger_joint_sensor"
                                                   }
                                                 ]
                                                 endPoint Solid {
-                                                  translation 0.034585 0.000000 0.045497
+                                                  translation 0.030601 0.000000 0.062792
                                                   children [
-                                                    DEF inner_finger_fine_visual CadShape {
-                                                      url "meshes_obj/inner_finger_fine.obj"
+                                                    DEF outer_knuckle_fine_visual CadShape {
+                                                      url "meshes_obj/outer_knuckle_fine.obj"
+                                                    }
+                                                    Solid {
+                                                      translation 0.031691 0.000000 -0.001934
+                                                      children [
+                                                        DEF outer_finger_fine_visual CadShape {
+                                                          url "meshes_obj/outer_finger_fine.obj"
+                                                        }
+                                                      ]
+                                                      name "left_gripper_left_outer_finger"
+                                                      boundingObject DEF outer_finger_coarse Mesh {
+                                                        url "meshes_obj/outer_finger_coarse.obj"
+                                                      }
+                                                      physics Physics {
+                                                        density -1
+                                                        mass 0.027309
+                                                        centerOfMass [ 0.001315 0.000000 0.021540 ]
+                                                        inertiaMatrix [
+                                                          8.516296e-06 6.913333e-06 2.250068e-06
+                                                          2.581743e-19 3.838295e-07 -7.585899e-19
+                                                        ]
+                                                      }
                                                     }
                                                   ]
-                                                  name "left_gripper_left_inner_finger"
-                                                  boundingObject DEF inner_finger_coarse Mesh {
-                                                    url "meshes_obj/inner_finger_coarse.obj"
+                                                  name "left_gripper_left_outer_knuckle"
+                                                  boundingObject DEF outer_knuckle_coarse Mesh {
+                                                    url "meshes_obj/outer_knuckle_coarse.obj"
                                                   }
                                                   physics Physics {
                                                     density -1
-                                                    mass 0.007243
-                                                    centerOfMass [ 0.006028 -0.000000 0.006699 ]
+                                                    mass 0.006848
+                                                    centerOfMass [ 0.017833 0.000000 0.002144 ]
                                                     inertiaMatrix [
-                                                      1.478243e-06 1.700645e-06 4.771513e-07
-                                                      -3.948845e-19 -3.452688e-07 3.505984e-19
+                                                      2.668320e-07 1.388923e-06 1.266033e-06
+                                                      1.661423e-15 1.459456e-07 2.829512e-15
                                                     ]
                                                   }
                                                 }
                                               }
-                                            ]
-                                            name "left_gripper_left_inner_knuckle"
-                                            boundingObject DEF inner_knuckle_coarse Mesh {
-                                              url "meshes_obj/inner_knuckle_coarse.obj"
-                                            }
-                                            physics Physics {
-                                              density -1
-                                              mass 0.011093
-                                              centerOfMass [ 0.017098 -0.000000 0.022492 ]
-                                              inertiaMatrix [
-                                                4.233928e-06 3.965488e-06 3.240680e-06
-                                                5.748979e-15 1.788557e-06 1.054647e-14
-                                              ]
-                                            }
-                                          }
-                                        }
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            axis -0.000000 -1.000000 0.000000
-                                            anchor -0.012700 0.000000 0.069308
-                                          }
-                                          device [
-                                            RotationalMotor {
-                                              name "left_gripper_right_inner_knuckle_joint"
-                                              maxVelocity 2.0
-                                              minPosition -1.0
-                                              maxPosition 0.8757
-                                              maxTorque 1000.0
-                                            }
-                                            PositionSensor {
-                                              name "left_gripper_right_inner_knuckle_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint Solid {
-                                            translation -0.012700 0.000000 0.069308
-                                            rotation 0.000000 0.000000 1.000000 3.141593
-                                            children [
-                                              USE inner_knuckle_fine_visual
                                               HingeJoint {
                                                 jointParameters HingeJointParameters {
-                                                  axis 0.000000 1.000000 0.000000
-                                                  anchor 0.034106 0.000000 0.045857
+                                                  axis 0.000000 -1.000000 0.000000
+                                                  anchor 0.012700 0.000000 0.069307
                                                 }
                                                 device [
                                                   RotationalMotor {
-                                                    name "left_gripper_right_inner_finger_joint"
+                                                    name "left_gripper_left_inner_knuckle_joint"
                                                     maxVelocity 2.0
                                                     minPosition -1.0
                                                     maxPosition 0.8757
                                                     maxTorque 1000.0
                                                   }
                                                   PositionSensor {
-                                                    name "left_gripper_right_inner_finger_joint_sensor"
+                                                    name "left_gripper_left_inner_knuckle_joint_sensor"
                                                   }
                                                 ]
                                                 endPoint Solid {
-                                                  translation 0.034106 0.000000 0.045857
+                                                  translation 0.012700 0.000000 0.069307
                                                   children [
-                                                    USE inner_finger_fine_visual
+                                                    DEF inner_knuckle_fine_visual CadShape {
+                                                      url "meshes_obj/inner_knuckle_fine.obj"
+                                                    }
+                                                    HingeJoint {
+                                                      jointParameters HingeJointParameters {
+                                                        axis 0.000000 -1.000000 0.000000
+                                                        anchor 0.034585 0.000000 0.045497
+                                                      }
+                                                      device [
+                                                        RotationalMotor {
+                                                          name "left_gripper_left_inner_finger_joint"
+                                                          maxVelocity 2.0
+                                                          minPosition -1.0
+                                                          maxPosition 0.8757
+                                                          maxTorque 1000.0
+                                                        }
+                                                        PositionSensor {
+                                                          name "left_gripper_left_inner_finger_joint_sensor"
+                                                        }
+                                                      ]
+                                                      endPoint Solid {
+                                                        translation 0.034585 0.000000 0.045497
+                                                        children [
+                                                          DEF inner_finger_fine_visual CadShape {
+                                                            url "meshes_obj/inner_finger_fine.obj"
+                                                          }
+                                                        ]
+                                                        name "left_gripper_left_inner_finger"
+                                                        boundingObject DEF inner_finger_coarse Mesh {
+                                                          url "meshes_obj/inner_finger_coarse.obj"
+                                                        }
+                                                        physics Physics {
+                                                          density -1
+                                                          mass 0.007243
+                                                          centerOfMass [ 0.006028 -0.000000 0.006699 ]
+                                                          inertiaMatrix [
+                                                            1.478243e-06 1.700645e-06 4.771513e-07
+                                                            -3.948845e-19 -3.452688e-07 3.505984e-19
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
                                                   ]
-                                                  name "left_gripper_right_inner_finger"
-                                                  boundingObject USE inner_finger_coarse
+                                                  name "left_gripper_left_inner_knuckle"
+                                                  boundingObject DEF inner_knuckle_coarse Mesh {
+                                                    url "meshes_obj/inner_knuckle_coarse.obj"
+                                                  }
                                                   physics Physics {
                                                     density -1
-                                                    mass 0.007243
-                                                    centerOfMass [ 0.006028 -0.000000 0.006699 ]
+                                                    mass 0.011093
+                                                    centerOfMass [ 0.017098 -0.000000 0.022492 ]
                                                     inertiaMatrix [
-                                                      1.478243e-06 1.700645e-06 4.771512e-07
-                                                      -3.959521e-19 -3.452687e-07 3.552865e-19
+                                                      4.233928e-06 3.965488e-06 3.240680e-06
+                                                      5.748979e-15 1.788557e-06 1.054647e-14
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                              HingeJoint {
+                                                jointParameters HingeJointParameters {
+                                                  axis -0.000000 -1.000000 0.000000
+                                                  anchor -0.012700 0.000000 0.069308
+                                                }
+                                                device [
+                                                  RotationalMotor {
+                                                    name "left_gripper_right_inner_knuckle_joint"
+                                                    maxVelocity 2.0
+                                                    minPosition -1.0
+                                                    maxPosition 0.8757
+                                                    maxTorque 1000.0
+                                                  }
+                                                  PositionSensor {
+                                                    name "left_gripper_right_inner_knuckle_joint_sensor"
+                                                  }
+                                                ]
+                                                endPoint Solid {
+                                                  translation -0.012700 0.000000 0.069308
+                                                  rotation 0.000000 0.000000 1.000000 3.141593
+                                                  children [
+                                                    USE inner_knuckle_fine_visual
+                                                    HingeJoint {
+                                                      jointParameters HingeJointParameters {
+                                                        axis 0.000000 1.000000 0.000000
+                                                        anchor 0.034106 0.000000 0.045857
+                                                      }
+                                                      device [
+                                                        RotationalMotor {
+                                                          name "left_gripper_right_inner_finger_joint"
+                                                          maxVelocity 2.0
+                                                          minPosition -1.0
+                                                          maxPosition 0.8757
+                                                          maxTorque 1000.0
+                                                        }
+                                                        PositionSensor {
+                                                          name "left_gripper_right_inner_finger_joint_sensor"
+                                                        }
+                                                      ]
+                                                      endPoint Solid {
+                                                        translation 0.034106 0.000000 0.045857
+                                                        children [
+                                                          USE inner_finger_fine_visual
+                                                        ]
+                                                        name "left_gripper_right_inner_finger"
+                                                        boundingObject USE inner_finger_coarse
+                                                        physics Physics {
+                                                          density -1
+                                                          mass 0.007243
+                                                          centerOfMass [ 0.006028 -0.000000 0.006699 ]
+                                                          inertiaMatrix [
+                                                            1.478243e-06 1.700645e-06 4.771512e-07
+                                                            -3.959521e-19 -3.452687e-07 3.552865e-19
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                  name "left_gripper_right_inner_knuckle"
+                                                  boundingObject USE inner_knuckle_coarse
+                                                  physics Physics {
+                                                    density -1
+                                                    mass 0.011093
+                                                    centerOfMass [ 0.016861 0.000000 0.022670 ]
+                                                    inertiaMatrix [
+                                                      4.271348e-06 3.965488e-06 3.203260e-06
+                                                      -8.535685e-15 1.777742e-06 -8.451080e-15
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                              HingeJoint {
+                                                jointParameters HingeJointParameters {
+                                                  axis -0.000000 -1.000000 0.000000
+                                                  anchor -0.030601 0.000000 0.062792
+                                                }
+                                                device [
+                                                  RotationalMotor {
+                                                    name "left_gripper_right_outer_knuckle_joint"
+                                                    maxVelocity 2.0
+                                                    minPosition -1.0
+                                                    maxPosition 0.8757
+                                                    maxTorque 1000.0
+                                                  }
+                                                  PositionSensor {
+                                                    name "left_gripper_right_outer_knuckle_joint_sensor"
+                                                  }
+                                                ]
+                                                endPoint Solid {
+                                                  translation -0.030601 0.000000 0.062792
+                                                  rotation 0.000000 0.000000 1.000000 3.141593
+                                                  children [
+                                                    USE outer_knuckle_fine_visual
+                                                    Solid {
+                                                      translation 0.031710 0.000000 -0.001601
+                                                      children [
+                                                        USE outer_finger_fine_visual
+                                                      ]
+                                                      name "left_gripper_right_outer_finger"
+                                                      boundingObject USE outer_finger_coarse
+                                                      physics Physics {
+                                                        density -1
+                                                        mass 0.027309
+                                                        centerOfMass [ 0.001088 -0.000000 0.021553 ]
+                                                        inertiaMatrix [
+                                                          8.523660e-06 6.913333e-06 2.242704e-06
+                                                          3.416834e-19 3.180037e-07 7.377267e-19
+                                                        ]
+                                                      }
+                                                    }
+                                                  ]
+                                                  name "left_gripper_right_outer_knuckle"
+                                                  boundingObject USE outer_knuckle_coarse
+                                                  physics Physics {
+                                                    density -1
+                                                    mass 0.006848
+                                                    centerOfMass [ 0.017810 0.000000 0.002331 ]
+                                                    inertiaMatrix [
+                                                      2.700044e-07 1.388923e-06 1.262861e-06
+                                                      1.595795e-15 1.563965e-07 2.823578e-15
                                                     ]
                                                   }
                                                 }
                                               }
                                             ]
-                                            name "left_gripper_right_inner_knuckle"
-                                            boundingObject USE inner_knuckle_coarse
+                                            name "left_gripper_robotiq_85_base_link"
+                                            boundingObject DEF robotiq_85_base_link_coarse Mesh {
+                                              url "meshes_obj/robotiq_85_base_link_coarse.obj"
+                                            }
                                             physics Physics {
                                               density -1
-                                              mass 0.011093
-                                              centerOfMass [ 0.016861 0.000000 0.022670 ]
+                                              mass 0.309150
+                                              centerOfMass [ 0.000220 -0.000000 0.030163 ]
                                               inertiaMatrix [
-                                                4.271348e-06 3.965488e-06 3.203260e-06
-                                                -8.535685e-15 1.777742e-06 -8.451080e-15
+                                                2.897200e-04 3.073700e-04 1.991400e-04
+                                                -5.787900e-10 -1.854300e-06 1.682000e-12
                                               ]
                                             }
                                           }
-                                        }
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            axis -0.000000 -1.000000 0.000000
-                                            anchor -0.030601 0.000000 0.062792
-                                          }
-                                          device [
-                                            RotationalMotor {
-                                              name "left_gripper_right_outer_knuckle_joint"
-                                              maxVelocity 2.0
-                                              minPosition -1.0
-                                              maxPosition 0.8757
-                                              maxTorque 1000.0
-                                            }
-                                            PositionSensor {
-                                              name "left_gripper_right_outer_knuckle_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint Solid {
-                                            translation -0.030601 0.000000 0.062792
-                                            rotation 0.000000 0.000000 1.000000 3.141593
-                                            children [
-                                              USE outer_knuckle_fine_visual
-                                              Solid {
-                                                translation 0.031710 0.000000 -0.001601
-                                                children [
-                                                  USE outer_finger_fine_visual
-                                                ]
-                                                name "left_gripper_right_outer_finger"
-                                                boundingObject USE outer_finger_coarse
-                                                physics Physics {
-                                                  density -1
-                                                  mass 0.027309
-                                                  centerOfMass [ 0.001088 -0.000000 0.021553 ]
-                                                  inertiaMatrix [
-                                                    8.523660e-06 6.913333e-06 2.242704e-06
-                                                    3.416834e-19 3.180037e-07 7.377267e-19
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                            name "left_gripper_right_outer_knuckle"
-                                            boundingObject USE outer_knuckle_coarse
-                                            physics Physics {
-                                              density -1
-                                              mass 0.006848
-                                              centerOfMass [ 0.017810 0.000000 0.002331 ]
-                                              inertiaMatrix [
-                                                2.700044e-07 1.388923e-06 1.262861e-06
-                                                1.595795e-15 1.563965e-07 2.823578e-15
-                                              ]
-                                            }
-                                          }
-                                        }
-                                      ]
-                                      name "left_gripper_robotiq_85_base_link"
-                                      boundingObject DEF robotiq_85_base_link_coarse Mesh {
-                                        url "meshes_obj/robotiq_85_base_link_coarse.obj"
-                                      }
-                                      physics Physics {
-                                        density -1
-                                        mass 0.309150
-                                        centerOfMass [ 0.000220 -0.000000 0.030163 ]
-                                        inertiaMatrix [
-                                          2.897200e-04 3.073700e-04 1.991400e-04
-                                          -5.787900e-10 -1.854300e-06 1.682000e-12
                                         ]
+                                        name "left_intermediate_link"
+                                        boundingObject Box {
+                                           size 0.050000 0.050000 0.020000
+                                        }
+                                        physics Physics {
+                                          density -1
+                                          mass 0.100000
+                                          centerOfMass [ 0.000000 0.000000 0.000000 ]
+                                          inertiaMatrix [
+                                            5.000000e-04 5.000000e-04 1.000000e-04
+                                            0.000000e+00 0.000000e+00 0.000000e+00
+                                          ]
+                                        }
                                       }
                                     }
                                   ]
@@ -616,296 +662,363 @@ PROTO urdf_arm [
                                     DEF r_hand_yaw_visual CadShape {
                                       url "meshes_obj/r_hand_yaw.obj"
                                     }
-                                    Solid {
-                                      translation 0.000000 0.000000 -0.100000
-                                      rotation 1.000000 0.000000 0.000000 3.140000
-                                      children [
-                                        USE robotiq_85_base_link_fine_visual
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            axis 0.000000 -1.000000 0.000000
-                                            anchor 0.030601 0.000000 0.062792
-                                          }
-                                          device [
-                                            RotationalMotor {
-                                              name "right_gripper_finger_joint"
-                                              maxVelocity 2.0
-                                              minPosition -1.0
-                                              maxPosition 1.0
-                                              maxTorque 1000.0
-                                            }
-                                            PositionSensor {
-                                              name "right_gripper_finger_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint Solid {
-                                            translation 0.030601 0.000000 0.062792
-                                            children [
-                                              USE outer_knuckle_fine_visual
-                                              Solid {
-                                                translation 0.031691 0.000000 -0.001934
-                                                children [
-                                                  USE outer_finger_fine_visual
-                                                ]
-                                                name "right_gripper_left_outer_finger"
-                                                boundingObject USE outer_finger_coarse
-                                                physics Physics {
-                                                  density -1
-                                                  mass 0.027309
-                                                  centerOfMass [ 0.001315 0.000000 0.021540 ]
-                                                  inertiaMatrix [
-                                                    8.516296e-06 6.913333e-06 2.250068e-06
-                                                    2.581743e-19 3.838295e-07 -7.585899e-19
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                            name "right_gripper_left_outer_knuckle"
-                                            boundingObject USE outer_knuckle_coarse
-                                            physics Physics {
-                                              density -1
-                                              mass 0.006848
-                                              centerOfMass [ 0.017833 0.000000 0.002144 ]
-                                              inertiaMatrix [
-                                                2.668320e-07 1.388923e-06 1.266033e-06
-                                                1.661423e-15 1.459456e-07 2.829512e-15
-                                              ]
-                                            }
-                                          }
+                                    HingeJoint {
+                                      jointParameters HingeJointParameters {
+                                        anchor 0.000000 0.000000 -0.100000
+                                        dampingConstant 0.1
+                                        staticFriction 0.05
+                                      }
+                                      device [
+                                        RotationalMotor {
+                                          name "right_intermediate_joint"
+                                          maxVelocity 5.0
+                                          minPosition -1.57
+                                          maxPosition 1.57
+                                          maxTorque 10.0
                                         }
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            axis 0.000000 -1.000000 0.000000
-                                            anchor 0.012700 0.000000 0.069307
+                                        PositionSensor {
+                                          name "right_intermediate_joint_sensor"
+                                        }
+                                      ]
+                                      endPoint Solid {
+                                        translation 0.000000 0.000000 -0.100000
+                                        children [
+                                          Shape {
+                                            appearance DEF right_intermediate_link_material PBRAppearance {
+                                              baseColor 0.500000 0.500000 1.000000
+                                              roughness 1.000000
+                                              metalness 0
+                                            }
+                                            geometry Box {
+                                               size 0.050000 0.050000 0.020000
+                                            }
                                           }
-                                          device [
-                                            RotationalMotor {
-                                              name "right_gripper_left_inner_knuckle_joint"
-                                              maxVelocity 2.0
-                                              minPosition -1.0
-                                              maxPosition 0.8757
-                                              maxTorque 1000.0
-                                            }
-                                            PositionSensor {
-                                              name "right_gripper_left_inner_knuckle_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint Solid {
-                                            translation 0.012700 0.000000 0.069307
+                                          Solid {
+                                            rotation 1.000000 0.000000 0.000000 3.140000
                                             children [
-                                              USE inner_knuckle_fine_visual
+                                              USE robotiq_85_base_link_fine_visual
                                               HingeJoint {
                                                 jointParameters HingeJointParameters {
                                                   axis 0.000000 -1.000000 0.000000
-                                                  anchor 0.034585 0.000000 0.045497
+                                                  anchor 0.030601 0.000000 0.062792
                                                 }
                                                 device [
                                                   RotationalMotor {
-                                                    name "right_gripper_left_inner_finger_joint"
+                                                    name "right_gripper_finger_joint"
                                                     maxVelocity 2.0
                                                     minPosition -1.0
-                                                    maxPosition 0.8757
+                                                    maxPosition 1.0
                                                     maxTorque 1000.0
                                                   }
                                                   PositionSensor {
-                                                    name "right_gripper_left_inner_finger_joint_sensor"
+                                                    name "right_gripper_finger_joint_sensor"
                                                   }
                                                 ]
                                                 endPoint Solid {
-                                                  translation 0.034585 0.000000 0.045497
+                                                  translation 0.030601 0.000000 0.062792
                                                   children [
-                                                    USE inner_finger_fine_visual
+                                                    USE outer_knuckle_fine_visual
+                                                    Solid {
+                                                      translation 0.031691 0.000000 -0.001934
+                                                      children [
+                                                        USE outer_finger_fine_visual
+                                                      ]
+                                                      name "right_gripper_left_outer_finger"
+                                                      boundingObject USE outer_finger_coarse
+                                                      physics Physics {
+                                                        density -1
+                                                        mass 0.027309
+                                                        centerOfMass [ 0.001315 0.000000 0.021540 ]
+                                                        inertiaMatrix [
+                                                          8.516296e-06 6.913333e-06 2.250068e-06
+                                                          2.581743e-19 3.838295e-07 -7.585899e-19
+                                                        ]
+                                                      }
+                                                    }
                                                   ]
-                                                  name "right_gripper_left_inner_finger"
-                                                  boundingObject USE inner_finger_coarse
+                                                  name "right_gripper_left_outer_knuckle"
+                                                  boundingObject USE outer_knuckle_coarse
                                                   physics Physics {
                                                     density -1
-                                                    mass 0.007243
-                                                    centerOfMass [ 0.006028 -0.000000 0.006699 ]
+                                                    mass 0.006848
+                                                    centerOfMass [ 0.017833 0.000000 0.002144 ]
                                                     inertiaMatrix [
-                                                      1.478243e-06 1.700645e-06 4.771513e-07
-                                                      -3.948845e-19 -3.452688e-07 3.505984e-19
+                                                      2.668320e-07 1.388923e-06 1.266033e-06
+                                                      1.661423e-15 1.459456e-07 2.829512e-15
                                                     ]
                                                   }
                                                 }
                                               }
-                                            ]
-                                            name "right_gripper_left_inner_knuckle"
-                                            boundingObject USE inner_knuckle_coarse
-                                            physics Physics {
-                                              density -1
-                                              mass 0.011093
-                                              centerOfMass [ 0.017098 -0.000000 0.022492 ]
-                                              inertiaMatrix [
-                                                4.233928e-06 3.965488e-06 3.240680e-06
-                                                5.748979e-15 1.788557e-06 1.054647e-14
-                                              ]
-                                            }
-                                          }
-                                        }
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            axis -0.000000 -1.000000 0.000000
-                                            anchor -0.012700 0.000000 0.069308
-                                          }
-                                          device [
-                                            RotationalMotor {
-                                              name "right_gripper_right_inner_knuckle_joint"
-                                              maxVelocity 2.0
-                                              minPosition -1.0
-                                              maxPosition 0.8757
-                                              maxTorque 1000.0
-                                            }
-                                            PositionSensor {
-                                              name "right_gripper_right_inner_knuckle_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint Solid {
-                                            translation -0.012700 0.000000 0.069308
-                                            rotation 0.000000 0.000000 1.000000 3.141593
-                                            children [
-                                              USE inner_knuckle_fine_visual
                                               HingeJoint {
                                                 jointParameters HingeJointParameters {
-                                                  axis 0.000000 1.000000 0.000000
-                                                  anchor 0.034106 0.000000 0.045857
+                                                  axis 0.000000 -1.000000 0.000000
+                                                  anchor 0.012700 0.000000 0.069307
                                                 }
                                                 device [
                                                   RotationalMotor {
-                                                    name "right_gripper_right_inner_finger_joint"
+                                                    name "right_gripper_left_inner_knuckle_joint"
                                                     maxVelocity 2.0
                                                     minPosition -1.0
                                                     maxPosition 0.8757
                                                     maxTorque 1000.0
                                                   }
                                                   PositionSensor {
-                                                    name "right_gripper_right_inner_finger_joint_sensor"
+                                                    name "right_gripper_left_inner_knuckle_joint_sensor"
                                                   }
                                                 ]
                                                 endPoint Solid {
-                                                  translation 0.034106 0.000000 0.045857
+                                                  translation 0.012700 0.000000 0.069307
                                                   children [
-                                                    USE inner_finger_fine_visual
-                                                      # ===== 正确位置：添加在 endPoint Solid 的 children 中 =====
-                                                      VacuumGripper {
-                                                        translation 0 0.000 0.03
-                                                        rotation 0 0 1 0               
-                                                        name "right_gripper_vacuum"
-                                                        isOn FALSE
-                                                        tensileStrength -1       
-                                                        shearStrength -1                
-                                                        contactPoints 1               
+                                                    USE inner_knuckle_fine_visual
+                                                    HingeJoint {
+                                                      jointParameters HingeJointParameters {
+                                                        axis 0.000000 -1.000000 0.000000
+                                                        anchor 0.034585 0.000000 0.045497
+                                                      }
+                                                      device [
+                                                        RotationalMotor {
+                                                          name "right_gripper_left_inner_finger_joint"
+                                                          maxVelocity 2.0
+                                                          minPosition -1.0
+                                                          maxPosition 0.8757
+                                                          maxTorque 1000.0
+                                                        }
+                                                        PositionSensor {
+                                                          name "right_gripper_left_inner_finger_joint_sensor"
+                                                        }
+                                                      ]
+                                                      endPoint Solid {
+                                                        translation 0.034585 0.000000 0.045497
                                                         children [
-                                                          Shape {
-                                                            appearance DEF SUCTION_APPEARANCE PBRAppearance {
-                                                              baseColor 0.2 0.2 0.8
-                                                              roughness 0.4
-                                                              metalness 0.6
-                                                            }
-                                                            geometry Cylinder {
+                                                          USE inner_finger_fine_visual
+                                                        ]
+                                                        name "right_gripper_left_inner_finger"
+                                                        boundingObject USE inner_finger_coarse
+                                                        physics Physics {
+                                                          density -1
+                                                          mass 0.007243
+                                                          centerOfMass [ 0.006028 -0.000000 0.006699 ]
+                                                          inertiaMatrix [
+                                                            1.478243e-06 1.700645e-06 4.771513e-07
+                                                            -3.948845e-19 -3.452688e-07 3.505984e-19
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                  name "right_gripper_left_inner_knuckle"
+                                                  boundingObject USE inner_knuckle_coarse
+                                                  physics Physics {
+                                                    density -1
+                                                    mass 0.011093
+                                                    centerOfMass [ 0.017098 -0.000000 0.022492 ]
+                                                    inertiaMatrix [
+                                                      4.233928e-06 3.965488e-06 3.240680e-06
+                                                      5.748979e-15 1.788557e-06 1.054647e-14
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                              HingeJoint {
+                                                jointParameters HingeJointParameters {
+                                                  axis -0.000000 -1.000000 0.000000
+                                                  anchor -0.012700 0.000000 0.069308
+                                                }
+                                                device [
+                                                  RotationalMotor {
+                                                    name "right_gripper_right_inner_knuckle_joint"
+                                                    maxVelocity 2.0
+                                                    minPosition -1.0
+                                                    maxPosition 0.8757
+                                                    maxTorque 1000.0
+                                                  }
+                                                  PositionSensor {
+                                                    name "right_gripper_right_inner_knuckle_joint_sensor"
+                                                  }
+                                                ]
+                                                endPoint Solid {
+                                                  translation -0.012700 0.000000 0.069308
+                                                  rotation 0.000000 0.000000 1.000000 3.141593
+                                                  children [
+                                                    USE inner_knuckle_fine_visual
+                                                    HingeJoint {
+                                                      jointParameters HingeJointParameters {
+                                                        axis 0.000000 1.000000 0.000000
+                                                        anchor 0.034106 0.000000 0.045857
+                                                      }
+                                                      device [
+                                                        RotationalMotor {
+                                                          name "right_gripper_right_inner_finger_joint"
+                                                          maxVelocity 2.0
+                                                          minPosition -1.0
+                                                          maxPosition 0.8757
+                                                          maxTorque 1000.0
+                                                        }
+                                                        PositionSensor {
+                                                          name "right_gripper_right_inner_finger_joint_sensor"
+                                                        }
+                                                      ]
+                                                      endPoint Solid {
+                                                        translation 0.034106 0.000000 0.045857
+                                                        children [
+                                                          USE inner_finger_fine_visual
+                                                          # ===== 正确位置：添加在 endPoint Solid 的 children 中 =====
+                                                          VacuumGripper {
+                                                            translation 0 0.000 0.03
+                                                            rotation 0 0 1 0               
+                                                            name "right_gripper_vacuum"
+                                                            isOn FALSE
+                                                            tensileStrength -1       
+                                                            shearStrength -1                
+                                                            contactPoints 1               
+                                                            children [
+                                                              Shape {
+                                                                appearance DEF SUCTION_APPEARANCE PBRAppearance {
+                                                                  baseColor 0.2 0.2 0.8
+                                                                  roughness 0.4
+                                                                  metalness 0.6
+                                                                }
+                                                                geometry Cylinder {
+                                                                  height 0.005
+                                                                  radius 0.008
+                                                                }
+                                                              }
+                                                            ]
+                                                            boundingObject Cylinder {
                                                               height 0.005
                                                               radius 0.008
                                                             }
                                                           }
+                                                          # ===================================================
+                                                          # ===== 修改后的触摸传感器（覆盖整个手指） =====
+                                                          TouchSensor {
+                                                            name "right_suction_touch_sensor"
+                                                            children [
+                                                              Shape {
+                                                                appearance PBRAppearance {
+                                                                  baseColor 0.8 0.2 0.2  # 红色便于可视化（调试用）
+                                                                  transparency 0.5       # 半透明
+                                                                }
+                                                                # 使用Box或其他形状覆盖手指区域
+                                                                geometry Box {
+                                                                  size 0.05 0.03 0.05  # 根据手指尺寸调整
+                                                                }
+                                                              }
+                                                            ]
+                                                            # 关键：使用与可视化形状相同的boundingObject
+                                                            boundingObject Box {
+                                                              size 0.01 0.03 0.01  # 与上面的Box尺寸一致
+                                                            }
+                                                          }
+                                                          # ============================================
                                                         ]
-                                                        boundingObject Cylinder {
-                                                          height 0.005
-                                                          radius 0.008
+                                                        name "right_gripper_right_inner_finger"
+                                                        boundingObject USE inner_finger_coarse
+                                                        physics Physics {
+                                                          density -1
+                                                          mass 0.007243
+                                                          centerOfMass [ 0.006028 -0.000000 0.006699 ]
+                                                          inertiaMatrix [
+                                                            1.478243e-06 1.700645e-06 4.771512e-07
+                                                            -3.959521e-19 -3.452687e-07 3.552865e-19
+                                                          ]
                                                         }
                                                       }
-                                                      # ===================================================
+                                                    }
                                                   ]
-                                                  name "right_gripper_right_inner_finger"
-                                                  boundingObject USE inner_finger_coarse
+                                                  name "right_gripper_right_inner_knuckle"
+                                                  boundingObject USE inner_knuckle_coarse
                                                   physics Physics {
                                                     density -1
-                                                    mass 0.007243
-                                                    centerOfMass [ 0.006028 -0.000000 0.006699 ]
+                                                    mass 0.011093
+                                                    centerOfMass [ 0.016861 0.000000 0.022670 ]
                                                     inertiaMatrix [
-                                                      1.478243e-06 1.700645e-06 4.771512e-07
-                                                      -3.959521e-19 -3.452687e-07 3.552865e-19
+                                                      4.271348e-06 3.965488e-06 3.203260e-06
+                                                      -8.535685e-15 1.777742e-06 -8.451080e-15
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                              HingeJoint {
+                                                jointParameters HingeJointParameters {
+                                                  axis -0.000000 -1.000000 0.000000
+                                                  anchor -0.030601 0.000000 0.062792
+                                                }
+                                                device [
+                                                  RotationalMotor {
+                                                    name "right_gripper_right_outer_knuckle_joint"
+                                                    maxVelocity 2.0
+                                                    minPosition -1.0
+                                                    maxPosition 0.8757
+                                                    maxTorque 1000.0
+                                                  }
+                                                  PositionSensor {
+                                                    name "right_gripper_right_outer_knuckle_joint_sensor"
+                                                  }
+                                                ]
+                                                endPoint Solid {
+                                                  translation -0.030601 0.000000 0.062792
+                                                  rotation 0.000000 0.000000 1.000000 3.141593
+                                                  children [
+                                                    USE outer_knuckle_fine_visual
+                                                    Solid {
+                                                      translation 0.031710 0.000000 -0.001601
+                                                      children [
+                                                        USE outer_finger_fine_visual
+                                                      ]
+                                                      name "right_gripper_right_outer_finger"
+                                                      boundingObject USE outer_finger_coarse
+                                                      physics Physics {
+                                                        density -1
+                                                        mass 0.027309
+                                                        centerOfMass [ 0.001088 -0.000000 0.021553 ]
+                                                        inertiaMatrix [
+                                                          8.523660e-06 6.913333e-06 2.242704e-06
+                                                          3.416834e-19 3.180037e-07 7.377267e-19
+                                                        ]
+                                                      }
+                                                    }
+                                                  ]
+                                                  name "right_gripper_right_outer_knuckle"
+                                                  boundingObject USE outer_knuckle_coarse
+                                                  physics Physics {
+                                                    density -1
+                                                    mass 0.006848
+                                                    centerOfMass [ 0.017810 0.000000 0.002331 ]
+                                                    inertiaMatrix [
+                                                      2.700044e-07 1.388923e-06 1.262861e-06
+                                                      1.595795e-15 1.563965e-07 2.823578e-15
                                                     ]
                                                   }
                                                 }
                                               }
                                             ]
-                                            name "right_gripper_right_inner_knuckle"
-                                            boundingObject USE inner_knuckle_coarse
+                                            name "right_gripper_robotiq_85_base_link"
+                                            boundingObject USE robotiq_85_base_link_coarse
                                             physics Physics {
                                               density -1
-                                              mass 0.011093
-                                              centerOfMass [ 0.016861 0.000000 0.022670 ]
+                                              mass 0.309150
+                                              centerOfMass [ 0.000220 -0.000000 0.030163 ]
                                               inertiaMatrix [
-                                                4.271348e-06 3.965488e-06 3.203260e-06
-                                                -8.535685e-15 1.777742e-06 -8.451080e-15
+                                                2.897200e-04 3.073700e-04 1.991400e-04
+                                                -5.787900e-10 -1.854300e-06 1.682000e-12
                                               ]
                                             }
                                           }
-                                        }
-                                        HingeJoint {
-                                          jointParameters HingeJointParameters {
-                                            axis -0.000000 -1.000000 0.000000
-                                            anchor -0.030601 0.000000 0.062792
-                                          }
-                                          device [
-                                            RotationalMotor {
-                                              name "right_gripper_right_outer_knuckle_joint"
-                                              maxVelocity 2.0
-                                              minPosition -1.0
-                                              maxPosition 0.8757
-                                              maxTorque 1000.0
-                                            }
-                                            PositionSensor {
-                                              name "right_gripper_right_outer_knuckle_joint_sensor"
-                                            }
-                                          ]
-                                          endPoint Solid {
-                                            translation -0.030601 0.000000 0.062792
-                                            rotation 0.000000 0.000000 1.000000 3.141593
-                                            children [
-                                              USE outer_knuckle_fine_visual
-                                              Solid {
-                                                translation 0.031710 0.000000 -0.001601
-                                                children [
-                                                  USE outer_finger_fine_visual
-                                                ]
-                                                name "right_gripper_right_outer_finger"
-                                                boundingObject USE outer_finger_coarse
-                                                physics Physics {
-                                                  density -1
-                                                  mass 0.027309
-                                                  centerOfMass [ 0.001088 -0.000000 0.021553 ]
-                                                  inertiaMatrix [
-                                                    8.523660e-06 6.913333e-06 2.242704e-06
-                                                    3.416834e-19 3.180037e-07 7.377267e-19
-                                                  ]
-                                                }
-                                              }
-                                            ]
-                                            name "right_gripper_right_outer_knuckle"
-                                            boundingObject USE outer_knuckle_coarse
-                                            physics Physics {
-                                              density -1
-                                              mass 0.006848
-                                              centerOfMass [ 0.017810 0.000000 0.002331 ]
-                                              inertiaMatrix [
-                                                2.700044e-07 1.388923e-06 1.262861e-06
-                                                1.595795e-15 1.563965e-07 2.823578e-15
-                                              ]
-                                            }
-                                          }
-                                        }
-                                      ]
-                                      name "right_gripper_robotiq_85_base_link"
-                                      boundingObject USE robotiq_85_base_link_coarse
-                                      physics Physics {
-                                        density -1
-                                        mass 0.309150
-                                        centerOfMass [ 0.000220 -0.000000 0.030163 ]
-                                        inertiaMatrix [
-                                          2.897200e-04 3.073700e-04 1.991400e-04
-                                          -5.787900e-10 -1.854300e-06 1.682000e-12
                                         ]
+                                        name "right_intermediate_link"
+                                        boundingObject Box {
+                                           size 0.050000 0.050000 0.020000
+                                        }
+                                        physics Physics {
+                                          density -1
+                                          mass 0.100000
+                                          centerOfMass [ 0.000000 0.000000 0.000000 ]
+                                          inertiaMatrix [
+                                            5.000000e-04 5.000000e-04 1.000000e-04
+                                            0.000000e+00 0.000000e+00 0.000000e+00
+                                          ]
+                                        }
                                       }
                                     }
                                   ]
@@ -1633,7 +1746,6 @@ PROTO urdf_arm [
           }
           physics Physics {
             density -1
-            mass 5.000000
             centerOfMass [ -0.110380 0.003430 0.301010 ]
             inertiaMatrix [
               1.040803e+01 9.922754e+00 1.031268e+01

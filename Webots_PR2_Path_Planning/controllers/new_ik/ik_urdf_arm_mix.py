@@ -70,7 +70,7 @@ class ArmIk:
         solver_tol=1.0e-2,
         ori_cost_weight=10,
         ori_vector_tol=30,
-        ori_constraint_tol=0.15,
+        ori_constraint_tol=0.5,
         torso_tol=1.0e-6,
         torso_ori_tol=1.0e-6,
         iterations_limit=300,
@@ -78,7 +78,7 @@ class ArmIk:
         torso_xy_bound=0.1,
         geometry_distance_min=0.005,
         geometry_distance_max=100,
-        eef_z_bias=0,
+        eef_z_bias=-0.11,
         use_custom_eef=True,
         box_rpy=[0, 0, 0],
         box_pos=[0, 0, 0],
@@ -1080,14 +1080,14 @@ if __name__ == "__main__":
     print(f"初始位姿 - 右臂: 位置={r_pose[0]}, 姿态={r_pose[1]}")
     
     # 定义目标位置
-    l_hand_pose = np.array([-0.01749985,0.29927,-0.21073])  # [x, y, z] 单位m
-    r_hand_pose = np.array([0.3074993  ,-0.33825069 , 0.12093117])
+    l_hand_pose = np.array([0.0  ,0.0 , 0.0])  # [x, y, z] 单位m
+    r_hand_pose = np.array([0.3121  ,-0.3040 , 0.1215])
     
     # 目标位姿和约束向量
     end_origin = [
         l_hand_pose, r_hand_pose,          # 左右手位置
         np.array([3.14, 0, 0.]),              # 左手RPY
-        np.array([3.14, 0, 0]),              # 右手RPY
+        np.array([-3.14, -0.00675474,  0.09522905]),              # 右手RPY
         np.array([0, 0, 1]),                # 左手朝向向量
         np.array([0, 0, 1])                 # 右手朝向向量 
     ]

@@ -167,12 +167,45 @@
     </geometry>
   </collision>
 </link>
+<!-- 新增中间连杆 -->
+<link name="left_intermediate_link">
+  <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0" /> <!-- 需根据实际模型调整 -->
+    <mass value="0.1" /> <!-- 示例质量，需根据实际情况设置 -->
+    <inertia ixx="0.0005" ixy="0.0" ixz="0.0" 
+             iyy="0.0005" iyz="0.0" izz="0.0001" /> <!-- 示例惯性参数 -->
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.05 0.05 0.02" /> <!-- 示例形状，可替换为mesh -->
+    </geometry>
+    <material name="">
+      <color rgba="0.5 0.5 1.0 1.0" /> <!-- 蓝色，便于区分 -->
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.05 0.05 0.02" />
+    </geometry>
+  </collision>
+</link>
 
+<!-- 新增关节（示例为绕Y轴旋转的旋转关节） -->
+<joint name="left_intermediate_joint" type="revolute">
+  <origin xyz="0 0 -0.1" rpy="0 0 0" /> <!-- 关节位置，需根据实际调整 -->
+  <parent link="zarm_l5_link" />
+  <child link="left_intermediate_link" />
+  <axis xyz="1 0 0" /> 
+  <limit lower="-1.57" upper="1.57" effort="10.0" velocity="5.0" /> <!-- 示例限制 -->
+  <dynamics damping="0.1" friction="0.05" /> <!-- 动力学参数 -->
+</joint>
 
 <joint name="left_gripper_attachment_joint" type="fixed">
   
-  <origin xyz="0 0 -0.1" rpy="3.14 0 0" /> 
-  <parent link="zarm_l5_link" />
+  <origin xyz="0 0 0" rpy="3.14 0 0" /> 
+  <parent link="left_intermediate_link" />
   <child link="left_gripper_robotiq_85_base_link" />
 </joint>
 <link name="left_gripper_left_outer_knuckle">
@@ -567,11 +600,45 @@
   </collision>
 </link>
 
+<!-- 新增中间连杆 -->
+<link name="right_intermediate_link">
+  <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0" /> <!-- 需根据实际模型调整 -->
+    <mass value="0.1" /> <!-- 示例质量，需根据实际情况设置 -->
+    <inertia ixx="0.0005" ixy="0.0" ixz="0.0" 
+             iyy="0.0005" iyz="0.0" izz="0.0001" /> <!-- 示例惯性参数 -->
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.05 0.05 0.02" /> <!-- 示例形状，可替换为mesh -->
+    </geometry>
+    <material name="">
+      <color rgba="0.5 0.5 1.0 1.0" /> <!-- 蓝色，便于区分 -->
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <geometry>
+      <box size="0.05 0.05 0.02" />
+    </geometry>
+  </collision>
+</link>
+
+<!-- 新增关节（示例为绕Y轴旋转的旋转关节） -->
+<joint name="right_intermediate_joint" type="revolute">
+  <origin xyz="0 0 -0.1" rpy="0 0 0" /> <!-- 关节位置，需根据实际调整 -->
+  <parent link="zarm_r5_link" />
+  <child link="right_intermediate_link" />
+  <axis xyz="1 0 0" /> 
+  <limit lower="-1.57" upper="1.57" effort="10.0" velocity="5.0" /> <!-- 示例限制 -->
+  <dynamics damping="0.1" friction="0.05" /> <!-- 动力学参数 -->
+</joint>
 
 <joint name="right_gripper_attachment_joint" type="fixed">
   
-  <origin xyz="0 0 -0.1" rpy="3.14 0 0" /> 
-  <parent link="zarm_r5_link" />
+  <origin xyz="0 0 0" rpy="3.14 0 0" /> 
+  <parent link="right_intermediate_link" />
   <child link="right_gripper_robotiq_85_base_link" />
 </joint>
 <link name="right_gripper_left_outer_knuckle">
