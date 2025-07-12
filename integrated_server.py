@@ -70,17 +70,17 @@ fail_arm_go_pos=False
 robot_status = {"robot_position": (0, 0), "status": ""}  # 存储机器人的位置和状态信息
 
 ability_dict = {
-    "place_left" : "左-放置",
-    "place_right": "右-放置",
-    "place_left_right" : "双手-放置",
+    "left_place" : "左手放置",
+    "right_place": "右手放置",
+    "both_place" : "双手放置",
     "move":"移动",
     "turn":"转身",
-    "wipe_left":"左-擦拭",
-    "wipe_right":"右-擦拭",
+    "left_wipe":"左手擦拭",
+    "right_wipe":"右手擦拭",
     "squat":"下蹲",
-    "grab_left":"左-抓取",
-    "grab_right":"右-抓取",
-    "grab_left_right":"双手-抓取",
+    "left_grab":"左手抓取",
+    "right_grab":"右手抓取",
+    "both_grab":"双手抓取",
     "bend":"弯腰",
     "identify":"识别",
 }
@@ -1471,7 +1471,6 @@ def capture_set_goal():
         #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
         #     }), 409
 
-        # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
         if capture_robot_goals:
             # 使用 robot_id 而非 object_id
@@ -1577,7 +1576,6 @@ def pick_set_goal():
         #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
         #     }), 409
 
-        # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
         if pick_robot_goals:
             logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")
@@ -1667,7 +1665,6 @@ def place_set_goal():
         #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
         #     }), 409
 
-        # TODO:这里写抓取的相关逻辑
         # 设置机器人目标状态前，先清理旧状态
         if place_robot_goals:
             logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")

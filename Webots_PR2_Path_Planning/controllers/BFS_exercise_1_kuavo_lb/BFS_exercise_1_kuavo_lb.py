@@ -972,7 +972,7 @@ def run_arm_pick(goal_arm):
             tolerance=0.02, max_steps=80
         )
         # time.sleep(10)
-        # robot.step(7*MOVE_DURATION_STEPS)
+        robot.step(5*MOVE_DURATION_STEPS)
 
     # 4. 夹紧物体
     print("步骤4: 关闭右夹爪抓取物体")
@@ -1163,6 +1163,7 @@ def run_arm_place(goal_arm):
 def get_pick_result(goal_arm="both"):
     """
     根据指定机械臂判断抓取是否成功，通过检查夹爪关节位置是否处于关闭状态
+    TODO:需要修改判断逻辑
     
     Args:
         goal_arm: 目标机械臂，可选"left"、"right"或"both"，默认"right"
@@ -1222,10 +1223,10 @@ def get_pick_result(goal_arm="both"):
     else:
         return check_arm(goal_arm)
 
-
 def get_place_result(goal_arm="both"):
     """
     根据指定机械臂判断放置操作是否成功（夹爪是否处于打开状态）
+    TODO:需要修改判断逻辑
     
     Args:
         goal_arm: 目标机械臂，可选"left"、"right"或"both"，默认"right"
@@ -1381,7 +1382,8 @@ place_right_arm_pose = [ 0.0, -0.8, 0.0, 0.0,0.0,0]                    # 放置�
 
 # 右夹爪控制值 - 需根据夹爪模型调试
 OPEN_GRIPPER_POS = [-0.7,0.7,-0.7,-0.7,0.7,0.7]  # 夹爪完全打开位置
-CLOSE_GRIPPER_POS = [0.2,-0.2,0.2,0.2,-0.2,-0.2]  # 夹爪夹紧位置
+# CLOSE_GRIPPER_POS = [0.25,-0.25,0.25,0.25,-0.25,-0.25]  # 夹爪夹紧位置
+CLOSE_GRIPPER_POS = [0.27,-0.27,0.27,0.27,-0.27,-0.27]  # 夹爪夹紧位置
 INIT_GRIPPER_POS = [0,0,0,0,0,0]
 
 # 运动时间步长
