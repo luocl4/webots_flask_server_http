@@ -249,7 +249,6 @@ def get_robot_command():
         command_to_send = arm_go_pos_robot_goal
         command_to_send["source"]="arm_go_pos"
     else:
-        # 找出第一个处于移动状态的机器人
         for object_id, goal_state in robot_goals.items():
             if goal_state.get('status') == 2 and 'goal_pos' in goal_state:
                 goal_pos = goal_state.get('goal_pos', [])
