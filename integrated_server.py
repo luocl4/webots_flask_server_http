@@ -829,7 +829,7 @@ def get_world_status():
         # 获取最新的世界状态数据
         latest_log_entry = supervisor_world_status_log[-1]
         nodes_data = latest_log_entry.get('data', [])
-
+        print("nodes_data", nodes_data)
         # 转换为标准格式
         formatted_list = []
 

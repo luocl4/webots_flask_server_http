@@ -570,24 +570,25 @@ Group {
         transparency 1
       }
     }
-    PlasticCrate {
+    DEF PlasticCrate0 PlasticCrate {
       translation -0.7 0 0.54
       size 0.3 0.3 0.4
       color 0.8 0.8 0.8
+      name "plastic crate"
     }
-    PlasticCrate {
+    DEF PlasticCrate2 PlasticCrate {
       translation -0.3 0 0.54
       name "plastic crate(2)"
       size 0.3 0.3 0.4
       color 0.1 0.4 0.7
     }
-    PlasticCrate {
+    DEF PlasticCrate1 PlasticCrate {
       translation -0.7 0.44 0.54
       name "plastic crate(1)"
       size 0.3 0.3 0.4
       color 0.8 0.8 0.8
     }
-    PlasticCrate {
+    DEF PlasticCrate3 PlasticCrate {
       translation -0.3 0.44 0.54
       name "plastic crate(3)"
       size 0.3 0.3 0.4
