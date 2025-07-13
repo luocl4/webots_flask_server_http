@@ -717,11 +717,7 @@ def start_webots():
             logger.info(f"选择场景: {scene_id} - {scene_display_name} v{scene_version}")
 
             cmd = [
-                'xvfb-run',
                 'webots',
-                '--stdout',
-                '--stderr',
-                '--batch',
                 '--mode=realtime',
                 world_file,
                 '--stream',
@@ -840,13 +836,14 @@ def get_world_status():
             yaw_angle = node.get("rotation_degrees").get("yaw")
             size = node.get('size', [0, 0, 0])
             ability_code = node.get('ability', None)
+            ability_list = []
             if ability_code:
-                ability_name = []
                 for code in ability_code:
                     if code in ability_dict:
-                        ability_name.append(ability_dict[code])
-            else:
-                ability_name = None
+                        ability_list.append({
+                            "ability_code" : code,
+                            "ability_name" : ability_dict[code]
+                        })
             if not size:
                 size = [0, 0, 0]
             describe = node.get('describe', '该物体暂无描述字段')
@@ -859,8 +856,7 @@ def get_world_status():
             formatted_node = {
                 "id": node_id,
                 "name": node_name,
-                "ability_name": ability_name,
-                "ability_code": ability_code,
+                "ability": ability_list,
                 "describe": describe,
                 "obj_type": node.get("obj_type"),
                 "position": {
@@ -964,14 +960,15 @@ def get_single_object():
         position = node.get('position', [0, 0, 0])
         size = node.get('size', [0, 0, 0])
         ability_code = node.get('ability', None)
+        ability_list = []
         yaw_angle = node.get("rotation_degrees").get("yaw")
         if ability_code:
-            ability_name = []
             for code in ability_code:
                 if code in ability_dict:
-                    ability_name.append(ability_dict[code])
-        else:
-            ability_name = None
+                    ability_list.append({
+                        "ability_code" : code,
+                        "ability_name" : ability_dict[code]
+                    })
         if not size:
             size = [0, 0, 0]
         describe = node.get('describe', '该物体暂无描述字段')
@@ -984,8 +981,8 @@ def get_single_object():
         object_info = {
             "id": target_object_id,
             "name": node_name,
-            "ability_name": ability_name,
-            "ability_code": ability_code,
+            "obj_type": node.get("obj_type"),
+            "ability": ability_list,
             "describe": describe,
             "rotation": f"{safe_float(yaw_angle):.2f}",
             "position": {
