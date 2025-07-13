@@ -1480,7 +1480,7 @@ save_left_arm_pose = [
 # 右夹爪控制值 - 需根据夹爪模型调试
 OPEN_GRIPPER_POS = [-0.7, 0.7, -0.7, -0.7, 0.7, 0.7]  # 夹爪完全打开位置
 # CLOSE_GRIPPER_POS = [0.25,-0.25,0.25,0.25,-0.25,-0.25]  # 夹爪夹紧位置
-CLOSE_GRIPPER_POS = [0.27, -0.27, 0.27, 0.27, -0.27, -0.27]  # 夹爪夹紧位置
+CLOSE_GRIPPER_POS = [0.3, -0.3, 0.3, 0.3, -0.3, -0.3]  # 夹爪夹紧位置
 INIT_GRIPPER_POS = [0, 0, 0, 0, 0, 0]
 
 # 运动时间步长
@@ -1495,6 +1495,7 @@ last_goal_timestamp = None  # 添加时间戳跟踪
 rotation_test_done = False  # 用于标记旋转测试是否已完成
 touch_sensor = robot.getDevice("right_suction_touch_sensor")
 touch_sensor.enable(timestep)
+counter_1 = 0
 while robot.step(timestep) != -1:
     try:
         # touchValues = touch_sensor.getValue()  # 返回标量值，适用于默认类型
@@ -1502,8 +1503,12 @@ while robot.step(timestep) != -1:
         #     print("Robot is touching an object.")
         # else:
         #     print("no touch")
+        time.sleep(0.015)
+        counter_1 = counter_1 + 1
+        if counter_1 == 100:
+            counter_1 = 0
+            continue
         response = requests.get(WEB_SERVER_URL)
-        time.sleep(0.3)
         if response.status_code == 200:
             command_data = response.json()
             source = command_data.get('source')
@@ -1550,6 +1555,8 @@ while robot.step(timestep) != -1:
                         rotation_info = {
                             "status": "旋转完成",
                             "message": f"已完成原地旋转至目标偏航角 {goal_yaw}°",
+                            "is_completed": True,
+                            "is_stopped": True
                         }
                         send_robot_status(current_robot_position, rotation_info)
                     continue

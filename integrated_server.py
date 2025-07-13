@@ -1341,7 +1341,7 @@ def move_set_goal():
         return jsonify({"code": 400, "message": f"请求处理出错: {str(e)}"}), 400
 
 
-@app.route('/api/v1/move/check_state', methods=['GET'])
+@app.route('/api/v1/move/check_state', methods=['POST'])
 def move_check_state():
     """
     轮臂机器人移动状态获取
@@ -1394,6 +1394,8 @@ def move_check_state():
             # 如果状态是错误(4)，添加错误信息
             if status_code == 4:
                 response_data["error_message"] = "目标点不可达，请选择其他目标点"
+            
+        print(response_data)
 
         request_response_log.append(
             {
@@ -1925,7 +1927,7 @@ def place_set_goal():
         return jsonify({"code": 400, "message": f"place fail  {e}"}), 400
 
 
-@app.route('/api/v1/capture/pick_result', methods=['GET'])
+@app.route('/api/v1/capture/pick_result', methods=['POST'])
 def pick_result():
     global result_pick, result_place
 
@@ -1959,6 +1961,39 @@ def pick_result():
         result_pick = False
     return jsonify({"code": 200, "message": res}), 200
 
+@app.route('/api/v1/capture/place_result', methods=['POST'])
+def place_result():
+    global result_pick, result_place
+
+    data = request.get_json()
+    # logger.info(f"[set_robot_goal] 接收到命令: {data}")
+    if not data:
+        return jsonify({"code": 400, "message": "参数为空"}), 400
+
+    required_fields = ['id', 'robot_id', 'object_id']
+    for field in required_fields:
+        if field not in data:
+            return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+
+    # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
+    # current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
+    # return jsonify({
+    # "code": 409,
+    # "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
+    # }), 409
+
+    # 获取scene_id，若不存在则默认值为0
+    scene_id = int(data['id'])
+    # 获取robot_id，若不存在则默认值为1
+    robot_id = int(data['robot_id'])
+    # 获取goal_arm，若不存在则默认值为空字符串
+    object_id = int(data['object_id'])
+    # print(scene_id,robot_id,object_id)
+
+    res = result_place
+    if res == True:
+        result_place = False
+    return jsonify({"code": 200, "message": res}), 200
 
 @app.route('/api/v1/capture/get_relative_pos', methods=['GET'])
 def get_pick_pos():

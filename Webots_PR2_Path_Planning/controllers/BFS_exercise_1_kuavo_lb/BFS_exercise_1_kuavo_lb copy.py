@@ -1440,10 +1440,13 @@ while robot.step(timestep) != -1:
                         target_heading = math.radians(goal_yaw)
                         angle_diff = ((target_heading - current_heading + math.pi) % (2*math.pi)) - math.pi
                         robot.rotate_angle(angle_diff)
+                        logger.info("finish")
                         # 发送旋转完成状态
                         rotation_info = {
                             "status": "旋转完成",
-                            "message": f"已完成原地旋转至目标偏航角 {goal_yaw}°"
+                            "message": f"已完成原地旋转至目标偏航角 {goal_yaw}°",
+                            "is_completed": True,
+                            "is_stopped": True
                         }
                         send_robot_status(current_robot_position, rotation_info)
                     continue

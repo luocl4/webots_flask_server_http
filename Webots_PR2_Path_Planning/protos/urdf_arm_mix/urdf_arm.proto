@@ -455,11 +455,11 @@ PROTO urdf_arm [
                                             }
                                             physics Physics {
                                               density -1
-                                              mass 0.309150
+                                              mass 0.0309150
                                               centerOfMass [ 0.000220 -0.000000 0.030163 ]
                                               inertiaMatrix [
-                                                2.897200e-04 3.073700e-04 1.991400e-04
-                                                -5.787900e-10 -1.854300e-06 1.682000e-12
+                                                2.897200e-05 3.073700e-05 1.991400e-05
+                                                -5.787900e-11 -1.854300e-07 1.682000e-13
                                               ]
                                             }
                                           }
@@ -470,7 +470,7 @@ PROTO urdf_arm [
                                         }
                                         physics Physics {
                                           density -1
-                                          mass 0.100000
+                                          mass 0.0100000
                                           centerOfMass [ 0.000000 0.000000 0.000000 ]
                                           inertiaMatrix [
                                             5.000000e-04 5.000000e-04 1.000000e-04
@@ -483,10 +483,10 @@ PROTO urdf_arm [
                                   name "zarm_l5_link"
                                   physics Physics {
                                     density -1
-                                    mass 0.610000
+                                    mass 0.0610000
                                     centerOfMass [ -0.002070 0.000180 -0.050790 ]
                                     inertiaMatrix [
-                                      1.070000e-03 1.460000e-03 8.300000e-04
+                                      1.070000e-04 1.460000e-04 8.300000e-05
                                       0.000000e+00 -4.000000e-05 0.000000e+00
                                     ]
                                   }
@@ -496,10 +496,10 @@ PROTO urdf_arm [
                             name "zarm_l4_link"
                             physics Physics {
                               density -1
-                              mass 0.429000
+                              mass 0.0429000
                               centerOfMass [ -0.016110 0.001430 -0.048570 ]
                               inertiaMatrix [
-                                1.350000e-03 1.140000e-03 8.300000e-04
+                                1.350000e-04 1.140000e-04 8.300000e-05
                                 0.000000e+00 -1.000000e-04 0.000000e+00
                               ]
                             }
@@ -509,10 +509,10 @@ PROTO urdf_arm [
                       name "zarm_l3_link"
                       physics Physics {
                         density -1
-                        mass 1.650000
+                        mass 0.01650000
                         centerOfMass [ 0.006280 0.001070 -0.208780 ]
                         inertiaMatrix [
-                          8.150000e-03 8.280000e-03 2.060000e-03
+                          8.150000e-04 8.280000e-04 2.060000e-04
                           -4.000000e-05 8.500000e-04 1.400000e-04
                         ]
                       }
@@ -522,10 +522,10 @@ PROTO urdf_arm [
                 name "zarm_l2_link"
                 physics Physics {
                   density -1
-                  mass 0.570000
+                  mass 0.0570000
                   centerOfMass [ -0.007910 0.000000 -0.046550 ]
                   inertiaMatrix [
-                    1.630000e-03 2.110000e-03 1.220000e-03
+                    1.630000e-04 2.110000e-04 1.220000e-04
                     0.000000e+00 5.000000e-05 0.000000e+00
                   ]
                 }
@@ -535,11 +535,11 @@ PROTO urdf_arm [
           name "zarm_l1_link"
           physics Physics {
             density -1
-            mass 0.962000
+            mass 0.0962000
             centerOfMass [ 0.000000 0.000000 0.000000 ]
             inertiaMatrix [
-              2.250000e-03 9.900000e-04 2.270000e-03
-              -3.000000e-05 0.000000e+00 -2.000000e-05
+              2.250000e-04 9.900000e-05 2.270000e-04
+              -3.000000e-06 0.000000e+00 -2.000000e-05
             ]
           }
         }
@@ -862,7 +862,7 @@ PROTO urdf_arm [
                                                         translation 0.034106 0.000000 0.045857
                                                         children [
                                                           USE inner_finger_fine_visual
-                                                          # ===== 正确位置：添加在 endPoint Solid 的 children 中 =====
+                                                          # ===== 真空吸盘 正确位置：添加在 endPoint Solid 的 children 中 =====
                                                           VacuumGripper {
                                                             translation 0 0.000 0.03
                                                             rotation 0 0 1 0               
@@ -885,8 +885,8 @@ PROTO urdf_arm [
                                                               }
                                                             ]
                                                             boundingObject Cylinder {
-                                                              height 0.005
-                                                              radius 0.008
+                                                              height 0.05
+                                                              radius 0.01
                                                             }
                                                           }
                                                           # ===================================================
@@ -997,10 +997,10 @@ PROTO urdf_arm [
                                             boundingObject USE robotiq_85_base_link_coarse
                                             physics Physics {
                                               density -1
-                                              mass 0.309150
+                                              mass 0.0309150
                                               centerOfMass [ 0.000220 -0.000000 0.030163 ]
                                               inertiaMatrix [
-                                                2.897200e-04 3.073700e-04 1.991400e-04
+                                                2.897200e-05 3.073700e-05 1.991400e-05
                                                 -5.787900e-10 -1.854300e-06 1.682000e-12
                                               ]
                                             }
@@ -1012,10 +1012,10 @@ PROTO urdf_arm [
                                         }
                                         physics Physics {
                                           density -1
-                                          mass 0.100000
+                                          mass 0.0100000
                                           centerOfMass [ 0.000000 0.000000 0.000000 ]
                                           inertiaMatrix [
-                                            5.000000e-04 5.000000e-04 1.000000e-04
+                                            5.000000e-05 5.000000e-05 1.000000e-05
                                             0.000000e+00 0.000000e+00 0.000000e+00
                                           ]
                                         }
@@ -1025,10 +1025,10 @@ PROTO urdf_arm [
                                   name "zarm_r5_link"
                                   physics Physics {
                                     density -1
-                                    mass 0.610000
+                                    mass 0.0610000
                                     centerOfMass [ -0.002070 -0.000180 -0.050790 ]
                                     inertiaMatrix [
-                                      1.070000e-03 1.460000e-03 8.300000e-04
+                                      1.070000e-04 1.460000e-04 8.300000e-05
                                       0.000000e+00 -4.000000e-05 0.000000e+00
                                     ]
                                   }
@@ -1038,10 +1038,10 @@ PROTO urdf_arm [
                             name "zarm_r4_link"
                             physics Physics {
                               density -1
-                              mass 0.429000
+                              mass 0.0429000
                               centerOfMass [ -0.016110 -0.001430 -0.048570 ]
                               inertiaMatrix [
-                                1.350000e-03 1.140000e-03 8.300000e-04
+                                1.350000e-04 1.140000e-04 8.300000e-05
                                 0.000000e+00 -1.000000e-04 0.000000e+00
                               ]
                             }
@@ -1051,7 +1051,7 @@ PROTO urdf_arm [
                       name "zarm_r3_link"
                       physics Physics {
                         density -1
-                        mass 1.650000
+                        mass 0.1650000
                         centerOfMass [ 0.006280 -0.001070 -0.208780 ]
                         inertiaMatrix [
                           8.150000e-03 8.280000e-03 2.060000e-03
@@ -1064,11 +1064,11 @@ PROTO urdf_arm [
                 name "zarm_r2_link"
                 physics Physics {
                   density -1
-                  mass 0.570000
+                  mass 0.0570000
                   centerOfMass [ -0.007910 0.000000 -0.046550 ]
                   inertiaMatrix [
-                    1.630000e-03 2.110000e-03 1.220000e-03
-                    0.000000e+00 5.000000e-05 0.000000e+00
+                    1.630000e-04 2.110000e-04 1.220000e-04
+                    0.000000e+00 5.000000e-06 0.000000e+00
                   ]
                 }
               }
@@ -1077,11 +1077,11 @@ PROTO urdf_arm [
           name "zarm_r1_link"
           physics Physics {
             density -1
-            mass 0.962000
+            mass 0.0962000
             centerOfMass [ -0.000830 0.022180 0.000350 ]
             inertiaMatrix [
-              2.250000e-03 9.900000e-04 2.270000e-03
-              3.000000e-05 0.000000e+00 2.000000e-05
+              2.250000e-04 9.900000e-05 2.270000e-04
+              3.000000e-06 0.000000e+00 2.000000e-06
             ]
           }
         }
@@ -1157,11 +1157,11 @@ PROTO urdf_arm [
                 }
                 physics Physics {
                   density -1
-                  mass 0.604629
+                  mass 0.0604629
                   centerOfMass [ 0.027054 -0.000611 0.108993 ]
                   inertiaMatrix [
-                    2.209117e-03 2.158000e-03 1.938550e-03
-                    4.490848e-06 4.093912e-04 1.357568e-05
+                    2.209117e-04 2.158000e-04 1.938550e-04
+                    4.490848e-07 4.093912e-05 1.357568e-06
                   ]
                 }
               }
@@ -1261,11 +1261,11 @@ PROTO urdf_arm [
                       }
                       physics Physics {
                         density -1
-                        mass 0.440360
+                        mass 0.0440360
                         centerOfMass [ 0.000000 0.000000 0.000000 ]
                         inertiaMatrix [
-                          1.241177e-02 1.521816e-02 1.176398e-02
-                          -7.117337e-04 5.027298e-04 -4.273467e-06
+                          1.241177e-03 1.521816e-03 1.176398e-03
+                          -7.117337e-05 5.027298e-05 -4.273467e-06
                         ]
                       }
                     }
@@ -1296,11 +1296,11 @@ PROTO urdf_arm [
                       boundingObject USE wheel
                       physics Physics {
                         density -1
-                        mass 0.440360
+                        mass 0.0440360
                         centerOfMass [ 0.000000 0.000000 0.000000 ]
                         inertiaMatrix [
-                          1.241177e-02 1.521816e-02 1.176398e-02
-                          -7.117337e-04 5.027298e-04 -4.273467e-06
+                          1.241177e-03 1.521816e-03 1.176398e-02
+                          -7.117337e-05 5.027298e-05 -4.273467e-07
                         ]
                       }
                     }
@@ -1322,10 +1322,10 @@ PROTO urdf_arm [
                     name "fl_imu_link"
                     physics Physics {
                       density -1
-                      mass 0.100000
+                      mass 0.0100000
                       centerOfMass [ 0.000000 0.000000 0.000000 ]
                       inertiaMatrix [
-                        1.000000e-03 1.000000e-03 1.000000e-03
+                        1.000000e-04 1.000000e-04 1.000000e-04
                         0.000000e+00 0.000000e+00 0.000000e+00
                       ]
                     }
@@ -1340,8 +1340,8 @@ PROTO urdf_arm [
                   mass 3.473082
                   centerOfMass [ 0.000000 0.000000 0.070000 ]
                   inertiaMatrix [
-                    1.241177e-02 1.521816e-02 1.176398e-02
-                    -7.117337e-04 5.027298e-04 -4.273467e-06
+                    1.241177e-03 1.521816e-03 1.176398e-03
+                    -7.117337e-05 5.027298e-05 -4.273467e-06
                   ]
                 }
               }
@@ -1398,11 +1398,11 @@ PROTO urdf_arm [
                       boundingObject USE wheel
                       physics Physics {
                         density -1
-                        mass 0.440360
+                        mass 0.0440360
                         centerOfMass [ 0.000000 0.000000 0.000000 ]
                         inertiaMatrix [
-                          1.241177e-02 1.521816e-02 1.176398e-02
-                          -7.117337e-04 5.027298e-04 -4.273467e-06
+                          1.241177e-03 1.521816e-03 1.176398e-03
+                          -7.117337e-05 5.027298e-05 -4.273467e-06
                         ]
                       }
                     }
@@ -1433,7 +1433,7 @@ PROTO urdf_arm [
                       boundingObject USE wheel
                       physics Physics {
                         density -1
-                        mass 0.440360
+                        mass 0.0440360
                         centerOfMass [ 0.000000 0.000000 0.000000 ]
                         inertiaMatrix [
                           1.241177e-02 1.521816e-02 1.176398e-02
@@ -1455,7 +1455,7 @@ PROTO urdf_arm [
                     name "fr_imu_link"
                     physics Physics {
                       density -1
-                      mass 0.100000
+                      mass 0.0100000
                       centerOfMass [ 0.000000 0.000000 0.000000 ]
                       inertiaMatrix [
                         1.000000e-03 1.000000e-03 1.000000e-03
@@ -1529,7 +1529,7 @@ PROTO urdf_arm [
                       boundingObject USE wheel
                       physics Physics {
                         density -1
-                        mass 0.440360
+                        mass 0.0440360
                         centerOfMass [ 0.000000 0.000000 0.000000 ]
                         inertiaMatrix [
                           1.241177e-02 1.521816e-02 1.176398e-02
@@ -1564,7 +1564,7 @@ PROTO urdf_arm [
                       boundingObject USE wheel
                       physics Physics {
                         density -1
-                        mass 0.440360
+                        mass 0.0440360
                         centerOfMass [ 0.000000 0.000000 0.000000 ]
                         inertiaMatrix [
                           1.241177e-02 1.521816e-02 1.176398e-02
@@ -1586,7 +1586,7 @@ PROTO urdf_arm [
                     name "bl_imu_link"
                     physics Physics {
                       density -1
-                      mass 0.100000
+                      mass 0.0100000
                       centerOfMass [ 0.000000 0.000000 0.000000 ]
                       inertiaMatrix [
                         1.000000e-03 1.000000e-03 1.000000e-03
@@ -1660,7 +1660,7 @@ PROTO urdf_arm [
                       boundingObject USE wheel
                       physics Physics {
                         density -1
-                        mass 0.440360
+                        mass 0.0440360
                         centerOfMass [ 0.000000 0.000000 0.000000 ]
                         inertiaMatrix [
                           1.241177e-02 1.521816e-02 1.176398e-02
@@ -1695,7 +1695,7 @@ PROTO urdf_arm [
                       boundingObject USE wheel
                       physics Physics {
                         density -1
-                        mass 0.440360
+                        mass 0.0440360
                         centerOfMass [ 0.000000 0.000000 0.000000 ]
                         inertiaMatrix [
                           1.241177e-02 1.521816e-02 1.176398e-02
@@ -1717,7 +1717,7 @@ PROTO urdf_arm [
                     name "br_imu_link"
                     physics Physics {
                       density -1
-                      mass 0.100000
+                      mass 0.0100000
                       centerOfMass [ 0.000000 0.000000 0.000000 ]
                       inertiaMatrix [
                         1.000000e-03 1.000000e-03 1.000000e-03
@@ -1747,7 +1747,7 @@ PROTO urdf_arm [
           physics Physics {
             mass 5
             density -1
-            centerOfMass [ -0.110380 0.003430 0.301010 ]
+            centerOfMass [ -0.110380 0.003430 -0.8 ]
             inertiaMatrix [
               1.040803e+01 9.922754e+00 1.031268e+01
               -2.870000e-04 1.389546e-03 -4.990000e-05
@@ -1805,7 +1805,7 @@ PROTO urdf_arm [
     }
     physics Physics {
       density -1
-      mass 5.140394
+      mass 0.5140394
       centerOfMass [ -0.017488 0.001799 0.000000 ]
       inertiaMatrix [
         4.992224e-02 3.738068e-02 3.306054e-02
