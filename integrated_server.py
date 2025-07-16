@@ -338,8 +338,8 @@ def update_sl_status():
         data = request.get_json()
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
-        
-        required_fields = ['id', 'object_name', 'state_name']
+
+        required_fields = ['id', 'object_name', 'state_name', 'command']
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
@@ -364,6 +364,7 @@ def update_sl_status():
         sl_status = {
             "object_names": obj_ids,
             "state_name": data['state_name'],
+            "command": data['command'],
         }
     
     except Exception as e:
@@ -396,7 +397,7 @@ def get_sl_status():
 
         # 构建返回数据
         sl_info = [
-            {"object_name": obj_name, "state_name": sl_status["state_name"]}
+            {"object_name": obj_name, "state_name": sl_status["state_name"], "command": sl_status["command"]}
             for obj_name in sl_status["object_names"]
         ]
         
