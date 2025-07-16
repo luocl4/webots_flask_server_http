@@ -799,6 +799,7 @@ def start_webots():
             cmd = [
                 'webots',
                 '--mode=realtime',
+                '--minimize',
                 world_file,
                 '--stream',
             ]

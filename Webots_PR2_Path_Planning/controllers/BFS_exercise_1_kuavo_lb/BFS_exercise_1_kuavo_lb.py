@@ -1495,24 +1495,32 @@ rotation_test_done = False  # 用于标记旋转测试是否已完成
 touch_sensor = robot.getDevice("right_suction_touch_sensor")
 touch_sensor.enable(timestep)
 
+# 优化后的计数器和时间控制
 counter_1 = 0
-HTTP_REQUEST_INTERVAL = 30
-MAIN_LOOP_SLEEP = 0.1
+HTTP_REQUEST_INTERVAL = 30  # 每50个循环发送一次HTTP请求（约1秒间隔）
+MAIN_LOOP_SLEEP = 0.01  # 增加主循环休眠时间到100ms
 
 while robot.step(timestep) != -1:
     try:
         # touchValues = touch_sensor.getValue()  # 返回标量值，适用于默认类型
-        # if touchValues > 0:
+        # if touchValues &gt; 0:
         #     print("Robot is touching an object.")
         # else:
         #     print("no touch")
         
+        # 增加主循环休眠时间，减少CPU占用
         time.sleep(MAIN_LOOP_SLEEP)
+        
         counter_1 += 1
+        
+        # 只在达到间隔时才发送HTTP请求
         if counter_1 < HTTP_REQUEST_INTERVAL:
             continue
+            
+        # 重置计数器
         counter_1 = 0
         
+        # 发送HTTP请求获取命令
         try:
             response = requests.get(WEB_SERVER_URL, timeout=2)  # 添加超时设置
         except requests.exceptions.Timeout:
@@ -1520,6 +1528,7 @@ while robot.step(timestep) != -1:
             continue
         except requests.exceptions.ConnectionError:
             print("连接错误，服务器可能不可用")
+            # 增加错误间隔，避免频繁重试
             time.sleep(0.4)
             continue
         except Exception as e:
