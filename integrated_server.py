@@ -335,9 +335,32 @@ def update_sl_status():
     """更新机器人状态"""
     global sl_status
     try:
-        data = request.get_json()
+        # 尝试不同的方式获取数据
+        data = None
+        
+        # 方式1：尝试获取JSON数据
+        if request.is_json:
+            data = request.get_json()
+        # 方式2：尝试获取表单数据
+        elif request.form:
+            data = request.form.to_dict()
+            # 尝试解析JSON字符串
+            if 'data' in data:
+                try:
+                    import json
+                    data = json.loads(data['data'])
+                except:
+                    pass
+        # 方式3：尝试获取原始数据并解析为JSON
+        elif request.data:
+            try:
+                import json
+                data = json.loads(request.data.decode('utf-8'))
+            except:
+                pass
+        
         if not data:
-            return jsonify({"code": 400, "message": "参数为空"}), 400
+            return jsonify({"code": 400, "message": "参数为空或格式错误"}), 400
 
         required_fields = ['id', 'object_name', 'state_name', 'command']
         for field in required_fields:
@@ -350,17 +373,10 @@ def update_sl_status():
             try:
                 obj_ids = [str(item) for item in name_data]
             except (ValueError, TypeError):
-                return jsonify({"code": 400, "message": "id列表中包含非整数值"}), 400
+                return jsonify({"code": 400, "message": "object_name列表中包含无效值"}), 400
         else:
-            return jsonify({"code": 400, "message": "id必须是整数列表"}), 400
+            return jsonify({"code": 400, "message": "object_name必须是列表"}), 400
 
-        # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
-        #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
-        #     return jsonify({
-        #         "code": 409,
-        #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
-        #     }), 409
-        
         sl_status = {
             "object_names": obj_ids,
             "state_name": data['state_name'],
