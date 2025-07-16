@@ -330,6 +330,86 @@ def get_robot_command():
     return jsonify(command_to_send), 200
 
 
+@app.route('/set_sl_status', methods=['POST'])
+def update_sl_status():
+    """更新机器人状态"""
+    global sl_status
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"code": 400, "message": "参数为空"}), 400
+        
+        required_fields = ['id', 'object_id', 'state_name']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+        
+        id_data = data['object_id']
+        scene_id = str(data['id'])
+        if isinstance(id_data, list):
+            try:
+                obj_ids = [int(item) for item in id_data]
+            except (ValueError, TypeError):
+                return jsonify({"code": 400, "message": "id列表中包含非整数值"}), 400
+        else:
+            return jsonify({"code": 400, "message": "id必须是整数列表"}), 400
+
+        # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
+        #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
+        #     return jsonify({
+        #         "code": 409,
+        #         "message": f"场景ID不匹配。当前已加载场景: '{current_scene}'，请求查询场景: '{scene_id}'"
+        #     }), 409
+        
+        sl_status = {
+            "object_ids": obj_ids,
+            "state_name": data['state_name'],
+        }
+    
+    except Exception as e:
+        logger.error(f"更新机器人状态失败: {e}", exc_info=True)
+        return jsonify({"code": 500, "message": str(e)}), 500
+
+    return jsonify({"message": "Status updated"}), 200
+
+
+@app.route('/get_sl_status', methods=['GET'])
+def get_sl_status():
+    """获取机器人状态"""
+    global sl_status
+
+    try:
+        # 检查sl_status是否为空或未初始化
+        if not sl_status or sl_status == {}:
+            return jsonify({"code": 404, "message": "状态未设置"}), 404
+        
+        # 验证必要字段是否存在
+        if "object_ids" not in sl_status:
+            return jsonify({"code": 500, "message": "缺少object_ids字段"}), 500
+            
+        if "state_name" not in sl_status:
+            return jsonify({"code": 500, "message": "缺少state_name字段"}), 500
+        
+        # 验证object_ids是否为列表
+        if not isinstance(sl_status["object_ids"], list):
+            return jsonify({"code": 500, "message": "object_ids必须是列表"}), 500
+        
+        # 构建返回数据
+        sl_info = [
+            {"object_id": obj_id, "state_name": sl_status["state_name"]}
+            for obj_id in sl_status["object_ids"]
+        ]
+        
+        # 清空状态（根据业务需求，可能需要保留）
+        sl_status = {}
+        
+        return jsonify(sl_info), 200
+        
+    except Exception as e:
+        logger.error(f"获取机器人状态时出错: {e}", exc_info=True)
+        return jsonify({"code": 500, "message": f"服务器错误: {str(e)}"}), 500
+
+
 @app.route('/robot_status', methods=['POST'])
 def update_robot_status():
     """更新机器人状态"""

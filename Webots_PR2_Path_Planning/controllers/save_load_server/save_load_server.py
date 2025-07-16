@@ -2,7 +2,7 @@ from controller import Supervisor
 import time
 import requests
 
-WEB_SERVER_URL = "http://127.0.0.1:5000/sl_server"
+WEB_SERVER_URL = "http://127.0.0.1:5000/get_sl_status"
 
 supervisor = Supervisor()
 timestep = int(supervisor.getBasicTimeStep())
