@@ -43,22 +43,30 @@ while supervisor.step(timestep) != -1:
                         print(f"收到{len(command_data)}个对象的状态信息")
                         for item in command_data:
                             if isinstance(item, dict):
-                                object_id = item.get("object_id", "")
+                                object_name = item.get("object_name", "")
                                 state_name = item.get("state_name", "")
-                                print(f"对象ID: {object_id}, 状态: {state_name}")
+                                command = item.get("command", "save")  # 默认为save操作
                                 
-                                # 根据object_id获取节点并操作
-                                node = supervisor.getFromDef(object_id)
+                                print(f"对象ID: {object_name}, 状态: {state_name}, 命令: {command}")
+                                
+                                # 检查object_name是否有效
+                                if not object_name:
+                                    print("警告: object_name为空，跳过此项")
+                                    continue
+                                
+                                # 根据object_name获取节点并操作
+                                node = supervisor.getFromDef(object_name)
                                 if node:
-                                    # 这里需要根据实际的command来决定是save还是load
-                                    # 由于当前接口返回的数据中没有command字段，
-                                    # 您可能需要修改服务器端代码或者在这里添加默认逻辑
-                                    print(f"找到节点: {object_id}")
-                                    # 默认执行save操作，您可以根据需要修改
-                                    # node.saveState(state_name)
-                                    print(f"准备保存对象 {object_id} 的状态: {state_name}")
+                                    if command == "save":
+                                        node.saveState(state_name)
+                                        print(f"已保存对象 {object_name} 的状态: {state_name}")
+                                    elif command == "load":
+                                        node.loadState(state_name)
+                                        print(f"已加载对象 {object_name} 的状态: {state_name}")
+                                    else:
+                                        print(f"未知命令: {command}")
                                 else:
-                                    print(f"未找到节点: {object_id}")
+                                    print(f"未找到节点: {object_name}")
                             else:
                                 print(f"无效的数据项: {item}")
                     else:
