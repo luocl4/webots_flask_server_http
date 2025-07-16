@@ -40,7 +40,6 @@ robot = MyCustomRobot(verbose=True)  # 可以将 verbose 设置为 True，方便
 robot.initialize_devices()
 timestep = int(robot.getBasicTimeStep())
 
-
 class Map_transformer:
     def __init__(self, map_size=[9, 5.4], scale_factor: int = 20):
         self.map_size = map_size
@@ -1495,7 +1494,11 @@ last_goal_timestamp = None  # 添加时间戳跟踪
 rotation_test_done = False  # 用于标记旋转测试是否已完成
 touch_sensor = robot.getDevice("right_suction_touch_sensor")
 touch_sensor.enable(timestep)
+
 counter_1 = 0
+HTTP_REQUEST_INTERVAL = 30
+MAIN_LOOP_SLEEP = 0.1
+
 while robot.step(timestep) != -1:
     try:
         # touchValues = touch_sensor.getValue()  # 返回标量值，适用于默认类型
@@ -1503,12 +1506,26 @@ while robot.step(timestep) != -1:
         #     print("Robot is touching an object.")
         # else:
         #     print("no touch")
-        time.sleep(0.015)
-        counter_1 = counter_1 + 1
-        if counter_1 == 100:
-            counter_1 = 0
+        
+        time.sleep(MAIN_LOOP_SLEEP)
+        counter_1 += 1
+        if counter_1 < HTTP_REQUEST_INTERVAL:
             continue
-        response = requests.get(WEB_SERVER_URL)
+        counter_1 = 0
+        
+        try:
+            response = requests.get(WEB_SERVER_URL, timeout=2)  # 添加超时设置
+        except requests.exceptions.Timeout:
+            print("HTTP请求超时，跳过本次请求")
+            continue
+        except requests.exceptions.ConnectionError:
+            print("连接错误，服务器可能不可用")
+            time.sleep(0.4)
+            continue
+        except Exception as e:
+            print(f"HTTP请求发生未知错误: {e}")
+            continue
+            
         if response.status_code == 200:
             command_data = response.json()
             source = command_data.get('source')
@@ -2042,12 +2059,15 @@ while robot.step(timestep) != -1:
                         "current_right_pos": current_right_pos,
                     }
                 send_robot_status(current_robot_position, status_info)
-    except requests.exceptions.ConnectionError:
-        pass
+        else:
+            print(f"HTTP响应状态码异常: {response.status_code}")
+            
     except json.JSONDecodeError:
-        print("Invalid JSON response from web server.")
+        print("JSON解析错误，服务器响应格式不正确")
     except Exception as e:
-        print(f"Error fetching command: {e}")
+        print(f"主循环发生未知错误: {e}")
+        # 发生错误时稍作延迟，避免错误循环
+        time.sleep(0.5)
 
     if goal_received and path:
         # 计算当前位置与目标的距离
