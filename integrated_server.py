@@ -339,16 +339,16 @@ def update_sl_status():
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
         
-        required_fields = ['id', 'object_id', 'state_name']
+        required_fields = ['id', 'object_name', 'state_name']
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
-        
-        id_data = data['object_id']
+
+        name_data = data['object_name']
         scene_id = str(data['id'])
-        if isinstance(id_data, list):
+        if isinstance(name_data, list):
             try:
-                obj_ids = [int(item) for item in id_data]
+                obj_ids = [str(item) for item in name_data]
             except (ValueError, TypeError):
                 return jsonify({"code": 400, "message": "id列表中包含非整数值"}), 400
         else:
@@ -362,7 +362,7 @@ def update_sl_status():
         #     }), 409
         
         sl_status = {
-            "object_ids": obj_ids,
+            "object_names": obj_ids,
             "state_name": data['state_name'],
         }
     
@@ -384,20 +384,20 @@ def get_sl_status():
             return jsonify({"code": 404, "message": "状态未设置"}), 404
         
         # 验证必要字段是否存在
-        if "object_ids" not in sl_status:
-            return jsonify({"code": 500, "message": "缺少object_ids字段"}), 500
-            
+        if "object_names" not in sl_status:
+            return jsonify({"code": 500, "message": "缺少object_names字段"}), 500
+
         if "state_name" not in sl_status:
             return jsonify({"code": 500, "message": "缺少state_name字段"}), 500
         
-        # 验证object_ids是否为列表
-        if not isinstance(sl_status["object_ids"], list):
-            return jsonify({"code": 500, "message": "object_ids必须是列表"}), 500
-        
+        # 验证object_names是否为列表
+        if not isinstance(sl_status["object_names"], list):
+            return jsonify({"code": 500, "message": "object_names必须是列表"}), 500
+
         # 构建返回数据
         sl_info = [
-            {"object_id": obj_id, "state_name": sl_status["state_name"]}
-            for obj_id in sl_status["object_ids"]
+            {"object_name": obj_name, "state_name": sl_status["state_name"]}
+            for obj_name in sl_status["object_names"]
         ]
         
         # 清空状态（根据业务需求，可能需要保留）
