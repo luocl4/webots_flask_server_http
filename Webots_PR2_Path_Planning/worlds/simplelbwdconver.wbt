@@ -1,0 +1,700 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/conveyors/protos/ConveyorBelt.proto"
+EXTERNPROTO "../protos/CardboardBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/tables/protos/Table.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/VarnishedPine.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/factory/containers/protos/PlasticCrate.proto"
+EXTERNPROTO "../protos/urdf_arm_mix/urdf_arm.proto"
+EXTERNPROTO "../protos/BipedS48.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/apartment_structure/protos/Wall.proto"
+
+WorldInfo {
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      maxContactJoints 100
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.5974195403369905 0.5139130133624231 0.61561620147645 2.167557734129142
+  position -0.358935546009982 -0.20793723311372833 6.457661780634622
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Solid {
+  translation 1.2 -1 0.8
+  rotation 1 0 0 1.57
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+      }
+      geometry Mesh {
+        url [
+          "../meshes/conver.STL"
+        ]
+      }
+    }
+  ]
+  name "conver"
+}
+Solid {
+  children [
+    Group {
+      children [
+        Wall {
+          translation -1.09 1.32 0.9
+          rotation 0 0 1 -0.5235996938995747
+          size 0.01 0.5 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation -0.8 1.53 0.9
+          rotation 0 0 1 -1.74
+          name "wall1"
+          size 0.01 0.5 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation -0.79 1.35 0.9
+          rotation 0 0 1 -0.9163003061004252
+          name "wall2"
+          size 0.01 0.2 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation -0.92 1.21 0.9
+          rotation 0 0 1 -0.5236003061004253
+          name "wall3"
+          size 0.01 0.2 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation 0.97 1.53 0.9
+          rotation 0 0 1 -2.094399693899575
+          name "wall4"
+          size 0.01 0.5 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation 1.17 1.2 0.9
+          rotation 0 0 1 3.05
+          name "wall5"
+          size 0.01 0.5 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation 0.8 1.38 0.9
+          rotation 0 0 1 -1.963500306100425
+          name "wall6"
+          size 0.01 0.2 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation 0.96 1.26 0.9
+          rotation 0 0 1 -2.4870996938995744
+          name "wall7"
+          size 0.01 0.2 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation 1.19 -1.35 0.9
+          rotation 0 0 1 2.6595856132800115
+          name "wall8"
+          size 0.01 0.5 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation 0.94 -1.62 0.9
+          rotation 0 0 1 1.44
+          name "wall9"
+          size 0.01 0.5 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation 1.01 -1.32 0.9
+          rotation 0 0 1 2.7488996938995744
+          name "wall10"
+          size 0.01 0.2 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation 0.88 -1.46 0.9
+          rotation 0 0 1 2.2253003061004253
+          name "wall11"
+          size 0.01 0.2 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation -1.1 -1.33 0.9
+          rotation 0 0 1 2.99
+          name "wall12"
+          size 0.01 0.5 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation -0.94 -1.54 0.9
+          rotation 0 0 1 -2.3146003061004254
+          name "wall13"
+          size 0.01 0.5 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation -0.8 -1.45 0.9
+          rotation 0 0 1 1.0471996938995747
+          name "wall14"
+          size 0.01 0.2 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+        Wall {
+          translation -0.9 -1.3 0.9
+          rotation 0 0 1 0.5236003061004253
+          name "wall15"
+          size 0.01 0.2 0.2
+          appearance PBRAppearance {
+            transparency 1
+          }
+        }
+      ]
+    }
+  ]
+  name "wall"
+}
+RectangleArena {
+  floorSize 15 14
+}
+DEF PR2_ROBOT urdf_arm {
+  translation -0.6802033688242295 -0.801722238580112 0.8309714900240812
+  rotation -0.00028727755161197214 0.0004733274561027923 0.9999998467163521 -3.132920998510245
+  name "PR2_ROBOT"
+  controller "BFS_exercise_1_kuavo_lb"
+  customData "{\"describe\": \"轮臂机器人带夹爪\", \"ability\": \"move__left_grab__right_grab__both_grab__left_place__right_place__both_place\"}"
+}
+BipedS48 {
+  translation -0.53 1 1.04
+  rotation 0 0 1 -1.5707996938995747
+}
+Group {
+  children [
+    Table {
+      translation -0.5 0.2 0.175
+      rotation 0 0 -1 3.37201e-06
+      size 0.7 0.2 0.77
+      trayAppearance VarnishedPine {
+        colorOverride 1 1 1
+        textureTransform TextureTransform {
+          scale 8 8
+        }
+      }
+      legAppearance PBRAppearance {
+        transparency 1
+      }
+    }
+    PlasticCrate {
+      translation -0.7 0 0.54
+      size 0.3 0.3 0.4
+      color 0.8 0.8 0.8
+    }
+    PlasticCrate {
+      translation -0.3 0 0.54
+      name "plastic crate(2)"
+      size 0.3 0.3 0.4
+      color 0.1 0.4 0.7
+    }
+    PlasticCrate {
+      translation -0.7 0.44 0.54
+      name "plastic crate(1)"
+      size 0.3 0.3 0.4
+      color 0.8 0.8 0.8
+    }
+    PlasticCrate {
+      translation -0.3 0.44 0.54
+      name "plastic crate(3)"
+      size 0.3 0.3 0.4
+      color 0.1 0.4 0.7
+    }
+    Solid {
+      translation -0.5 0.2 0.56
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 1 1 1
+              emissiveColor 0.9 0.9 0.8
+              specularColor 1 1 1
+            }
+          }
+          geometry Box {
+            size 0.06 0.06 0.75
+          }
+        }
+        Solid {
+          translation 0 0 -0.39
+          children [
+            Shape {
+              appearance Appearance {
+                material Material {
+                  emissiveColor 0.9 0.9 0.8
+                }
+              }
+              geometry Box {
+                size 0.6 0.09 0.03
+              }
+            }
+          ]
+        }
+      ]
+      name "zhuzi"
+    }
+    Solid {
+      translation -0.76 0.2 0.14
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 1 1 1
+              emissiveColor 0.9 0.9 0.8
+              specularColor 1 1 1
+            }
+          }
+          geometry Box {
+            size 0.02 0.02 0.08
+          }
+        }
+      ]
+      name "zhuzi(1)"
+    }
+    Solid {
+      translation -0.23 0.2 0.14
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 1 1 1
+              emissiveColor 0.9 0.9 0.8
+              specularColor 1 1 1
+            }
+          }
+          geometry Box {
+            size 0.02 0.02 0.08
+          }
+        }
+      ]
+      name "zhuzi(2)"
+    }
+    Solid {
+      translation -0.23 0.2 0.05
+      rotation 1 0 0 -1.4398996938995747
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0 0 0
+            }
+          }
+          geometry Cylinder {
+            height 0.1
+            radius 0.05
+          }
+        }
+      ]
+      name "lunzi(1)"
+    }
+    Solid {
+      translation -0.76 0.2 0.05
+      rotation 1 0 0 -1.4398996938995747
+      children [
+        Shape {
+          appearance Appearance {
+            material Material {
+              diffuseColor 0 0 0
+            }
+          }
+          geometry Cylinder {
+            height 0.1
+            radius 0.05
+          }
+        }
+      ]
+      name "lunzi(2)"
+    }
+  ]
+}
+DEF cardboard_box(1) CardboardBox {
+  hidden linearVelocity_0 0.511752968801876 -0.6079512915419476 0.0009668041931026831
+  hidden angularVelocity_0 0.015617257439149285 0.014250505301441764 0.29869092485106946
+  translation 1.093447122003918 1.2578627878594226 0.9248578302981441
+  rotation 0.00014259467602576573 6.279019354156334e-05 -0.9999999878620749 -0.884501917980363
+  name "cardboard_box(1)"
+  description "None//可以抓取放置的物体//黄色//left_grab/right_grab/both_grab/left_place/right_place/both_place//None//2"
+  size 0.05 0.05 0.05
+  mass 1
+}
+DEF cardboard_box(2) CardboardBox {
+  hidden linearVelocity_0 0.34303764363215183 -0.038192735115195386 0.0013737927198128974
+  hidden angularVelocity_0 0.02025854724000376 0.06312294460746123 -8.86398446565765
+  translation -0.7145675867835821 1.4847740450629916 0.9248535871931348
+  rotation -0.00016040512627368809 0.00018256770725958167 -0.9999999704696135 -2.8588443257321514
+  name "cardboard_box(2)"
+  description "None//可以抓取放置的物体//黄色//left_grab/right_grab/both_grab/left_place/right_place/both_place//None//2"
+  size 0.05 0.05 0.05
+  mass 1
+}
+DEF cardboard_box(3) CardboardBox {
+  hidden linearVelocity_0 0.25230959411721954 0.7577770104440579 -0.0012553218318376782
+  hidden angularVelocity_0 0.06124503725759932 0.0017758064091960568 8.638050721376805e-05
+  translation -1.0094323058580987 1.2165211952182442 0.9248666215864538
+  rotation -0.00023006022477609265 0.002655214368330588 -0.9999964484481687 -1.2928788630626666
+  name "cardboard_box(3)"
+  description "None//可以抓取放置的物体//黄色//left_grab/right_grab/both_grab/left_place/right_place/both_place//None//2"
+  size 0.05 0.05 0.05
+  mass 1
+}
+DEF cardboard_box(4) CardboardBox {
+  hidden linearVelocity_0 0.00034147195107821107 0.5002995656202307 4.5156397376496576e-05
+  hidden angularVelocity_0 -4.211063534205901e-05 -0.00017378922652365155 7.600430819936876e-05
+  translation -1.0277141407756916 -0.23971790060566697 0.9247488291247042
+  rotation 0.00010025816050636349 2.5441130954664765e-05 -0.9999999946505251 0.14241484328131768
+  name "cardboard_box(4)"
+  description "None//可以抓取放置的物体//黄色//left_grab/right_grab/both_grab/left_place/right_place/both_place//None//2"
+  size 0.05 0.05 0.05
+  mass 1
+}
+DEF cardboard_box(5) CardboardBox {
+  hidden linearVelocity_0 0.0003734653133682901 0.5002995337327114 2.4674774726844154e-05
+  hidden angularVelocity_0 -4.259137871357485e-05 -0.0002965671369535993 7.600277806285181e-05
+  translation -1.0282946371810726 -0.7012585166939619 0.9247432668003863
+  rotation 0.7058484017725075 -0.05966200784838244 0.7058459311596946 3.022430054478002
+  name "cardboard_box(5)"
+  description "None//可以抓取放置的物体//黄色//left_grab/right_grab/both_grab/left_place/right_place/both_place//None//2"
+  size 0.05 0.05 0.05
+  mass 1
+}
+DEF cardboard_box(6) CardboardBox {
+  hidden linearVelocity_0 0.04962676593180332 0.4524835022913138 0.0003027170458766525
+  hidden angularVelocity_0 -0.015937464024009133 0.007340587818651898 -1.6673004594840501
+  translation -1.0250164373405206 1.1180462616176428 0.924893284254554
+  rotation 0.0013074025430081077 -0.00043884358116185623 -0.9999990490569988 0.25981084237368224
+  name "cardboard_box(6)"
+  description "None//可以抓取放置的物体//黄色//left_grab/right_grab/both_grab/left_place/right_place/both_place//None//2"
+  size 0.05 0.05 0.05
+  mass 1
+}
+DEF cardboard_box(7) CardboardBox {
+  hidden linearVelocity_0 0.517409629122892 0.6101941403510018 -0.00014439978311880504
+  hidden angularVelocity_0 0.03598277635737348 0.03944190923157581 -7.214340665333141e-06
+  translation -0.9452092982254837 1.3244098516633125 0.9248228769227338
+  rotation -0.6444501017248817 -0.4114777204043534 -0.6444921659707172 2.364566078481875
+  name "cardboard_box(7)"
+  description "None//可以抓取放置的物体//黄色//left_grab/right_grab/both_grab/left_place/right_place/both_place//None//2"
+  size 0.05 0.05 0.05
+  mass 1
+}
+DEF cardboard_box(8) CardboardBox {
+  hidden linearVelocity_0 -0.06319061669576793 -0.38530072511192714 -0.0008406593567853098
+  hidden angularVelocity_0 -0.017926044056431258 -0.01680560057277425 -2.379669201967564
+  translation 1.1265227575542813 1.0833737053285526 0.9248721787098079
+  rotation -0.00024892310964619893 -8.264061191071774e-05 0.9999999656039067 -3.1234171149608247
+  name "cardboard_box(8)"
+  description "None//可以抓取放置的物体//黄色//left_grab/right_grab/both_grab/left_place/right_place/both_place//None//2"
+  size 0.05 0.05 0.05
+  mass 1
+}
+ConveyorBelt {
+  hidden linearVelocity_1 1.5430660062749626e-05 -2.82850346647745e-05 -4.74570674978736e-05
+  hidden angularVelocity_1 8.92478692787396e-06 -3.951851218871339e-05 3.7309333788312316e-05
+  translation 0.04 1.54 0.3
+  name "conveyor belt(4)"
+  size 1.52 0.25 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  acceleration 0.5
+}
+ConveyorBelt {
+  hidden linearVelocity_1 0.0006483300092113496 -0.0008269478422171233 3.0613616672781064e-09
+  hidden angularVelocity_1 1.2356192831737825e-08 1.6684659955864492e-08 0.0005020791414695639
+  translation 0.05 -1.63 0.3
+  rotation 0 0 1 -3.14
+  name "conveyor belt(14)"
+  size 1.6 0.23 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  acceleration 0.5
+}
+ConveyorBelt {
+  hidden linearVelocity_1 2.371805786072123e-05 0.00013666551449000153 -3.418551254489444e-05
+  hidden angularVelocity_1 7.0705810100519045e-06 -1.1334813560479062e-06 1.1120325281991152e-05
+  translation -1.06 1.22 0.3
+  rotation 0 0 1 1.25
+  size 0.23 0.25 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 6.036931247224686e-05 5.631299785306343e-05 -3.114924062100499e-05
+  hidden angularVelocity_1 3.112849621367772e-06 5.9014024266941436e-06 4.123289449720368e-06
+  translation -0.96 1.38 0.3
+  rotation 0 0 1 0.8691003061004253
+  name "conveyor belt(1)"
+  size 0.25 0.24 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 3.5185803924832726e-05 1.0487872463272651e-05 3.231721003402299e-05
+  hidden angularVelocity_1 -6.753066918481383e-07 1.354301727415074e-06 5.39607942813587e-06
+  translation -0.8 1.5 0.3
+  rotation 0 0 1 0.39
+  name "conveyor belt(3)"
+  size 0.26 0.25 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 7.127514199964935e-06 3.034662701002944e-06 -1.4266595289313954e-07
+  hidden angularVelocity_1 -9.855659569052331e-07 -1.8776317969656855e-06 2.0521591126397567e-06
+  translation 0.88 1.5 0.3
+  rotation 0 0 1 -0.38910030610042534
+  name "conveyor belt(5)"
+  size 0.27 0.24 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 1.7034560927640995e-05 1.2253203016371117e-05 4.15252705541036e-05
+  hidden angularVelocity_1 2.469555538562713e-06 -7.43310247425489e-07 5.478134953998834e-06
+  translation 1.05 1.37 0.3
+  rotation 0 0 1 -0.8382003061004253
+  name "conveyor belt(7)"
+  size 0.26 0.25 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 -5.333668551133819e-05 3.9830126808787724e-05 -6.016217148933833e-05
+  hidden angularVelocity_1 -5.437329302766228e-06 -7.140128441473187e-06 -8.83544903965135e-06
+  translation 1.16 1.19 0.3
+  rotation 0 0 1 -1.1691003061004253
+  name "conveyor belt(8)"
+  size 0.25 0.25 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 6.224709323259958e-05 5.312656325622811e-05 -1.4615441051546442e-07
+  hidden angularVelocity_1 -1.78908918636162e-06 4.873077332827746e-07 -2.567504380922642e-06
+  translation 1.17 -1.28 0.3
+  rotation 0 0 1 -1.8272996938995747
+  name "conveyor belt(19)"
+  size 0.26 0.25 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 0.00021001056530258212 1.7736724665155635e-05 -2.328645697957654e-08
+  hidden angularVelocity_1 -5.464883074979545e-08 3.7244345730481114e-08 -2.2652417912582553e-06
+  translation 1.06 -1.47 0.3
+  rotation 0 0 1 -2.2253003061004253
+  name "conveyor belt(16)"
+  size 0.26 0.26 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 0.00045150685596672703 -0.00012507077564623614 -8.403902683085107e-09
+  hidden angularVelocity_1 -1.6568477690864822e-11 -2.5417741306450536e-09 8.439754127484778e-05
+  translation 0.9 -1.59 0.3
+  rotation 0 0 1 -2.7408996938995744
+  name "conveyor belt(17)"
+  size 0.23 0.25 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 -8.737528282577918e-05 0.0003006239369977666 4.8713537814819574e-05
+  hidden angularVelocity_1 4.460455878825496e-05 6.888897869792788e-07 7.60256952666505e-05
+  translation -1.09 -0.04 0.3
+  rotation 0 0 1 1.57
+  name "conveyor belt(9)"
+  size 2.4 0.23 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  acceleration 0.5
+}
+ConveyorBelt {
+  hidden linearVelocity_1 -2.0204703453146067e-05 3.737206080404576e-05 -4.824588135403474e-05
+  hidden angularVelocity_1 -5.6447807565228234e-05 -1.0138651123010693e-05 4.8702490668361385e-05
+  translation 1.2 -0.03 0.3
+  rotation 0 0 1 -1.57
+  name "conveyor belt(13)"
+  size 2.3 0.24 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.0001
+  borderHeight 0
+  acceleration 0.5
+}
+ConveyorBelt {
+  hidden linearVelocity_1 -0.010005840627856743 0.0004140544738384051 -9.088274904058835e-07
+  hidden angularVelocity_1 3.0431723548189503e-07 -3.053205515262398e-07 -0.0012825885902239406
+  translation -1.06 -1.3 0.3
+  rotation 0 0 1 1.8326003061004252
+  name "conveyor belt(10)"
+  size 0.24 0.25 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 0.0073895673173792606 0.0016494756341999164 -3.8762056860264236e-07
+  hidden angularVelocity_1 -2.2350562808603786e-08 -4.341689380511748e-09 0.00041513509760261063
+  translation -0.97 -1.45 0.3
+  rotation 0 0 1 2.3561996938995744
+  name "conveyor belt(11)"
+  size 0.25 0.25 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+ConveyorBelt {
+  hidden linearVelocity_1 0.0012120343743627017 -0.0017835903464983858 -3.8436527006524556e-08
+  hidden angularVelocity_1 3.142826795770556e-09 1.4830825505022533e-08 -0.00023012716015696354
+  translation -0.8 -1.58 0.3
+  rotation 0 0 1 2.6191003061004254
+  name "conveyor belt(18)"
+  size 0.24 0.25 0.6
+  appearance PBRAppearance {
+    transparency 1
+  }
+  borderThickness 0.001
+  borderHeight 0
+  speed 0.8
+  acceleration 0.8
+}
+DEF SUPERVISOR Robot {
+  children [
+    Camera {
+      translation 0.29281275432535836 0.6631143647963142 16.134634289208737
+      rotation 0.5822612112348909 -0.5881728864363943 -0.5612704673794606 4.155327132529761
+      name "camera_rgb"
+      width 640
+      height 480
+      recognition Recognition {
+      }
+    }
+    RangeFinder {
+      translation 0.29281275432535836 0.6631143647963142 16.134634289208737
+      rotation 0.5822612112348909 -0.5881728864363943 -0.5612704673794606 4.155327132529761
+      name "camera_dpt"
+      width 640
+      height 480
+      minRange 12
+      maxRange 40
+      resolution 1
+    }
+  ]
+  name "supervisor_robot"
+  controller "supervisor_monitor"
+  supervisor TRUE
+}
