@@ -162,3 +162,8 @@ DEF robot Robot {
   ]
   controller "rotational_motor"
 }
+DEF SAVELOADER Robot {
+  name "save_loader"
+  controller "save_load_server"
+  supervisor TRUE
+}

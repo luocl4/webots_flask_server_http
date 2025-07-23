@@ -698,3 +698,8 @@ DEF SUPERVISOR Robot {
   controller "supervisor_monitor"
   supervisor TRUE
 }
+DEF SAVELOADER Robot {
+  name "save_loader"
+  controller "save_load_server"
+  supervisor TRUE
+}

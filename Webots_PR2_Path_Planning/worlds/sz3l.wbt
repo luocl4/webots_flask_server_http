@@ -410,3 +410,8 @@ Solid {
   ]
   name "allwall"
 }
+DEF SAVELOADER Robot {
+  name "save_loader"
+  controller "save_load_server"
+  supervisor TRUE
+}
