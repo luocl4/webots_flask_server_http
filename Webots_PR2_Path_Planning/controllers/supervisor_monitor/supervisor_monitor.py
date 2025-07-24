@@ -16,7 +16,7 @@ import socketserver
 WEB_SERVER_URL = "http://127.0.0.1:5000/world_status"
 
 supervisor = Supervisor()
-robot_node = supervisor.getFromDef("PR2_ROBOT")
+# robot_node = supervisor.getFromDef("PR2_ROBOT")
 wordl_path = supervisor.getWorldPath()
 floor = supervisor.getFromDef("floor")
 timestep = int(supervisor.getBasicTimeStep())
@@ -36,22 +36,21 @@ def safe_float(value, default=0.0):
 
 
 NODES_TO_MONITOR = [
-    {
-        'id': 1,
-        'name': "PR2_ROBOT",
-    },
-    {'id': 2, 'name': "cardboard_box(1)"},
-    {'id': 3, 'name': "cardboard_box(2)"},
-    {'id': 4, 'name': "cardboard_box(3)"},
-    {'id': 5, 'name': "cardboard_box(4)"},
-    {'id': 6, 'name': "cardboard_box(5)"},
-    {'id': 7, 'name': "cardboard_box(6)"},
-    {'id': 8, 'name': "cardboard_box(7)"},
-    {'id': 9, 'name': "cardboard_box(8)"},
-    {'id': 10, 'name': "PlasticCrate0"},
-    {'id': 11, 'name': "PlasticCrate1"},
-    {'id': 12, 'name': "PlasticCrate2"},
-    {'id': 13, 'name': "PlasticCrate3"},
+    {"id": 1, "name": "PR2_ROBOT1"},
+    {"id": 2, "name": "cardboard_box(1)"},
+    {"id": 3, "name": "cardboard_box(2)"},
+    {"id": 4, "name": "cardboard_box(3)"},
+    {"id": 5, "name": "cardboard_box(4)"},
+    {"id": 6, "name": "cardboard_box(5)"},
+    {"id": 7, "name": "cardboard_box(6)"},
+    {"id": 8, "name": "cardboard_box(7)"},
+    {"id": 9, "name": "cardboard_box(8)"},
+    {"id": 10, "name": "PlasticCrate0"},
+    {"id": 11, "name": "PlasticCrate1"},
+    {"id": 12, "name": "PlasticCrate2"},
+    {"id": 13, "name": "PlasticCrate3"},
+    {"id": 14, "name": "Table"},
+    {"id": 15, "name": "PR2_ROBOT2"},
 ]
 
 # 存储上一次发送的节点数据，用于判断是否移动。
@@ -86,7 +85,7 @@ def get_callable_methods(obj):
     for attr_name in dir(obj):
         try:
             attr = getattr(obj, attr_name)
-            if callable(attr) and not attr_name.startswith('_'):
+            if callable(attr) and not attr_name.startswith("_"):
                 methods.append(attr_name)
         except Exception:
             continue
@@ -156,26 +155,26 @@ def get_node_properties(node_webots_object):
             # 第一次读取，获取并缓存描述信息
             result = get_describe_from_solid(node_webots_object)
             solid_describe_cache[node_def_name] = result
-            print(f"Supervisor INFO: 缓存 {node_def_name} 的描述信息")
+            # print(f"Supervisor INFO: 缓存 {node_def_name} 的描述信息")
         else:
             # 使用缓存的描述信息
             result = solid_describe_cache[node_def_name]
         if result:
-            color_value = result['color']
-            size_value = result['size'].split('/') if result['size'] else [0, 0, 0]
-            describe_value = result['description']
+            color_value = result["color"]
+            size_value = result["size"].split("/") if result["size"] else [0, 0, 0]
+            describe_value = result["description"]
             ability_value = (
-                result['ability_code'].split('/') if result['ability_code'] else []
+                result["ability_code"].split("/") if result["ability_code"] else []
             )
-            origin_pos_str = result['origin_pos']
-            obj_type = result['obj_type']
+            origin_pos_str = result["origin_pos"]
+            obj_type = result["obj_type"]
 
             # 处理位置偏移量（只在第一次计算）
             if node_def_name not in solid_position_offsets:
                 # 第一次读取，计算偏移量
                 if origin_pos_str:
                     try:
-                        origin_pos = [float(x) for x in origin_pos_str.split('/')]
+                        origin_pos = [float(x) for x in origin_pos_str.split("/")]
                         if len(origin_pos) >= 3:
                             # 计算偏移量 = 当前位置 - 原始位置
                             offset = [
@@ -184,9 +183,9 @@ def get_node_properties(node_webots_object):
                                 position[2] - origin_pos[2],
                             ]
                             solid_position_offsets[node_def_name] = offset
-                            print(
-                                f"Supervisor INFO: 计算 {node_def_name} 位置偏移量: {offset}"
-                            )
+                            # print(
+                            #     f"Supervisor INFO: 计算 {node_def_name} 位置偏移量: {offset}"
+                            # )
                         else:
                             solid_position_offsets[node_def_name] = [0, 0, 0]
                     except (ValueError, IndexError) as e:
@@ -209,25 +208,29 @@ def get_node_properties(node_webots_object):
             size_value = [0, 0, 0]
             describe_value = "无法获取描述"
             ability_value = []
-    elif Type_name == "PlasticFruitBox" or Type_name == 'CardboardBox' or Type_name == 'PlasticCrate':
+    elif (
+        Type_name == "PlasticFruitBox"
+        or Type_name == "CardboardBox"
+        or Type_name == "PlasticCrate"
+    ):
         # 使用缓存的描述信息，避免重复读取字段
         if node_def_name not in solid_describe_cache:
             # 第一次读取，获取并缓存描述信息
             result = get_describe_from_solid(node_webots_object)
             solid_describe_cache[node_def_name] = result
-            print(f"Supervisor INFO: 缓存 {node_def_name} 的描述信息")
+            # print(f"Supervisor INFO: 缓存 {node_def_name} 的描述信息")
         else:
             # 使用缓存的描述信息
             result = solid_describe_cache[node_def_name]
-        print(result)
+        # print(result)
         if result:
-            color_value = result['color']
-            size_value = result['size'].split('/') if result['size'] else [0, 0, 0]
-            describe_value = result['description']
+            color_value = result["color"]
+            size_value = result["size"].split("/") if result["size"] else [0, 0, 0]
+            describe_value = result["description"]
             ability_value = (
-                result['ability_code'].split('/') if result['ability_code'] else []
+                result["ability_code"].split("/") if result["ability_code"] else []
             )
-            obj_type = result['obj_type']
+            obj_type = result["obj_type"]
         else:
             size_value = [0, 0, 0]
             describe_value = "无法获取描述"
@@ -238,7 +241,7 @@ def get_node_properties(node_webots_object):
         )  # 获取 describe 字段
         if ability_value:
             ability_value = parse_ability(ability_value)
-        obj_type = '1'
+        obj_type = "1"
     else:
         size_value = get_obj_size(node_webots_object)  # 获取 size 字段
         describe_value, ability_value, _ = get_obj_describe(
@@ -246,7 +249,7 @@ def get_node_properties(node_webots_object):
         )  # 获取 describe 字段
         if ability_value:
             ability_value = parse_ability(ability_value)
-        obj_type = '1'
+        obj_type = "1"
 
     return {
         "name": node_def_name,  # 使用 DEF 名称作为标识符
@@ -265,10 +268,10 @@ def get_node_properties(node_webots_object):
 
 def get_obj_size(node_webots_object):
     try:
-        if hasattr(node_webots_object, 'getField'):
-            type_name = node_webots_object.getField('name').getSFString()
-            if 'wooden box' in type_name:
-                size_field = node_webots_object.getField('size')
+        if hasattr(node_webots_object, "getField"):
+            type_name = node_webots_object.getField("name").getSFString()
+            if "wooden box" in type_name:
+                size_field = node_webots_object.getField("size")
                 if size_field:
                     size_value = size_field.getSFVec3f()
                     return size_value
@@ -282,20 +285,20 @@ def get_obj_size(node_webots_object):
 
 def get_obj_describe(node_webots_object):
     try:
-        if hasattr(node_webots_object, 'getField'):
-            describe_field = node_webots_object.getField('describe')
+        if hasattr(node_webots_object, "getField"):
+            describe_field = node_webots_object.getField("describe")
             if describe_field:
                 describe_value = describe_field.getSFString()
                 # print(f"获取到描述字段: {describe_value}")
                 return describe_value, None, None
             else:
-                describe_field = node_webots_object.getField('customData')
+                describe_field = node_webots_object.getField("customData")
                 if describe_field:
                     describe_value = describe_field.getSFString()
                     custom_data = json.loads(describe_value)
                     describe = custom_data.get("describe", "未知描述")
                     ability = custom_data.get("ability", "未知能力")
-                    obj_size = custom_data.get("size", "0.0__0.0__0.0").split('__')
+                    obj_size = custom_data.get("size", "0.0__0.0__0.0").split("__")
                     return describe, ability, obj_size
                 else:
                     return None, None, None
@@ -309,8 +312,8 @@ def get_obj_ability(node_webots_object):
     目前假设所有物体都具有相同的能力。
     """
     try:
-        if hasattr(node_webots_object, 'getField'):
-            ability_field = node_webots_object.getField('ability')
+        if hasattr(node_webots_object, "getField"):
+            ability_field = node_webots_object.getField("ability")
             if ability_field:
                 ability_value = ability_field.getSFString()
                 return ability_value
@@ -328,22 +331,22 @@ def parse_ability(ability_str):
     if not ability_str:
         return None
 
-    return ability_str.split('__')
+    return ability_str.split("__")
 
 
 def parse_field_string_detailed(field_str):
-    parts = field_str.split('//')
+    parts = field_str.split("//")
 
     while len(parts) < 5:
-        parts.append('')
+        parts.append("")
 
     result = {
-        'size': parts[0] if len(parts) > 0 else '',
-        'description': parts[1] if len(parts) > 1 else '',
-        'color': parts[2] if len(parts) > 2 else '',
-        'ability_code': parts[3] if len(parts) > 3 else '',
-        'origin_pos': parts[4] if len(parts) > 4 else '',
-        'obj_type': parts[5] if len(parts) > 5 else '',
+        "size": parts[0] if len(parts) > 0 else "",
+        "description": parts[1] if len(parts) > 1 else "",
+        "color": parts[2] if len(parts) > 2 else "",
+        "ability_code": parts[3] if len(parts) > 3 else "",
+        "origin_pos": parts[4] if len(parts) > 4 else "",
+        "obj_type": parts[5] if len(parts) > 5 else "",
     }
 
     return result
@@ -351,7 +354,7 @@ def parse_field_string_detailed(field_str):
 
 def get_describe_from_solid(node_webots_object):
     try:
-        all_field = node_webots_object.getField('description')
+        all_field = node_webots_object.getField("description")
         if all_field:
             field_str = all_field.getSFString()
             if field_str:
@@ -406,7 +409,7 @@ while supervisor.step(timestep) != -1:
     if current_time - last_send_time >= send_interval:
         nodes_status = []
         for mon_mode in NODES_TO_MONITOR:
-            node_name = mon_mode.get('name')
+            node_name = mon_mode.get("name")
             node = supervisor.getFromDef(node_name)  # 获取节点对象
             if node:
                 properties = get_node_properties(node)
@@ -415,7 +418,7 @@ while supervisor.step(timestep) != -1:
 
                     moved = has_moved(properties, last_node_data.get(node_def_name, {}))
                     properties["is_moving"] = moved  # 添加 is_moving 字段
-                    properties["id"] = mon_mode.get('id')
+                    properties["id"] = mon_mode.get("id")
 
                     nodes_status.append(properties)
                     last_node_data[node_def_name] = (
@@ -433,10 +436,10 @@ while supervisor.step(timestep) != -1:
         if nodes_status:
             send_world_status(nodes_status)
             # 在终端打印当前状态（简洁版，避免刷屏）
-            for node_s in nodes_status:
-                # move_status = "移动" if node_s["is_moving"] else "静止"
-                print(
-                    f"Supervisor INFO: 节点 '{node_s['name']}': 位置={node_s['position']}, 偏航角={node_s['rotation_degrees']['yaw']:.2f}°"
-                )
+            # for node_s in nodes_status:
+            #     # move_status = "移动" if node_s["is_moving"] else "静止"
+            #     print(
+            #         f"Supervisor INFO: 节点 '{node_s['name']}': 位置={node_s['position']}, 偏航角={node_s['rotation_degrees']['yaw']:.2f}°"
+            #     )
 
         last_send_time = current_time

@@ -1848,11 +1848,11 @@ while robot.step(timestep) != -1:
         #     print("Robot is touching an object.")
         # else:
         #     print("no touch")
-        time.sleep(0.015)
-        counter_1 = counter_1 + 1
-        if counter_1 == 100:
-            counter_1 = 0
-            continue
+        # time.sleep(0.015)
+        # counter_1 = counter_1 + 1
+        # if counter_1 == 100:
+        #     counter_1 = 0
+        #     continue
         response = requests.get(WEB_SERVER_URL)
         if response.status_code == 200:
             command_data = response.json()
@@ -2831,4 +2831,4 @@ while robot.step(timestep) != -1:
         send_robot_status(current_robot_position, f"No path to {goal}.")
         goal_received = False
 
-    time.sleep(0.1)
+    # time.sleep(0.1)

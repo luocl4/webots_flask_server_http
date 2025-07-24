@@ -1,52 +1,112 @@
 [
     {
         "event_type": "get_robot_command",
-        "response_data": {},
+        "response_data": {
+            "goal": [],
+            "goal_angle": 90.0,
+            "object_id": 1,
+            "goal_timestamp": 1753339739.6930153,
+            "source": "robot_goals"
+        },
         "message": "Webots controller fetched command."
     },
     {
         "event_type": "get_robot_command",
-        "response_data": {},
+        "response_data": {
+            "goal": [],
+            "goal_angle": 90.0,
+            "object_id": 1,
+            "goal_timestamp": 1753339739.6930153,
+            "source": "robot_goals"
+        },
         "message": "Webots controller fetched command."
     },
     {
         "event_type": "get_robot_command",
-        "response_data": {},
+        "response_data": {
+            "goal": [],
+            "goal_angle": 90.0,
+            "object_id": 1,
+            "goal_timestamp": 1753339739.6930153,
+            "source": "robot_goals"
+        },
         "message": "Webots controller fetched command."
     },
     {
         "event_type": "get_robot_command",
-        "response_data": {},
+        "response_data": {
+            "goal": [],
+            "goal_angle": 90.0,
+            "object_id": 1,
+            "goal_timestamp": 1753339739.6930153,
+            "source": "robot_goals"
+        },
         "message": "Webots controller fetched command."
     },
     {
         "event_type": "get_robot_command",
-        "response_data": {},
+        "response_data": {
+            "goal": [],
+            "goal_angle": 90.0,
+            "object_id": 1,
+            "goal_timestamp": 1753339739.6930153,
+            "source": "robot_goals"
+        },
         "message": "Webots controller fetched command."
     },
     {
         "event_type": "get_robot_command",
-        "response_data": {},
+        "response_data": {
+            "goal": [],
+            "goal_angle": 90.0,
+            "object_id": 1,
+            "goal_timestamp": 1753339739.6930153,
+            "source": "robot_goals"
+        },
         "message": "Webots controller fetched command."
     },
     {
         "event_type": "get_robot_command",
-        "response_data": {},
+        "response_data": {
+            "goal": [],
+            "goal_angle": 90.0,
+            "object_id": 1,
+            "goal_timestamp": 1753339739.6930153,
+            "source": "robot_goals"
+        },
         "message": "Webots controller fetched command."
     },
     {
         "event_type": "get_robot_command",
-        "response_data": {},
+        "response_data": {
+            "goal": [],
+            "goal_angle": 90.0,
+            "object_id": 1,
+            "goal_timestamp": 1753339739.6930153,
+            "source": "robot_goals"
+        },
         "message": "Webots controller fetched command."
     },
     {
         "event_type": "get_robot_command",
-        "response_data": {},
+        "response_data": {
+            "goal": [],
+            "goal_angle": 90.0,
+            "object_id": 1,
+            "goal_timestamp": 1753339739.6930153,
+            "source": "robot_goals"
+        },
         "message": "Webots controller fetched command."
     },
     {
         "event_type": "get_robot_command",
-        "response_data": {},
+        "response_data": {
+            "goal": [],
+            "goal_angle": 90.0,
+            "object_id": 1,
+            "goal_timestamp": 1753339739.6930153,
+            "source": "robot_goals"
+        },
         "message": "Webots controller fetched command."
     }
 ]
