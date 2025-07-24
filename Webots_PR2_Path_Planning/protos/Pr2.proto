@@ -22,6 +22,7 @@ PROTO Pr2 [
    field MFNode     baseSlot        []          # Extends the robot with new nodes in the base slot.
    field MFNode     extensionSlot1  []          # CUSTOM: adds a slot for a new device
    field MFNode     extensionSlot2  []          # CUSTOM: adds a slot for a new device
+   field SFFloat    shoulderPanInitPos 3.14
 ]
 {
   Robot {
@@ -843,7 +844,8 @@ PROTO Pr2 [
                   LinearMotor {
                     name "torso_lift_joint"
                     maxVelocity 0.1
-                    maxPosition 0.33
+                    maxPosition 0.25
+                    minPosition 0
                     maxForce 10000.0
                   }
                   PositionSensor {
@@ -973,8 +975,8 @@ PROTO Pr2 [
                           name "head_pan_joint"
                           maxVelocity 6.0
                           controlPID 8 0.01 8
-                          minPosition -3.007
-                          maxPosition 3.007
+                          minPosition -3.14
+                          maxPosition 3.14
                           maxTorque 7.645
                         }
                         PositionSensor {
@@ -1044,8 +1046,8 @@ PROTO Pr2 [
                               RotationalMotor {
                                 name "head_tilt_joint"
                                 maxVelocity 5.0
-                                minPosition -0.471238
-                                maxPosition 1.39626
+                                minPosition -3.14
+                                maxPosition 3.14
                                 maxTorque 18.0
                               }
                               PositionSensor {
@@ -1286,8 +1288,8 @@ PROTO Pr2 [
                           name "laser_tilt_mount_joint"
                           maxVelocity 10.0
                           controlPID 7 0.7 0.11
-                          minPosition -0.7854
-                          maxPosition 1.48353
+                          minPosition -3.14
+                          maxPosition 3.14
                           maxTorque 0.65
                         }
                         PositionSensor {
@@ -1365,11 +1367,11 @@ PROTO Pr2 [
                         staticFriction 0.0
                       }
                       device [
-                        RotationalMotor {
+                        DEF R_SHOULDER_PAN_MOTOR RotationalMotor {
                           name "r_shoulder_pan_joint"
                           maxVelocity 2.088
-                          minPosition -2.2853981634
-                          maxPosition 0.714601836603
+                          minPosition -3.14
+                          maxPosition 3.14
                           maxTorque 30.0
                         }
                         PositionSensor {
@@ -1449,11 +1451,11 @@ PROTO Pr2 [
                               staticFriction 0.0
                             }
                             device [
-                              RotationalMotor {
+                              DEF R_SHOULDER_LIFT_MOTOR RotationalMotor {
                                 name "r_shoulder_lift_joint"
                                 maxVelocity 2.082
-                                minPosition -0.5236
-                                maxPosition 1.3963
+                                minPosition -3.14
+                                maxPosition 3.14
                                 maxTorque 85.0
                               }
                               PositionSensor {
@@ -1497,11 +1499,11 @@ PROTO Pr2 [
                                     staticFriction 0.0
                                   }
                                   device [
-                                    RotationalMotor {
+                                    DEF R_UPPER_ARM_ROLL_MOTOR RotationalMotor {
                                       name "r_upper_arm_roll_joint"
                                       maxVelocity 3.27
-                                      minPosition -3.9
-                                      maxPosition 0.8
+                                      minPosition -3.14
+                                      maxPosition 3.14
                                       maxTorque 30.0
                                     }
                                     PositionSensor {
@@ -1599,11 +1601,12 @@ PROTO Pr2 [
                                               staticFriction 0.0
                                             }
                                             device [
-                                              RotationalMotor {
+                                              DEF R_ELBOW_FLEX_MOTOR RotationalMotor {
                                                 name "r_elbow_flex_joint"
                                                 controlPID 10 0.1 0.2
                                                 maxVelocity 3.3
-                                                minPosition -2.3213
+                                                minPosition -3.14
+                                                maxPosition 3.14
                                                 maxTorque 55.0
                                               }
                                               PositionSensor {
@@ -1661,7 +1664,7 @@ PROTO Pr2 [
                                                     staticFriction 0.0
                                                   }
                                                   device [
-                                                    RotationalMotor {
+                                                    DEF R_FOREARM_ROLL_MOTOR RotationalMotor {
                                                       name "r_forearm_roll_joint"
                                                       maxVelocity 3.6
                                                       maxTorque 30.0
@@ -1737,11 +1740,12 @@ PROTO Pr2 [
                                                               staticFriction 0.0
                                                             }
                                                             device [
-                                                              RotationalMotor {
+                                                              DEF R_WRIST_FLEX_MOTOR RotationalMotor {
                                                                 name "r_wrist_flex_joint"
                                                                 controlPID 5 0.1 0
                                                                 maxVelocity 3.078
-                                                                minPosition -2.18
+                                                                minPosition -3.14
+                                                                maxPosition 3.14
                                                                 maxTorque 30.0
                                                               }
                                                               PositionSensor {
@@ -1785,7 +1789,7 @@ PROTO Pr2 [
                                                                     staticFriction 0.0
                                                                   }
                                                                   device [
-                                                                    RotationalMotor {
+                                                                    DEF R_WRIST_ROLL_MOTOR RotationalMotor {
                                                                       name "r_wrist_roll_joint"
                                                                       controlPID 18 0.01 11
                                                                       maxVelocity 3.6
@@ -1890,8 +1894,8 @@ PROTO Pr2 [
                                                                             device LinearMotor {
                                                                               name "r_gripper_motor_slider_joint"
                                                                               maxVelocity 0.2
-                                                                              minPosition -0.1
-                                                                              maxPosition 0.1
+                                                                              minPosition -3.14
+                                                                              maxPosition 3.14
                                                                               maxForce 1000.0
                                                                             }
                                                                             endPoint DEF r_gripper_motor_slider_link Solid {
@@ -1917,7 +1921,8 @@ PROTO Pr2 [
                                                                               RotationalMotor {
                                                                                 name "r_finger_gripper_motor::l_finger"
                                                                                 maxVelocity 0.5
-                                                                                maxPosition 0.548
+                                                                                maxPosition 3.14
+                                                                                minPosition -3.14
                                                                                 maxTorque 1000.0
                                                                               }
                                                                               PositionSensor {
@@ -1959,7 +1964,8 @@ PROTO Pr2 [
                                                                                     RotationalMotor {
                                                                                       name "r_finger_gripper_motor::l_finger_tip"
                                                                                       maxVelocity 0.5
-                                                                                      maxPosition 0.548
+                                                                                      maxPosition 3.14
+                                                                                      minPosition -3.14
                                                                                       maxTorque 1000.0
                                                                                     }
                                                                                     PositionSensor {
@@ -2013,7 +2019,8 @@ PROTO Pr2 [
                                                                               RotationalMotor {
                                                                                 name "r_finger_gripper_motor::r_finger"
                                                                                 maxVelocity 0.5
-                                                                                maxPosition 0.548
+                                                                                maxPosition 3.14
+                                                                                minPosition -3.14
                                                                                 maxTorque 1000.0
                                                                               }
                                                                               PositionSensor {
@@ -2067,7 +2074,8 @@ PROTO Pr2 [
                                                                                     RotationalMotor {
                                                                                       name "r_finger_gripper_motor::r_finger_tip"
                                                                                       maxVelocity 0.5
-                                                                                      maxPosition 0.548
+                                                                                      maxPosition 3.14
+                                                                                      minPosition -3.14
                                                                                       maxTorque 1000.0
                                                                                     }
                                                                                     PositionSensor {
@@ -2118,7 +2126,8 @@ PROTO Pr2 [
                                                                                         device LinearMotor {
                                                                                           name "r_gripper_joint"
                                                                                           maxVelocity 0.2
-                                                                                          maxPosition 0.09
+                                                                                          maxPosition 3.14
+                                                                                          minPosition -3.14
                                                                                           maxForce 1000.0
                                                                                         }
                                                                                         endPoint DEF r_gripper_l_finger_tip_frame Solid {
@@ -2129,6 +2138,7 @@ PROTO Pr2 [
                                                                                             mass 1.0
                                                                                             inertiaMatrix [1.0 1.0 1.0 0.0 0.0 0.0]
                                                                                             centerOfMass [0.0 0.0 0.0]
+                                                                                            frictionCoefficients [500.0,300.0]
                                                                                           }
                                                                                         }
                                                                                       }
@@ -2205,11 +2215,11 @@ PROTO Pr2 [
                         staticFriction 0.0
                       }
                       device [
-                        RotationalMotor {
+                        DEF L_SHOULDER_PAN_MOTOR RotationalMotor {
                           name "l_shoulder_pan_joint"
                           maxVelocity 2.088
-                          minPosition -0.714601836603
-                          maxPosition 2.2853981634
+                          minPosition -3.14
+                          maxPosition 3.14
                           maxTorque 30.0
                         }
                         PositionSensor {
@@ -2289,11 +2299,11 @@ PROTO Pr2 [
                               staticFriction 0.0
                             }
                             device [
-                              RotationalMotor {
+                              DEF L_SHOULDER_LIFT_MOTOR RotationalMotor {
                                 name "l_shoulder_lift_joint"
                                 maxVelocity 2.082
-                                minPosition -0.5236
-                                maxPosition 1.3963
+                                minPosition -3.14
+                                maxPosition 3.14
                                 maxTorque 85.0
                               }
                               PositionSensor {
@@ -2337,11 +2347,11 @@ PROTO Pr2 [
                                     staticFriction 0.0
                                   }
                                   device [
-                                    RotationalMotor {
+                                    DEF L_UPPER_ARM_ROLL_MOTOR RotationalMotor {
                                       name "l_upper_arm_roll_joint"
                                       maxVelocity 3.27
-                                      minPosition -0.8
-                                      maxPosition 3.9
+                                      minPosition -3.14
+                                      maxPosition 3.14
                                       maxTorque 30.0
                                     }
                                     PositionSensor {
@@ -2439,11 +2449,12 @@ PROTO Pr2 [
                                               staticFriction 0.0
                                             }
                                             device [
-                                              RotationalMotor {
+                                              DEF L_ELBOW_FLEX_MOTOR RotationalMotor {
                                                 name "l_elbow_flex_joint"
                                                 controlPID 10 0.1 0.2
                                                 maxVelocity 3.3
-                                                minPosition -2.3213
+                                                minPosition -3.14
+                                                maxPosition 3.14
                                                 maxTorque 55.0
                                               }
                                               PositionSensor {
@@ -2501,7 +2512,7 @@ PROTO Pr2 [
                                                     staticFriction 0.0
                                                   }
                                                   device [
-                                                    RotationalMotor {
+                                                    DEF L_FOREARM_ROLL_MOTOR RotationalMotor {
                                                       name "l_forearm_roll_joint"
                                                       maxVelocity 3.6
                                                       maxTorque 30.0
@@ -2577,11 +2588,12 @@ PROTO Pr2 [
                                                               staticFriction 0.0
                                                             }
                                                             device [
-                                                              RotationalMotor {
+                                                              DEF L_WRIST_FLEX_MOTOR RotationalMotor {
                                                                 name "l_wrist_flex_joint"
                                                                 controlPID 4 0.1 0
                                                                 maxVelocity 3.078
-                                                                minPosition -2.18
+                                                                minPosition -3.14
+                                                                maxPosition 3.14
                                                                 maxTorque 30.0
                                                               }
                                                               PositionSensor {
@@ -2626,7 +2638,7 @@ PROTO Pr2 [
                                                                     staticFriction 0.0
                                                                   }
                                                                   device [
-                                                                    RotationalMotor {
+                                                                    DEF L_WRIST_ROLL_JOINT RotationalMotor {
                                                                       name "l_wrist_roll_joint"
                                                                       controlPID 18 0.01 11
                                                                       maxVelocity 3.6
@@ -2731,8 +2743,8 @@ PROTO Pr2 [
                                                                             device LinearMotor {
                                                                               name "l_gripper_motor_slider_joint"
                                                                               maxVelocity 0.2
-                                                                              minPosition -0.1
-                                                                              maxPosition 0.1
+                                                                              minPosition -3.14
+                                                                              maxPosition 3.14
                                                                               maxForce 1000.0
                                                                             }
                                                                             endPoint DEF l_gripper_motor_slider_link Solid {
@@ -2786,7 +2798,8 @@ PROTO Pr2 [
                                                                               RotationalMotor {
                                                                                 name "l_finger_gripper_motor::l_finger"
                                                                                 maxVelocity 0.5
-                                                                                maxPosition 0.548
+                                                                                maxPosition 3.14
+                                                                                minPosition -3.14
                                                                                 maxTorque 1000.0
                                                                               }
                                                                               PositionSensor {
@@ -2828,7 +2841,8 @@ PROTO Pr2 [
                                                                                     RotationalMotor {
                                                                                       name "l_finger_gripper_motor::l_finger_tip"
                                                                                       maxVelocity 0.5
-                                                                                      maxPosition 0.548
+                                                                                      maxPosition 3.14
+                                                                                      minPosition -3.14
                                                                                       maxTorque 1000.0
                                                                                     }
                                                                                     PositionSensor {
@@ -2882,7 +2896,8 @@ PROTO Pr2 [
                                                                               RotationalMotor {
                                                                                 name "l_finger_gripper_motor::r_finger"
                                                                                 maxVelocity 0.5
-                                                                                maxPosition 0.548
+                                                                                maxPosition 3.14
+                                                                                minPosition -3.14
                                                                                 maxTorque 1000.0
                                                                               }
                                                                               PositionSensor {
@@ -2936,7 +2951,8 @@ PROTO Pr2 [
                                                                                     RotationalMotor {
                                                                                       name "l_finger_gripper_motor::r_finger_tip"
                                                                                       maxVelocity 0.5
-                                                                                      maxPosition 0.548
+                                                                                      maxPosition 3.14
+                                                                                      minPosition -3.14
                                                                                       maxTorque 1000.0
                                                                                     }
                                                                                     PositionSensor {
@@ -2987,7 +3003,8 @@ PROTO Pr2 [
                                                                                         device LinearMotor {
                                                                                           name "l_gripper_joint"
                                                                                           maxVelocity 0.2
-                                                                                          maxPosition 0.09
+                                                                                          maxPosition 3.14
+                                                                                          minPosition -3.14
                                                                                           maxForce 1000.0
                                                                                         }
                                                                                         endPoint DEF l_gripper_l_finger_tip_frame Solid {
@@ -3106,7 +3123,7 @@ PROTO Pr2 [
       }
       DEF EXTENSION_SLOT Transform {
         translation 0 0 0
-        children IS extensionSlot1
+        children IS L_SHOULDER_PAN_MOTOR
       }
       DEF EXTENSION_SLOT Transform {
         translation 0 0 0

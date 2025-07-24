@@ -16,47 +16,49 @@ from logger import logger
 import logging
 import math
 import numpy as np
+from Webots_PR2_Path_Planning.controllers.new_ik.ik_solve_pr2 import ArmIk
+
 
 # 添加控制器目录到系统路径
 controller_path = os.path.join(
     os.path.dirname(__file__),
-    'Webots_PR2_Path_Planning',
-    'controllers',
-    'BFS_exercise_1_pr2',
+    "Webots_PR2_Path_Planning",
+    "controllers",
+    "BFS_exercise_1_pr2",
 )
 sys.path.append(controller_path)
 controller_path = os.path.join(
     os.path.dirname(__file__),
-    'Webots_PR2_Path_Planning',
-    'controllers',
-    'BFS_exercise_1_kuavo',
+    "Webots_PR2_Path_Planning",
+    "controllers",
+    "BFS_exercise_1_kuavo",
 )
 sys.path.append(controller_path)
 controller_path = os.path.join(
     os.path.dirname(__file__),
-    'Webots_PR2_Path_Planning',
-    'controllers',
-    'BFS_exercise_1_kuavo_lb',
+    "Webots_PR2_Path_Planning",
+    "controllers",
+    "BFS_exercise_1_kuavo_lb",
 )
 sys.path.append(controller_path)
 controller_path = os.path.join(
-    os.path.dirname(__file__), 'Webots_capture', 'controllers', 'arm_control_leju'
+    os.path.dirname(__file__), "Webots_capture", "controllers", "arm_control_leju"
 )
 sys.path.append(controller_path)
 app = Flask(__name__)
 CORS(app)
 
 # 配置Flask的werkzeug日志级别，减少频繁接口的日志输出
-werkzeug_logger = logging.getLogger('werkzeug')
+werkzeug_logger = logging.getLogger("werkzeug")
 werkzeug_logger.setLevel(logging.WARNING)
 
 
 # 创建自定义过滤器，过滤掉特定接口的日志
 class FilterFrequentEndpoints(logging.Filter):
     def filter(self, record):
-        if hasattr(record, 'getMessage'):
+        if hasattr(record, "getMessage"):
             message = record.getMessage()
-            if '/robot_command' in message or '/world_status' in message:
+            if "/robot_command" in message or "/world_status" in message:
                 return False
         return True
 
@@ -86,6 +88,8 @@ arm_go_pos_robot_goal = {}
 fail_arm_go_pos = False
 current_left_pos = []
 current_right_pos = []
+current_left_rpy = []
+current_right_rpy = []
 robot_status = {"robot_position": (0, 0), "status": ""}  # 存储机器人的位置和状态信息
 
 ability_dict = {
@@ -134,7 +138,7 @@ def load_scene_configs():
         os.path.dirname(__file__), "configs", "scene_configs.json"
     )
     try:
-        with open(config_file, 'r', encoding='utf-8') as f:
+        with open(config_file, "r", encoding="utf-8") as f:
             SCENE_CONFIGS = json.load(f)
         logger.info(f"场景配置文件加载成功: {config_file}")
         return SCENE_CONFIGS
@@ -164,18 +168,18 @@ def kill_all_webots_processes():
     global current_loaded_scene
     try:
         # 要杀死的进程类型列表
-        process_types = [('webots', 'Webots'), ('xvfb', 'Xvfb')]
+        process_types = [("webots", "Webots"), ("xvfb", "Xvfb")]
 
         killed_any = False
 
         for process_pattern, process_name in process_types:
             # 查找相关进程
             result = subprocess.run(
-                ['pgrep', '-f', process_pattern], capture_output=True, text=True
+                ["pgrep", "-f", process_pattern], capture_output=True, text=True
             )
 
             if result.stdout.strip():
-                pids = result.stdout.strip().split('\n')
+                pids = result.stdout.strip().split("\n")
                 logger.info(f"找到 {len(pids)} 个 {process_name} 进程")
 
                 # 先发送SIGTERM信号
@@ -192,11 +196,11 @@ def kill_all_webots_processes():
                 # 等待一秒后检查是否还有残留进程
                 time.sleep(1)
                 result = subprocess.run(
-                    ['pgrep', '-f', process_pattern], capture_output=True, text=True
+                    ["pgrep", "-f", process_pattern], capture_output=True, text=True
                 )
 
                 if result.stdout.strip():
-                    remaining_pids = result.stdout.strip().split('\n')
+                    remaining_pids = result.stdout.strip().split("\n")
                     logger.warning(
                         f"发现 {len(remaining_pids)} 个残留的{process_name}进程，强制杀死"
                     )
@@ -233,21 +237,21 @@ def convert_to_list(value):
 
 
 # ================= 世界状态管理路由 =================
-@app.route('/world_status', methods=['POST'])
+@app.route("/world_status", methods=["POST"])
 def update_world_status():
     """接收世界状态数据"""
     data = request.get_json()
-    if 'nodes' in data and 'timestamp' in data:
+    if "nodes" in data and "timestamp" in data:
         supervisor_world_status_log.append(
             {
                 "event_type": "world_status_update",
-                "data": data['nodes'],
+                "data": data["nodes"],
                 "message": "World status updated by supervisor.",
             }
         )
 
-        for node in data['nodes']:
-            if node.get('is_moving'):
+        for node in data["nodes"]:
+            if node.get("is_moving"):
                 logger.info(
                     f"节点 '{node['name']}' (正在移动): 位置={node['position']}, 偏航角={node['rotation_degrees']['yaw']:.2f}°"
                 )
@@ -266,7 +270,7 @@ def update_world_status():
         return jsonify({"error": "Invalid world status data"}), 400
 
 
-@app.route('/robot_command', methods=['GET'])
+@app.route("/robot_command", methods=["GET"])
 def get_robot_command():
     """获取机器人命令"""
     global robot_goals, robot_stop_flag, capture_robot_goals, pick_robot_goals, place_robot_goals, arm_go_pos_robot_goal
@@ -289,12 +293,13 @@ def get_robot_command():
         command_to_send = arm_go_pos_robot_goal
         command_to_send["source"] = "arm_go_pos"
     else:
+        # 找出第一个处于移动状态的机器人
         for object_id, goal_state in robot_goals.items():
-            if goal_state.get('status') == 2 and 'goal_pos' in goal_state:
-                goal_pos = goal_state.get('goal_pos', [])
-                goal_angle = goal_state.get('goal_angle', 0.0)  # 如果没有角度，默认为0
+            if goal_state.get("status") == 2 and "goal_pos" in goal_state:
+                goal_pos = goal_state.get("goal_pos", [])
+                goal_angle = goal_state.get("goal_angle", 0.0)  # 如果没有角度，默认为0
                 start_time = goal_state.get(
-                    'start_time', datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    "start_time", datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 )
 
                 if len(goal_pos) == 2:  # 确保至少有目标位置
@@ -315,8 +320,8 @@ def get_robot_command():
                         "source": "robot_goals",  # 标记来源
                     }
                     break
-    if command_to_send != {}:
-        print(command_to_send)
+    # if command_to_send != {}:
+    #     print(command_to_send)
 
     request_response_log.append(
         {
@@ -329,114 +334,17 @@ def get_robot_command():
     return jsonify(command_to_send), 200
 
 
-@app.route('/set_sl_status', methods=['POST'])
-def update_sl_status():
-    """更新机器人状态"""
-    global sl_status
-    try:
-        # 尝试不同的方式获取数据
-        data = None
-        
-        # 方式1：尝试获取JSON数据
-        if request.is_json:
-            data = request.get_json()
-        # 方式2：尝试获取表单数据
-        elif request.form:
-            data = request.form.to_dict()
-            # 尝试解析JSON字符串
-            if 'data' in data:
-                try:
-                    import json
-                    data = json.loads(data['data'])
-                except:
-                    pass
-        # 方式3：尝试获取原始数据并解析为JSON
-        elif request.data:
-            try:
-                import json
-                data = json.loads(request.data.decode('utf-8'))
-            except:
-                pass
-        
-        if not data:
-            return jsonify({"code": 400, "message": "参数为空或格式错误"}), 400
-
-        required_fields = ['id', 'object_name', 'state_name', 'command']
-        for field in required_fields:
-            if field not in data:
-                return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
-
-        name_data = data['object_name']
-        scene_id = str(data['id'])
-        if isinstance(name_data, list):
-            try:
-                obj_ids = [str(item) for item in name_data]
-            except (ValueError, TypeError):
-                return jsonify({"code": 400, "message": "object_name列表中包含无效值"}), 400
-        else:
-            return jsonify({"code": 400, "message": "object_name必须是列表"}), 400
-
-        sl_status = {
-            "object_names": obj_ids,
-            "state_name": data['state_name'],
-            "command": data['command'],
-        }
-    
-    except Exception as e:
-        logger.error(f"更新机器人状态失败: {e}", exc_info=True)
-        return jsonify({"code": 500, "message": str(e)}), 500
-
-    return jsonify({"message": "Status updated"}), 200
-
-
-@app.route('/get_sl_status', methods=['GET'])
-def get_sl_status():
-    """获取机器人状态"""
-    global sl_status
-
-    try:
-        # 检查sl_status是否为空或未初始化
-        if not sl_status or sl_status == {}:
-            return jsonify({"code": 404, "message": "状态未设置"}), 404
-        
-        # 验证必要字段是否存在
-        if "object_names" not in sl_status:
-            return jsonify({"code": 500, "message": "缺少object_names字段"}), 500
-
-        if "state_name" not in sl_status:
-            return jsonify({"code": 500, "message": "缺少state_name字段"}), 500
-        
-        # 验证object_names是否为列表
-        if not isinstance(sl_status["object_names"], list):
-            return jsonify({"code": 500, "message": "object_names必须是列表"}), 500
-
-        # 构建返回数据
-        sl_info = [
-            {"object_name": obj_name, "state_name": sl_status["state_name"], "command": sl_status["command"]}
-            for obj_name in sl_status["object_names"]
-        ]
-        
-        # 清空状态（根据业务需求，可能需要保留）
-        sl_status = {}
-        
-        return jsonify(sl_info), 200
-        
-    except Exception as e:
-        logger.error(f"获取机器人状态时出错: {e}", exc_info=True)
-        return jsonify({"code": 500, "message": f"服务器错误: {str(e)}"}), 500
-
-
-@app.route('/robot_status', methods=['POST'])
+@app.route("/robot_status", methods=["POST"])
 def update_robot_status():
     """更新机器人状态"""
-    global current_left_pos, current_right_pos, result_pick, result_place, robot_status, robot_goals, robot_status_dict, capture_robot_goals, pick_robot_goals, place_robot_goals, fail_pick, fail_place, fail_arm_go_pos, arm_go_pos_robot_goal
+    global current_left_rpy, current_right_rpy, current_left_pos, current_right_pos, result_pick, result_place, robot_status, robot_goals, robot_status_dict, capture_robot_goals, pick_robot_goals, place_robot_goals, fail_pick, fail_place, fail_arm_go_pos, arm_go_pos_robot_goal
     data = request.get_json()
     # 获取status字典（如果存在）
-    status_dict = data.get('status')
+    status_dict = data.get("status")
     if status_dict and isinstance(status_dict, dict):
         # 检查task和status字段是否存在
-        task = status_dict.get('task')
-        status_value = status_dict.get('status')
+        task = status_dict.get("task")
+        status_value = status_dict.get("status")
         # print("status_dict", status_dict)
         if task == "pick":
             result_pick = True
@@ -444,28 +352,38 @@ def update_robot_status():
                 fail_pick = True
             else:
                 fail_pick = False
-                res = status_dict.get('res')
+                res = status_dict.get("res")
                 # 确保current_left_pos和current_right_pos是列表
-                current_left_pos = status_dict.get('current_left_pos')
-                current_right_pos = status_dict.get('current_right_pos')
+                current_left_pos = status_dict.get("current_left_pos")
+                current_right_pos = status_dict.get("current_right_pos")
+                current_left_rpy = status_dict.get("current_left_rpy")
+                current_right_rpy = status_dict.get("current_right_rpy")
+                # logger.info("current_left_rpy", current_left_rpy)
+                # logger.info("current_right_rpy", current_right_rpy)
         elif task == "place":
             result_place = True
             if status_value == "fail":
                 fail_place = True
             else:
                 fail_place = False
-                res = status_dict.get('res')
+                res = status_dict.get("res")
                 # 确保current_left_pos和current_right_pos是列表
-                current_left_pos = status_dict.get('current_left_pos')
-                current_right_pos = status_dict.get('current_right_pos')
+                current_left_pos = status_dict.get("current_left_pos")
+                current_right_pos = status_dict.get("current_right_pos")
+                current_left_rpy = status_dict.get("current_left_rpy")
+                current_right_rpy = status_dict.get("current_right_rpy")
+                # logger.info("current_left_rpy", current_left_rpy)
+                # logger.info("current_right_rpy", current_right_rpy)
         elif task == "arm_to_go":
             if status_value == "fail":
                 fail_arm_go_pos = True
             else:
                 fail_arm_go_pos = False
                 # 确保current_left_pos和current_right_pos是列表
-                current_left_pos = status_dict.get('current_left_pos')
-                current_right_pos = status_dict.get('current_right_pos')
+                current_left_pos = status_dict.get("current_left_pos")
+                current_right_pos = status_dict.get("current_right_pos")
+                current_left_rpy = status_dict.get("current_left_rpy")
+                current_right_rpy = status_dict.get("current_right_rpy")
 
         if (
             task == "capture"
@@ -493,23 +411,23 @@ def update_robot_status():
         )
         return jsonify({"error": "Invalid status data format"}), 400
     # 处理新格式的状态数据 - 支持新的对象结构
-    print(data.get('status'))
-    if isinstance(data.get('status'), dict):
+    print(data.get("status"))
+    if isinstance(data.get("status"), dict):
         # 新格式：状态是一个包含详细信息的字典
-        status_dict = data['status']
+        status_dict = data["status"]
         current_position = (
-            tuple(data['robot_position']) if 'robot_position' in data else (0, 0)
+            tuple(data["robot_position"]) if "robot_position" in data else (0, 0)
         )
-        current_status = status_dict.get('message', "未知状态")
-        object_id = int(status_dict.get('object_id', 1))
-        is_reachable = status_dict.get('is_reachable', True)
-        is_completed = status_dict.get('is_completed', False)
-        total_segments = status_dict.get('total_segments', 0)
-        current_segment = status_dict.get('current_segment', 0)
-        progress = status_dict.get('progress', 0)
-        error_message = status_dict.get('message', '')  # 获取错误信息
+        current_status = status_dict.get("message", "未知状态")
+        object_id = int(status_dict.get("object_id", 1))
+        is_reachable = status_dict.get("is_reachable", True)
+        is_completed = status_dict.get("is_completed", False)
+        total_segments = status_dict.get("total_segments", 0)
+        current_segment = status_dict.get("current_segment", 0)
+        progress = status_dict.get("progress", 0)
+        error_message = status_dict.get("message", "")  # 获取错误信息
         path_planning_complete = status_dict.get(
-            'path_planning_complete', False
+            "path_planning_complete", False
         )  # 获取路径规划完成标志
 
         # 更新全局状态
@@ -522,14 +440,14 @@ def update_robot_status():
 
         # 更新机器人目标状态
         # 更新可达性标志和路径规划完成标志
-        robot_goals[object_id]['is_reachable'] = is_reachable
-        robot_goals[object_id]['path_planning_complete'] = path_planning_complete
+        robot_goals[object_id]["is_reachable"] = is_reachable
+        robot_goals[object_id]["path_planning_complete"] = path_planning_complete
 
         # 如果是初次接收到路径规划结果，记录日志
         if path_planning_complete and not robot_goals[object_id].get(
-            'path_planning_logged', False
+            "path_planning_logged", False
         ):
-            robot_goals[object_id]['path_planning_logged'] = True
+            robot_goals[object_id]["path_planning_logged"] = True
             if is_reachable:
                 logger.info(
                     f"路径规划已完成且成功: 机器人(ID:{object_id}), 总段数:{total_segments}"
@@ -541,15 +459,15 @@ def update_robot_status():
 
         # 如果目标不可达，记录错误信息
         if not is_reachable:
-            robot_goals[object_id]['error_message'] = error_message
+            robot_goals[object_id]["error_message"] = error_message
             logger.warning(f"目标不可达: 机器人(ID:{object_id}), 错误:{error_message}")
 
         # 更新进度信息
         if total_segments > 0:
-            robot_goals[object_id]['total_segments'] = total_segments
-            robot_goals[object_id]['current_segment'] = current_segment
-            robot_goals[object_id]['process'] = f"{current_segment}/{total_segments}"
-            robot_goals[object_id]['progress'] = progress
+            robot_goals[object_id]["total_segments"] = total_segments
+            robot_goals[object_id]["current_segment"] = current_segment
+            robot_goals[object_id]["process"] = f"{current_segment}/{total_segments}"
+            robot_goals[object_id]["progress"] = progress
 
         # 更新状态码
         if not is_reachable:
@@ -572,10 +490,10 @@ def update_robot_status():
         )
 
     # 处理旧格式的状态数据 - 向后兼容
-    elif 'robot_position' in data and 'status' in data:
-        current_position = tuple(data['robot_position'])
-        current_status = data['status']
-        object_id = int(data.get('object_id', 1))
+    elif "robot_position" in data and "status" in data:
+        current_position = tuple(data["robot_position"])
+        current_status = data["status"]
+        object_id = int(data.get("object_id", 1))
 
         # 更新全局状态
         robot_status["robot_position"] = current_position
@@ -624,22 +542,22 @@ def update_robot_status():
 
 
 # ================= 相机图像管理路由 =================
-@app.route('/camera_status', methods=['POST'])
+@app.route("/camera_status", methods=["POST"])
 def update_camera_status():
     """更新相机状态"""
     global latest_camera_image, latest_depth_image
     try:
         data = request.get_json()
-        if 'image' in data:
-            latest_camera_image = data['image']
-        if 'depth_image' in data:
-            latest_depth_image = data['depth_image']
+        if "image" in data:
+            latest_camera_image = data["image"]
+        if "depth_image" in data:
+            latest_depth_image = data["depth_image"]
         return jsonify({"status": "success"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/get_camera_image', methods=['GET'])
+@app.route("/get_camera_image", methods=["GET"])
 def get_camera_image():
     """获取RGB相机图像"""
     global latest_camera_image
@@ -650,12 +568,12 @@ def get_camera_image():
         image_data = base64.b64decode(latest_camera_image)
         img_io = io.BytesIO(image_data)
 
-        return send_file(img_io, mimetype='image/png')
+        return send_file(img_io, mimetype="image/png")
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 
-@app.route('/get_depth_image', methods=['GET'])
+@app.route("/get_depth_image", methods=["GET"])
 def get_depth_image():
     """获取深度相机图像"""
     global latest_depth_image
@@ -666,7 +584,7 @@ def get_depth_image():
         image_data = base64.b64decode(latest_depth_image)
         img_io = io.BytesIO(image_data)
 
-        return send_file(img_io, mimetype='image/png')
+        return send_file(img_io, mimetype="image/png")
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -678,7 +596,7 @@ def save_main_log_on_exit():
     try:
         # 将 deque 转换为 list 以便 JSON 序列化
         log_data = list(request_response_log)
-        with open(log_filename, 'w', encoding='utf-8') as f:
+        with open(log_filename, "w", encoding="utf-8") as f:
             json.dump(log_data, f, indent=4, ensure_ascii=False)
         logger.info(f"主 Flask 服务器活动日志已保存至 {log_filename}")
     except Exception as e:
@@ -691,7 +609,7 @@ def save_supervisor_log_on_exit():
     try:
         # 将 deque 转换为 list 以便 JSON 序列化
         supervisor_log_data = list(supervisor_world_status_log)
-        with open(supervisor_log_filename, 'w', encoding='utf-8') as f:
+        with open(supervisor_log_filename, "w", encoding="utf-8") as f:
             json.dump(supervisor_log_data, f, indent=4, ensure_ascii=False)
         logger.info(f"Supervisor 世界状态日志已保存至 {supervisor_log_filename}")
     except Exception as e:
@@ -699,20 +617,20 @@ def save_supervisor_log_on_exit():
 
 
 # ================ 服务器启动和关闭处理 =================
-@app.route('/api/v1/scenes', methods=['GET'])
+@app.route("/api/v1/scenes", methods=["GET"])
 def get_available_scenes():
     """获取可用的场景列表"""
     # 获取name参数用于过滤
-    name_filter = request.args.get('name')
+    name_filter = request.args.get("name")
 
     scenes_data = []
 
     for i, (scene_id, config) in enumerate(SCENE_CONFIGS.items(), 1):
         # 如果提供了name参数，只返回匹配的场景
-        if name_filter and config['name'] != name_filter:
+        if name_filter and config["name"] != name_filter:
             continue
 
-        world_file_path = os.path.join(config['working_dir'], config['world_file'])
+        world_file_path = os.path.join(config["working_dir"], config["world_file"])
         size = "0B"
 
         if os.path.exists(world_file_path):
@@ -730,13 +648,13 @@ def get_available_scenes():
 
         scene_data = {
             "id": i,
-            "name": config['name'],
-            "version": config['version'],
+            "name": config["name"],
+            "version": config["version"],
             "size": size,
-            "description": config['description'],
-            "scene_id": config['id'],
-            "coordinate": config['corners'],
-            "label_point": config['label_point'],
+            "description": config["description"],
+            "scene_id": config["id"],
+            "coordinate": config["corners"],
+            "label_point": config["label_point"],
         }
         scenes_data.append(scene_data)
 
@@ -756,11 +674,11 @@ def get_available_scenes():
     return jsonify({"code": 200, "message": "success", "data": scenes_data}), 200
 
 
-@app.route('/api/v1/scene/load', methods=['GET'])
+@app.route("/api/v1/scene/load", methods=["GET"])
 def start_webots():
     """启动Webots进程"""
     global webots_process, current_loaded_scene, supervisor_world_status_log
-    print(current_loaded_scene)
+    # print(current_loaded_scene)
     with webots_process_lock:
         try:
             data = {}
@@ -771,7 +689,7 @@ def start_webots():
             elif request.args:
                 data = request.args.to_dict()
 
-            scene_id = data.get('id')
+            scene_id = data.get("id")
 
             if not scene_id:
                 return (
@@ -804,20 +722,19 @@ def start_webots():
             # 清空supervisor_world_status_log
             supervisor_world_status_log = []
 
-            world_file = scene_config['world_file']
-            working_dir = scene_config['working_dir']
-            description = scene_config['description']
-            scene_display_name = scene_config['name']
-            scene_version = scene_config['version']
+            world_file = scene_config["world_file"]
+            working_dir = scene_config["working_dir"]
+            description = scene_config["description"]
+            scene_display_name = scene_config["name"]
+            scene_version = scene_config["version"]
 
             logger.info(f"选择场景: {scene_id} - {scene_display_name} v{scene_version}")
 
             cmd = [
-                'webots',
-                '--mode=realtime',
-                '--minimize',
+                "webots",
+                "--mode=realtime",
                 world_file,
-                '--stream',
+                "--stream",
             ]
 
             webots_process = subprocess.Popen(
@@ -859,7 +776,7 @@ def start_webots():
             ):
                 time.sleep(0.5)
 
-            print(supervisor_world_status_log)
+            # print(supervisor_world_status_log)
             if supervisor_world_status_log:
                 logger.info("Supervisor已更新世界状态，场景加载完成")
                 return (
@@ -902,7 +819,7 @@ def start_webots():
             return jsonify({"code": 500, "message": error_msg}), 500
 
 
-@app.route('/api/v1/scene/objects', methods=['GET'])
+@app.route("/api/v1/scene/objects", methods=["GET"])
 def get_world_status():
     """获取当前世界状态数据 - 所有对象列表"""
     global supervisor_world_status_log
@@ -921,29 +838,28 @@ def get_world_status():
     try:
         # 获取最新的世界状态数据
         latest_log_entry = supervisor_world_status_log[-1]
-        nodes_data = latest_log_entry.get('data', [])
-        print("nodes_data", nodes_data)
+        nodes_data = latest_log_entry.get("data", [])
+        # print("nodes_data", nodes_data)
         # 转换为标准格式
         formatted_list = []
 
         for i, node in enumerate(nodes_data, 1):
-            node_id = node.get('id', i)
-            node_name = node.get('name', 'Unknown')
-            position = node.get('position', [0, 0, 0])
+            node_id = node.get("id", i)
+            node_name = node.get("name", "Unknown")
+            position = node.get("position", [0, 0, 0])
             yaw_angle = node.get("rotation_degrees").get("yaw")
-            size = node.get('size', [0, 0, 0])
-            ability_code = node.get('ability', None)
+            size = node.get("size", [0, 0, 0])
+            ability_code = node.get("ability", None)
             ability_list = []
             if ability_code:
                 for code in ability_code:
                     if code in ability_dict:
-                        ability_list.append({
-                            "ability_code" : code,
-                            "ability_name" : ability_dict[code]
-                        })
+                        ability_list.append(
+                            {"ability_code": code, "ability_name": ability_dict[code]}
+                        )
             if not size:
                 size = [0, 0, 0]
-            describe = node.get('describe', '该物体暂无描述字段')
+            describe = node.get("describe", "该物体暂无描述字段")
 
             if not isinstance(position, list) or len(position) < 3:
                 position = [0, 0, 0]
@@ -989,14 +905,14 @@ def get_world_status():
         return jsonify({"code": 500, "message": f"获取世界状态数据失败: {str(e)}"}), 500
 
 
-@app.route('/api/v1/scene/object', methods=['GET'])
+@app.route("/api/v1/scene/object", methods=["GET"])
 def get_single_object():
     """获取单个物体的详细信息"""
     global supervisor_world_status_log, current_loaded_scene
 
     # 获取参数
-    scene_id = request.args.get('id')
-    object_id = request.args.get('object_id')
+    scene_id = request.args.get("id")
+    object_id = request.args.get("object_id")
 
     # 参数验证
     if not scene_id:
@@ -1006,8 +922,8 @@ def get_single_object():
         return jsonify({"code": 400, "message": "缺少必需参数 'object_id'"}), 400
 
     # 验证场景ID是否为当前已加载的场景
-    if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
-        current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
+    if not current_loaded_scene or current_loaded_scene.get("id") != scene_id:
+        current_scene = current_loaded_scene.get("id") if current_loaded_scene else "无"
         return (
             jsonify(
                 {
@@ -1038,7 +954,7 @@ def get_single_object():
 
         # 获取最新的世界状态数据
         latest_log_entry = supervisor_world_status_log[-1]
-        nodes_data = latest_log_entry.get('data', [])
+        nodes_data = latest_log_entry.get("data", [])
 
         # 查找目标物体
         target_object = None
@@ -1053,22 +969,21 @@ def get_single_object():
                 404,
             )
 
-        node_name = node.get('name', 'Unknown')
-        position = node.get('position', [0, 0, 0])
-        size = node.get('size', [0, 0, 0])
-        ability_code = node.get('ability', None)
+        node_name = node.get("name", "Unknown")
+        position = node.get("position", [0, 0, 0])
+        size = node.get("size", [0, 0, 0])
+        ability_code = node.get("ability", None)
         ability_list = []
         yaw_angle = node.get("rotation_degrees").get("yaw")
         if ability_code:
             for code in ability_code:
                 if code in ability_dict:
-                    ability_list.append({
-                        "ability_code" : code,
-                        "ability_name" : ability_dict[code]
-                    })
+                    ability_list.append(
+                        {"ability_code": code, "ability_name": ability_dict[code]}
+                    )
         if not size:
             size = [0, 0, 0]
-        describe = node.get('describe', '该物体暂无描述字段')
+        describe = node.get("describe", "该物体暂无描述字段")
 
         if not isinstance(position, list) or len(position) < 3:
             position = [0, 0, 0]
@@ -1103,14 +1018,14 @@ def get_single_object():
         return jsonify({"code": 500, "message": f"获取世界状态数据失败: {str(e)}"}), 500
 
 
-@app.route('/api/v1/scene/coordinate', methods=['GET'])
+@app.route("/api/v1/scene/coordinate", methods=["GET"])
 def track_moving_object():
     """获取单个物体的详细信息"""
     global supervisor_world_status_log, current_loaded_scene
 
     # 获取参数
-    scene_id = request.args.get('id')
-    object_id = request.args.get('object_id')
+    scene_id = request.args.get("id")
+    object_id = request.args.get("object_id")
 
     # 参数验证
     if not scene_id:
@@ -1120,8 +1035,8 @@ def track_moving_object():
         return jsonify({"code": 400, "message": "缺少必需参数 'object_id'"}), 400
 
     # 验证场景ID是否为当前已加载的场景
-    if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
-        current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
+    if not current_loaded_scene or current_loaded_scene.get("id") != scene_id:
+        current_scene = current_loaded_scene.get("id") if current_loaded_scene else "无"
         return (
             jsonify(
                 {
@@ -1152,7 +1067,7 @@ def track_moving_object():
 
         # 获取最新的世界状态数据
         latest_log_entry = supervisor_world_status_log[-1]
-        nodes_data = latest_log_entry.get('data', [])
+        nodes_data = latest_log_entry.get("data", [])
 
         # 查找目标物体
         target_object = None
@@ -1167,7 +1082,7 @@ def track_moving_object():
                 404,
             )
 
-        position = target_object.get('position', [0, 0, 0])
+        position = target_object.get("position", [0, 0, 0])
 
         # 确保position是列表且长度为3
         if not isinstance(position, list) or len(position) < 3:
@@ -1175,7 +1090,7 @@ def track_moving_object():
 
         # 获取该机器人的目标和状态
         robot_goal_state = robot_goals[object_id]
-        status_code = robot_goal_state.get('status', 1)
+        status_code = robot_goal_state.get("status", 1)
         object_info = {
             "id": target_object_id,
             "status": status_code,
@@ -1193,7 +1108,7 @@ def track_moving_object():
 
 
 # ================= 轮臂机器人移动相关路由 =================
-@app.route('/api/v1/move/set_goal', methods=['POST'])
+@app.route("/api/v1/move/set_goal", methods=["POST"])
 def move_set_goal():
     """
     轮臂机器人移动命令下发
@@ -1205,23 +1120,23 @@ def move_set_goal():
     - goal_angle: 机器人与目标点的目标偏航角，角度制
     """
     global robot_goals, current_loaded_scene, supervisor_world_status_log, robot_status_dict
-    print("current_loaded_scene:", current_loaded_scene)
+    # print("current_loaded_scene:", current_loaded_scene)
     try:
         data = request.get_json()
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
 
-        required_fields = ['id', 'object_id', 'goal_pos', 'goal_angle']
+        required_fields = ["id", "object_id", "goal_pos", "goal_angle"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
 
-        scene_id = str(data['id'])
-        object_id = int(data['object_id'])
-        goal_pos = data['goal_pos']
+        scene_id = str(data["id"])
+        object_id = int(data["object_id"])
+        goal_pos = data["goal_pos"]
         if isinstance(goal_pos, list) and len(goal_pos) == 0:
             goal_pos = []
-        goal_angle = float(data['goal_angle'])
+        goal_angle = float(data["goal_angle"])
 
         # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
         #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
@@ -1267,8 +1182,8 @@ def move_set_goal():
             logger.info(
                 f"[set_robot_goal] 机器人(ID:{object_id})仅设置旋转目标: 角度 {goal_angle}°"
             )
-            new_goal['path_planning_complete'] = True
-            new_goal['total_segments'] = 0
+            new_goal["path_planning_complete"] = True
+            new_goal["total_segments"] = 0
             new_goal["goal_pos"] = []
             robot_goals[object_id] = new_goal
             robot_status_dict[object_id] = 2
@@ -1310,16 +1225,16 @@ def move_set_goal():
 
         while wait_count < max_wait_time / wait_interval:
             if object_id in robot_goals:
-                if robot_goals[object_id].get('path_planning_complete', False):
-                    if robot_goals[object_id].get('is_reachable') is False:
+                if robot_goals[object_id].get("path_planning_complete", False):
+                    if robot_goals[object_id].get("is_reachable") is False:
                         # 路径规划失败，目标不可达
                         error_message = robot_goals[object_id].get(
-                            'error_message', f"无法找到到达目标点 {goal_pos} 的可行路径"
+                            "error_message", f"无法找到到达目标点 {goal_pos} 的可行路径"
                         )
                         logger.warning(
                             f"[set_robot_goal] 机器人(ID:{object_id})路径规划失败: {error_message}"
                         )
-                        robot_goals[object_id]['status'] = 4  # 4=错误
+                        robot_goals[object_id]["status"] = 4  # 4=错误
                         robot_status_dict[object_id] = 4
                         request_response_log.append(
                             {
@@ -1353,7 +1268,7 @@ def move_set_goal():
                                 "code": 200,
                                 "message": "success",
                                 "total_segments": robot_goals[object_id].get(
-                                    'total_segments', 0
+                                    "total_segments", 0
                                 ),
                                 "is_reachable": True,
                             }
@@ -1362,17 +1277,17 @@ def move_set_goal():
                     )
 
                 # 兼容旧版本：检查is_reachable标志和total_segments数量
-                elif robot_goals[object_id].get('is_reachable') is False:
+                elif robot_goals[object_id].get("is_reachable") is False:
                     # 路径规划失败，目标不可达（旧版本兼容）
                     error_message = robot_goals[object_id].get(
-                        'error_message', f"无法找到到达目标点 {goal_pos} 的可行路径"
+                        "error_message", f"无法找到到达目标点 {goal_pos} 的可行路径"
                     )
                     logger.warning(
                         f"[set_robot_goal] 机器人(ID:{object_id})路径规划失败(旧版本检测): {error_message}"
                     )
 
                     # 更新状态为错误
-                    robot_goals[object_id]['status'] = 4  # 4=错误
+                    robot_goals[object_id]["status"] = 4  # 4=错误
                     robot_status_dict[object_id] = 4
 
                     request_response_log.append(
@@ -1398,7 +1313,7 @@ def move_set_goal():
                     )
 
                 # 检查是否有段数信息（表示路径规划可能已成功）
-                elif robot_goals[object_id].get('total_segments', 0) > 0:
+                elif robot_goals[object_id].get("total_segments", 0) > 0:
                     # 路径规划可能已成功（旧版本兼容）
                     logger.info(
                         f"[set_robot_goal] 机器人(ID:{object_id})路径规划成功(旧版本检测)，总段数: {robot_goals[object_id].get('total_segments', 0)}"
@@ -1409,7 +1324,7 @@ def move_set_goal():
                                 "code": 200,
                                 "message": "success",
                                 "total_segments": robot_goals[object_id].get(
-                                    'total_segments', 0
+                                    "total_segments", 0
                                 ),
                                 "is_reachable": True,
                             }
@@ -1438,7 +1353,7 @@ def move_set_goal():
         return jsonify({"code": 400, "message": f"请求处理出错: {str(e)}"}), 400
 
 
-@app.route('/api/v1/move/check_state', methods=['POST'])
+@app.route("/api/v1/move/check_state", methods=["POST"])
 def move_check_state():
     """
     轮臂机器人移动状态获取
@@ -1454,14 +1369,14 @@ def move_check_state():
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
 
-        required_fields = ['id', 'object_id']
+        required_fields = ["id", "object_id"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
 
-        scene_id = str(data['id'])
+        scene_id = str(data["id"])
         try:
-            object_id = int(data['object_id'])
+            object_id = int(data["object_id"])
         except ValueError:
             return jsonify({"code": 400, "message": "物品ID必须为整数"}), 400
 
@@ -1486,13 +1401,13 @@ def move_check_state():
         # 如果机器人有目标状态记录，添加详细信息
         if object_id in robot_goals:
             goal_state = robot_goals[object_id]
-            response_data.update({"process": goal_state.get('process', '0/0')})
+            response_data.update({"process": goal_state.get("process", "0/0")})
 
             # 如果状态是错误(4)，添加错误信息
             if status_code == 4:
                 response_data["error_message"] = "目标点不可达，请选择其他目标点"
-            
-        print(response_data)
+
+        # print(response_data)
 
         request_response_log.append(
             {
@@ -1510,7 +1425,7 @@ def move_check_state():
         return jsonify({"code": 400, "message": f"发生错误: {str(e)}"}), 400
 
 
-@app.route('/api/v1/move/check_pos', methods=['GET'])
+@app.route("/api/v1/move/check_pos", methods=["GET"])
 def move_check_pos():
     """
     获取场景的单个物品移动坐标
@@ -1526,14 +1441,14 @@ def move_check_pos():
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
 
-        required_fields = ['id', 'object_id']
+        required_fields = ["id", "object_id"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
 
-        scene_id = str(data['id'])
+        scene_id = str(data["id"])
         try:
-            object_id = int(data['object_id'])
+            object_id = int(data["object_id"])
         except ValueError:
             return jsonify({"code": 400, "message": "物品ID必须为整数"}), 400
 
@@ -1552,8 +1467,8 @@ def move_check_pos():
         latest_log_entry = supervisor_world_status_log[-1]
         target_object = None
 
-        for node in latest_log_entry.get('data', []):
-            if node.get('id') == object_id:
+        for node in latest_log_entry.get("data", []):
+            if node.get("id") == object_id:
                 target_object = node
                 break
 
@@ -1564,8 +1479,8 @@ def move_check_pos():
             )
 
         # 构建响应数据
-        position = target_object.get('position', [0, 0, 0])
-        rotation = target_object.get('rotation_degrees', {})
+        position = target_object.get("position", [0, 0, 0])
+        rotation = target_object.get("rotation_degrees", {})
 
         # 确保position是列表且长度为3
         if not isinstance(position, list) or len(position) < 3:
@@ -1596,7 +1511,7 @@ def move_check_pos():
         return jsonify({"code": 400, "message": f"请求处理出错: {str(e)}"}), 400
 
 
-@app.route('/api/v1/move/stop', methods=['GET'])
+@app.route("/api/v1/move/stop", methods=["GET"])
 def move_stop():
     """停止机器人移动，清空移动轨迹
 
@@ -1610,14 +1525,14 @@ def move_stop():
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
 
-        required_fields = ['id', 'object_id']
+        required_fields = ["id", "object_id"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
 
-        scene_id = str(data['id'])
+        scene_id = str(data["id"])
         try:
-            object_id = int(data['object_id'])
+            object_id = int(data["object_id"])
         except ValueError:
             return jsonify({"code": 400, "message": "物品ID必须为整数"}), 400
 
@@ -1673,7 +1588,7 @@ def move_stop():
 
 
 # ================= 轮臂机器人抓取相关路由 =================
-@app.route('/api/v1/capture/pick_and_place', methods=['POST'])
+@app.route("/api/v1/capture/pick_and_place", methods=["POST"])
 def capture_set_goal():
     """
     抓取命令接口
@@ -1693,7 +1608,7 @@ def capture_set_goal():
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
 
-        required_fields = ['id', 'robot_id']
+        required_fields = ["id", "robot_id"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
@@ -1702,11 +1617,11 @@ def capture_set_goal():
         # robot_id = int(data['robot_id'])
         # goal_arm = str(data['goal_arm'])
         # 获取scene_id，若不存在则默认值为0
-        scene_id = int(data.get('id', 1))
+        scene_id = int(data.get("id", 1))
         # 获取robot_id，若不存在则默认值为1
-        robot_id = int(data.get('robot_id', 1))
+        robot_id = int(data.get("robot_id", 1))
         # 获取goal_arm，若不存在则默认值为空字符串
-        goal_arm = str(data.get('goal_arm', 'both'))
+        goal_arm = str(data.get("goal_arm", "both"))
 
         # left_cur_pos = data['left_cur_pos']
         # left_goal_pos = data['left_goal_pos']
@@ -1716,16 +1631,16 @@ def capture_set_goal():
         # right_angle = data['right_angle']
 
         # 左手臂相关参数，默认值设为合理的空列表或零值
-        left_cur_pos = data.get('left_cur_pos', [-0.01749985, 0.29927, -0.21073727])
-        left_goal_pos = data.get('left_goal_pos', [-0.01749985, 0.29927, -0.21073727])
-        left_angle = data.get('left_angle', [3.14, 0.0, 0.0])
+        left_cur_pos = data.get("left_cur_pos", [-0.01749985, 0.29927, -0.21073727])
+        left_goal_pos = data.get("left_goal_pos", [-0.01749985, 0.29927, -0.21073727])
+        left_angle = data.get("left_angle", [3.14, 0.0, 0.0])
 
         # 右手臂相关参数，默认值设为合理的空列表或零值
-        right_cur_pos = data.get('right_cur_pos', [-0.01749985, -0.29927, -0.21073727])
+        right_cur_pos = data.get("right_cur_pos", [-0.01749985, -0.29927, -0.21073727])
         right_goal_pos = data.get(
-            'right_goal_pos', [-0.01749985, -0.29927, -0.21073727]
+            "right_goal_pos", [-0.01749985, -0.29927, -0.21073727]
         )
-        right_angle = data.get('right_angle', [-3.02456926, -0.00675474, 0.09522905])
+        right_angle = data.get("right_angle", [-3.02456926, -0.00675474, 0.09522905])
 
         # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
         #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
@@ -1739,16 +1654,16 @@ def capture_set_goal():
             # 使用 robot_id 而非 object_id
             logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")
 
-        capture_robot_goals['scene_id'] = scene_id
-        capture_robot_goals['robot_id'] = robot_id
-        capture_robot_goals['goal_arm'] = goal_arm
+        capture_robot_goals["scene_id"] = scene_id
+        capture_robot_goals["robot_id"] = robot_id
+        capture_robot_goals["goal_arm"] = goal_arm
 
-        capture_robot_goals['left_cur_pos'] = left_cur_pos
-        capture_robot_goals['left_goal_pos'] = left_goal_pos
-        capture_robot_goals['left_angle'] = left_angle
-        capture_robot_goals['right_cur_pos'] = right_cur_pos
-        capture_robot_goals['right_goal_pos'] = right_goal_pos
-        capture_robot_goals['right_angle'] = right_angle
+        capture_robot_goals["left_cur_pos"] = left_cur_pos
+        capture_robot_goals["left_goal_pos"] = left_goal_pos
+        capture_robot_goals["left_angle"] = left_angle
+        capture_robot_goals["right_cur_pos"] = right_cur_pos
+        capture_robot_goals["right_goal_pos"] = right_goal_pos
+        capture_robot_goals["right_angle"] = right_angle
 
         # 循环检查字典是否为空（示例：最多等待10次，每次间隔0.1秒）
         max_attempts = 20
@@ -1789,7 +1704,7 @@ def capture_set_goal():
         )
 
 
-@app.route('/api/v1/capture/pick', methods=['POST'])
+@app.route("/api/v1/capture/pick", methods=["POST"])
 def pick_set_goal():
     """
     抓取命令接口
@@ -1802,7 +1717,7 @@ def pick_set_goal():
     - goal_angle:要进行抓取的姿态，默认为从上往下抓,[-3.14,0,0]
     - goal_arm:规划左手："left"，右手："right"，双手:"both"
     """
-    global current_left_pos, current_right_pos, pick_robot_goals, current_loaded_scene, supervisor_world_status_log, result_pick, fail_pick
+    global current_left_rpy, current_right_rpy, current_left_pos, current_right_pos, pick_robot_goals, current_loaded_scene, supervisor_world_status_log, result_pick, fail_pick
 
     try:
         result_pick = False
@@ -1811,7 +1726,7 @@ def pick_set_goal():
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
 
-        required_fields = ['id', 'robot_id']
+        required_fields = ["id", "robot_id"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
@@ -1820,11 +1735,11 @@ def pick_set_goal():
         # robot_id = int(data['robot_id'])
         # goal_arm = str(data['goal_arm'])
         # 获取scene_id，若不存在则默认值为0
-        scene_id = int(data.get('id', 1))
+        scene_id = int(data.get("id", 1))
         # 获取robot_id，若不存在则默认值为1
-        robot_id = int(data.get('robot_id', 1))
+        robot_id = int(data.get("robot_id", 1))
         # 获取goal_arm，若不存在则默认值为空字符串
-        goal_arm = str(data.get('goal_arm', 'both'))
+        goal_arm = str(data.get("goal_arm", "both"))
 
         # left_cur_pos = data['left_cur_pos']
         # left_goal_pos = data['left_goal_pos']
@@ -1834,17 +1749,13 @@ def pick_set_goal():
         # right_angle = data['right_angle']
 
         # 左手臂相关参数，默认值设为合理的空列表或零值
-        left_cur_pos = data.get('left_cur_pos', [-0.01749985, 0.29927, -0.21073727])
+        left_cur_pos = data.get("left_cur_pos", [0.951, 0.188, 0.790675])
         # left_cur_pos = [0.0, 0.0, 0.0]
-        left_angle = data.get('left_angle', [3.14, 0.0, 0.0])
-        if not left_angle:
-            left_angle = [3.14, 0.0, 0.0]
+        left_angle = data.get("left_angle", [0, 0.0, 0.0])
 
         # 右手臂相关参数，默认值设为合理的空列表或零值
-        right_cur_pos = data.get('right_cur_pos', [-0.01749985, -0.29927, -0.21073727])
-        right_angle = data.get('right_angle', [-3.02456926, -0.00675474, 0.09522905])
-        if not right_angle:
-            right_angle = [-3.02456926, -0.00675474, 0.09522905]
+        right_cur_pos = data.get("right_cur_pos", [0.951, -0.188, 0.790675])
+        right_angle = data.get("right_angle", [0, 0, 0])
         logger.info(
             f"{scene_id}, {robot_id}, {goal_arm}, {left_cur_pos}, {left_angle}, {right_cur_pos}, {right_angle}"
         )
@@ -1860,17 +1771,17 @@ def pick_set_goal():
         if pick_robot_goals:
             logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")
 
-        pick_robot_goals['scene_id'] = scene_id
-        pick_robot_goals['robot_id'] = robot_id
-        pick_robot_goals['goal_arm'] = goal_arm
+        pick_robot_goals["scene_id"] = scene_id
+        pick_robot_goals["robot_id"] = robot_id
+        pick_robot_goals["goal_arm"] = goal_arm
 
-        pick_robot_goals['left_cur_pos'] = left_cur_pos
-        pick_robot_goals['left_angle'] = left_angle
-        pick_robot_goals['right_cur_pos'] = right_cur_pos
-        pick_robot_goals['right_angle'] = right_angle
+        pick_robot_goals["left_cur_pos"] = left_cur_pos
+        pick_robot_goals["left_angle"] = left_angle
+        pick_robot_goals["right_cur_pos"] = right_cur_pos
+        pick_robot_goals["right_angle"] = right_angle
 
         # 循环检查字典是否为空（示例：最多等待10次，每次间隔0.1秒）
-        max_attempts = 15
+        max_attempts = 30000
         attempt = 0
         while attempt < max_attempts:
             # print("fail_pick",fail_pick)
@@ -1893,6 +1804,8 @@ def pick_set_goal():
                             "message": "操作完成",
                             "left_real_pos": current_left_pos,
                             "right_real_pos": current_right_pos,
+                            "left_real_rpy": current_left_rpy,
+                            "right_real_rpy": current_right_rpy,
                         }
                     ),
                     200,
@@ -1916,7 +1829,7 @@ def pick_set_goal():
         return jsonify({"code": 400, "message": "pick fail"}), 400
 
 
-@app.route('/api/v1/capture/place', methods=['POST'])
+@app.route("/api/v1/capture/place", methods=["POST"])
 def place_set_goal():
     """
     抓取命令接口
@@ -1929,7 +1842,7 @@ def place_set_goal():
     - goal_angle:要进行抓取的姿态，默认为从上往下抓,[-3.14,0,0]
     - goal_arm:规划左手："left"，右手："right"，双手:"both"
     """
-    global current_left_pos, current_right_pos, place_robot_goals, current_loaded_scene, supervisor_world_status_log, result_place, fail_place
+    global current_left_rpy, current_right_rpy, current_left_pos, current_right_pos, place_robot_goals, current_loaded_scene, supervisor_world_status_log, result_place, fail_place
 
     try:
         result_place = False
@@ -1938,27 +1851,25 @@ def place_set_goal():
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
 
-        required_fields = ['id', 'robot_id']
+        required_fields = ["id", "robot_id"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
 
         # 获取scene_id，若不存在则默认值为0
-        scene_id = int(data.get('id', 1))
+        scene_id = int(data.get("id", 1))
         # 获取robot_id，若不存在则默认值为1
-        robot_id = int(data.get('robot_id', 1))
+        robot_id = int(data.get("robot_id", 1))
         # 获取goal_arm，若不存在则默认值为空字符串
-        goal_arm = str(data.get('goal_arm', 'both'))
+        goal_arm = str(data.get("goal_arm", "both"))
 
         # 左手臂相关参数，默认值设为合理的空列表或零值
-        left_goal_pos = data.get('left_goal_pos', [-0.01749985, 0.29927, -0.21073727])
-        left_angle = data.get('left_angle', [3.14, 0.0, 0.0])
+        left_goal_pos = data.get("left_goal_pos", [0.951, 0.188, 0.790675])
+        left_angle = data.get("left_angle", [0, 0.0, 0.0])
 
         # 右手臂相关参数，默认值设为合理的空列表或零值
-        right_goal_pos = data.get(
-            'right_goal_pos', [-0.01749985, -0.29927, -0.21073727]
-        )
-        right_angle = data.get('right_angle', [-3.02456926, -0.00675474, 0.09522905])
+        right_goal_pos = data.get("right_goal_pos", [0.921, -0.188, 0.790675])
+        right_angle = data.get("right_angle", [0, 0, 0])
 
         # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
         #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
@@ -1971,17 +1882,17 @@ def place_set_goal():
         if place_robot_goals:
             logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")
 
-        place_robot_goals['scene_id'] = scene_id
-        place_robot_goals['robot_id'] = robot_id
-        place_robot_goals['goal_arm'] = goal_arm
+        place_robot_goals["scene_id"] = scene_id
+        place_robot_goals["robot_id"] = robot_id
+        place_robot_goals["goal_arm"] = goal_arm
 
-        place_robot_goals['left_goal_pos'] = left_goal_pos
-        place_robot_goals['left_angle'] = left_angle
-        place_robot_goals['right_goal_pos'] = right_goal_pos
-        place_robot_goals['right_angle'] = right_angle
+        place_robot_goals["left_goal_pos"] = left_goal_pos
+        place_robot_goals["left_angle"] = left_angle
+        place_robot_goals["right_goal_pos"] = right_goal_pos
+        place_robot_goals["right_angle"] = right_angle
 
         # 循环检查字典是否为空（示例：最多等待10次，每次间隔0.1秒）
-        max_attempts = 15
+        max_attempts = 300
         attempt = 0
         while attempt < max_attempts:
             if fail_place:
@@ -2003,6 +1914,8 @@ def place_set_goal():
                             "message": "操作完成",
                             "left_real_pos": current_left_pos,
                             "right_real_pos": current_right_pos,
+                            "left_real_rpy": current_left_rpy,
+                            "right_real_rpy": current_right_rpy,
                         }
                     ),
                     200,
@@ -2024,7 +1937,7 @@ def place_set_goal():
         return jsonify({"code": 400, "message": f"place fail  {e}"}), 400
 
 
-@app.route('/api/v1/capture/pick_result', methods=['POST'])
+@app.route("/api/v1/capture/pick_result", methods=["POST"])
 def pick_result():
     global result_pick, result_place
 
@@ -2033,7 +1946,7 @@ def pick_result():
     if not data:
         return jsonify({"code": 400, "message": "参数为空"}), 400
 
-    required_fields = ['id', 'robot_id', 'object_id']
+    required_fields = ["id", "robot_id", "object_id"]
     for field in required_fields:
         if field not in data:
             return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
@@ -2046,11 +1959,11 @@ def pick_result():
     #         }), 409
 
     # 获取scene_id，若不存在则默认值为0
-    scene_id = int(data['id'])
+    scene_id = int(data["id"])
     # 获取robot_id，若不存在则默认值为1
-    robot_id = int(data['robot_id'])
+    robot_id = int(data["robot_id"])
     # 获取goal_arm，若不存在则默认值为空字符串
-    object_id = int(data['object_id'])
+    object_id = int(data["object_id"])
     # print(scene_id,robot_id,object_id)
 
     res = result_pick
@@ -2058,7 +1971,8 @@ def pick_result():
         result_pick = False
     return jsonify({"code": 200, "message": res}), 200
 
-@app.route('/api/v1/capture/place_result', methods=['POST'])
+
+@app.route("/api/v1/capture/place_result", methods=["POST"])
 def place_result():
     global result_pick, result_place
 
@@ -2067,7 +1981,7 @@ def place_result():
     if not data:
         return jsonify({"code": 400, "message": "参数为空"}), 400
 
-    required_fields = ['id', 'robot_id', 'object_id']
+    required_fields = ["id", "robot_id", "object_id"]
     for field in required_fields:
         if field not in data:
             return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
@@ -2080,11 +1994,11 @@ def place_result():
     # }), 409
 
     # 获取scene_id，若不存在则默认值为0
-    scene_id = int(data['id'])
+    scene_id = int(data["id"])
     # 获取robot_id，若不存在则默认值为1
-    robot_id = int(data['robot_id'])
+    robot_id = int(data["robot_id"])
     # 获取goal_arm，若不存在则默认值为空字符串
-    object_id = int(data['object_id'])
+    object_id = int(data["object_id"])
     # print(scene_id,robot_id,object_id)
 
     res = result_place
@@ -2092,8 +2006,9 @@ def place_result():
         result_place = False
     return jsonify({"code": 200, "message": res}), 200
 
-@app.route('/api/v1/capture/get_relative_pos', methods=['GET'])
-def get_pick_pos():
+
+@app.route("/api/v1/capture/get_relative_pos", methods=["GET"])
+def get_relative_pos():
     """
     获取物品相对于机器人的相对坐标
 
@@ -2116,16 +2031,16 @@ def get_pick_pos():
             )
 
         # 验证必填参数
-        required_fields = ['id', 'robot_id', 'object_id']
+        required_fields = ["id", "robot_id", "object_id"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
 
         # 解析参数
-        scene_id = str(data['id'])
+        scene_id = str(data["id"])
         try:
-            robot_id = int(data['robot_id'])
-            object_id = int(data['object_id'])
+            robot_id = int(data["robot_id"])
+            object_id = int(data["object_id"])
         except ValueError:
             return (
                 jsonify({"code": 400, "message": "robot_id和object_id必须为整数"}),
@@ -2143,7 +2058,7 @@ def get_pick_pos():
 
         # 获取最新的世界状态数据
         latest_log_entry = supervisor_world_status_log[-1]
-        nodes_data = latest_log_entry.get('data', [])
+        nodes_data = latest_log_entry.get("data", [])
 
         # 查找机器人和目标物品的绝对坐标及机器人朝向
         robot_abs_pos = None  # 机器人绝对坐标 (x, y, z)
@@ -2151,16 +2066,16 @@ def get_pick_pos():
         object_abs_pos = None  # 物品绝对坐标 (x, y, z)
 
         for node in nodes_data:
-            node_id = node.get('id')
+            node_id = node.get("id")
             # 匹配机器人ID
             if node_id == robot_id:
-                robot_abs_pos = node.get('position', [0, 0, 0])
+                robot_abs_pos = node.get("position", [0, 0, 0])
 
                 # 从rotation_degrees字段获取欧拉角并转换为弧度
-                rotation_degrees = node.get('rotation_degrees', {})
-                roll_deg = rotation_degrees.get('roll', 0)
-                pitch_deg = rotation_degrees.get('pitch', 0)
-                yaw_deg = rotation_degrees.get('yaw', 0)
+                rotation_degrees = node.get("rotation_degrees", {})
+                roll_deg = rotation_degrees.get("roll", 0)
+                pitch_deg = rotation_degrees.get("pitch", 0)
+                yaw_deg = rotation_degrees.get("yaw", 0)
 
                 # 将角度转换为弧度
                 robot_rpy = [
@@ -2175,7 +2090,7 @@ def get_pick_pos():
 
             # 匹配物品ID
             if node_id == object_id:
-                object_abs_pos = node.get('position', [0, 0, 0])
+                object_abs_pos = node.get("position", [0, 0, 0])
                 # 确保坐标是长度为3的列表
                 if not isinstance(object_abs_pos, list) or len(object_abs_pos) < 3:
                     object_abs_pos = [0, 0, 0]
@@ -2226,6 +2141,23 @@ def get_pick_pos():
         relative_y = relative_vector[1]
         relative_z = relative_vector[2]
 
+        # 判断是否可以手伸到
+        arm_ik = ArmIk(
+            model_file="./Webots_PR2_Path_Planning/protos/pr2/pr2.urdf", visualize=False
+        )
+        q0 = arm_ik.get_init_q()
+        if relative_y > 0:  # 大于0用左手
+            l_hand_pose = [relative_x, relative_y, relative_z]
+            r_hand_pose = [0.921, -0.188, 0.790675]
+            suggested_hand = "left"
+        else:  # 小于等于0用右手
+            l_hand_pose = [0.6673, 0.2719, 1.2414]
+            r_hand_pose = [relative_x, relative_y, relative_z]
+            suggested_hand = "right"
+
+        sol_q = arm_ik.computeIK(q0, l_hand_pose, r_hand_pose, [0, 0, 0], [0, 0, 0])
+        can_reach = sol_q is not None
+
         # 整理返回数据
         return (
             jsonify(
@@ -2261,6 +2193,11 @@ def get_pick_pos():
                             "pitch_deg": f"{pitch_deg:.4f}",  # 绕Y轴旋转角度（角度）
                             "yaw_deg": f"{yaw_deg:.4f}",  # 绕Z轴旋转角度（角度）
                         },
+                        # 新增：逆解结果与手部建议
+                        "inverse_kinematics_result": {
+                            "can_reach": can_reach,
+                            "suggested_hand": suggested_hand,
+                        },
                     },
                 }
             ),
@@ -2272,10 +2209,10 @@ def get_pick_pos():
         return jsonify({"code": 500, "message": f"服务器错误: {str(e)}"}), 500
 
 
-@app.route('/api/v1/capture/arm_go_pos', methods=['POST'])
+@app.route("/api/v1/capture/arm_go_pos", methods=["POST"])
 def arm_go_pos():
 
-    global current_left_pos, current_right_pos, arm_go_pos_robot_goal, current_loaded_scene, supervisor_world_status_log, result_place, fail_place, fail_arm_go_pos
+    global current_left_rpy, current_right_rpy, current_left_pos, current_right_pos, arm_go_pos_robot_goal, current_loaded_scene, supervisor_world_status_log, result_place, fail_place, fail_arm_go_pos
 
     try:
         result_place = False
@@ -2284,27 +2221,27 @@ def arm_go_pos():
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
 
-        required_fields = ['id', 'robot_id']
+        required_fields = ["id", "robot_id"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
 
         # 获取scene_id，若不存在则默认值为0
-        scene_id = int(data.get('id', 1))
+        scene_id = int(data.get("id", 1))
         # 获取robot_id，若不存在则默认值为1
-        robot_id = int(data.get('robot_id', 1))
+        robot_id = int(data.get("robot_id", 1))
         # 获取goal_arm，若不存在则默认值为空字符串
-        goal_arm = str(data.get('goal_arm', 'both'))
+        goal_arm = str(data.get("goal_arm", "both"))
 
         # 左手臂相关参数，默认值设为合理的空列表或零值
-        left_goal_pos = data.get('left_goal_pos', [-0.01749985, 0.29927, -0.21073727])
-        left_angle = data.get('left_angle', [3.14, 0.0, 0.0])
+        left_goal_pos = data.get("left_goal_pos", [-0.01749985, 0.29927, -0.21073727])
+        left_angle = data.get("left_angle", [3.14, 0.0, 0.0])
 
         # 右手臂相关参数，默认值设为合理的空列表或零值
         right_goal_pos = data.get(
-            'right_goal_pos', [-0.01749985, -0.29927, -0.21073727]
+            "right_goal_pos", [-0.01749985, -0.29927, -0.21073727]
         )
-        right_angle = data.get('right_angle', [-3.02456926, -0.00675474, 0.09522905])
+        right_angle = data.get("right_angle", [-3.02456926, -0.00675474, 0.09522905])
 
         # if not current_loaded_scene or current_loaded_scene.get('id') != scene_id:
         #     current_scene = current_loaded_scene.get('id') if current_loaded_scene else "无"
@@ -2317,14 +2254,14 @@ def arm_go_pos():
         if arm_go_pos_robot_goal:
             logger.info(f"[set_robot_goal] 清理机器人(ID:{robot_id})的旧目标状态")
 
-        arm_go_pos_robot_goal['scene_id'] = scene_id
-        arm_go_pos_robot_goal['robot_id'] = robot_id
-        arm_go_pos_robot_goal['goal_arm'] = goal_arm
+        arm_go_pos_robot_goal["scene_id"] = scene_id
+        arm_go_pos_robot_goal["robot_id"] = robot_id
+        arm_go_pos_robot_goal["goal_arm"] = goal_arm
 
-        arm_go_pos_robot_goal['left_goal_pos'] = left_goal_pos
-        arm_go_pos_robot_goal['left_angle'] = left_angle
-        arm_go_pos_robot_goal['right_goal_pos'] = right_goal_pos
-        arm_go_pos_robot_goal['right_angle'] = right_angle
+        arm_go_pos_robot_goal["left_goal_pos"] = left_goal_pos
+        arm_go_pos_robot_goal["left_angle"] = left_angle
+        arm_go_pos_robot_goal["right_goal_pos"] = right_goal_pos
+        arm_go_pos_robot_goal["right_angle"] = right_angle
 
         # 循环检查字典是否为空（示例：最多等待10次，每次间隔0.1秒）
         max_attempts = 15
@@ -2349,6 +2286,8 @@ def arm_go_pos():
                             "message": "操作完成",
                             "left_real_pos": current_left_pos,
                             "right_real_pos": current_right_pos,
+                            "left_real_rpy": current_left_rpy,
+                            "right_real_rpy": current_right_rpy,
                         }
                     ),
                     200,
@@ -2379,9 +2318,9 @@ def print_status():
         try:
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             scene_name = (
-                current_loaded_scene.get('name', 'None')
+                current_loaded_scene.get("name", "None")
                 if current_loaded_scene
-                else 'None'
+                else "None"
             )
 
             print(f"\n[{current_time}] 服务器状态:")
@@ -2398,7 +2337,7 @@ def print_status():
 
 
 # ================= 启动服务器 =================
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         print("=" * 80)
         logger.info("🚀 Webots控制服务器启动中...")
@@ -2423,7 +2362,7 @@ if __name__ == '__main__':
         status_thread.start()
 
         logger.info("Flask服务器启动")
-        app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
+        app.run(host="0.0.0.0", port=5000, debug=True, use_reloader=False)
 
     except KeyboardInterrupt:
         logger.info("接收到停止信号，正在清理...")

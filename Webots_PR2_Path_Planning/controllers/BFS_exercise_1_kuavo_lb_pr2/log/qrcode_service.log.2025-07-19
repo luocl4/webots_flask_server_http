@@ -1,0 +1,129 @@
+2025-07-19 13:06:43,839 - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-19 13:06:43,840 - WARNING - GPS sensor 'gps' not found.
+2025-07-19 13:06:43,840 - WARNING - Arm motor 'zarm_l1_joint' not found.
+2025-07-19 13:06:43,840 - WARNING - Arm motor 'zarm_l2_joint' not found.
+2025-07-19 13:06:43,840 - WARNING - Arm motor 'zarm_l3_joint' not found.
+2025-07-19 13:06:43,840 - WARNING - Arm motor 'zarm_l4_joint' not found.
+2025-07-19 13:06:43,840 - WARNING - Arm motor 'zarm_l5_joint' not found.
+2025-07-19 13:06:43,841 - WARNING - Arm motor 'zarm_r1_joint' not found.
+2025-07-19 13:06:43,841 - WARNING - Arm motor 'zarm_r2_joint' not found.
+2025-07-19 13:06:43,841 - WARNING - Arm motor 'zarm_r3_joint' not found.
+2025-07-19 13:06:43,841 - WARNING - Arm motor 'zarm_r4_joint' not found.
+2025-07-19 13:06:43,841 - WARNING - Arm motor 'zarm_r5_joint' not found.
+2025-07-19 13:06:43,841 - WARNING - Gripper motor 'left_gripper_finger_joint' not found.
+2025-07-19 13:06:43,841 - WARNING - Gripper motor 'right_gripper_finger_joint' not found.
+2025-07-19 13:06:43,841 - WARNING - Chassis motor 'chassis' not found.
+2025-07-19 13:06:44,046 - WARNING - 警告: GPS传感器未找到，机器人移动功能可能无法正常工作
+2025-07-19 13:06:44,046 - ERROR - 读取地图文件 obstacle_map.txt 出错: [Errno 2] No such file or directory: 'obstacle_map.txt'，使用默认地图
+2025-07-19 13:06:44,046 - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20
+2025-07-19 19:40:19,940 - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-19 19:40:19,941 - WARNING - GPS sensor 'gps' not found.
+2025-07-19 19:40:19,945 - WARNING - Arm motor 'zarm_l1_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Arm motor 'zarm_l2_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Arm motor 'zarm_l3_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Arm motor 'zarm_l4_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Arm motor 'zarm_l5_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Arm motor 'zarm_r1_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Arm motor 'zarm_r2_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Arm motor 'zarm_r3_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Arm motor 'zarm_r4_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Arm motor 'zarm_r5_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Gripper motor 'left_gripper_finger_joint' not found.
+2025-07-19 19:40:19,946 - WARNING - Gripper motor 'right_gripper_finger_joint' not found.
+2025-07-19 19:40:19,947 - WARNING - Chassis motor 'chassis' not found.
+2025-07-19 19:40:20,184 - WARNING - 警告: GPS传感器未找到，机器人移动功能可能无法正常工作
+2025-07-19 19:40:20,185 - ERROR - 读取地图文件 obstacle_map.txt 出错: [Errno 2] No such file or directory: 'obstacle_map.txt'，使用默认地图
+2025-07-19 19:40:20,185 - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20
+2025-07-19 19:41:26,469 - INFO - []
+2025-07-19 19:41:26,469 - INFO - AAAAAAAAAAAAAAAAAAAAAAA
+2025-07-19 19:41:26,469 - INFO - 收到目标偏航角: 90.0度
+2025-07-19 19:41:26,469 - INFO - 开始高精度旋转 -91.53度
+2025-07-19 19:41:26,469 - INFO - 开始高精度旋转 -91.53度
+2025-07-19 19:41:26,469 - INFO - 起始角度: -178.47°, 目标角度: 90.00°
+2025-07-19 19:41:26,469 - INFO - 开始粗调阶段...
+2025-07-19 19:41:28,235 - INFO - 粗调进行中 - 误差: -91.49°
+2025-07-19 19:41:30,133 - INFO - 粗调进行中 - 误差: -37.22°
+2025-07-19 19:41:30,945 - INFO - 粗调完成！当前误差: -4.56°
+2025-07-19 19:41:30,945 - INFO - 开始精调阶段...
+2025-07-19 19:41:30,945 - INFO - 精调进行中 - 误差: -4.56°
+2025-07-19 19:41:31,198 - INFO - 精调完成！当前误差: -1.48°
+2025-07-19 19:41:32,863 - INFO - 高精度旋转完成:
+2025-07-19 19:41:32,864 - INFO -   目标角度: 90.00°
+2025-07-19 19:41:32,864 - INFO -   最终角度: 90.18°
+2025-07-19 19:41:32,864 - INFO -   最终误差: -0.18°
+2025-07-19 19:41:32,864 - INFO -   ✓ 精度达标（误差 ≤ 1.5°）
+2025-07-19 19:41:32,864 - INFO - 旋转完成 - 最终误差: -0.18° (✓ 精度达标)
+2025-07-19 19:44:09,655 - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-19 19:44:09,655 - WARNING - GPS sensor 'gps' not found.
+2025-07-19 19:44:09,656 - WARNING - Arm motor 'zarm_l1_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Arm motor 'zarm_l2_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Arm motor 'zarm_l3_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Arm motor 'zarm_l4_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Arm motor 'zarm_l5_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Arm motor 'zarm_r1_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Arm motor 'zarm_r2_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Arm motor 'zarm_r3_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Arm motor 'zarm_r4_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Arm motor 'zarm_r5_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Gripper motor 'left_gripper_finger_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Gripper motor 'right_gripper_finger_joint' not found.
+2025-07-19 19:44:09,656 - WARNING - Chassis motor 'chassis' not found.
+2025-07-19 19:44:09,875 - WARNING - 警告: GPS传感器未找到，机器人移动功能可能无法正常工作
+2025-07-19 19:44:09,875 - ERROR - 读取地图文件 obstacle_map.txt 出错: [Errno 2] No such file or directory: 'obstacle_map.txt'，使用默认地图
+2025-07-19 19:44:09,875 - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20
+2025-07-19 19:45:22,314 - INFO - []
+2025-07-19 19:45:22,314 - INFO - AAAAAAAAAAAAAAAAAAAAAAA
+2025-07-19 19:45:22,314 - INFO - 收到目标偏航角: 90.0度
+2025-07-19 19:45:22,314 - INFO - 开始高精度旋转 -91.53度
+2025-07-19 19:45:22,314 - INFO - 开始高精度旋转 -91.53度
+2025-07-19 19:45:22,314 - INFO - 起始角度: -178.47°, 目标角度: 90.00°
+2025-07-19 19:45:22,314 - INFO - 开始粗调阶段...
+2025-07-19 19:45:23,973 - INFO - 粗调进行中 - 误差: -91.49°
+2025-07-19 19:45:25,445 - INFO - 粗调进行中 - 误差: -37.27°
+2025-07-19 19:45:26,321 - INFO - 粗调完成！当前误差: -4.58°
+2025-07-19 19:45:26,321 - INFO - 开始精调阶段...
+2025-07-19 19:45:26,321 - INFO - 精调进行中 - 误差: -4.58°
+2025-07-19 19:45:26,584 - INFO - 精调完成！当前误差: -1.50°
+2025-07-19 19:45:28,463 - INFO - 高精度旋转完成:
+2025-07-19 19:45:28,463 - INFO -   目标角度: 90.00°
+2025-07-19 19:45:28,463 - INFO -   最终角度: 90.24°
+2025-07-19 19:45:28,463 - INFO -   最终误差: -0.24°
+2025-07-19 19:45:28,464 - INFO -   ✓ 精度达标（误差 ≤ 1.5°）
+2025-07-19 19:45:28,464 - INFO - 旋转完成 - 最终误差: -0.24° (✓ 精度达标)
+2025-07-19 19:45:45,257 - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-19 19:45:45,257 - WARNING - GPS sensor 'gps' not found.
+2025-07-19 19:45:45,262 - WARNING - Arm motor 'zarm_l1_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Arm motor 'zarm_l2_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Arm motor 'zarm_l3_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Arm motor 'zarm_l4_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Arm motor 'zarm_l5_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Arm motor 'zarm_r1_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Arm motor 'zarm_r2_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Arm motor 'zarm_r3_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Arm motor 'zarm_r4_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Arm motor 'zarm_r5_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Gripper motor 'left_gripper_finger_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Gripper motor 'right_gripper_finger_joint' not found.
+2025-07-19 19:45:45,262 - WARNING - Chassis motor 'chassis' not found.
+2025-07-19 19:45:45,487 - WARNING - 警告: GPS传感器未找到，机器人移动功能可能无法正常工作
+2025-07-19 19:45:45,487 - ERROR - 读取地图文件 obstacle_map.txt 出错: [Errno 2] No such file or directory: 'obstacle_map.txt'，使用默认地图
+2025-07-19 19:45:45,487 - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20
+2025-07-19 19:50:04,173 - INFO - []
+2025-07-19 19:50:04,174 - INFO - AAAAAAAAAAAAAAAAAAAAAAA
+2025-07-19 19:50:04,174 - INFO - 收到目标偏航角: 90.0度
+2025-07-19 19:50:04,174 - INFO - 开始高精度旋转 -91.53度
+2025-07-19 19:50:04,174 - INFO - 开始高精度旋转 -91.53度
+2025-07-19 19:50:04,174 - INFO - 起始角度: -178.47°, 目标角度: 90.00°
+2025-07-19 19:50:04,174 - INFO - 开始粗调阶段...
+2025-07-19 19:50:06,105 - INFO - 粗调进行中 - 误差: -91.49°
+2025-07-19 19:50:07,960 - INFO - 粗调进行中 - 误差: -37.22°
+2025-07-19 19:50:08,962 - INFO - 粗调完成！当前误差: -4.55°
+2025-07-19 19:50:08,963 - INFO - 开始精调阶段...
+2025-07-19 19:50:08,963 - INFO - 精调进行中 - 误差: -4.55°
+2025-07-19 19:50:09,225 - INFO - 精调完成！当前误差: -1.47°
+2025-07-19 19:50:11,043 - INFO - 高精度旋转完成:
+2025-07-19 19:50:11,044 - INFO -   目标角度: 90.00°
+2025-07-19 19:50:11,044 - INFO -   最终角度: 90.16°
+2025-07-19 19:50:11,044 - INFO -   最终误差: -0.16°
+2025-07-19 19:50:11,044 - INFO -   ✓ 精度达标（误差 ≤ 1.5°）
+2025-07-19 19:50:11,044 - INFO - 旋转完成 - 最终误差: -0.16° (✓ 精度达标)
