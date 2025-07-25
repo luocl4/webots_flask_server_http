@@ -334,7 +334,104 @@ def get_robot_command():
     return jsonify(command_to_send), 200
 
 
-@app.route("/robot_status", methods=["POST"])
+@app.route('/set_sl_status', methods=['POST'])
+def update_sl_status():
+    """更新机器人状态"""
+    global sl_status
+    try:
+        # 尝试不同的方式获取数据
+        data = None
+        
+        # 方式1：尝试获取JSON数据
+        if request.is_json:
+            data = request.get_json()
+        # 方式2：尝试获取表单数据
+        elif request.form:
+            data = request.form.to_dict()
+            # 尝试解析JSON字符串
+            if 'data' in data:
+                try:
+                    import json
+                    data = json.loads(data['data'])
+                except:
+                    pass
+        # 方式3：尝试获取原始数据并解析为JSON
+        elif request.data:
+            try:
+                import json
+                data = json.loads(request.data.decode('utf-8'))
+            except:
+                pass
+        
+        if not data:
+            return jsonify({"code": 400, "message": "参数为空或格式错误"}), 400
+
+        required_fields = ['id', 'object_name', 'state_name', 'command']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+
+        name_data = data['object_name']
+        scene_id = str(data['id'])
+        if isinstance(name_data, list):
+            try:
+                obj_ids = [str(item) for item in name_data]
+            except (ValueError, TypeError):
+                return jsonify({"code": 400, "message": "object_name列表中包含无效值"}), 400
+        else:
+            return jsonify({"code": 400, "message": "object_name必须是列表"}), 400
+
+        sl_status = {
+            "object_names": obj_ids,
+            "state_name": data['state_name'],
+            "command": data['command'],
+        }
+    
+    except Exception as e:
+        logger.error(f"更新机器人状态失败: {e}", exc_info=True)
+        return jsonify({"code": 500, "message": str(e)}), 500
+
+    return jsonify({"message": "Status updated"}), 200
+
+
+@app.route('/get_sl_status', methods=['GET'])
+def get_sl_status():
+    """获取机器人状态"""
+    global sl_status
+
+    try:
+        # 检查sl_status是否为空或未初始化
+        if not sl_status or sl_status == {}:
+            return jsonify({"code": 404, "message": "状态未设置"}), 404
+        
+        # 验证必要字段是否存在
+        if "object_names" not in sl_status:
+            return jsonify({"code": 500, "message": "缺少object_names字段"}), 500
+
+        if "state_name" not in sl_status:
+            return jsonify({"code": 500, "message": "缺少state_name字段"}), 500
+        
+        # 验证object_names是否为列表
+        if not isinstance(sl_status["object_names"], list):
+            return jsonify({"code": 500, "message": "object_names必须是列表"}), 500
+
+        # 构建返回数据
+        sl_info = [
+            {"object_name": obj_name, "state_name": sl_status["state_name"], "command": sl_status["command"]}
+            for obj_name in sl_status["object_names"]
+        ]
+        
+        # 清空状态（根据业务需求，可能需要保留）
+        sl_status = {}
+        
+        return jsonify(sl_info), 200
+        
+    except Exception as e:
+        logger.error(f"获取机器人状态时出错: {e}", exc_info=True)
+        return jsonify({"code": 500, "message": f"服务器错误: {str(e)}"}), 500
+
+
+@app.route('/robot_status', methods=['POST'])
 def update_robot_status():
     """更新机器人状态"""
     global current_left_rpy, current_right_rpy, current_left_pos, current_right_pos, result_pick, result_place, robot_status, robot_goals, robot_status_dict, capture_robot_goals, pick_robot_goals, place_robot_goals, fail_pick, fail_place, fail_arm_go_pos, arm_go_pos_robot_goal
@@ -731,10 +828,11 @@ def start_webots():
             logger.info(f"选择场景: {scene_id} - {scene_display_name} v{scene_version}")
 
             cmd = [
-                "webots",
-                "--mode=realtime",
+                'webots',
+                '--mode=realtime',
+                '--minimize',
                 world_file,
-                "--stream",
+                '--stream',
             ]
 
             webots_process = subprocess.Popen(
