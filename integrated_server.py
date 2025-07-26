@@ -51,6 +51,7 @@ CORS(app)
 # 配置Flask的werkzeug日志级别，减少频繁接口的日志输出
 werkzeug_logger = logging.getLogger("werkzeug")
 werkzeug_logger.setLevel(logging.WARNING)
+sl_status = {}
 
 
 # 创建自定义过滤器，过滤掉特定接口的日志
@@ -234,6 +235,43 @@ def convert_to_list(value):
     if isinstance(value, np.ndarray):
         return value.tolist()
     return value
+
+
+def cleanup_temp_wbt_files():
+    """清理临时wbt文件"""
+    try:
+        # 获取worlds目录路径
+        wbt_dir_path = os.path.join(
+            os.path.dirname(__file__), 
+            "Webots_PR2_Path_Planning", 
+            "worlds"
+        )
+        
+        if not os.path.exists(wbt_dir_path):
+            logger.warning(f"worlds目录不存在: {wbt_dir_path}")
+            return
+        
+        # 查找所有temp_前缀的wbt文件
+        temp_files = []
+        for filename in os.listdir(wbt_dir_path):
+            if filename.startswith("temp_") and filename.endswith(".wbt"):
+                temp_files.append(filename)
+        
+        if temp_files:
+            logger.info(f"发现{len(temp_files)}个临时wbt文件，正在清理...")
+            for filename in temp_files:
+                file_path = os.path.join(wbt_dir_path, filename)
+                try:
+                    os.remove(file_path)
+                    logger.info(f"已删除临时文件: {filename}")
+                except OSError as e:
+                    logger.warning(f"删除临时文件失败 {filename}: {e}")
+            logger.info("临时wbt文件清理完成")
+        else:
+            logger.info("未发现需要清理的临时wbt文件")
+            
+    except Exception as e:
+        logger.error(f"清理临时wbt文件时出错: {e}", exc_info=True)
 
 
 # ================= 世界状态管理路由 =================
@@ -2453,6 +2491,10 @@ if __name__ == "__main__":
         # 加载场景配置文件
         logger.info("🔍 正在加载场景配置...")
         load_scene_configs()
+
+        # 清理临时wbt文件
+        logger.info("🧹 正在清理临时wbt文件...")
+        cleanup_temp_wbt_files()
 
         # 更新场景配置，添加label_point信息
         logger.info("正在扫描场景中的标签点...")

@@ -11,19 +11,8 @@ supervisor = Supervisor()
 timestep = int(supervisor.getBasicTimeStep())
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-wbt_temp_path = os.path.join(current_path, "wbt_temp")
+wbt_dir_path = os.path.abspath(os.path.join(current_path, "..", "..", "worlds"))
 
-# 创建文件夹，如果存在则清空
-if os.path.exists(wbt_temp_path):
-    shutil.rmtree(wbt_temp_path)
-os.makedirs(wbt_temp_path, exist_ok=True)
-
-# 程序退出时删除文件夹
-def cleanup_wbt_temp():
-    if os.path.exists(wbt_temp_path):
-        shutil.rmtree(wbt_temp_path)
-
-atexit.register(cleanup_wbt_temp)
 
 counter_1 = 0
 HTTP_REQUEST_INTERVAL = 30
@@ -76,7 +65,7 @@ while supervisor.step(timestep) != -1:
                                     if state_name == "":
                                         supervisor.worldReload()
                                     else:
-                                        wbt_file_path = os.path.join(wbt_temp_path, f"{state_name}.wbt")
+                                        wbt_file_path = os.path.join(wbt_dir_path, f"temp_{state_name}.wbt")
                                         if command == "save":
                                             supervisor.worldSave(wbt_file_path)
                                             print(f"已保存世界状态: {state_name}")
