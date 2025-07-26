@@ -416,12 +416,16 @@ def get_sl_status():
             return jsonify({"code": 500, "message": "object_names必须是列表"}), 500
 
         # 构建返回数据
-        sl_info = [
-            {"object_name": obj_name, "state_name": sl_status["state_name"], "command": sl_status["command"]}
-            for obj_name in sl_status["object_names"]
-        ]
+        if len(sl_status["object_names"]) == 0:
+            sl_info = [
+                {"object_name": "world", "state_name": sl_status["state_name"], "command": sl_status["command"]}
+            ]
+        else:
+            sl_info = [
+                {"object_name": obj_name, "state_name": sl_status["state_name"], "command": sl_status["command"]}
+                for obj_name in sl_status["object_names"]
+            ]
         
-        # 清空状态（根据业务需求，可能需要保留）
         sl_status = {}
         
         return jsonify(sl_info), 200

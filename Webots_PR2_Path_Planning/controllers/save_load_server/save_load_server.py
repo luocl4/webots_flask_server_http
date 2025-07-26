@@ -1,11 +1,29 @@
 from controller import Supervisor
 import time
+import os
 import requests
+import shutil
+import atexit
 
 WEB_SERVER_URL = "http://127.0.0.1:5000/get_sl_status"
 
 supervisor = Supervisor()
 timestep = int(supervisor.getBasicTimeStep())
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+wbt_temp_path = os.path.join(current_path, "wbt_temp")
+
+# 创建文件夹，如果存在则清空
+if os.path.exists(wbt_temp_path):
+    shutil.rmtree(wbt_temp_path)
+os.makedirs(wbt_temp_path, exist_ok=True)
+
+# 程序退出时删除文件夹
+def cleanup_wbt_temp():
+    if os.path.exists(wbt_temp_path):
+        shutil.rmtree(wbt_temp_path)
+
+atexit.register(cleanup_wbt_temp)
 
 counter_1 = 0
 HTTP_REQUEST_INTERVAL = 30
@@ -51,7 +69,22 @@ while supervisor.step(timestep) != -1:
                                 
                                 # 检查object_name是否有效
                                 if not object_name:
-                                    print("警告: object_name为空，跳过此项")
+                                    print("object_name为空，跳过此项")
+                                    continue
+                                elif object_name == "world":
+                                    print("处理world对象的状态")
+                                    if state_name == "":
+                                        supervisor.worldReload()
+                                    else:
+                                        wbt_file_path = os.path.join(wbt_temp_path, f"{state_name}.wbt")
+                                        if command == "save":
+                                            supervisor.worldSave(wbt_file_path)
+                                            print(f"已保存世界状态: {state_name}")
+                                        elif command == "load":
+                                            supervisor.worldLoad(wbt_file_path)
+                                            print(f"已加载世界状态: {state_name}")
+                                        else:
+                                            print(f"未知命令: {command}，仅支持save和load")
                                     continue
                                 
                                 # 根据object_name获取节点并操作
