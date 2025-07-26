@@ -429,7 +429,7 @@ def update_sl_status():
         logger.error(f"更新机器人状态失败: {e}", exc_info=True)
         return jsonify({"code": 500, "message": str(e)}), 500
 
-    return jsonify({"message": "Status updated"}), 200
+    return jsonify({"code": 500, "message": "Status updated"}), 200
 
 
 @app.route('/get_sl_status', methods=['GET'])
