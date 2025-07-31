@@ -12,6 +12,7 @@ from controller import (
     Supervisor,
     VacuumGripper,
     TouchSensor,
+    DistanceSensor,
 )
 from pathlib import Path
 import numpy as np
@@ -760,7 +761,6 @@ def calculate_pixel_distance(pos1, pos2):
 supervisor = Supervisor()
 
 # 获取当前世界的仿真步长
-timestep = int(robot.getBasicTimeStep())
 vacuum = robot.getDevice("right_gripper_l_finger_vacuum")
 
 
@@ -791,24 +791,26 @@ def get_motors_and_sensors(names_list):
     return motors, sensors
 
 
-def get_actual_joint_positions():
-    """获取右臂关节的当前实际位置（弧度）"""
+def get_actual_joint_positions(sensors):
+    """
+    获取指定传感器列表对应的当前实际关节位置（弧度），仅打印位置，不打印名字。
+
+    参数:
+        sensors (list): 关节位置传感器对象列表
+
+    返回:
+        list: 关节位置列表
+    """
     positions = []
-    if not right_arm_sensors:
-        print("错误: 未找到右臂关节位置传感器")
+
+    if not sensors:
+        print("错误: 传入的传感器列表为空")
         return positions
 
-    # 确保传感器数量与关节数量匹配
-    if len(right_arm_sensors) != len(right_arm_joint_names):
-        print(
-            f"警告: 右臂关节位置传感器数量({len(right_arm_sensors)})与关节数量({len(right_arm_joint_names)})不匹配"
-        )
-
-    # 读取每个关节传感器的值
-    for i, sensor in enumerate(right_arm_sensors):
+    for i, sensor in enumerate(sensors):
         position = sensor.getValue()
         positions.append(position)
-        print(f"关节 {right_arm_joint_names[i]} 的实际位置: {position:.6f} 弧度")
+        print(f"关节 {i} 的实际位置: {position:.6f} 弧度")
 
     return positions
 
@@ -829,13 +831,13 @@ def set_arm_joint_positions_with_feedback(
         sensors,
         targets,
         tolerance,
-        max_steps // 2,
+        max_steps,
         special_joints=special_joints,
     )
     robot.step(5 * timestep)
 
     # 获取最终位置（无论成功与否）
-    current = get_actual_joint_positions()
+    current = get_actual_joint_positions(sensors)
 
     if success:
         print(f"成功到达目标位置，实际位置: {current}")
@@ -867,9 +869,6 @@ def move_with_feedback_supervisor(
         return False
 
     final_positions = [s.getValue() for s in sensors]
-    print("微调前的位置:")
-    for i in final_positions:
-        print("i", i)
 
     # 逐个设置关节位置
     for def_name, pos in zip(position_fields, targets):
@@ -883,19 +882,24 @@ def move_with_feedback_supervisor(
 
     # # 让模拟器运行一段时间以确保精调完成
     # print("等待精调完成...")
-    # robot.step(2 * MOVE_DURATION_STEPS)
+    # robot.step(10*timestep)
 
     # ====== 4. 最终验证 ======
-    print("\n验证最终位置...")
-    final_positions = [s.getValue() for s in sensors]
-    for i, (target, actual) in enumerate(zip(targets, final_positions)):
-        error = abs(target - actual)
-        status = "OK" if error <= tolerance else "FAIL"
-        print(
-            f"关节 {i+1}: 目标={target:.4f}, 实际={actual:.4f}, 误差={error:.4f} [{status}]"
-        )
+    print("微调前的位置:")
+    for i in final_positions:
+        print("关节", i)
 
-    current = get_actual_joint_positions()
+    print("\n验证最终位置...")
+    for i in range(10):
+        final_positions = [s.getValue() for s in sensors]
+        for i, (target, actual) in enumerate(zip(targets, final_positions)):
+            error = abs(target - actual)
+            status = "OK" if error <= tolerance else "FAIL"
+            print(f"关节 {i+1}: 目标={target}, 实际={actual}, 误差={error} [{status}]")
+            robot.step(timestep)
+        print("----")
+
+    current = get_actual_joint_positions(sensors)
     return current
 
 
@@ -905,146 +909,78 @@ def move_with_feedback(
     targets,
     tolerance=0.01,
     max_steps=1000,
-    num_interpolation_points=100,  # 总插值点数
-    slowdown_fraction=0.1,  # 减速区域占比
-    slowdown_factor=3.0,  # 减速因子
-    special_joints=None,  # 自定义特殊关节配置
+    num_interpolation_points=100,
+    slowdown_fraction=0.1,
+    slowdown_factor=3.0,
+    special_joints=None,
     print_interpolation_points=False,
-    delay_between_points=0,
 ):
-    """带三次样条插值的反馈控制，支持对特定关节的分段插值和终点减速"""
+    """带反馈控制的三次样条插值运动，支持特殊关节延迟和终点平滑减速"""
 
     # ====== 1. 初始化检查 ======
     if len(motors) != len(sensors) or len(motors) != len(targets):
         print("错误: 电机、传感器和目标数量不匹配")
         return False
 
-    # 特殊关节配置默认值
     if special_joints is None:
-        special_joints = {}  # 默认空字典，表示没有特殊关节
+        special_joints = {}
 
-    # ====== 2. 执行插值运动 ======
     print("开始执行插值运动...")
 
-    # 获取初始位置
+    # ====== 2. 生成插值函数 ======
     start_positions = [s.getValue() for s in sensors]
 
-    # 生成时间点
-    time_points = np.linspace(0, 1, num_interpolation_points)
+    # 使用非线性时间序列，在末段自动加密采样点实现减速
+    base_time = np.linspace(0, 1, num_interpolation_points)
+    slowdown_curve = base_time ** (1 + slowdown_factor)  # 时间非线性压缩，末端更密集
 
-    # 存储每个关节的插值函数
     splines = []
-
-    # 为每个关节创建三次样条插值
     for i in range(len(motors)):
         if i in special_joints:
-            # 获取该关节的插值起始时间点
             start_time = special_joints[i]
             split_idx = int(start_time * num_interpolation_points)
-
-            # 确保分割点在有效范围内
             split_idx = max(0, min(split_idx, num_interpolation_points - 1))
 
-            # 创建分段插值
             positions = np.zeros(num_interpolation_points)
-            positions[:split_idx] = start_positions[i]  # 起始段保持初始值
+            positions[:split_idx] = start_positions[i]
             positions[split_idx:] = np.linspace(
                 start_positions[i], targets[i], num_interpolation_points - split_idx
-            )  # 插值段
-
-            # 创建三次样条插值
-            cs = CubicSpline(time_points, positions)
+            )
+            cs = CubicSpline(base_time, positions)
         else:
-            # 正常插值
             positions = np.linspace(
                 start_positions[i], targets[i], num_interpolation_points
             )
-            cs = CubicSpline(time_points, positions)
-
+            cs = CubicSpline(base_time, positions)
         splines.append(cs)
 
-    # 打印插值点（如果启用）
+    # 打印插值点（可选）
     if print_interpolation_points:
-        print("\n=== 生成的插值点 ===")
         for i in range(len(motors)):
             print(f"\n关节 {i+1} 的插值点:")
-            print("时间\t位置")
-            for t in np.linspace(0, 1, min(10, num_interpolation_points)):
-                pos = splines[i](t)
-                print(f"{t:.2f}\t{pos:.4f}")
-        print("====================\n")
+            for t in np.linspace(0, 1, 10):
+                print(f"time={t:.2f}, pos={splines[i](t):.4f}")
 
-    # 计算减速区域
-    slowdown_start_idx = int((1 - slowdown_fraction) * num_interpolation_points)
-
-    # 预计算所有插值点
-    all_targets = [[cs(t) for cs in splines] for t in time_points]
-
-    # 执行运动控制
-    for i, target in enumerate(all_targets):
+    # ====== 3. 执行运动控制 ======
+    for step_idx, t in enumerate(slowdown_curve):
+        # 设定每个关节目标
         for j, motor in enumerate(motors):
-            motor.setPosition(target[j])
-
-        # 计算当前步的延时（最后阶段增加延时实现减速）
-        current_delay = delay_between_points
-        if i >= slowdown_start_idx:
-            current_delay *= slowdown_factor
+            motor.setPosition(float(splines[j](t)))
 
         robot.step(timestep)
 
-        # 添加可选延时
-        if current_delay > 0:
-            time.sleep(current_delay)
+        # === 误差检测 ===
+        errors = [abs(s.getValue() - targets[j]) for j, s in enumerate(sensors)]
+        if max(errors) < tolerance:
+            print(f"提前结束: 所有关节误差小于 {tolerance}")
+            return True
 
-    # # ====== 3. 执行精调阶段 ======
-    # print("\n插值运动完成，开始精调阶段...")
+        # === 步数上限 ===
+        if step_idx >= max_steps:
+            print(f"提前结束: 达到最大步数 {max_steps}")
+            return False
 
-    # # 获取PR2机器人节点
-    # pr2_node = supervisor.getFromDef("PR2_ROBOT")
-    # if pr2_node is None:
-    #     print("警告: PR2 节点未找到，跳过精调阶段")
-    #     return False
-
-    # # 定义关节名称列表
-    # position_fields = [
-    #     "r_shoulder_pan_joint",
-    #     "r_shoulder_lift_joint",
-    #     "r_upper_arm_roll_joint",
-    #     "r_elbow_flex_joint",
-    #     "r_forearm_roll_joint",
-    #     "r_wrist_flex_joint",
-    #     "r_wrist_roll_joint",
-    # ]
-
-    # # 检查目标数量是否匹配
-    # if len(position_fields) != len(targets):
-    #     print(f"错误: 目标数量({len(targets)})与关节数量({len(position_fields)})不匹配")
-    #     return False
-
-    # # 逐个设置关节位置
-    # for def_name, pos in zip(position_fields, targets):
-    #     motor_node = pr2_node.getFromProtoDef(def_name)
-    #     if motor_node is None:
-    #         print(f"警告: 关节 {def_name} 未找到，跳过")
-    #         continue
-
-    #     print(f"设置关节 {def_name} 到位置: {pos:.4f}")
-    #     motor_node.setJointPosition(pos)
-
-    # # 让模拟器运行一段时间以确保精调完成
-    # print("等待精调完成...")
-    # robot.step(2 * MOVE_DURATION_STEPS)
-
-    # # ====== 4. 最终验证 ======
-    # print("\n验证最终位置...")
-    # final_positions = [s.getValue() for s in sensors]
-    # for i, (target, actual) in enumerate(zip(targets, final_positions)):
-    #     error = abs(target - actual)
-    #     status = "OK" if error <= tolerance else "FAIL"
-    #     print(
-    #         f"关节 {i+1}: 目标={target:.4f}, 实际={actual:.4f}, 误差={error:.4f} [{status}]"
-    #     )
-
+    print("运动完成")
     return True
 
 
@@ -1086,7 +1022,7 @@ def set_gripper_position(gripper_motors_list, positions=None, default_position=0
     for i, motor in enumerate(gripper_motors_list):
         motor.setPosition(position_list[i])
 
-    robot.step(MOVE_DURATION_STEPS)  # 夹爪动作更快，缩短等待时间
+    robot.step(timestep)  # 夹爪动作更快，缩短等待时间
 
     # 夹爪动作完成后获取并打印实际位置
     if right_gripper_sensors:
@@ -1262,10 +1198,11 @@ def run_arm_pick(goal_arm, robot_id):
     success_right = False
     # print("\n--- 开始UrdfArm右臂抓取放置任务 ---")
     print("pick步骤0:升高腰部，回到安全高度")
-    set_arm_joint_positions_with_feedback(
-        yao_motors, yao_sensors, yao_highteset_pose, tolerance=0.01, max_steps=200
-    )
-    robot.step(2 * MOVE_DURATION_STEPS)
+    # print("goal_arm", goal_arm)
+    # set_arm_joint_positions_with_feedback(
+    #     yao_motors, yao_sensors, yao_highteset_pose, tolerance=0.01, max_steps=200
+    # )
+    # robot.step(2 * MOVE_DURATION_STEPS)
 
     # # 1. 移动右臂到初始姿态并打开右夹爪
     if goal_arm == "left" or goal_arm == "both":
@@ -1290,7 +1227,7 @@ def run_arm_pick(goal_arm, robot_id):
             grasp_left_arm_pose,
             tolerance=0.001,
             max_steps=2000,
-            special_joints={0: 0.1, 1: 0.9, 2: 0.1, 3: 0.1, 4: 0.1, 5: 0.1, 6: 0.5},
+            special_joints={0: 0, 1: 0.9, 2: 0.1, 3: 0.1, 4: 0.1, 5: 0, 6: 0},
         )
         # time.sleep(10)
         robot.step(MOVE_DURATION_STEPS)
@@ -1311,7 +1248,7 @@ def run_arm_pick(goal_arm, robot_id):
             grasp_right_arm_pose,
             tolerance=0.001,
             max_steps=2000,
-            special_joints={0: 0.1, 1: 0.9, 2: 0.1, 3: 0.1, 4: 0.1, 5: 0.1, 6: 0.5},
+            special_joints={0: 0, 1: 0.9, 2: 0.1, 3: 0.1, 4: 0.1, 5: 0, 6: 0},
         )
         # print("没有微调前的位置", current_right)
         # time.sleep(10)
@@ -1328,15 +1265,45 @@ def run_arm_pick(goal_arm, robot_id):
 
     # print("pick步骤4: 移动腰部到初始位置/最低位置")
     # set_arm_joint_positions_with_feedback(yao_motors,yao_sensors,yao_lowest_pose,tolerance=0.02,max_steps=200,)
+    print("--------------------")
+    left_arm_distance_sensor.enable(timestep)
+    right_arm_1_distance_sensor.enable(timestep)
+    right_arm_2_distance_sensor.enable(timestep)
+    right_arm_3_distance_sensor.enable(timestep)
+    # while robot.step(timestep) != -1:
+    #     # 读取三个传感器数值
+    #     v1 = right_arm_1_distance_sensor.getValue()
+    #     v2 = right_arm_2_distance_sensor.getValue()
+    #     v3 = right_arm_3_distance_sensor.getValue()
 
+    #     # 取最小值
+    #     min_value = min(v1, v2, v3)
+    #     print(
+    #         f"三个距离传感器值: [{v1:.2f}, {v2:.2f}, {v3:.2f}], 最小值: {min_value:.2f}"
+    #     )
+
+    #     # 判断条件
+    #     if min_value < 660:
+    #         print("检测到物体，退出循环")
+    #         break
+
+    print("--------------------")
     # robot.step(5*MOVE_DURATION_STEPS)
     # 4. 夹紧物体
     print("pick步骤5: 关闭右夹爪抓取物体")
+    right_arm_touch_sensor.enable(timestep)
+    while robot.step(timestep) != -1:
+        # BUMPER 类型: 返回 0 或 1
+        value = right_arm_touch_sensor.getValue()
+        print("接触状态:", "触碰" if value > 0 else "未触碰")
+        if value > 0:
+            break
 
     if goal_arm == "left" or goal_arm == "both":
         set_gripper_position(left_gripper_motors, CLOSE_GRIPPER_POS)
     if goal_arm == "right" or goal_arm == "both":
         set_gripper_position(right_gripper_motors, CLOSE_GRIPPER_POS)
+    right_arm_touch_sensor.enable(timestep)
 
     robot.step(MOVE_DURATION_STEPS)
     # time.sleep(1)
@@ -1360,13 +1327,13 @@ def run_arm_pick(goal_arm, robot_id):
         )
 
     print("pick步骤6:升高腰部，回到安全高度")
-    set_arm_joint_positions_with_feedback(
-        yao_motors,
-        yao_sensors,
-        yao_highteset_pose,
-        tolerance=0.02,
-        max_steps=200,
-    )
+    # set_arm_joint_positions_with_feedback(
+    #     yao_motors,
+    #     yao_sensors,
+    #     yao_highteset_pose,
+    #     tolerance=0.02,
+    #     max_steps=200,
+    # )
     robot.step(MOVE_DURATION_STEPS)
 
     return current_left, current_right
@@ -1710,6 +1677,14 @@ right_gripper_motors, right_gripper_sensors = get_motors_and_sensors(
 # print("right_arm_sensors",right_arm_sensors)
 head_motors, head_sensors = get_motors_and_sensors(head_joint_names)
 yao_motors, yao_sensors = get_motors_and_sensors(yao_joint_names)
+left_arm_distance_sensor = robot.getDevice("left_arm_distance_sensor")
+right_arm_1_distance_sensor = robot.getDevice("right_arm_1_distance_sensor")
+right_arm_2_distance_sensor = robot.getDevice("right_arm_2_distance_sensor")
+right_arm_3_distance_sensor = robot.getDevice("right_arm_3_distance_sensor")
+left_arm_touch_sensor = robot.getDevice("left_arm_touch_sensor")
+right_arm_touch_sensor = robot.getDevice("right_arm_touch_sensor")
+left_arm_middle_vacuum_gripper = robot.getDevice("left_arm_middle_vacuum_gripper")
+right_arm_middle_vacuum_gripper = robot.getDevice("right_arm_middle_vacuum_gripper")
 print("Device initialization complete.")
 
 # --- 硬编码关节目标位置 ---
@@ -1822,7 +1797,7 @@ yao_goal_pose = 0.2
 
 # 右夹爪控制值 - 需根据夹爪模型调试
 # OPEN_GRIPPER_POS = [-0.7, 0.7, -0.7, -0.7, 0.7, 0.7]  # 夹爪完全打开位置
-OPEN_GRIPPER_POS = [0.8]
+OPEN_GRIPPER_POS = [1.0]
 # CLOSE_GRIPPER_POS = [0.25,-0.25,0.25,0.25,-0.25,-0.25]  # 夹爪夹紧位置
 # CLOSE_GRIPPER_POS = [0.3, -0.3, 0.3, 0.3, -0.3, -0.3]  # 夹爪夹紧位置
 CLOSE_GRIPPER_POS = [0.25]

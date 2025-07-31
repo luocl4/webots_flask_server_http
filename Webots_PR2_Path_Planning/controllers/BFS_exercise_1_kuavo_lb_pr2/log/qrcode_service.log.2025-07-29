@@ -1,0 +1,18 @@
+2025-07-30 09:23:04,823 - INFO - IMU sensor 'imu_sensor' 已启用
+2025-07-30 09:23:04,823 - WARNING - GPS sensor 'gps' not found.
+2025-07-30 09:23:04,824 - WARNING - Arm motor 'zarm_l1_joint' not found.
+2025-07-30 09:23:04,824 - WARNING - Arm motor 'zarm_l2_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Arm motor 'zarm_l3_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Arm motor 'zarm_l4_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Arm motor 'zarm_l5_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Arm motor 'zarm_r1_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Arm motor 'zarm_r2_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Arm motor 'zarm_r3_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Arm motor 'zarm_r4_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Arm motor 'zarm_r5_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Gripper motor 'left_gripper_finger_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Gripper motor 'right_gripper_finger_joint' not found.
+2025-07-30 09:23:04,825 - WARNING - Chassis motor 'chassis' not found.
+2025-07-30 09:23:05,320 - WARNING - 警告: GPS传感器未找到，机器人移动功能可能无法正常工作
+2025-07-30 09:23:05,320 - ERROR - 读取地图文件 obstacle_map.txt 出错: [Errno 2] No such file or directory: 'obstacle_map.txt'，使用默认地图
+2025-07-30 09:23:05,320 - INFO - 初始化坐标转换器: 地图尺寸=[9, 5.4], 缩放因子=20

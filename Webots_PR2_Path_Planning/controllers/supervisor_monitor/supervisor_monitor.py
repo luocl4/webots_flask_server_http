@@ -428,10 +428,10 @@ while supervisor.step(timestep) != -1:
                     print(
                         f"Supervisor WARNING: Could not get properties for node '{node_name}'. It might not have a DEF name or its type is not supported."
                     )
-            else:
-                print(
-                    f"Supervisor WARNING: Node '{node_name}' not found in the world. Please check your .wbt file and NODES_TO_MONITOR list."
-                )
+            # else:
+            #     print(
+            #         f"Supervisor WARNING: Node '{node_name}' not found in the world. Please check your .wbt file and NODES_TO_MONITOR list."
+            #     )
 
         if nodes_status:
             send_world_status(nodes_status)

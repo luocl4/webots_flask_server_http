@@ -22,6 +22,8 @@ PROTO Pr2 [
    field MFNode     baseSlot        []          # Extends the robot with new nodes in the base slot.
    field MFNode     extensionSlot1  []          # CUSTOM: adds a slot for a new device
    field MFNode     extensionSlot2  []          # CUSTOM: adds a slot for a new device
+   field MFNode     leftToolSlot        []           # Extend the robot with new nodes at the end of the arm.
+   field MFNode     rightToolSlot        []           # Extend the robot with new nodes at the end of the arm.
    field SFFloat    shoulderPanInitPos 3.14
 ]
 {
@@ -51,7 +53,7 @@ PROTO Pr2 [
         }
         children [
           DEF base_link Solid {
-            translation 0.0 0.0 0.051
+            translation 0.0 0.0 0
             name "base_link"
             physics Physics {
               density -1
@@ -1372,7 +1374,8 @@ PROTO Pr2 [
                           maxVelocity 2.088
                           minPosition -3.14
                           maxPosition 3.14
-                          maxTorque 30.0
+                          maxTorque 50.0
+                          controlPID 30 0.1 0
                         }
                         PositionSensor {
                           name "r_shoulder_pan_joint_sensor"
@@ -1453,10 +1456,11 @@ PROTO Pr2 [
                             device [
                               DEF R_SHOULDER_LIFT_MOTOR RotationalMotor {
                                 name "r_shoulder_lift_joint"
-                                maxVelocity 2.082
+                                controlPID 8 0 0.2
+                                maxVelocity 1.5
+                                maxTorque 60
                                 minPosition -3.14
                                 maxPosition 3.14
-                                maxTorque 85.0
                               }
                               PositionSensor {
                                 name "r_shoulder_lift_joint_sensor"
@@ -1742,7 +1746,7 @@ PROTO Pr2 [
                                                             device [
                                                               DEF R_WRIST_FLEX_MOTOR RotationalMotor {
                                                                 name "r_wrist_flex_joint"
-                                                                controlPID 5 0.1 0
+                                                                controlPID 10 0 0
                                                                 maxVelocity 3.078
                                                                 minPosition -3.14
                                                                 maxPosition 3.14
@@ -1791,9 +1795,9 @@ PROTO Pr2 [
                                                                   device [
                                                                     DEF R_WRIST_ROLL_MOTOR RotationalMotor {
                                                                       name "r_wrist_roll_joint"
-                                                                      controlPID 18 0.01 11
                                                                       maxVelocity 3.6
-                                                                      maxTorque 10.0
+                                                                      controlPID 30 0.01 0
+                                                                      maxTorque 50
                                                                     }
                                                                     PositionSensor {
                                                                       name "r_wrist_roll_joint_sensor"
@@ -1817,6 +1821,10 @@ PROTO Pr2 [
                                                                         geometry Mesh {
                                                                           url "meshes/r_forearm_cam_sensor_0.obj"
                                                                         }
+                                                                      }
+                                                                      Pose {
+                                                                        translation 0 0.09 0
+                                                                        children IS rightToolSlot
                                                                       }
                                                                       DEF r_gripper_palm_link Solid {
                                                                         physics Physics {
@@ -1920,7 +1928,7 @@ PROTO Pr2 [
                                                                             device [
                                                                               RotationalMotor {
                                                                                 name "r_finger_gripper_motor::l_finger"
-                                                                                maxVelocity 0.5
+                                                                                maxVelocity 200
                                                                                 maxPosition 3.14
                                                                                 minPosition -3.14
                                                                                 maxTorque 1000.0
@@ -2220,7 +2228,8 @@ PROTO Pr2 [
                           maxVelocity 2.088
                           minPosition -3.14
                           maxPosition 3.14
-                          maxTorque 30.0
+                          maxTorque 50.0
+                          controlPID 30 0.1 0
                         }
                         PositionSensor {
                           name "l_shoulder_pan_joint_sensor"
@@ -2301,10 +2310,11 @@ PROTO Pr2 [
                             device [
                               DEF L_SHOULDER_LIFT_MOTOR RotationalMotor {
                                 name "l_shoulder_lift_joint"
-                                maxVelocity 2.082
                                 minPosition -3.14
                                 maxPosition 3.14
-                                maxTorque 85.0
+                                controlPID 8 0 0.2
+                                maxVelocity 1.5
+                                maxTorque 60
                               }
                               PositionSensor {
                                 name "l_shoulder_lift_joint_sensor"
@@ -2590,10 +2600,10 @@ PROTO Pr2 [
                                                             device [
                                                               DEF L_WRIST_FLEX_MOTOR RotationalMotor {
                                                                 name "l_wrist_flex_joint"
-                                                                controlPID 4 0.1 0
                                                                 maxVelocity 3.078
                                                                 minPosition -3.14
                                                                 maxPosition 3.14
+                                                                controlPID 10 0 0
                                                                 maxTorque 30.0
                                                               }
                                                               PositionSensor {
@@ -2640,9 +2650,8 @@ PROTO Pr2 [
                                                                   device [
                                                                     DEF L_WRIST_ROLL_JOINT RotationalMotor {
                                                                       name "l_wrist_roll_joint"
-                                                                      controlPID 18 0.01 11
                                                                       maxVelocity 3.6
-                                                                      maxTorque 10.0
+                                                                      maxTorque 50
                                                                     }
                                                                     PositionSensor {
                                                                       name "l_wrist_roll_joint_sensor"
@@ -2666,6 +2675,10 @@ PROTO Pr2 [
                                                                         geometry Mesh {
                                                                           url "meshes/l_forearm_cam_sensor_1.obj"
                                                                         }
+                                                                      }
+                                                                      Pose {
+                                                                        translation 0 0.09 0
+                                                                        children IS leftToolSlot
                                                                       }
                                                                       DEF l_gripper_palm_link Solid {
                                                                         physics Physics {

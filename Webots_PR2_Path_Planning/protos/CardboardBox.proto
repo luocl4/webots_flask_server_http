@@ -255,6 +255,7 @@ PROTO CardboardBox [
     physics Physics {
       density -1
       mass %<= mass >%
+      centerOfMass [0,0,-0.1]
     }
     %< } >%
     locked IS locked

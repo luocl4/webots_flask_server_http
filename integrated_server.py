@@ -242,21 +242,19 @@ def cleanup_temp_wbt_files():
     try:
         # 获取worlds目录路径
         wbt_dir_path = os.path.join(
-            os.path.dirname(__file__), 
-            "Webots_PR2_Path_Planning", 
-            "worlds"
+            os.path.dirname(__file__), "Webots_PR2_Path_Planning", "worlds"
         )
-        
+
         if not os.path.exists(wbt_dir_path):
             logger.warning(f"worlds目录不存在: {wbt_dir_path}")
             return
-        
+
         # 查找所有temp_前缀的wbt文件
         temp_files = []
         for filename in os.listdir(wbt_dir_path):
             if filename.startswith("temp_") and filename.endswith(".wbt"):
                 temp_files.append(filename)
-        
+
         if temp_files:
             logger.info(f"发现{len(temp_files)}个临时wbt文件，正在清理...")
             for filename in temp_files:
@@ -269,7 +267,7 @@ def cleanup_temp_wbt_files():
             logger.info("临时wbt文件清理完成")
         else:
             logger.info("未发现需要清理的临时wbt文件")
-            
+
     except Exception as e:
         logger.error(f"清理临时wbt文件时出错: {e}", exc_info=True)
 
@@ -372,14 +370,14 @@ def get_robot_command():
     return jsonify(command_to_send), 200
 
 
-@app.route('/set_sl_status', methods=['POST'])
+@app.route("/set_sl_status", methods=["POST"])
 def update_sl_status():
     """更新机器人状态"""
     global sl_status
     try:
         # 尝试不同的方式获取数据
         data = None
-        
+
         # 方式1：尝试获取JSON数据
         if request.is_json:
             data = request.get_json()
@@ -387,44 +385,49 @@ def update_sl_status():
         elif request.form:
             data = request.form.to_dict()
             # 尝试解析JSON字符串
-            if 'data' in data:
+            if "data" in data:
                 try:
                     import json
-                    data = json.loads(data['data'])
+
+                    data = json.loads(data["data"])
                 except:
                     pass
         # 方式3：尝试获取原始数据并解析为JSON
         elif request.data:
             try:
                 import json
-                data = json.loads(request.data.decode('utf-8'))
+
+                data = json.loads(request.data.decode("utf-8"))
             except:
                 pass
-        
+
         if not data:
             return jsonify({"code": 400, "message": "参数为空或格式错误"}), 400
 
-        required_fields = ['id', 'object_name', 'state_name', 'command']
+        required_fields = ["id", "object_name", "state_name", "command"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
 
-        name_data = data['object_name']
-        scene_id = str(data['id'])
+        name_data = data["object_name"]
+        scene_id = str(data["id"])
         if isinstance(name_data, list):
             try:
                 obj_ids = [str(item) for item in name_data]
             except (ValueError, TypeError):
-                return jsonify({"code": 400, "message": "object_name列表中包含无效值"}), 400
+                return (
+                    jsonify({"code": 400, "message": "object_name列表中包含无效值"}),
+                    400,
+                )
         else:
             return jsonify({"code": 400, "message": "object_name必须是列表"}), 400
 
         sl_status = {
             "object_names": obj_ids,
-            "state_name": data['state_name'],
-            "command": data['command'],
+            "state_name": data["state_name"],
+            "command": data["command"],
         }
-    
+
     except Exception as e:
         logger.error(f"更新机器人状态失败: {e}", exc_info=True)
         return jsonify({"code": 500, "message": str(e)}), 500
@@ -432,7 +435,7 @@ def update_sl_status():
     return jsonify({"code": 500, "message": "Status updated"}), 200
 
 
-@app.route('/get_sl_status', methods=['GET'])
+@app.route("/get_sl_status", methods=["GET"])
 def get_sl_status():
     """获取机器人状态"""
     global sl_status
@@ -441,14 +444,14 @@ def get_sl_status():
         # 检查sl_status是否为空或未初始化
         if not sl_status or sl_status == {}:
             return jsonify({"code": 404, "message": "状态未设置"}), 404
-        
+
         # 验证必要字段是否存在
         if "object_names" not in sl_status:
             return jsonify({"code": 500, "message": "缺少object_names字段"}), 500
 
         if "state_name" not in sl_status:
             return jsonify({"code": 500, "message": "缺少state_name字段"}), 500
-        
+
         # 验证object_names是否为列表
         if not isinstance(sl_status["object_names"], list):
             return jsonify({"code": 500, "message": "object_names必须是列表"}), 500
@@ -456,24 +459,32 @@ def get_sl_status():
         # 构建返回数据
         if len(sl_status["object_names"]) == 0:
             sl_info = [
-                {"object_name": "world", "state_name": sl_status["state_name"], "command": sl_status["command"]}
+                {
+                    "object_name": "world",
+                    "state_name": sl_status["state_name"],
+                    "command": sl_status["command"],
+                }
             ]
         else:
             sl_info = [
-                {"object_name": obj_name, "state_name": sl_status["state_name"], "command": sl_status["command"]}
+                {
+                    "object_name": obj_name,
+                    "state_name": sl_status["state_name"],
+                    "command": sl_status["command"],
+                }
                 for obj_name in sl_status["object_names"]
             ]
-        
+
         sl_status = {}
-        
+
         return jsonify(sl_info), 200
-        
+
     except Exception as e:
         logger.error(f"获取机器人状态时出错: {e}", exc_info=True)
         return jsonify({"code": 500, "message": f"服务器错误: {str(e)}"}), 500
 
 
-@app.route('/robot_status', methods=['POST'])
+@app.route("/robot_status", methods=["POST"])
 def update_robot_status():
     """更新机器人状态"""
     global current_left_rpy, current_right_rpy, current_left_pos, current_right_pos, result_pick, result_place, robot_status, robot_goals, robot_status_dict, capture_robot_goals, pick_robot_goals, place_robot_goals, fail_pick, fail_place, fail_arm_go_pos, arm_go_pos_robot_goal
@@ -870,11 +881,11 @@ def start_webots():
             logger.info(f"选择场景: {scene_id} - {scene_display_name} v{scene_version}")
 
             cmd = [
-                'webots',
-                '--mode=realtime',
-                '--minimize',
+                "webots",
+                "--mode=realtime",
+                "--minimize",
                 world_file,
-                '--stream',
+                "--stream",
             ]
 
             webots_process = subprocess.Popen(
@@ -2447,6 +2458,156 @@ def arm_go_pos():
 
     except Exception as e:
         return jsonify({"code": 400, "message": f"arm move fail  {e}"}), 400
+
+
+@app.route("/api/v1/capture/get_reachable_objects", methods=["POST"])
+def get_reachable_objects():
+    global supervisor_world_status_log
+    data = request.get_json()
+    if not data:
+        return jsonify({"code": 400, "message": "参数为空"}), 400
+
+    required_fields = ["id", "robot_id"]
+    for field in required_fields:
+        if field not in data:
+            return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+
+    scene_id = str(data["id"])
+    robot_id = str(data["robot_id"])
+
+    if not supervisor_world_status_log:
+        return jsonify({"code": 404, "message": "暂无世界状态数据"}), 404
+
+    # 获取最新世界状态
+    latest_log = supervisor_world_status_log[-1]
+    nodes_data = latest_log.get("data", [])
+
+    robot_abs_pos, robot_rpy, robot_info = None, None, None
+
+    # 提取机器人位置与姿态
+    for node in nodes_data:
+        if str(node.get("id")) == robot_id:
+            robot_abs_pos = node.get("position", [0, 0, 0])
+            rot_deg = node.get("rotation_degrees", {})
+            robot_rpy = [
+                math.radians(rot_deg.get("roll", 0)),
+                math.radians(rot_deg.get("pitch", 0)),
+                math.radians(rot_deg.get("yaw", 0)),
+            ]
+            robot_info = {
+                "position": {
+                    "x": safe_float(robot_abs_pos[0]),
+                    "y": safe_float(robot_abs_pos[1]),
+                    "z": safe_float(robot_abs_pos[2]),
+                },
+                "orientation": {
+                    "roll": safe_float(rot_deg.get("roll", 0)),
+                    "pitch": safe_float(rot_deg.get("pitch", 0)),
+                    "yaw": safe_float(rot_deg.get("yaw", 0)),
+                },
+            }
+            break
+
+    if robot_abs_pos is None or robot_rpy is None:
+        return jsonify({"code": 404, "message": f"未找到机器人ID {robot_id}"}), 404
+
+    # 初始化 IK 求解器
+    arm_ik = ArmIk(
+        model_file="./Webots_PR2_Path_Planning/protos/pr2/pr2.urdf", visualize=False
+    )
+    q0 = arm_ik.get_init_q()
+
+    # 机器人姿态旋转矩阵
+    roll, pitch, yaw = robot_rpy
+    cr, sr = math.cos(roll), math.sin(roll)
+    cp, sp = math.cos(pitch), math.sin(pitch)
+    cy, sy = math.cos(yaw), math.sin(yaw)
+    R = np.array(
+        [
+            [cy * cp, cy * sp * sr - sy * cr, cy * sp * cr + sy * sr],
+            [sy * cp, sy * sp * sr + cy * cr, sy * sp * cr - cy * sr],
+            [-sp, cp * sr, cp * cr],
+        ]
+    )
+
+    reachable_objects = []
+
+    # 遍历所有物品并过滤
+    for node in nodes_data:
+        # 跳过机器人和非抓取物体
+        if str(node.get("id")) == robot_id or node.get("obj_type") == "1":
+            continue
+
+        abilities = node.get("ability", [])
+        if not abilities or not any("grab" in a for a in abilities):
+            continue
+
+        obj_id = node.get("id")
+        obj_pos = node.get("position", [0, 0, 0])
+        obj_rot = node.get("rotation_degrees", {})
+
+        # 计算相对位置
+        dx = safe_float(obj_pos[0]) - safe_float(robot_abs_pos[0])
+        dy = safe_float(obj_pos[1]) - safe_float(robot_abs_pos[1])
+        dz = safe_float(obj_pos[2]) - safe_float(robot_abs_pos[2])
+        relative = np.dot(R.T, np.array([dx, dy, dz]))
+        rel_x, rel_y, rel_z = relative
+
+        # 物体姿态约束
+        # obj_yaw = math.radians(obj_rot.get("yaw", 0))
+        print("rel_x,rel_y,rel_z", rel_x, rel_y, rel_z)
+
+        # 左手 IK（右手固定）
+        sol_left = arm_ik.computeIK(
+            q0,
+            [rel_x, rel_y, rel_z],
+            [0.921, -0.188, 0.790675],
+            [0, 0, 0],
+            [0, 0, 0],
+        )
+
+        # 右手 IK（左手固定）
+        sol_right = arm_ik.computeIK(
+            q0,
+            [0.921, 0.188, 0.790675],
+            [rel_x, rel_y, rel_z],
+            [0, 0, 0],
+            [0, 0, 0],
+        )
+
+        can_reach = (sol_left is not None) or (sol_right is not None)
+
+        # 只返回可达的物体
+        if can_reach:
+            reachable_objects.append(
+                {
+                    "id": obj_id,
+                    "name": node.get("name", "未知"),
+                    "relative_position": {"x": rel_x, "y": rel_y, "z": rel_z},
+                    "absolute_position": {
+                        "x": safe_float(obj_pos[0]),
+                        "y": safe_float(obj_pos[1]),
+                        "z": safe_float(obj_pos[2]),
+                    },
+                    "orientation": {
+                        "roll": safe_float(obj_rot.get("roll", 0)),
+                        "pitch": safe_float(obj_rot.get("pitch", 0)),
+                        "yaw": safe_float(obj_rot.get("yaw", 0)),
+                    },
+                }
+            )
+
+    return (
+        jsonify(
+            {
+                "code": 200,
+                "message": "success",
+                "robot": robot_info,
+                "reachable_objects": reachable_objects,
+            }
+        ),
+        200,
+    )
 
 
 # ================= 定期打印状态线程 =================

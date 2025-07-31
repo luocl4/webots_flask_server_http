@@ -502,184 +502,118 @@ class ArmIk:
         q0,
         l_hand_pose,
         r_hand_pose,
-        l_hand_RPY=None,
-        r_hand_RPY=None,
+        l_hand_RPY,
+        r_hand_RPY,
         vectors=np.array([[0, 0, 1], [0, 0, 1]]),
+        pos_weight=1.0,  # 位置 cost 权重
     ):
-        """计算双臂IK
-        Args:
-            q0: 初始关节角度
-            l_hand_pose: 左手目标位置
-            r_hand_pose: 右手目标位置
-            l_hand_RPY: 左手目标姿态(Roll-Pitch-Yaw)
-            r_hand_RPY: 右手目标姿态
-            vectors: 手臂朝向向量
-        Returns:
-            numpy.ndarray: 求解成功返回关节角度，失败返回None
         """
-        # print("computeIK",q0,l_hand_pose,r_hand_pose,l_hand_RPY,r_hand_RPY,vectors)
-        start_time = time.time()  # 记录开始时间
-        # logger.debug("开始求解双臂IK")
-        # 创建IK求解器
+        双臂IK求解，强制添加姿态约束，并将 torso_lift_joint (index=19) 固定为0.2。
+        """
+        import time
+
+        start_time = time.time()
+
+        # ✅ 1. 同步初始姿态
+        self.__plant.SetPositions(self.__plant_context, q0)
+
+        # ✅ 2. 创建 IK 求解器
         ik = self._create_ik_solver()
 
-        # 设置躯干位姿
-        torsoR = [0.0, 0.0, 0.0]
-        r = [0.0, 0.0, q0[6]]
-        pose_list = [[torsoR, r], [l_hand_RPY, l_hand_pose], [r_hand_RPY, r_hand_pose]]
-
-        # 添加碰撞约束
-        if self.__collision != "None":
-            self._add_collision_constraints(ik, "left")
-            self._add_collision_constraints(ik, "right")
-
-        # # 添加躯干约束
-        self._add_torso_constraints(ik, pose_list[0])
-        # 添加躯干约束（使用base_link框架）
-        # torso_frame = self.__plant.GetFrameByName("base_link")
-        # self._add_torso_constraints(ik, pose_list[0], torso_frame)
-
-        # 添加左手约束
-        self._add_end_effector_constraints(
-            ik=ik, pose=pose_list[1], frame_idx=1, vectors=vectors[0], arm_type="left"
-        )
-
-        # 添加右手约束
-        self._add_end_effector_constraints(
-            ik=ik, pose=pose_list[2], frame_idx=2, vectors=vectors[1], arm_type="right"
-        )
-
-        # 添加左手关节固定约束
-        # for i in range(7, 14):  # 左手关节索引范围是7-13
-        #     ik.prog().AddBoundingBoxConstraint(
-        #         q0[i],  # 下界：当前关节角度
-        #         q0[i],  # 上界：当前关节角度
-        #         ik.q()[i]  # 变量：对应关节
-        #     )
-
-        # 固定高度不升降
-        torso_lift_joint_index = 19
+        # ✅ 3. 锁定 torso_lift_joint
+        torso_idx = 19  # PR2 torso_lift_joint 索引
+        torso_lift_joint = 0.2
         ik.prog().AddBoundingBoxConstraint(
-            # q0[torso_lift_joint_index],  # 下界：当前关节角度
-            # q0[torso_lift_joint_index],  # 上界：当前关节角度
-            0.2,
-            0.2,
-            ik.q()[torso_lift_joint_index],  # 变量：对应关节
+            torso_lift_joint, torso_lift_joint, ik.q()[torso_idx]
+        )
+        # print(f"[IK] 锁定 torso_lift_joint(index=19) = 0.2 m")
+
+        # ✅ 4. 锁定 base_link 位置与姿态
+        torso_frame = self.__plant.GetFrameByName("base_link")
+        torso_pose = torso_frame.CalcPoseInWorld(self.__plant_context)
+        torso_pos = torso_pose.translation()
+        torso_rpy = torso_pose.rotation().ToRollPitchYaw().vector()
+
+        ik.AddPositionConstraint(
+            torso_frame,
+            [0, 0, 0],
+            self.__plant.world_frame(),
+            torso_pos - 1e-6,
+            torso_pos + 1e-6,
+        )
+        ik.AddOrientationConstraint(
+            torso_frame,
+            RotationMatrix(RollPitchYaw(torso_rpy)),
+            self.__plant.world_frame(),
+            RotationMatrix(RollPitchYaw(torso_rpy)),
+            self.__torso_ori_tol,
+        )
+        # print(f"[IK] 锁定 base_link 位置 {torso_pos} 和姿态 {torso_rpy}")
+
+        # ✅ 5. 左臂末端位置 & 姿态约束
+        left_frame = (
+            self.__end_eef_frames[0] if self.use_custom_eef else self.__frames[1]
+        )
+        left_frame = self.__end_eef_frames[0]  # 使用自定义框架
+        right_frame = self.__end_eef_frames[1]
+        # ik.AddPositionCost(
+        #     self.__plant.world_frame(),
+        #     l_hand_pose,
+        #     left_frame,
+        #     np.zeros(3),
+        #     np.eye(3) * pos_weight,
+        # )
+        tol = self.__constraint_tol
+        ik.AddPositionConstraint(
+            frameB=left_frame,
+            p_BQ=np.zeros(3),
+            frameA=self.__plant.world_frame(),
+            p_AQ_lower=l_hand_pose - np.array([tol, tol, tol]),
+            p_AQ_upper=l_hand_pose + np.array([tol, tol, tol]),
         )
 
-        # 求解IK
-        result = Solve(ik.prog(), q0)
-        # print("result:",result)
-        # print("result.GetSolution()",result.GetSolution())
-        # print("result.is_success()",result.is_success())
+        ik.AddOrientationConstraint(
+            self.__plant.world_frame(),
+            RotationMatrix(RollPitchYaw(l_hand_RPY)),
+            left_frame,
+            RotationMatrix.Identity(),
+            self.__torso_ori_tol,
+        )
 
+        # ✅ 6. 右臂末端位置 & 姿态约束
+        right_frame = (
+            self.__end_eef_frames[1] if self.use_custom_eef else self.__frames[2]
+        )
+        # ik.AddPositionCost(
+        #     self.__plant.world_frame(),
+        #     r_hand_pose,
+        #     right_frame,
+        #     np.zeros(3),
+        #     np.eye(3) * pos_weight,
+        # )
+        ik.AddPositionConstraint(
+            frameB=right_frame,
+            p_BQ=np.zeros(3),
+            frameA=self.__plant.world_frame(),
+            p_AQ_lower=r_hand_pose - np.array([tol, tol, tol]),
+            p_AQ_upper=r_hand_pose + np.array([tol, tol, tol]),
+        )
+        ik.AddOrientationConstraint(
+            self.__plant.world_frame(),
+            RotationMatrix(RollPitchYaw(r_hand_RPY)),
+            right_frame,
+            RotationMatrix.Identity(),
+            self.__torso_ori_tol,
+        )
+
+        # ✅ 7. 求解 IK
+        result = Solve(ik.prog(), q0)
         if result.is_success():
-            logger.info(
-                f"IK computation successful in {time.time() - start_time:.4f} seconds"
-            )
+            print(f"[IK] 成功! 计算时间: {time.time() - start_time:.4f}s")
             return result.GetSolution()
         else:
-            logger.warning("IK computation failed")
+            print(f"[IK] 失败! 请检查末端位姿或约束容差")
             return None
-
-    def computeIK_left(
-        self, q0, l_hand_pose, l_hand_RPY=None, l_norm=np.array([0, 0, 1])
-    ):
-        """求解左臂IK
-        Args:
-            q0: 初始关节角度
-            l_hand_pose: 左手目标位置
-            l_hand_RPY: 左手目标姿态(Roll-Pitch-Yaw)
-            l_norm: 手臂朝向向量
-        Returns:
-            numpy.ndarray: 求解成功返回关节角度，失败返回None
-        """
-        # 创建IK求解器
-        ik = self._create_ik_solver()
-
-        # 设置躯干位姿
-        torsoR = [0.0, 0.0, 0.0]
-        r = [0.0, 0.0, q0[6]]
-        pose_list = [
-            [torsoR, r],
-            [l_hand_RPY, l_hand_pose],
-            l_norm,
-        ]
-
-        # 添加碰撞约束
-        if self.__collision != "None":
-            self._add_collision_constraints(ik, "left")
-
-        # 添加躯干约束
-        self._add_torso_constraints(ik, pose_list[0])
-
-        # 添加左手约束
-        self._add_end_effector_constraints(
-            ik=ik, pose=pose_list[1], frame_idx=1, vectors=pose_list[2], arm_type="left"
-        )
-
-        # 添加右手关节固定约束
-        for i in range(33, 40):  # 右手关节索引范围是33-40
-            ik.prog().AddBoundingBoxConstraint(
-                q0[i] - 1e-10,  # 下界：当前关节角度
-                q0[i] + 1e-10,  # 上界：当前关节角度
-                ik.q()[i],  # 变量：对应关节
-            )
-
-        # 求解IK
-        result = Solve(ik.prog(), q0)
-        return result.GetSolution() if result.is_success() else None
-
-    def computeIK_right(
-        self, q0, r_hand_pose, r_hand_RPY=None, r_norm=np.array([0, 0, 1])
-    ):
-        """求解右臂IK
-        Args:
-            q0: 初始关节角度
-            r_hand_pose: 右手目标位置
-            r_hand_RPY: 右手目标姿态
-            r_norm: 手臂朝向向量
-        Returns:
-            numpy.ndarray: 求解成功返回关节角度，失败返回None
-        """
-        # 创建IK求解器
-        ik = self._create_ik_solver()
-        # 设置躯干位姿
-        torsoR = [0.0, 0.0, 0.0]
-        r = [0.0, 0.0, q0[6]]
-        pose_list = [
-            [torsoR, r],
-            [r_hand_RPY, r_hand_pose],
-            r_norm,
-        ]
-
-        # 添加碰撞约束
-        if self.__collision != "None":
-            self._add_collision_constraints(ik, "right")
-
-        # 添加躯干约束
-        self._add_torso_constraints(ik, pose_list[0])
-
-        # 添加右手约束
-        self._add_end_effector_constraints(
-            ik=ik,
-            pose=pose_list[1],
-            frame_idx=2,
-            vectors=pose_list[2],
-            arm_type="right",
-        )
-
-        # 添加左手关节固定约束
-        for i in range(26, 33):  # 左手关节索引范围是7-13
-            ik.prog().AddBoundingBoxConstraint(
-                q0[i] - 1e-10,  # 下界：当前关节角度
-                q0[i] + 1e-10,  # 上界：当前关节角度
-                ik.q()[i],  # 变量：对应关节
-            )
-
-        # 求解IK
-        result = Solve(ik.prog(), q0)
-        return result.GetSolution() if result.is_success() else None
 
     def left_hand_jacobian(self, q):
         """计算左手雅可比矩阵
@@ -817,9 +751,13 @@ class ArmIk:
             torso_yaw: 躯干偏航角(弧度)
             torso_z: 躯干z轴位置(米)
         """
-        self.__torso_yaw_rad = torso_yaw
-        self.__init_q = np.zeros(45)  # 机器人所有关节数为40
-        self.__init_q[0] = 1.0
+        # self.__torso_yaw_rad = torso_yaw
+        # self.__init_q = np.zeros(45)
+        # self.__init_q[0] = 1.0
+        context = self.__plant.CreateDefaultContext()
+        q0 = self.__plant.GetPositions(context)  # 直接获取模型的默认初始位姿
+        self.__init_q = q0.copy()
+        # print("---------------------", self.__init_q)
 
     def get_arm_length(self):
         """计算机器人双臂的当前长度
@@ -1247,6 +1185,8 @@ class ArmIk:
             raise ValueError(
                 f"双臂关节角度应为{2*joint_num}个，实际提供了{len(joint_angles)}个"
             )
+        print("joint_angles:", joint_angles)
+        print("yao_joint", yao_joint)
 
         # 创建完整关节配置
         q = self.get_init_q().copy()
@@ -1299,6 +1239,8 @@ class ArmIk:
             result["right_position"] = right_pose.translation()
             result["right_rpy"] = right_pose.rotation().ToRollPitchYaw().vector()
 
+        # print("Full q:", q)
+
         return result
 
 
@@ -1320,8 +1262,8 @@ if __name__ == "__main__":
     print(f"初始位姿 - 右臂: 位置={r_pose[0]}, 姿态={r_pose[1]}")
 
     # 定义目标位置
-    l_hand_pose = np.array([0.6949, 0.2145, 0.7405])  # [x, y, z] 单位m
-    r_hand_pose = np.array([0.7188, -0.0152, 1.0619])
+    l_hand_pose = np.array([0.771, 0.188, 0.790675])  # [x, y, z] 单位m
+    r_hand_pose = np.array([0.921, -0.188, 0.790675])
 
     # 目标位姿和约束向量
     end_origin = [
@@ -1337,14 +1279,12 @@ if __name__ == "__main__":
     start_time = time.time()
     sol_q = arm_ik.computeIK(
         q0,
-        end_origin[0],
-        end_origin[1],
-        end_origin[2],
-        end_origin[3],
-        vectors=np.array([[0, 0, 1], [0, 0, 1]]),
+        l_hand_pose=end_origin[0],
+        r_hand_pose=end_origin[1],
+        l_hand_RPY=end_origin[2],  # 左手 RPY
+        r_hand_RPY=end_origin[3],  # 右手 RPY
     )
-    # sol_q = arm_ik.computeIK_left(q0,end_origin[0],end_origin[2])
-    # sol_q = arm_ik.computeIK_right(q0,end_origin[1],end_origin[3],end_origin[5])
+
     print(f"IK求解时间: {time.time() - start_time:.4f}秒")
     # 检查求解是否成功
     if sol_q is not None:
