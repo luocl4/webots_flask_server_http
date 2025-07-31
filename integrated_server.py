@@ -432,7 +432,7 @@ def update_sl_status():
         logger.error(f"更新机器人状态失败: {e}", exc_info=True)
         return jsonify({"code": 500, "message": str(e)}), 500
 
-    return jsonify({"code": 500, "message": "Status updated"}), 200
+    return jsonify({"code": 200, "message": "Status updated"}), 200
 
 
 @app.route("/get_sl_status", methods=["GET"])
@@ -2158,7 +2158,7 @@ def place_result():
     return jsonify({"code": 200, "message": res}), 200
 
 
-@app.route("/api/v1/capture/get_relative_pos", methods=["GET"])
+@app.route("/api/v1/capture/get_relative_pos", methods=["POST"])
 def get_relative_pos():
     """
     获取物品相对于机器人的相对坐标
