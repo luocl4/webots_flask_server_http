@@ -58,8 +58,8 @@ PROTO Pr2 [
             name "base_link"
             physics Physics {
               density -1
-              mass 116.0
-              inertiaMatrix [5.65223269921 5.66947315865 3.68319635173 -0.009719934438 1.29398822642 -0.007379583694]
+              mass 1160.0
+              inertiaMatrix [56.5223269921 56.6947315865 36.8319635173 -0.09719934438 12.9398822642 -0.07379583694]
               centerOfMass [0.0 0.0 0.0]
             }
             contactMaterial "pr2_material"
@@ -1366,7 +1366,7 @@ PROTO Pr2 [
                       jointParameters HingeJointParameters {
                         axis 0.0 0.0 1.0
                         anchor 0.0 -0.188 0.0
-                        dampingConstant 10.0
+                        dampingConstant 100
                         staticFriction 0.0
                       }
                       device [
@@ -1375,7 +1375,7 @@ PROTO Pr2 [
                           maxVelocity 2.088
                           minPosition -3.14
                           maxPosition 3.14
-                          maxTorque 50.0
+                          maxTorque 200
                           controlPID 30 0.1 0
                         }
                         PositionSensor {
@@ -1459,7 +1459,7 @@ PROTO Pr2 [
                                 name "r_shoulder_lift_joint"
                                 controlPID 8 0 0.2
                                 maxVelocity 1.5
-                                maxTorque 60
+                                maxTorque 240
                                 minPosition -3.14
                                 maxPosition 3.14
                               }
@@ -1509,7 +1509,7 @@ PROTO Pr2 [
                                       maxVelocity 3.27
                                       minPosition -3.14
                                       maxPosition 3.14
-                                      maxTorque 30.0
+                                      maxTorque 120
                                     }
                                     PositionSensor {
                                       name "r_upper_arm_roll_joint_sensor"
@@ -1612,7 +1612,7 @@ PROTO Pr2 [
                                                 maxVelocity 3.3
                                                 minPosition -3.14
                                                 maxPosition 3.14
-                                                maxTorque 55.0
+                                                maxTorque 220
                                               }
                                               PositionSensor {
                                                 name "r_elbow_flex_joint_sensor"
@@ -1672,7 +1672,7 @@ PROTO Pr2 [
                                                     DEF R_FOREARM_ROLL_MOTOR RotationalMotor {
                                                       name "r_forearm_roll_joint"
                                                       maxVelocity 3.6
-                                                      maxTorque 30.0
+                                                      maxTorque 120
                                                     }
                                                     PositionSensor {
                                                       name "r_forearm_roll_joint_sensor"
@@ -1741,7 +1741,7 @@ PROTO Pr2 [
                                                             jointParameters HingeJointParameters {
                                                               axis 0.0 1.0 0.0
                                                               anchor 0.321 0.0 0.0
-                                                              dampingConstant 0.1
+                                                              dampingConstant 50
                                                               staticFriction 0.0
                                                             }
                                                             device [
@@ -1751,7 +1751,7 @@ PROTO Pr2 [
                                                                 maxVelocity 3.078
                                                                 minPosition -3.14
                                                                 maxPosition 3.14
-                                                                maxTorque 30.0
+                                                                maxTorque 120
                                                               }
                                                               PositionSensor {
                                                                 name "r_wrist_flex_joint_sensor"
@@ -1790,15 +1790,15 @@ PROTO Pr2 [
                                                                   jointParameters HingeJointParameters {
                                                                     axis 1.0 0.0 0.0
                                                                     anchor 0.0 0.0 0.0
-                                                                    dampingConstant 0.1
+                                                                    dampingConstant 100
                                                                     staticFriction 0.0
                                                                   }
                                                                   device [
                                                                     DEF R_WRIST_ROLL_MOTOR RotationalMotor {
                                                                       name "r_wrist_roll_joint"
-                                                                      maxVelocity 3.6
+                                                                      maxVelocity 2
                                                                       controlPID 30 0.01 0
-                                                                      maxTorque 50
+                                                                      maxTorque 200
                                                                     }
                                                                     PositionSensor {
                                                                       name "r_wrist_roll_joint_sensor"

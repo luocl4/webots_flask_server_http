@@ -5,14 +5,14 @@
             {
                 "name": "PR2_ROBOT1",
                 "position": [
-                    -0.369,
-                    -0.617,
-                    0.037
+                    -0.368,
+                    -0.615,
+                    -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.06,
-                    "pitch": 0.31,
-                    "yaw": -180.0
+                    "roll": 0.08,
+                    "pitch": 0.05,
+                    "yaw": 179.87
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -30,40 +30,50 @@
                 "id": 1
             },
             {
-                "name": "Table",
+                "name": "cardboard_box(1)",
                 "position": [
-                    -0.5,
-                    0.2,
-                    0.175
+                    -1.019,
+                    -0.431,
+                    1.137
                 ],
                 "rotation_degrees": {
-                    "roll": 0.0,
+                    "roll": -36.65,
+                    "pitch": 46.54,
+                    "yaw": -174.8
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": true,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.074,
+                    -0.726,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
                     "pitch": 0.0,
-                    "yaw": -0.0
+                    "yaw": -9.39
                 },
-                "size": null,
-                "describe": null,
-                "ability": null,
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 14
-            },
-            {
-                "name": "PR2_ROBOT2",
-                "position": [
-                    -0.396,
-                    0.911,
-                    0.037
+                "size": [
+                    "0.05,0.05,0.05"
                 ],
-                "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.23,
-                    "yaw": -86.53
-                },
-                "size": null,
-                "describe": "轮臂机器人带夹爪",
+                "describe": "可以抓取放置的物体",
                 "ability": [
-                    "move",
                     "left_grab",
                     "right_grab",
                     "both_grab",
@@ -71,32 +81,27 @@
                     "right_place",
                     "both_place"
                 ],
-                "obj_type": "1",
+                "obj_type": "2",
                 "is_moving": false,
-                "id": 15
-            }
-        ],
-        "message": "World status updated by supervisor."
-    },
-    {
-        "event_type": "world_status_update",
-        "data": [
+                "id": 3
+            },
             {
-                "name": "PR2_ROBOT1",
+                "name": "cardboard_box(3)",
                 "position": [
-                    -0.369,
-                    -0.617,
-                    0.037
+                    0.415,
+                    -1.646,
+                    0.925
                 ],
                 "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.24,
-                    "yaw": -180.0
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": -119.54
                 },
-                "size": null,
-                "describe": "PR2机器人",
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
                 "ability": [
-                    "move",
                     "left_grab",
                     "right_grab",
                     "both_grab",
@@ -104,236 +109,27 @@
                     "right_place",
                     "both_place"
                 ],
-                "obj_type": "1",
+                "obj_type": "2",
                 "is_moving": false,
-                "id": 1
+                "id": 4
             },
             {
-                "name": "Table",
+                "name": "cardboard_box(4)",
                 "position": [
-                    -0.5,
-                    0.2,
-                    0.175
+                    1.161,
+                    0.83,
+                    0.924
                 ],
                 "rotation_degrees": {
-                    "roll": 0.0,
-                    "pitch": 0.0,
-                    "yaw": -0.0
-                },
-                "size": null,
-                "describe": null,
-                "ability": null,
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 14
-            },
-            {
-                "name": "PR2_ROBOT2",
-                "position": [
-                    -0.396,
-                    0.911,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.23,
-                    "yaw": -86.53
-                },
-                "size": null,
-                "describe": "轮臂机器人带夹爪",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 15
-            }
-        ],
-        "message": "World status updated by supervisor."
-    },
-    {
-        "event_type": "world_status_update",
-        "data": [
-            {
-                "name": "PR2_ROBOT1",
-                "position": [
-                    -0.369,
-                    -0.617,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.24,
-                    "yaw": -180.0
-                },
-                "size": null,
-                "describe": "PR2机器人",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 1
-            },
-            {
-                "name": "Table",
-                "position": [
-                    -0.5,
-                    0.2,
-                    0.175
-                ],
-                "rotation_degrees": {
-                    "roll": 0.0,
-                    "pitch": 0.0,
-                    "yaw": -0.0
-                },
-                "size": null,
-                "describe": null,
-                "ability": null,
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 14
-            },
-            {
-                "name": "PR2_ROBOT2",
-                "position": [
-                    -0.396,
-                    0.911,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.23,
-                    "yaw": -86.53
-                },
-                "size": null,
-                "describe": "轮臂机器人带夹爪",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 15
-            }
-        ],
-        "message": "World status updated by supervisor."
-    },
-    {
-        "event_type": "world_status_update",
-        "data": [
-            {
-                "name": "PR2_ROBOT1",
-                "position": [
-                    -0.369,
-                    -0.617,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.1,
-                    "pitch": 0.22,
-                    "yaw": -180.0
-                },
-                "size": null,
-                "describe": "PR2机器人",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 1
-            },
-            {
-                "name": "Table",
-                "position": [
-                    -0.5,
-                    0.2,
-                    0.175
-                ],
-                "rotation_degrees": {
-                    "roll": 0.0,
-                    "pitch": 0.0,
-                    "yaw": -0.0
-                },
-                "size": null,
-                "describe": null,
-                "ability": null,
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 14
-            },
-            {
-                "name": "PR2_ROBOT2",
-                "position": [
-                    -0.396,
-                    0.911,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.23,
-                    "yaw": -86.53
-                },
-                "size": null,
-                "describe": "轮臂机器人带夹爪",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 15
-            }
-        ],
-        "message": "World status updated by supervisor."
-    },
-    {
-        "event_type": "world_status_update",
-        "data": [
-            {
-                "name": "PR2_ROBOT1",
-                "position": [
-                    -0.369,
-                    -0.617,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.15,
+                    "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": -180.0
+                    "yaw": 132.9
                 },
-                "size": null,
-                "describe": "PR2机器人",
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
                 "ability": [
-                    "move",
                     "left_grab",
                     "right_grab",
                     "both_grab",
@@ -341,9 +137,221 @@
                     "right_place",
                     "both_place"
                 ],
-                "obj_type": "1",
+                "obj_type": "2",
                 "is_moving": false,
-                "id": 1
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    1.087,
+                    0.983,
+                    0.025
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": 117.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    0.564,
+                    -1.651,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -7.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    -0.691,
+                    -1.679,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.38,
+                    "pitch": 0.28,
+                    "yaw": -15.42
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    0.909,
+                    1.428,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.09,
+                    "pitch": 0.01,
+                    "yaw": 170.11
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "PlasticCrate0",
+                "position": [
+                    -0.7,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "PlasticCrate1",
+                "position": [
+                    -0.7,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "PlasticCrate2",
+                "position": [
+                    -0.3,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "PlasticCrate3",
+                "position": [
+                    -0.3,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
             },
             {
                 "name": "Table",
@@ -368,12 +376,12 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.911,
-                    0.037
+                    0.912,
+                    -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.23,
+                    "roll": 0.02,
+                    "pitch": 0.05,
                     "yaw": -86.53
                 },
                 "size": null,
@@ -400,172 +408,14 @@
             {
                 "name": "PR2_ROBOT1",
                 "position": [
-                    -0.369,
-                    -0.617,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.04,
-                    "pitch": 0.3,
-                    "yaw": -180.0
-                },
-                "size": null,
-                "describe": "PR2机器人",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 1
-            },
-            {
-                "name": "Table",
-                "position": [
-                    -0.5,
-                    0.2,
-                    0.175
-                ],
-                "rotation_degrees": {
-                    "roll": 0.0,
-                    "pitch": 0.0,
-                    "yaw": -0.0
-                },
-                "size": null,
-                "describe": null,
-                "ability": null,
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 14
-            },
-            {
-                "name": "PR2_ROBOT2",
-                "position": [
-                    -0.396,
-                    0.911,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.23,
-                    "yaw": -86.53
-                },
-                "size": null,
-                "describe": "轮臂机器人带夹爪",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 15
-            }
-        ],
-        "message": "World status updated by supervisor."
-    },
-    {
-        "event_type": "world_status_update",
-        "data": [
-            {
-                "name": "PR2_ROBOT1",
-                "position": [
-                    -0.369,
-                    -0.617,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.14,
-                    "pitch": 0.34,
-                    "yaw": -180.0
-                },
-                "size": null,
-                "describe": "PR2机器人",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 1
-            },
-            {
-                "name": "Table",
-                "position": [
-                    -0.5,
-                    0.2,
-                    0.175
-                ],
-                "rotation_degrees": {
-                    "roll": 0.0,
-                    "pitch": 0.0,
-                    "yaw": -0.0
-                },
-                "size": null,
-                "describe": null,
-                "ability": null,
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 14
-            },
-            {
-                "name": "PR2_ROBOT2",
-                "position": [
-                    -0.396,
-                    0.911,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.23,
-                    "yaw": -86.53
-                },
-                "size": null,
-                "describe": "轮臂机器人带夹爪",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 15
-            }
-        ],
-        "message": "World status updated by supervisor."
-    },
-    {
-        "event_type": "world_status_update",
-        "data": [
-            {
-                "name": "PR2_ROBOT1",
-                "position": [
-                    -0.369,
-                    -0.617,
-                    0.037
+                    -0.368,
+                    -0.615,
+                    -0.005
                 ],
                 "rotation_degrees": {
                     "roll": 0.18,
-                    "pitch": 0.33,
-                    "yaw": -180.0
+                    "pitch": 0.24,
+                    "yaw": 179.86
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -581,6 +431,330 @@
                 "obj_type": "1",
                 "is_moving": false,
                 "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -1.029,
+                    -0.438,
+                    1.377
+                ],
+                "rotation_degrees": {
+                    "roll": -6.94,
+                    "pitch": -28.81,
+                    "yaw": -168.99
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": true,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.074,
+                    -0.726,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.0,
+                    "yaw": -9.39
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    0.415,
+                    -1.646,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": -119.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    1.161,
+                    0.83,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.01,
+                    "yaw": 132.9
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    1.087,
+                    0.983,
+                    0.025
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": 117.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    0.564,
+                    -1.651,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -7.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    -0.691,
+                    -1.678,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.23,
+                    "pitch": 0.36,
+                    "yaw": -15.31
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    0.909,
+                    1.428,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": 0.1,
+                    "pitch": -0.17,
+                    "yaw": 170.12
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "PlasticCrate0",
+                "position": [
+                    -0.7,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "PlasticCrate1",
+                "position": [
+                    -0.7,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "PlasticCrate2",
+                "position": [
+                    -0.3,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "PlasticCrate3",
+                "position": [
+                    -0.3,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
             },
             {
                 "name": "Table",
@@ -605,12 +779,2833 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.911,
-                    0.037
+                    0.912,
+                    -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.08,
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.368,
+                    -0.615,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.13,
+                    "pitch": 0.18,
+                    "yaw": 179.86
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -1.027,
+                    -0.439,
+                    1.378
+                ],
+                "rotation_degrees": {
+                    "roll": -7.02,
+                    "pitch": -28.9,
+                    "yaw": -168.94
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.074,
+                    -0.726,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.0,
+                    "yaw": -9.39
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    0.415,
+                    -1.646,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": -119.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    1.161,
+                    0.83,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.01,
+                    "yaw": 132.9
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    1.087,
+                    0.983,
+                    0.025
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": 117.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    0.564,
+                    -1.651,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -7.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    -0.691,
+                    -1.678,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.32,
+                    "pitch": 0.4,
+                    "yaw": -15.2
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    0.909,
+                    1.428,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": 0.23,
+                    "pitch": -0.2,
+                    "yaw": 170.14
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "PlasticCrate0",
+                "position": [
+                    -0.7,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "PlasticCrate1",
+                "position": [
+                    -0.7,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "PlasticCrate2",
+                "position": [
+                    -0.3,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "PlasticCrate3",
+                "position": [
+                    -0.3,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.912,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.368,
+                    -0.615,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.12,
+                    "pitch": 0.16,
+                    "yaw": 179.86
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -1.027,
+                    -0.439,
+                    1.378
+                ],
+                "rotation_degrees": {
+                    "roll": -7.04,
+                    "pitch": -28.91,
+                    "yaw": -168.93
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.074,
+                    -0.726,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.0,
+                    "yaw": -9.39
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    0.415,
+                    -1.646,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": -119.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    1.161,
+                    0.83,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.01,
+                    "yaw": 132.9
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    1.087,
+                    0.983,
+                    0.025
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": 117.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    0.564,
+                    -1.651,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -7.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    -0.691,
+                    -1.678,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": 0.29,
+                    "pitch": 0.29,
+                    "yaw": -15.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    0.909,
+                    1.428,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.32,
+                    "pitch": -0.14,
+                    "yaw": 170.16
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "PlasticCrate0",
+                "position": [
+                    -0.7,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "PlasticCrate1",
+                "position": [
+                    -0.7,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "PlasticCrate2",
+                "position": [
+                    -0.3,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "PlasticCrate3",
+                "position": [
+                    -0.3,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.912,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.368,
+                    -0.615,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.12,
+                    "pitch": 0.16,
+                    "yaw": 179.86
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -1.026,
+                    -0.439,
+                    1.378
+                ],
+                "rotation_degrees": {
+                    "roll": -7.04,
+                    "pitch": -28.92,
+                    "yaw": -168.93
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.074,
+                    -0.726,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.0,
+                    "yaw": -9.39
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    0.415,
+                    -1.646,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": -119.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    1.161,
+                    0.83,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.01,
+                    "yaw": 132.9
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    1.087,
+                    0.983,
+                    0.025
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": 117.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    0.564,
+                    -1.651,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -7.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    -0.691,
+                    -1.678,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.38,
                     "pitch": 0.23,
+                    "yaw": -14.99
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    0.909,
+                    1.428,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.37,
+                    "pitch": -0.19,
+                    "yaw": 170.17
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "PlasticCrate0",
+                "position": [
+                    -0.7,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "PlasticCrate1",
+                "position": [
+                    -0.7,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "PlasticCrate2",
+                "position": [
+                    -0.3,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "PlasticCrate3",
+                "position": [
+                    -0.3,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.912,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.368,
+                    -0.615,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.12,
+                    "pitch": 0.16,
+                    "yaw": 179.86
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -1.026,
+                    -0.439,
+                    1.378
+                ],
+                "rotation_degrees": {
+                    "roll": -7.04,
+                    "pitch": -28.92,
+                    "yaw": -168.94
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.074,
+                    -0.726,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.0,
+                    "yaw": -9.39
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    0.415,
+                    -1.646,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": -119.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    1.161,
+                    0.83,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.01,
+                    "yaw": 132.9
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    1.087,
+                    0.983,
+                    0.025
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": 117.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    0.564,
+                    -1.651,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -7.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    -0.691,
+                    -1.678,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.22,
+                    "pitch": 0.31,
+                    "yaw": -14.88
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    0.909,
+                    1.428,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": 0.3,
+                    "pitch": -0.1,
+                    "yaw": 170.2
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "PlasticCrate0",
+                "position": [
+                    -0.7,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "PlasticCrate1",
+                "position": [
+                    -0.7,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "PlasticCrate2",
+                "position": [
+                    -0.3,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "PlasticCrate3",
+                "position": [
+                    -0.3,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.912,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.368,
+                    -0.615,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.12,
+                    "pitch": 0.15,
+                    "yaw": 179.85
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -1.026,
+                    -0.439,
+                    1.379
+                ],
+                "rotation_degrees": {
+                    "roll": -7.04,
+                    "pitch": -28.93,
+                    "yaw": -168.94
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.074,
+                    -0.726,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.0,
+                    "yaw": -9.39
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    0.415,
+                    -1.646,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": -119.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    1.161,
+                    0.83,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.01,
+                    "yaw": 132.9
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    1.087,
+                    0.983,
+                    0.025
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": 117.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    0.564,
+                    -1.651,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -7.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    -0.691,
+                    -1.678,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.32,
+                    "pitch": 0.35,
+                    "yaw": -14.78
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    0.909,
+                    1.429,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": 0.45,
+                    "pitch": -0.13,
+                    "yaw": 170.21
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "PlasticCrate0",
+                "position": [
+                    -0.7,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "PlasticCrate1",
+                "position": [
+                    -0.7,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "PlasticCrate2",
+                "position": [
+                    -0.3,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "PlasticCrate3",
+                "position": [
+                    -0.3,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.912,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.368,
+                    -0.615,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.11,
+                    "pitch": 0.15,
+                    "yaw": 179.85
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -1.026,
+                    -0.439,
+                    1.379
+                ],
+                "rotation_degrees": {
+                    "roll": -7.05,
+                    "pitch": -28.93,
+                    "yaw": -168.94
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.074,
+                    -0.726,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.0,
+                    "yaw": -9.39
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    0.415,
+                    -1.646,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": -119.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    1.161,
+                    0.83,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.01,
+                    "yaw": 132.9
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    1.087,
+                    0.983,
+                    0.025
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": 117.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    0.564,
+                    -1.651,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -7.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    -0.691,
+                    -1.678,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": 0.29,
+                    "pitch": 0.24,
+                    "yaw": -14.69
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    0.909,
+                    1.428,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.09,
+                    "pitch": -0.07,
+                    "yaw": 170.23
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "PlasticCrate0",
+                "position": [
+                    -0.7,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "PlasticCrate1",
+                "position": [
+                    -0.7,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "PlasticCrate2",
+                "position": [
+                    -0.3,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "PlasticCrate3",
+                "position": [
+                    -0.3,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.912,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.368,
+                    -0.615,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.11,
+                    "pitch": 0.15,
+                    "yaw": 179.85
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -1.026,
+                    -0.439,
+                    1.379
+                ],
+                "rotation_degrees": {
+                    "roll": -7.05,
+                    "pitch": -28.93,
+                    "yaw": -168.94
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.074,
+                    -0.726,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.0,
+                    "yaw": -9.39
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    0.415,
+                    -1.646,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": -119.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    1.161,
+                    0.83,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.01,
+                    "yaw": 132.9
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    1.087,
+                    0.983,
+                    0.025
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": 117.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    0.564,
+                    -1.651,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -7.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    -0.691,
+                    -1.678,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.38,
+                    "pitch": 0.17,
+                    "yaw": -14.59
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    0.909,
+                    1.428,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.09,
+                    "pitch": 0.02,
+                    "yaw": 170.25
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "PlasticCrate0",
+                "position": [
+                    -0.7,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "PlasticCrate1",
+                "position": [
+                    -0.7,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "PlasticCrate2",
+                "position": [
+                    -0.3,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "PlasticCrate3",
+                "position": [
+                    -0.3,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.912,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
                     "yaw": -86.53
                 },
                 "size": null,
@@ -638,13 +3633,13 @@
                 "name": "PR2_ROBOT1",
                 "position": [
                     -0.369,
-                    -0.617,
-                    0.037
+                    -0.615,
+                    -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": -0.08,
-                    "pitch": 0.49,
-                    "yaw": -180.0
+                    "roll": 0.11,
+                    "pitch": 0.14,
+                    "yaw": 179.85
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -660,6 +3655,330 @@
                 "obj_type": "1",
                 "is_moving": false,
                 "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -1.026,
+                    -0.439,
+                    1.379
+                ],
+                "rotation_degrees": {
+                    "roll": -7.05,
+                    "pitch": -28.94,
+                    "yaw": -168.94
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.074,
+                    -0.726,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.0,
+                    "yaw": -9.39
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    0.415,
+                    -1.646,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": -119.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    1.161,
+                    0.83,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.01,
+                    "yaw": 132.9
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    1.087,
+                    0.983,
+                    0.025
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": -0.0,
+                    "yaw": 117.09
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    0.564,
+                    -1.651,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -7.54
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    -0.691,
+                    -1.678,
+                    0.925
+                ],
+                "rotation_degrees": {
+                    "roll": -0.22,
+                    "pitch": 0.27,
+                    "yaw": -14.49
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    0.909,
+                    1.428,
+                    0.924
+                ],
+                "rotation_degrees": {
+                    "roll": -0.65,
+                    "pitch": -0.31,
+                    "yaw": 170.26
+                },
+                "size": [
+                    "0.05,0.05,0.05"
+                ],
+                "describe": "可以抓取放置的物体",
+                "ability": [
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "PlasticCrate0",
+                "position": [
+                    -0.7,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 10
+            },
+            {
+                "name": "PlasticCrate1",
+                "position": [
+                    -0.7,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 11
+            },
+            {
+                "name": "PlasticCrate2",
+                "position": [
+                    -0.3,
+                    0.0,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 12
+            },
+            {
+                "name": "PlasticCrate3",
+                "position": [
+                    -0.3,
+                    0.44,
+                    0.54
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 0.0
+                },
+                "size": [
+                    "0.3,0.3,0.4"
+                ],
+                "describe": "可以放置物块的塑料箱",
+                "ability": [
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "2",
+                "is_moving": false,
+                "id": 13
             },
             {
                 "name": "Table",
@@ -684,91 +4003,12 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.911,
-                    0.037
+                    0.912,
+                    -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.23,
-                    "yaw": -86.53
-                },
-                "size": null,
-                "describe": "轮臂机器人带夹爪",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 15
-            }
-        ],
-        "message": "World status updated by supervisor."
-    },
-    {
-        "event_type": "world_status_update",
-        "data": [
-            {
-                "name": "PR2_ROBOT1",
-                "position": [
-                    -0.369,
-                    -0.617,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.06,
-                    "pitch": 0.33,
-                    "yaw": 180.0
-                },
-                "size": null,
-                "describe": "PR2机器人",
-                "ability": [
-                    "move",
-                    "left_grab",
-                    "right_grab",
-                    "both_grab",
-                    "left_place",
-                    "right_place",
-                    "both_place"
-                ],
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 1
-            },
-            {
-                "name": "Table",
-                "position": [
-                    -0.5,
-                    0.2,
-                    0.175
-                ],
-                "rotation_degrees": {
-                    "roll": 0.0,
-                    "pitch": 0.0,
-                    "yaw": -0.0
-                },
-                "size": null,
-                "describe": null,
-                "ability": null,
-                "obj_type": "1",
-                "is_moving": false,
-                "id": 14
-            },
-            {
-                "name": "PR2_ROBOT2",
-                "position": [
-                    -0.396,
-                    0.911,
-                    0.037
-                ],
-                "rotation_degrees": {
-                    "roll": 0.08,
-                    "pitch": 0.23,
+                    "roll": 0.02,
+                    "pitch": 0.05,
                     "yaw": -86.53
                 },
                 "size": null,

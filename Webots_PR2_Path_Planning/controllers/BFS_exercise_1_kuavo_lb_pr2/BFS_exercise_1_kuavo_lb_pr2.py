@@ -890,13 +890,25 @@ def move_with_feedback_supervisor(
         print("关节", i)
 
     print("\n验证最终位置...")
+    all_ok = False  # 标记是否所有关节都达标
     for i in range(10):
         final_positions = [s.getValue() for s in sensors]
-        for i, (target, actual) in enumerate(zip(targets, final_positions)):
+        current_status = []  # 记录当前迭代中各关节的状态
+
+        # 检查每个关节的误差
+        for j, (target, actual) in enumerate(zip(targets, final_positions)):
             error = abs(target - actual)
             status = "OK" if error <= tolerance else "FAIL"
-            print(f"关节 {i+1}: 目标={target}, 实际={actual}, 误差={error} [{status}]")
-            robot.step(timestep)
+            current_status.append(status)
+            print(f"关节 {j+1}: 目标={target}, 实际={actual}, 误差={error} [{status}]")
+
+        # 判断是否所有关节都达标
+        if all(s == "OK" for s in current_status):
+            all_ok = True
+            print("所有关节均已达标，提前结束验证")
+            break
+
+        robot.step(timestep)
         print("----")
 
     current = get_actual_joint_positions(sensors)
@@ -1053,6 +1065,129 @@ def move_robot_linear(dx=0.0, dy=0.0, dz=0.0):
     # 设置新位置
     translation_field.setSFVec3f(new_pos)
     print(f"机器人位置已更新为: {new_pos}")
+
+
+def close_gripper(
+    gripper_motors,
+    left_touch_sensor,
+    right_touch_sensor,
+    close_position=[0.25],  # 夹爪完全闭合的目标位置（列表形式）
+    step=0.01,  # 每次闭合的步长
+    touch_threshold=0,  # 触摸传感器触发阈值
+):
+    """
+    闭合夹爪，直到达到目标位置或检测到接触（无最大步骤限制）
+
+    参数:
+        gripper_motors: 夹爪电机列表
+        left_touch_sensor: 左指尖触摸传感器（rightArmLeftFingerTouchSensor）
+        right_touch_sensor: 右指尖触摸传感器（rightArmRightFingerTouchSensor）
+        close_position: 完全闭合的目标位置（列表形式，与电机数量对应）
+        step: 每次闭合的步长
+        touch_threshold: 触摸传感器触发阈值（检测到物体时停止）
+
+    返回:
+        dict: 包含闭合结果的字典
+    """
+    # 验证输入参数
+    if not gripper_motors:
+        print("错误: 未提供夹爪电机")
+        return {"success": False, "reason": "未提供夹爪电机"}
+
+    # 确保目标位置列表与电机数量匹配
+    if len(close_position) != len(gripper_motors):
+        print(
+            f"错误: 目标位置数量 ({len(close_position)}) 与电机数量 ({len(gripper_motors)}) 不匹配"
+        )
+        return {"success": False, "reason": "目标位置与电机数量不匹配"}
+
+    # 启用触摸传感器
+    left_touch_sensor.enable(timestep)
+    right_touch_sensor.enable(timestep)
+
+    # 确定每个电机的闭合方向
+    steps = []
+    for i, motor in enumerate(gripper_motors):
+        current_pos = motor.getTargetPosition()
+        if close_position[i] < current_pos:
+            steps.append(-abs(step))  # 负方向闭合
+        else:
+            steps.append(abs(step))  # 正方向闭合
+
+    steps_taken = 0
+
+    try:
+        while True:  # 无限循环，直到达到目标或检测到接触
+            # 获取当前传感器值
+            left_touch = left_touch_sensor.getValue()
+            right_touch = right_touch_sensor.getValue()
+
+            # 检查是否已接触物体（无法继续闭合）
+            if left_touch > touch_threshold or right_touch > touch_threshold:
+                print(f"检测到接触 - 左: {left_touch:.2f}, 右: {right_touch:.2f}")
+                rightArmLeftFingerVacuumGripper.enablePresence(timestep)
+                rightArmRightFingerVacuumGripper.enablePresence(timestep)
+                rightArmLeftFingerVacuumGripper.turnOn()
+                rightArmRightFingerVacuumGripper.turnOn()
+                for _ in range(2):
+                    robot.step(timestep)
+                print(
+                    "左边手指.getPresence():",
+                    rightArmLeftFingerVacuumGripper.getPresence(),
+                )
+                print(
+                    "右边手指.getPresence():",
+                    rightArmRightFingerVacuumGripper.getPresence(),
+                )
+
+                return {
+                    "success": True,
+                    "reason": "检测到接触（无法继续闭合）",
+                    "final_position": [
+                        motor.getTargetPosition() for motor in gripper_motors
+                    ],
+                    "steps_taken": steps_taken,
+                }
+
+            # 计算下一步位置
+            next_pos = [
+                gripper_motors[i].getTargetPosition() + steps[i]
+                for i in range(len(gripper_motors))
+            ]
+
+            # 检查是否已达到目标位置
+            all_reached = True
+            for i in range(len(gripper_motors)):
+                if (steps[i] > 0 and next_pos[i] < close_position[i]) or (
+                    steps[i] < 0 and next_pos[i] > close_position[i]
+                ):
+                    all_reached = False
+                    break
+
+            if all_reached:
+                # 设置到最终闭合位置
+                for i, motor in enumerate(gripper_motors):
+                    motor.setPosition(close_position[i])
+                robot.step(timestep)
+                print(f"已达到目标闭合位置: {close_position}")
+                return {
+                    "success": True,
+                    "reason": "达到目标位置",
+                    "final_position": close_position,
+                    "steps_taken": steps_taken,
+                }
+
+            # 执行下一步闭合动作
+            for i, motor in enumerate(gripper_motors):
+                motor.setPosition(next_pos[i])
+
+            robot.step(timestep)
+            steps_taken += 1
+
+    finally:
+        # 确保传感器持续启用
+        left_touch_sensor.enable(timestep)
+        right_touch_sensor.enable(timestep)
 
 
 # --- 主控制序列 ---
@@ -1266,43 +1401,32 @@ def run_arm_pick(goal_arm, robot_id):
     # print("pick步骤4: 移动腰部到初始位置/最低位置")
     # set_arm_joint_positions_with_feedback(yao_motors,yao_sensors,yao_lowest_pose,tolerance=0.02,max_steps=200,)
     print("--------------------")
-    # left_arm_distance_sensor.enable(timestep)
-    # right_arm_1_distance_sensor.enable(timestep)
-    # right_arm_2_distance_sensor.enable(timestep)
-    # right_arm_3_distance_sensor.enable(timestep)
-    # while robot.step(timestep) != -1:
-    #     # 读取三个传感器数值
-    #     v1 = right_arm_1_distance_sensor.getValue()
-    #     v2 = right_arm_2_distance_sensor.getValue()
-    #     v3 = right_arm_3_distance_sensor.getValue()
-
-    #     # 取最小值
-    #     min_value = min(v1, v2, v3)
-    #     print(
-    #         f"三个距离传感器值: [{v1:.2f}, {v2:.2f}, {v3:.2f}], 最小值: {min_value:.2f}"
-    #     )
-
-    #     # 判断条件
-    #     if min_value < 660:
-    #         print("检测到物体，退出循环")
-    #         break
-
-    print("--------------------")
     # robot.step(5*MOVE_DURATION_STEPS)
     # 4. 夹紧物体
     print("pick步骤5: 关闭右夹爪抓取物体")
-    # right_arm_touch_sensor.enable(timestep)
-    # while robot.step(timestep) != -1:
-    #     # BUMPER 类型: 返回 0 或 1
-    #     value = right_arm_touch_sensor.getValue()
-    #     print("接触状态:", "触碰" if value > 0 else "未触碰")
-    #     if value > 0:
-    #         break
+    print(right_arm_touch_sensor)
+    if right_arm_touch_sensor is not None:
+        right_arm_touch_sensor.enable(timestep)
+        rightArmLeftFingerTouchSensor.enable(timestep)
+        rightArmRightFingerTouchSensor.enable(timestep)
+        while robot.step(timestep) != -1:
+            # BUMPER 类型: 返回 0 或 1
+            value = right_arm_touch_sensor.getValue()
+            print("接触状态:", "触碰" if value > 0 else "未触碰")
+            if value > 0:
+                break
 
-    if goal_arm == "left" or goal_arm == "both":
-        set_gripper_position(left_gripper_motors, CLOSE_GRIPPER_POS)
-    if goal_arm == "right" or goal_arm == "both":
-        set_gripper_position(right_gripper_motors, CLOSE_GRIPPER_POS)
+    # if goal_arm == "left" or goal_arm == "both":
+    #     set_gripper_position(left_gripper_motors, CLOSE_GRIPPER_POS)
+    # if goal_arm == "right" or goal_arm == "both":
+    #     set_gripper_position(right_gripper_motors, CLOSE_GRIPPER_POS)
+    close_gripper(
+        gripper_motors=right_gripper_motors,
+        left_touch_sensor=rightArmLeftFingerTouchSensor,
+        right_touch_sensor=rightArmRightFingerTouchSensor,
+        close_position=CLOSE_GRIPPER_POS,
+        step=0.005,
+    )
     # right_arm_touch_sensor.enable(timestep)
 
     robot.step(MOVE_DURATION_STEPS)
@@ -1314,16 +1438,18 @@ def run_arm_pick(goal_arm, robot_id):
             left_arm_motors,
             left_arm_sensors,
             save_left_arm_pose,
-            tolerance=0.01,
-            max_steps=100,
+            tolerance=0.001,
+            max_steps=1000,
+            special_joints={0: 0.5, 1: 0.1, 2: 0.9, 3: 0.9, 4: 0.9, 5: 0.9, 6: 0.5},
         )
     if goal_arm == "right" or goal_arm == "both":
         set_arm_joint_positions_with_feedback(
             right_arm_motors,
             right_arm_sensors,
             save_right_arm_pose,
-            tolerance=0.01,
-            max_steps=100,
+            tolerance=0.001,
+            max_steps=1000,
+            special_joints={0: 0.5, 1: 0.1, 2: 0.9, 3: 0.9, 4: 0.9, 5: 0.9, 6: 0.5},
         )
 
     print("pick步骤6:升高腰部，回到安全高度")
@@ -1677,14 +1803,12 @@ right_gripper_motors, right_gripper_sensors = get_motors_and_sensors(
 # print("right_arm_sensors",right_arm_sensors)
 head_motors, head_sensors = get_motors_and_sensors(head_joint_names)
 yao_motors, yao_sensors = get_motors_and_sensors(yao_joint_names)
-left_arm_distance_sensor = robot.getDevice("left_arm_distance_sensor")
-right_arm_1_distance_sensor = robot.getDevice("right_arm_1_distance_sensor")
-right_arm_2_distance_sensor = robot.getDevice("right_arm_2_distance_sensor")
-right_arm_3_distance_sensor = robot.getDevice("right_arm_3_distance_sensor")
-left_arm_touch_sensor = robot.getDevice("left_arm_touch_sensor")
 right_arm_touch_sensor = robot.getDevice("right_arm_touch_sensor")
-left_arm_middle_vacuum_gripper = robot.getDevice("left_arm_middle_vacuum_gripper")
-right_arm_middle_vacuum_gripper = robot.getDevice("right_arm_middle_vacuum_gripper")
+rightArmLeftFingerTouchSensor = robot.getDevice("rightArmLeftFingerTouchSensor")
+rightArmRightFingerTouchSensor = robot.getDevice("rightArmRightFingerTouchSensor")
+rightArmLeftFingerVacuumGripper = robot.getDevice("rightArmLeftFingerVacuumGripper")
+rightArmRightFingerVacuumGripper = robot.getDevice("rightArmRightFingerVacuumGripper")
+
 print("Device initialization complete.")
 
 # --- 硬编码关节目标位置 ---
