@@ -92,6 +92,8 @@ current_right_pos = []
 current_left_rpy = []
 current_right_rpy = []
 robot_status = {"robot_position": (0, 0), "status": ""}  # 存储机器人的位置和状态信息
+pick_stop_flag = False
+
 
 ability_dict = {
     "left_place": "左手放置",
@@ -309,8 +311,13 @@ def update_world_status():
 @app.route("/robot_command", methods=["GET"])
 def get_robot_command():
     """获取机器人命令"""
-    global robot_goals, robot_stop_flag, capture_robot_goals, pick_robot_goals, place_robot_goals, arm_go_pos_robot_goal
+    global pick_stop_flag, robot_goals, robot_stop_flag, capture_robot_goals, pick_robot_goals, place_robot_goals, arm_go_pos_robot_goal
     command_to_send = {}
+
+    # 优先处理抓取停止命令
+    if pick_stop_flag:
+        pick_stop_flag = False
+        return jsonify(None), 200
 
     if robot_stop_flag:
         robot_stop_flag = False
@@ -1662,7 +1669,7 @@ def move_check_pos():
         return jsonify({"code": 400, "message": f"请求处理出错: {str(e)}"}), 400
 
 
-@app.route("/api/v1/move/stop", methods=["GET"])
+@app.route("/api/v1/move/stop", methods=["POST"])
 def move_stop():
     """停止机器人移动，清空移动轨迹
 
@@ -1900,12 +1907,12 @@ def pick_set_goal():
         # right_angle = data['right_angle']
 
         # 左手臂相关参数，默认值设为合理的空列表或零值
-        left_cur_pos = data.get("left_cur_pos", [0.951, 0.188, 0.790675])
+        left_cur_pos = data.get("left_cur_pos", [0.921, 0.188, 0.790675])
         # left_cur_pos = [0.0, 0.0, 0.0]
         left_angle = data.get("left_angle", [0, 0.0, 0.0])
 
         # 右手臂相关参数，默认值设为合理的空列表或零值
-        right_cur_pos = data.get("right_cur_pos", [0.951, -0.188, 0.790675])
+        right_cur_pos = data.get("right_cur_pos", [0.921, -0.188, 0.790675])
         right_angle = data.get("right_angle", [0, 0, 0])
         logger.info(
             f"{scene_id}, {robot_id}, {goal_arm}, {left_cur_pos}, {left_angle}, {right_cur_pos}, {right_angle}"
@@ -2015,7 +2022,7 @@ def place_set_goal():
         goal_arm = str(data.get("goal_arm", "both"))
 
         # 左手臂相关参数，默认值设为合理的空列表或零值
-        left_goal_pos = data.get("left_goal_pos", [0.951, 0.188, 0.790675])
+        left_goal_pos = data.get("left_goal_pos", [0.921, 0.188, 0.790675])
         left_angle = data.get("left_angle", [0, 0.0, 0.0])
 
         # 右手臂相关参数，默认值设为合理的空列表或零值
@@ -2156,6 +2163,42 @@ def place_result():
     if res == True:
         result_place = False
     return jsonify({"code": 200, "message": res}), 200
+
+
+@app.route("/api/v1/capture/stop_pick", methods=["POST"])
+def stop_pick():
+    """停止当前抓取操作"""
+    global pick_stop_flag, pick_robot_goals
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"code": 400, "message": "参数为空"}), 400
+
+        required_fields = ["id", "object_id"]
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+
+        scene_id = int(data["id"])
+        object_id = int(data["object_id"])
+
+        # 设置停止标志
+        pick_stop_flag = True
+        # 清空抓取目标，立即终止当前抓取命令
+        pick_robot_goals = {}
+        logger.info("已接收抓取停止命令，将终止当前抓取操作")
+
+        request_response_log.append(
+            {
+                "event_type": "stop_pick_command",
+                "message": "抓取停止命令已发出",
+            }
+        )
+
+        return jsonify({"code": 200, "message": "抓取操作已停止"}), 200
+    except Exception as e:
+        logger.error(f"停止抓取操作时出错: {e}", exc_info=True)
+        return jsonify({"code": 500, "message": f"停止抓取失败: {str(e)}"}), 500
 
 
 @app.route("/api/v1/capture/get_relative_pos", methods=["POST"])

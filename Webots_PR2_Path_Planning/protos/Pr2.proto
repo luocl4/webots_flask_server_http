@@ -24,7 +24,8 @@ PROTO Pr2 [
    field MFNode     extensionSlot2  []          # CUSTOM: adds a slot for a new device
    field MFNode     leftToolSlot        []           # Extend the robot with new nodes at the end of the arm.
    field MFNode     rightToolSlot        []           # Extend the robot with new nodes at the end of the arm.
-   field SFFloat    shoulderPanInitPos 3.14
+   field MFNode     rightArmRightFingerToolSlot  []
+   field MFNode     rightArmLeftFingerToolSlot   []
 ]
 {
   Robot {
@@ -2010,6 +2011,10 @@ PROTO Pr2 [
                                                                                           url "meshes/r_gripper_r_finger_joint_0.obj"
                                                                                         }
                                                                                       }
+                                                                                      Pose {
+                                                                                        translation 0 0.09 0
+                                                                                        children IS rightArmLeftFingerToolSlot  
+                                                                                      }
                                                                                     ]
                                                                                   }
                                                                                 }
@@ -2122,6 +2127,10 @@ PROTO Pr2 [
                                                                                             geometry Mesh {
                                                                                               url "meshes/l_gripper_l_finger_tip_contact_sensor_0.obj"
                                                                                             }
+                                                                                          }
+                                                                                          Pose {
+                                                                                            translation 0 0.09 0
+                                                                                            children IS rightArmRightFingerToolSlot  
                                                                                           }
                                                                                         ]
                                                                                       }

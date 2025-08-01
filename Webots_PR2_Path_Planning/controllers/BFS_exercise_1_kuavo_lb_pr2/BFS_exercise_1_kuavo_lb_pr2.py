@@ -1266,10 +1266,10 @@ def run_arm_pick(goal_arm, robot_id):
     # print("pick步骤4: 移动腰部到初始位置/最低位置")
     # set_arm_joint_positions_with_feedback(yao_motors,yao_sensors,yao_lowest_pose,tolerance=0.02,max_steps=200,)
     print("--------------------")
-    left_arm_distance_sensor.enable(timestep)
-    right_arm_1_distance_sensor.enable(timestep)
-    right_arm_2_distance_sensor.enable(timestep)
-    right_arm_3_distance_sensor.enable(timestep)
+    # left_arm_distance_sensor.enable(timestep)
+    # right_arm_1_distance_sensor.enable(timestep)
+    # right_arm_2_distance_sensor.enable(timestep)
+    # right_arm_3_distance_sensor.enable(timestep)
     # while robot.step(timestep) != -1:
     #     # 读取三个传感器数值
     #     v1 = right_arm_1_distance_sensor.getValue()
@@ -1291,19 +1291,19 @@ def run_arm_pick(goal_arm, robot_id):
     # robot.step(5*MOVE_DURATION_STEPS)
     # 4. 夹紧物体
     print("pick步骤5: 关闭右夹爪抓取物体")
-    right_arm_touch_sensor.enable(timestep)
-    while robot.step(timestep) != -1:
-        # BUMPER 类型: 返回 0 或 1
-        value = right_arm_touch_sensor.getValue()
-        print("接触状态:", "触碰" if value > 0 else "未触碰")
-        if value > 0:
-            break
+    # right_arm_touch_sensor.enable(timestep)
+    # while robot.step(timestep) != -1:
+    #     # BUMPER 类型: 返回 0 或 1
+    #     value = right_arm_touch_sensor.getValue()
+    #     print("接触状态:", "触碰" if value > 0 else "未触碰")
+    #     if value > 0:
+    #         break
 
     if goal_arm == "left" or goal_arm == "both":
         set_gripper_position(left_gripper_motors, CLOSE_GRIPPER_POS)
     if goal_arm == "right" or goal_arm == "both":
         set_gripper_position(right_gripper_motors, CLOSE_GRIPPER_POS)
-    right_arm_touch_sensor.enable(timestep)
+    # right_arm_touch_sensor.enable(timestep)
 
     robot.step(MOVE_DURATION_STEPS)
     # time.sleep(1)
@@ -2080,10 +2080,10 @@ while robot.step(timestep) != -1:
                     r_hand_rpy = np.array(command_data.get("right_angle"))
 
                     if goal_arm == "left":
-                        r_hand_pose = [0.951, -0.188, 0.790675]
+                        r_hand_pose = [0.921, -0.188, 0.790675]
                         r_hand_rpy = [0, 0, 0]
                     elif goal_arm == "right":
-                        l_hand_pose = [0.951, 0.188, 0.790675]
+                        l_hand_pose = [0.921, 0.188, 0.790675]
                         l_hand_rpy = [0, 0, 0]
                     print("------------现在在执行抓取任务------------")
                     print("l_hand_pose:", l_hand_pose)
@@ -2195,10 +2195,10 @@ while robot.step(timestep) != -1:
                     r_hand_rpy = np.array(command_data.get("right_angle"))
 
                     if goal_arm == "left":
-                        r_hand_pose = [0.951, -0.188, 0.790675]
+                        r_hand_pose = [0.921, -0.188, 0.790675]
                         r_hand_rpy = [0, 0, 0]
                     elif goal_arm == "right":
-                        l_hand_pose = [0.951, 0.188, 0.790675]
+                        l_hand_pose = [0.921, 0.188, 0.790675]
                         l_hand_rpy = [0, 0, 0]
 
                     print("------------现在在执行放置任务------------")
@@ -2300,10 +2300,10 @@ while robot.step(timestep) != -1:
                     r_hand_rpy = np.array(command_data.get("right_angle"))
 
                     if goal_arm == "left":
-                        r_hand_pose = [0.951, -0.188, 0.790675]
+                        r_hand_pose = [0.921, -0.188, 0.790675]
                         r_hand_rpy = [0, 0, 0]
                     elif goal_arm == "right":
-                        l_hand_pose = [0.951, 0.188, 0.790675]
+                        l_hand_pose = [0.921, 0.188, 0.790675]
                         l_hand_rpy = [0, 0, 0]
 
                     print("l_hand_pose:", l_hand_pose)
