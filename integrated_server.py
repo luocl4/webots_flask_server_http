@@ -91,8 +91,10 @@ current_left_pos = []
 current_right_pos = []
 current_left_rpy = []
 current_right_rpy = []
+recognize_result = False
 robot_status = {"robot_position": (0, 0), "status": ""}  # 存储机器人的位置和状态信息
-pick_stop_flag = False
+pick_and_place_stop_flag = False
+pick_and_place_stop_result = False
 
 
 ability_dict = {
@@ -311,16 +313,21 @@ def update_world_status():
 @app.route("/robot_command", methods=["GET"])
 def get_robot_command():
     """获取机器人命令"""
-    global pick_stop_flag, robot_goals, robot_stop_flag, capture_robot_goals, pick_robot_goals, place_robot_goals, arm_go_pos_robot_goal
+    global pick_and_place_stop_flag, robot_goals, robot_stop_flag, capture_robot_goals, pick_robot_goals, place_robot_goals, arm_go_pos_robot_goal
     command_to_send = {}
-
-    # 优先处理抓取停止命令
-    if pick_stop_flag:
-        pick_stop_flag = False
-        return jsonify(None), 200
 
     if robot_stop_flag:
         robot_stop_flag = False
+        return jsonify(None), 200
+
+    if pick_and_place_stop_flag:
+        # command_to_send["source"] = "pick_stop"
+        capture_robot_goals = {}
+        pick_robot_goals = {}
+        place_robot_goals = {}
+        robot_goals = {}
+        arm_go_pos_robot_goal = {}
+        pick_and_place_stop_flag = False  # 停止指令已经下发，重置
         return jsonify(None), 200
 
     if capture_robot_goals:
@@ -494,7 +501,7 @@ def get_sl_status():
 @app.route("/robot_status", methods=["POST"])
 def update_robot_status():
     """更新机器人状态"""
-    global current_left_rpy, current_right_rpy, current_left_pos, current_right_pos, result_pick, result_place, robot_status, robot_goals, robot_status_dict, capture_robot_goals, pick_robot_goals, place_robot_goals, fail_pick, fail_place, fail_arm_go_pos, arm_go_pos_robot_goal
+    global pick_and_place_stop_result, current_left_rpy, current_right_rpy, current_left_pos, current_right_pos, result_pick, result_place, robot_status, robot_goals, robot_status_dict, capture_robot_goals, pick_robot_goals, place_robot_goals, fail_pick, fail_place, fail_arm_go_pos, arm_go_pos_robot_goal
     data = request.get_json()
     # 获取status字典（如果存在）
     status_dict = data.get("status")
@@ -541,19 +548,24 @@ def update_robot_status():
                 current_right_pos = status_dict.get("current_right_pos")
                 current_left_rpy = status_dict.get("current_left_rpy")
                 current_right_rpy = status_dict.get("current_right_rpy")
+        elif task == "stop_pick":
+            pick_and_place_stop_result = True
+            print("pick_and_place_stop_result", pick_and_place_stop_result)
 
         if (
             task == "capture"
             or task == "pick"
             or task == "place"
             or task == "arm_to_go"
+            or task == "stop_pick"
         ):
-            print(data)
+            # print(data)
             capture_robot_goals = {}
             pick_robot_goals = {}
             place_robot_goals = {}
             robot_goals = {}
             arm_go_pos_robot_goal = {}
+
             return jsonify({"message": "Status updated"}), 200
 
     # 检查数据有效性
@@ -2165,42 +2177,6 @@ def place_result():
     return jsonify({"code": 200, "message": res}), 200
 
 
-@app.route("/api/v1/capture/stop_pick", methods=["POST"])
-def stop_pick():
-    """停止当前抓取操作"""
-    global pick_stop_flag, pick_robot_goals
-    try:
-        data = request.get_json()
-        if not data:
-            return jsonify({"code": 400, "message": "参数为空"}), 400
-
-        required_fields = ["id", "object_id"]
-        for field in required_fields:
-            if field not in data:
-                return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
-
-        scene_id = int(data["id"])
-        object_id = int(data["object_id"])
-
-        # 设置停止标志
-        pick_stop_flag = True
-        # 清空抓取目标，立即终止当前抓取命令
-        pick_robot_goals = {}
-        logger.info("已接收抓取停止命令，将终止当前抓取操作")
-
-        request_response_log.append(
-            {
-                "event_type": "stop_pick_command",
-                "message": "抓取停止命令已发出",
-            }
-        )
-
-        return jsonify({"code": 200, "message": "抓取操作已停止"}), 200
-    except Exception as e:
-        logger.error(f"停止抓取操作时出错: {e}", exc_info=True)
-        return jsonify({"code": 500, "message": f"停止抓取失败: {str(e)}"}), 500
-
-
 @app.route("/api/v1/capture/get_relative_pos", methods=["POST"])
 def get_relative_pos():
     """
@@ -2651,6 +2627,341 @@ def get_reachable_objects():
         ),
         200,
     )
+
+
+@app.route("/api/v1/capture/recognize", methods=["POST"])
+def recognize():
+    global supervisor_world_status_log, recognize_result
+    recognize_result = False
+    try:
+        # 获取请求参数
+        data = request.get_json()
+        if not data:
+            return (
+                jsonify(
+                    {"code": 400, "message": "参数为空，请提供场景ID、机器人ID和物品ID"}
+                ),
+                400,
+            )
+
+        # 验证必填参数
+        required_fields = ["id", "robot_id", "object_id"]
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+
+        # 解析参数
+        scene_id = str(data["id"])
+        try:
+            robot_id = int(data["robot_id"])
+            object_id = int(data["object_id"])
+        except ValueError:
+            return (
+                jsonify({"code": 400, "message": "robot_id和object_id必须为整数"}),
+                400,
+            )
+
+        # 检查是否有世界状态数据
+        if not supervisor_world_status_log:
+            return (
+                jsonify(
+                    {"code": 404, "message": "暂无世界状态数据，请确保场景已正确加载"}
+                ),
+                404,
+            )
+
+        # 获取最新的世界状态数据
+        latest_log_entry = supervisor_world_status_log[-1]
+        nodes_data = latest_log_entry.get("data", [])
+
+        # 查找机器人和目标物品的绝对坐标及机器人朝向
+        robot_abs_pos = None  # 机器人绝对坐标 (x, y, z)
+        robot_rpy = None  # 机器人朝向 [roll, pitch, yaw]（弧度）
+        object_abs_pos = None  # 物品绝对坐标 (x, y, z)
+
+        for node in nodes_data:
+            node_id = node.get("id")
+            # 匹配机器人ID
+            if node_id == robot_id:
+                robot_abs_pos = node.get("position", [0, 0, 0])
+
+                # 从rotation_degrees字段获取欧拉角并转换为弧度
+                rotation_degrees = node.get("rotation_degrees", {})
+                roll_deg = rotation_degrees.get("roll", 0)
+                pitch_deg = rotation_degrees.get("pitch", 0)
+                yaw_deg = rotation_degrees.get("yaw", 0)
+
+                # 将角度转换为弧度
+                robot_rpy = [
+                    math.radians(roll_deg),
+                    math.radians(pitch_deg),
+                    math.radians(yaw_deg),
+                ]
+
+                # 确保坐标是长度为3的列表
+                if not isinstance(robot_abs_pos, list) or len(robot_abs_pos) < 3:
+                    robot_abs_pos = [0, 0, 0]
+
+            # 匹配物品ID
+            if node_id == object_id:
+                object_abs_pos = node.get("position", [0, 0, 0])
+                # 确保坐标是长度为3的列表
+                if not isinstance(object_abs_pos, list) or len(object_abs_pos) < 3:
+                    object_abs_pos = [0, 0, 0]
+
+        # 检查是否找到机器人和物品
+        if robot_abs_pos is None:
+            return (
+                jsonify({"code": 404, "message": f"未找到ID为 {robot_id} 的机器人"}),
+                404,
+            )
+
+        if object_abs_pos is None:
+            return (
+                jsonify({"code": 404, "message": f"未找到ID为 {object_id} 的物品"}),
+                404,
+            )
+
+        # 提取欧拉角（单位：弧度）
+        roll, pitch, yaw = robot_rpy
+
+        # 计算物品相对于机器人的偏移向量（世界坐标系）
+        dx = safe_float(object_abs_pos[0]) - safe_float(robot_abs_pos[0])
+        dy = safe_float(object_abs_pos[1]) - safe_float(robot_abs_pos[1])
+        dz = safe_float(object_abs_pos[2]) - safe_float(robot_abs_pos[2])
+
+        # 计算旋转矩阵（世界坐标系到机器人坐标系的变换）
+        # ZYX顺规（yaw-pitch-roll）旋转矩阵
+        cr = math.cos(roll)
+        sr = math.sin(roll)
+        cp = math.cos(pitch)
+        sp = math.sin(pitch)
+        cy = math.cos(yaw)
+        sy = math.sin(yaw)
+
+        # 构建旋转矩阵（注意：这里是世界坐标系到机器人坐标系的变换）
+        R = np.array(
+            [
+                [cy * cp, cy * sp * sr - sy * cr, cy * sp * cr + sy * sr],
+                [sy * cp, sy * sp * sr + cy * cr, sy * sp * cr - cy * sr],
+                [-sp, cp * sr, cp * cr],
+            ]
+        )
+
+        # 计算相对坐标（将世界坐标系中的偏移向量转换到机器人坐标系）
+        # 注意：这里应该使用旋转矩阵的转置（即逆变换）
+        relative_vector = np.dot(R.T, np.array([dx, dy, dz]))
+        relative_x = relative_vector[0]
+        relative_y = relative_vector[1]
+        relative_z = relative_vector[2]
+
+        # 判断是否可以手伸到
+        arm_ik = ArmIk(
+            model_file="./Webots_PR2_Path_Planning/protos/pr2/pr2.urdf", visualize=False
+        )
+        q0 = arm_ik.get_init_q()
+        if relative_y > 0:  # 大于0用左手
+            l_hand_pose = [relative_x, relative_y, relative_z]
+            r_hand_pose = [0.921, -0.188, 0.790675]
+            suggested_hand = "left"
+        else:  # 小于等于0用右手
+            l_hand_pose = [0.6673, 0.2719, 1.2414]
+            r_hand_pose = [relative_x, relative_y, relative_z]
+            suggested_hand = "right"
+
+        sol_q = arm_ik.computeIK(q0, l_hand_pose, r_hand_pose, [0, 0, 0], [0, 0, 0])
+        can_reach = sol_q is not None
+
+        # 整理返回数据
+        recognize_result = True
+        return (
+            jsonify(
+                {
+                    "code": 200,
+                    "message": "success",
+                    "data": {
+                        # 绝对坐标信息（用于调试和验证）
+                        # "absolute_coordinates": {
+                        #     "robot": {
+                        #         "x": f"{safe_float(robot_abs_pos[0]):.4f}",
+                        #         "y": f"{safe_float(robot_abs_pos[1]):.4f}",
+                        #         "z": f"{safe_float(robot_abs_pos[2]):.4f}",
+                        #     },
+                        #     "object": {
+                        #         "x": f"{safe_float(object_abs_pos[0]):.4f}",
+                        #         "y": f"{safe_float(object_abs_pos[1]):.4f}",
+                        #         "z": f"{safe_float(object_abs_pos[2]):.4f}",
+                        #     },
+                        # },
+                        # 相对坐标信息（物品相对于机器人）
+                        "relative_coordinates": {
+                            "x": f"{relative_x:.4f}",  # X轴相对距离（机器人坐标系）
+                            "y": f"{relative_y:.4f}",  # Y轴相对距离（机器人坐标系）
+                            "z": f"{relative_z:.4f}",  # Z轴相对距离（机器人坐标系）
+                        },
+                        "reach_orientation": {
+                            "x": 0,
+                            "y": 0,
+                            "z": 1.57,
+                        },
+                        # # 机器人朝向信息（用于调试）
+                        # "robot_orientation": {
+                        #     "roll_rad": f"{roll:.4f}",  # 绕X轴旋转角度（弧度）
+                        #     "pitch_rad": f"{pitch:.4f}",  # 绕Y轴旋转角度（弧度）
+                        #     "yaw_rad": f"{yaw:.4f}",  # 绕Z轴旋转角度（弧度）
+                        #     "roll_deg": f"{roll_deg:.4f}",  # 绕X轴旋转角度（角度）
+                        #     "pitch_deg": f"{pitch_deg:.4f}",  # 绕Y轴旋转角度（角度）
+                        #     "yaw_deg": f"{yaw_deg:.4f}",  # 绕Z轴旋转角度（角度）
+                        # },
+                        # 新增：逆解结果与手部建议
+                        # "inverse_kinematics_result": {
+                        #     "can_reach": can_reach,
+                        #     # "suggested_hand": suggested_hand,
+                        # },
+                    },
+                }
+            ),
+            200,
+        )
+
+    except Exception as e:
+        logger.error(f"获取相对坐标时出错: {str(e)}")
+        return jsonify({"code": 500, "message": f"服务器错误: {str(e)}"}), 500
+
+
+@app.route("/api/v1/capture/recognize_result", methods=["POST"])
+def recognize_result():
+    global recognize_result, supervisor_world_status_log
+
+    data = request.get_json()
+    if not data:
+        return jsonify({"code": 400, "message": "参数为空"}), 400
+
+    required_fields = ["id", "robot_id"]
+    for field in required_fields:
+        if field not in data:
+            return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+
+    scene_id = str(data["id"])
+    robot_id = str(data["robot_id"])
+
+    if not supervisor_world_status_log:
+        return jsonify({"code": 404, "message": "暂无世界状态数据"}), 404
+
+    if recognize_result:
+        recognize_result = False
+        return jsonify({"code": 200, "message": True}), 200
+    else:
+        return jsonify({"code": 200, "message": False}), 200
+
+
+@app.route("/api/v1/capture/recognize_stop", methods=["POST"])
+def recognize_stop():
+    global supervisor_world_status_log
+    try:
+        # 获取请求参数
+        data = request.get_json()
+        if not data:
+            return (
+                jsonify(
+                    {"code": 400, "message": "参数为空，请提供场景ID、机器人ID和物品ID"}
+                ),
+                400,
+            )
+
+        # 验证必填参数
+        required_fields = ["id", "robot_id", "object_id"]
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+
+        # 解析参数
+        scene_id = str(data["id"])
+        try:
+            robot_id = int(data["robot_id"])
+            object_id = int(data["object_id"])
+        except ValueError:
+            return (
+                jsonify({"code": 400, "message": "robot_id和object_id必须为整数"}),
+                400,
+            )
+
+        # 检查是否有世界状态数据
+        if not supervisor_world_status_log:
+            return (
+                jsonify(
+                    {"code": 404, "message": "暂无世界状态数据，请确保场景已正确加载"}
+                ),
+                404,
+            )
+
+        return (
+            jsonify(
+                {
+                    "code": 200,
+                    "message": "成功停止",
+                }
+            ),
+            200,
+        )
+
+    except Exception as e:
+        logger.error(f"获取相对坐标时出错: {str(e)}")
+        return jsonify({"code": 500, "message": f"服务器错误: {str(e)}"}), 500
+
+
+@app.route("/api/v1/capture/stop", methods=["POST"])
+def pick_and_place_stop():
+    """停止当前抓取操作"""
+    global pick_and_place_stop_flag, pick_and_place_stop_result
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"code": 400, "message": "参数为空"}), 400
+
+        required_fields = ["id", "robot_id"]
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
+
+        scene_id = int(data["id"])
+        robot_id = int(data["robot_id"])
+
+        # 设置停止标志
+        pick_and_place_stop_flag = True
+        # 清空抓取目标，立即终止当前抓取命令
+
+        max_attempts = 30000
+        attempt = 0
+        while attempt < max_attempts:
+            if pick_and_place_stop_result:
+                pick_and_place_stop_result = False
+                return (
+                    jsonify(
+                        {
+                            "code": 200,
+                            "message": "抓取操作已经停止",
+                        }
+                    ),
+                    400,
+                )
+            # 模拟等待（实际场景中可能是其他异步操作）
+            time.sleep(1)
+            attempt += 1
+
+        # 超过最大尝试次数后返回
+        return (
+            jsonify(
+                {
+                    "code": 408,
+                    "message": "停止抓取操作超时",
+                }
+            ),
+            408,
+        )
+    except Exception as e:
+        logger.error(f"停止抓取操作时出错: {e}", exc_info=True)
+        return jsonify({"code": 500, "message": f"停止抓取失败: {str(e)}"}), 500
 
 
 # ================= 定期打印状态线程 =================

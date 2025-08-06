@@ -201,5 +201,40 @@
             }
         ],
         "description": "两个pr2机器人,静止传送带，方块工件，0724拍视频用"
+    },
+    "6": {
+        "id": "6",
+        "name": "move test scene",
+        "version": "1.0.0",
+        "world_file": "testssslb.wbt",
+        "corners": [
+            [
+                4,
+                4
+            ],
+            [
+                -4,
+                -4
+            ],
+            [
+                4,
+                -4
+            ],
+            [
+                -4,
+                4
+            ]
+        ],
+        "working_dir": "./Webots_PR2_Path_Planning/worlds",
+        "label_point": [
+            {
+                "p1": {
+                    "x": 0,
+                    "y": 0,
+                    "z": 0
+                }
+            }
+        ],
+        "description": "用于测试机器人移动功能的较大场景，小地图在mini_map/obstacle_maptest.txt"
     }
 }

@@ -6,11 +6,11 @@
                 "name": "PR2_ROBOT1",
                 "position": [
                     -0.368,
-                    -0.615,
+                    -0.616,
                     -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.08,
+                    "roll": 0.02,
                     "pitch": 0.05,
                     "yaw": 179.87
                 },
@@ -32,14 +32,14 @@
             {
                 "name": "cardboard_box(1)",
                 "position": [
-                    -1.019,
-                    -0.431,
-                    1.137
+                    -1.054,
+                    -0.446,
+                    0.999
                 ],
                 "rotation_degrees": {
-                    "roll": -36.65,
-                    "pitch": 46.54,
-                    "yaw": -174.8
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": -86.65
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -54,15 +54,15 @@
                     "both_place"
                 ],
                 "obj_type": "2",
-                "is_moving": true,
+                "is_moving": false,
                 "id": 2
             },
             {
                 "name": "cardboard_box(2)",
                 "position": [
-                    -1.074,
+                    -1.076,
                     -0.726,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
@@ -89,13 +89,13 @@
                 "name": "cardboard_box(3)",
                 "position": [
                     0.415,
-                    -1.646,
-                    0.925
+                    -1.65,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": -0.0,
-                    "yaw": -119.54
+                    "yaw": -119.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -116,14 +116,14 @@
             {
                 "name": "cardboard_box(4)",
                 "position": [
-                    1.161,
+                    1.163,
                     0.83,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": 132.9
+                    "yaw": 132.87
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -144,14 +144,14 @@
             {
                 "name": "cardboard_box(5)",
                 "position": [
-                    1.087,
-                    0.983,
-                    0.025
+                    -0.301,
+                    1.548,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.0,
-                    "pitch": -0.0,
-                    "yaw": 117.09
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 77.52
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -173,13 +173,13 @@
                 "name": "cardboard_box(6)",
                 "position": [
                     0.564,
-                    -1.651,
-                    0.924
+                    -1.655,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": 0.0,
-                    "yaw": -7.54
+                    "yaw": -7.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -200,14 +200,14 @@
             {
                 "name": "cardboard_box(7)",
                 "position": [
-                    -0.691,
-                    -1.679,
-                    0.924
+                    -0.65,
+                    -1.683,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": 0.38,
-                    "pitch": 0.28,
-                    "yaw": -15.42
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -19.97
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -228,14 +228,14 @@
             {
                 "name": "cardboard_box(8)",
                 "position": [
-                    0.909,
-                    1.428,
-                    0.925
+                    0.922,
+                    1.42,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.09,
-                    "pitch": 0.01,
-                    "yaw": 170.11
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": 166.48
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -376,7 +376,7 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.912,
+                    0.911,
                     -0.005
                 ],
                 "rotation_degrees": {
@@ -409,13 +409,13 @@
                 "name": "PR2_ROBOT1",
                 "position": [
                     -0.368,
-                    -0.615,
+                    -0.616,
                     -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.18,
-                    "pitch": 0.24,
-                    "yaw": 179.86
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": 179.87
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -435,14 +435,14 @@
             {
                 "name": "cardboard_box(1)",
                 "position": [
-                    -1.029,
-                    -0.438,
-                    1.377
+                    -1.054,
+                    -0.446,
+                    0.999
                 ],
                 "rotation_degrees": {
-                    "roll": -6.94,
-                    "pitch": -28.81,
-                    "yaw": -168.99
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": -86.65
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -457,15 +457,15 @@
                     "both_place"
                 ],
                 "obj_type": "2",
-                "is_moving": true,
+                "is_moving": false,
                 "id": 2
             },
             {
                 "name": "cardboard_box(2)",
                 "position": [
-                    -1.074,
+                    -1.076,
                     -0.726,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
@@ -492,13 +492,13 @@
                 "name": "cardboard_box(3)",
                 "position": [
                     0.415,
-                    -1.646,
-                    0.925
+                    -1.65,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": -0.0,
-                    "yaw": -119.54
+                    "yaw": -119.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -519,14 +519,14 @@
             {
                 "name": "cardboard_box(4)",
                 "position": [
-                    1.161,
+                    1.163,
                     0.83,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": 132.9
+                    "yaw": 132.87
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -547,14 +547,14 @@
             {
                 "name": "cardboard_box(5)",
                 "position": [
-                    1.087,
-                    0.983,
-                    0.025
+                    -0.301,
+                    1.548,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.0,
-                    "pitch": -0.0,
-                    "yaw": 117.09
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 77.52
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -576,13 +576,13 @@
                 "name": "cardboard_box(6)",
                 "position": [
                     0.564,
-                    -1.651,
-                    0.924
+                    -1.655,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": 0.0,
-                    "yaw": -7.54
+                    "yaw": -7.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -603,14 +603,14 @@
             {
                 "name": "cardboard_box(7)",
                 "position": [
-                    -0.691,
-                    -1.678,
-                    0.925
+                    -0.65,
+                    -1.683,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.23,
-                    "pitch": 0.36,
-                    "yaw": -15.31
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -19.97
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -631,14 +631,14 @@
             {
                 "name": "cardboard_box(8)",
                 "position": [
-                    0.909,
-                    1.428,
-                    0.925
+                    0.922,
+                    1.42,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": 0.1,
-                    "pitch": -0.17,
-                    "yaw": 170.12
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": 166.48
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -779,7 +779,7 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.912,
+                    0.911,
                     -0.005
                 ],
                 "rotation_degrees": {
@@ -812,13 +812,13 @@
                 "name": "PR2_ROBOT1",
                 "position": [
                     -0.368,
-                    -0.615,
+                    -0.616,
                     -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.13,
-                    "pitch": 0.18,
-                    "yaw": 179.86
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": 179.87
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -838,14 +838,14 @@
             {
                 "name": "cardboard_box(1)",
                 "position": [
-                    -1.027,
-                    -0.439,
-                    1.378
+                    -1.054,
+                    -0.446,
+                    0.999
                 ],
                 "rotation_degrees": {
-                    "roll": -7.02,
-                    "pitch": -28.9,
-                    "yaw": -168.94
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": -86.65
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -866,9 +866,9 @@
             {
                 "name": "cardboard_box(2)",
                 "position": [
-                    -1.074,
+                    -1.076,
                     -0.726,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
@@ -895,13 +895,13 @@
                 "name": "cardboard_box(3)",
                 "position": [
                     0.415,
-                    -1.646,
-                    0.925
+                    -1.65,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": -0.0,
-                    "yaw": -119.54
+                    "yaw": -119.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -922,14 +922,14 @@
             {
                 "name": "cardboard_box(4)",
                 "position": [
-                    1.161,
+                    1.163,
                     0.83,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": 132.9
+                    "yaw": 132.87
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -950,14 +950,14 @@
             {
                 "name": "cardboard_box(5)",
                 "position": [
-                    1.087,
-                    0.983,
-                    0.025
+                    -0.301,
+                    1.548,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.0,
-                    "pitch": -0.0,
-                    "yaw": 117.09
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 77.52
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -979,13 +979,13 @@
                 "name": "cardboard_box(6)",
                 "position": [
                     0.564,
-                    -1.651,
-                    0.924
+                    -1.655,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": 0.0,
-                    "yaw": -7.54
+                    "yaw": -7.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1006,14 +1006,14 @@
             {
                 "name": "cardboard_box(7)",
                 "position": [
-                    -0.691,
-                    -1.678,
-                    0.924
+                    -0.65,
+                    -1.683,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.32,
-                    "pitch": 0.4,
-                    "yaw": -15.2
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -19.97
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1034,14 +1034,14 @@
             {
                 "name": "cardboard_box(8)",
                 "position": [
-                    0.909,
-                    1.428,
-                    0.925
+                    0.922,
+                    1.42,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": 0.23,
-                    "pitch": -0.2,
-                    "yaw": 170.14
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": 166.48
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1182,7 +1182,7 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.912,
+                    0.911,
                     -0.005
                 ],
                 "rotation_degrees": {
@@ -1215,13 +1215,13 @@
                 "name": "PR2_ROBOT1",
                 "position": [
                     -0.368,
-                    -0.615,
+                    -0.616,
                     -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.12,
-                    "pitch": 0.16,
-                    "yaw": 179.86
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": 179.87
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -1241,14 +1241,14 @@
             {
                 "name": "cardboard_box(1)",
                 "position": [
-                    -1.027,
-                    -0.439,
-                    1.378
+                    -1.054,
+                    -0.446,
+                    0.999
                 ],
                 "rotation_degrees": {
-                    "roll": -7.04,
-                    "pitch": -28.91,
-                    "yaw": -168.93
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": -86.65
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1269,9 +1269,9 @@
             {
                 "name": "cardboard_box(2)",
                 "position": [
-                    -1.074,
+                    -1.076,
                     -0.726,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
@@ -1298,13 +1298,13 @@
                 "name": "cardboard_box(3)",
                 "position": [
                     0.415,
-                    -1.646,
-                    0.925
+                    -1.65,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": -0.0,
-                    "yaw": -119.54
+                    "yaw": -119.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1325,14 +1325,14 @@
             {
                 "name": "cardboard_box(4)",
                 "position": [
-                    1.161,
+                    1.163,
                     0.83,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": 132.9
+                    "yaw": 132.87
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1353,14 +1353,14 @@
             {
                 "name": "cardboard_box(5)",
                 "position": [
-                    1.087,
-                    0.983,
-                    0.025
+                    -0.301,
+                    1.548,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.0,
-                    "pitch": -0.0,
-                    "yaw": 117.09
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 77.52
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1382,13 +1382,13 @@
                 "name": "cardboard_box(6)",
                 "position": [
                     0.564,
-                    -1.651,
-                    0.924
+                    -1.655,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": 0.0,
-                    "yaw": -7.54
+                    "yaw": -7.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1409,14 +1409,14 @@
             {
                 "name": "cardboard_box(7)",
                 "position": [
-                    -0.691,
-                    -1.678,
-                    0.925
+                    -0.65,
+                    -1.683,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": 0.29,
-                    "pitch": 0.29,
-                    "yaw": -15.09
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -19.97
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1437,14 +1437,14 @@
             {
                 "name": "cardboard_box(8)",
                 "position": [
-                    0.909,
-                    1.428,
-                    0.925
+                    0.922,
+                    1.42,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.32,
-                    "pitch": -0.14,
-                    "yaw": 170.16
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": 166.48
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1585,7 +1585,7 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.912,
+                    0.911,
                     -0.005
                 ],
                 "rotation_degrees": {
@@ -1618,13 +1618,13 @@
                 "name": "PR2_ROBOT1",
                 "position": [
                     -0.368,
-                    -0.615,
+                    -0.616,
                     -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.12,
-                    "pitch": 0.16,
-                    "yaw": 179.86
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": 179.87
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -1644,14 +1644,14 @@
             {
                 "name": "cardboard_box(1)",
                 "position": [
-                    -1.026,
-                    -0.439,
-                    1.378
+                    -1.054,
+                    -0.446,
+                    0.999
                 ],
                 "rotation_degrees": {
-                    "roll": -7.04,
-                    "pitch": -28.92,
-                    "yaw": -168.93
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": -86.65
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1672,9 +1672,9 @@
             {
                 "name": "cardboard_box(2)",
                 "position": [
-                    -1.074,
+                    -1.076,
                     -0.726,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
@@ -1701,13 +1701,13 @@
                 "name": "cardboard_box(3)",
                 "position": [
                     0.415,
-                    -1.646,
-                    0.925
+                    -1.65,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": -0.0,
-                    "yaw": -119.54
+                    "yaw": -119.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1728,14 +1728,14 @@
             {
                 "name": "cardboard_box(4)",
                 "position": [
-                    1.161,
+                    1.163,
                     0.83,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": 132.9
+                    "yaw": 132.87
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1756,14 +1756,14 @@
             {
                 "name": "cardboard_box(5)",
                 "position": [
-                    1.087,
-                    0.983,
-                    0.025
+                    -0.301,
+                    1.548,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.0,
-                    "pitch": -0.0,
-                    "yaw": 117.09
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 77.52
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1785,13 +1785,13 @@
                 "name": "cardboard_box(6)",
                 "position": [
                     0.564,
-                    -1.651,
-                    0.924
+                    -1.655,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": 0.0,
-                    "yaw": -7.54
+                    "yaw": -7.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1812,14 +1812,14 @@
             {
                 "name": "cardboard_box(7)",
                 "position": [
-                    -0.691,
-                    -1.678,
-                    0.924
+                    -0.65,
+                    -1.683,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": 0.38,
-                    "pitch": 0.23,
-                    "yaw": -14.99
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -19.97
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1840,14 +1840,14 @@
             {
                 "name": "cardboard_box(8)",
                 "position": [
-                    0.909,
-                    1.428,
-                    0.924
+                    0.922,
+                    1.42,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.37,
-                    "pitch": -0.19,
-                    "yaw": 170.17
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": 166.48
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -1988,7 +1988,7 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.912,
+                    0.911,
                     -0.005
                 ],
                 "rotation_degrees": {
@@ -2021,13 +2021,13 @@
                 "name": "PR2_ROBOT1",
                 "position": [
                     -0.368,
-                    -0.615,
+                    -0.616,
                     -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.12,
-                    "pitch": 0.16,
-                    "yaw": 179.86
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": 179.87
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -2047,14 +2047,14 @@
             {
                 "name": "cardboard_box(1)",
                 "position": [
-                    -1.026,
-                    -0.439,
-                    1.378
+                    -1.054,
+                    -0.446,
+                    0.999
                 ],
                 "rotation_degrees": {
-                    "roll": -7.04,
-                    "pitch": -28.92,
-                    "yaw": -168.94
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": -86.65
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2075,9 +2075,9 @@
             {
                 "name": "cardboard_box(2)",
                 "position": [
-                    -1.074,
+                    -1.076,
                     -0.726,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
@@ -2104,13 +2104,13 @@
                 "name": "cardboard_box(3)",
                 "position": [
                     0.415,
-                    -1.646,
-                    0.925
+                    -1.65,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": -0.0,
-                    "yaw": -119.54
+                    "yaw": -119.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2131,14 +2131,14 @@
             {
                 "name": "cardboard_box(4)",
                 "position": [
-                    1.161,
+                    1.163,
                     0.83,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": 132.9
+                    "yaw": 132.87
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2159,14 +2159,14 @@
             {
                 "name": "cardboard_box(5)",
                 "position": [
-                    1.087,
-                    0.983,
-                    0.025
+                    -0.301,
+                    1.548,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.0,
-                    "pitch": -0.0,
-                    "yaw": 117.09
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 77.52
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2188,13 +2188,13 @@
                 "name": "cardboard_box(6)",
                 "position": [
                     0.564,
-                    -1.651,
-                    0.924
+                    -1.655,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": 0.0,
-                    "yaw": -7.54
+                    "yaw": -7.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2215,14 +2215,14 @@
             {
                 "name": "cardboard_box(7)",
                 "position": [
-                    -0.691,
-                    -1.678,
-                    0.925
+                    -0.65,
+                    -1.683,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.22,
-                    "pitch": 0.31,
-                    "yaw": -14.88
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -19.97
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2243,14 +2243,14 @@
             {
                 "name": "cardboard_box(8)",
                 "position": [
-                    0.909,
-                    1.428,
-                    0.925
+                    0.922,
+                    1.42,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": 0.3,
-                    "pitch": -0.1,
-                    "yaw": 170.2
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": 166.48
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2391,7 +2391,7 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.912,
+                    0.911,
                     -0.005
                 ],
                 "rotation_degrees": {
@@ -2424,13 +2424,13 @@
                 "name": "PR2_ROBOT1",
                 "position": [
                     -0.368,
-                    -0.615,
+                    -0.616,
                     -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.12,
-                    "pitch": 0.15,
-                    "yaw": 179.85
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": 179.87
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -2450,14 +2450,14 @@
             {
                 "name": "cardboard_box(1)",
                 "position": [
-                    -1.026,
-                    -0.439,
-                    1.379
+                    -1.054,
+                    -0.446,
+                    0.999
                 ],
                 "rotation_degrees": {
-                    "roll": -7.04,
-                    "pitch": -28.93,
-                    "yaw": -168.94
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": -86.65
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2478,9 +2478,9 @@
             {
                 "name": "cardboard_box(2)",
                 "position": [
-                    -1.074,
+                    -1.076,
                     -0.726,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
@@ -2507,13 +2507,13 @@
                 "name": "cardboard_box(3)",
                 "position": [
                     0.415,
-                    -1.646,
-                    0.925
+                    -1.65,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": -0.0,
-                    "yaw": -119.54
+                    "yaw": -119.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2534,14 +2534,14 @@
             {
                 "name": "cardboard_box(4)",
                 "position": [
-                    1.161,
+                    1.163,
                     0.83,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": 132.9
+                    "yaw": 132.87
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2562,14 +2562,14 @@
             {
                 "name": "cardboard_box(5)",
                 "position": [
-                    1.087,
-                    0.983,
-                    0.025
+                    -0.301,
+                    1.548,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.0,
-                    "pitch": -0.0,
-                    "yaw": 117.09
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 77.52
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2591,13 +2591,13 @@
                 "name": "cardboard_box(6)",
                 "position": [
                     0.564,
-                    -1.651,
-                    0.924
+                    -1.655,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": 0.0,
-                    "yaw": -7.54
+                    "yaw": -7.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2618,14 +2618,14 @@
             {
                 "name": "cardboard_box(7)",
                 "position": [
-                    -0.691,
-                    -1.678,
-                    0.924
+                    -0.65,
+                    -1.683,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.32,
-                    "pitch": 0.35,
-                    "yaw": -14.78
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -19.97
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2646,14 +2646,14 @@
             {
                 "name": "cardboard_box(8)",
                 "position": [
-                    0.909,
-                    1.429,
-                    0.925
+                    0.922,
+                    1.42,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": 0.45,
-                    "pitch": -0.13,
-                    "yaw": 170.21
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": 166.48
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2794,7 +2794,7 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.912,
+                    0.911,
                     -0.005
                 ],
                 "rotation_degrees": {
@@ -2827,13 +2827,13 @@
                 "name": "PR2_ROBOT1",
                 "position": [
                     -0.368,
-                    -0.615,
+                    -0.616,
                     -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.11,
-                    "pitch": 0.15,
-                    "yaw": 179.85
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": 179.87
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -2853,14 +2853,14 @@
             {
                 "name": "cardboard_box(1)",
                 "position": [
-                    -1.026,
-                    -0.439,
-                    1.379
+                    -1.054,
+                    -0.446,
+                    0.999
                 ],
                 "rotation_degrees": {
-                    "roll": -7.05,
-                    "pitch": -28.93,
-                    "yaw": -168.94
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": -86.65
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2881,9 +2881,9 @@
             {
                 "name": "cardboard_box(2)",
                 "position": [
-                    -1.074,
+                    -1.076,
                     -0.726,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
@@ -2910,13 +2910,13 @@
                 "name": "cardboard_box(3)",
                 "position": [
                     0.415,
-                    -1.646,
-                    0.925
+                    -1.65,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": -0.0,
-                    "yaw": -119.54
+                    "yaw": -119.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2937,14 +2937,14 @@
             {
                 "name": "cardboard_box(4)",
                 "position": [
-                    1.161,
+                    1.163,
                     0.83,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": 132.9
+                    "yaw": 132.87
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2965,14 +2965,14 @@
             {
                 "name": "cardboard_box(5)",
                 "position": [
-                    1.087,
-                    0.983,
-                    0.025
+                    -0.301,
+                    1.548,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.0,
-                    "pitch": -0.0,
-                    "yaw": 117.09
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 77.52
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -2994,13 +2994,13 @@
                 "name": "cardboard_box(6)",
                 "position": [
                     0.564,
-                    -1.651,
-                    0.924
+                    -1.655,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": 0.0,
-                    "yaw": -7.54
+                    "yaw": -7.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3021,14 +3021,14 @@
             {
                 "name": "cardboard_box(7)",
                 "position": [
-                    -0.691,
-                    -1.678,
-                    0.925
+                    -0.65,
+                    -1.683,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": 0.29,
-                    "pitch": 0.24,
-                    "yaw": -14.69
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -19.97
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3049,14 +3049,14 @@
             {
                 "name": "cardboard_box(8)",
                 "position": [
-                    0.909,
-                    1.428,
-                    0.925
+                    0.922,
+                    1.42,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.09,
-                    "pitch": -0.07,
-                    "yaw": 170.23
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": 166.48
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3197,7 +3197,7 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.912,
+                    0.911,
                     -0.005
                 ],
                 "rotation_degrees": {
@@ -3230,13 +3230,13 @@
                 "name": "PR2_ROBOT1",
                 "position": [
                     -0.368,
-                    -0.615,
+                    -0.616,
                     -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.11,
-                    "pitch": 0.15,
-                    "yaw": 179.85
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": 179.87
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -3256,14 +3256,14 @@
             {
                 "name": "cardboard_box(1)",
                 "position": [
-                    -1.026,
-                    -0.439,
-                    1.379
+                    -1.054,
+                    -0.446,
+                    0.999
                 ],
                 "rotation_degrees": {
-                    "roll": -7.05,
-                    "pitch": -28.93,
-                    "yaw": -168.94
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": -86.65
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3284,9 +3284,9 @@
             {
                 "name": "cardboard_box(2)",
                 "position": [
-                    -1.074,
+                    -1.076,
                     -0.726,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
@@ -3313,13 +3313,13 @@
                 "name": "cardboard_box(3)",
                 "position": [
                     0.415,
-                    -1.646,
-                    0.925
+                    -1.65,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": -0.0,
-                    "yaw": -119.54
+                    "yaw": -119.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3340,14 +3340,14 @@
             {
                 "name": "cardboard_box(4)",
                 "position": [
-                    1.161,
+                    1.163,
                     0.83,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": 132.9
+                    "yaw": 132.87
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3368,14 +3368,14 @@
             {
                 "name": "cardboard_box(5)",
                 "position": [
-                    1.087,
-                    0.983,
-                    0.025
+                    -0.301,
+                    1.548,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.0,
-                    "pitch": -0.0,
-                    "yaw": 117.09
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 77.52
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3397,13 +3397,13 @@
                 "name": "cardboard_box(6)",
                 "position": [
                     0.564,
-                    -1.651,
-                    0.924
+                    -1.655,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": 0.0,
-                    "yaw": -7.54
+                    "yaw": -7.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3424,14 +3424,14 @@
             {
                 "name": "cardboard_box(7)",
                 "position": [
-                    -0.691,
-                    -1.678,
-                    0.924
+                    -0.65,
+                    -1.683,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": 0.38,
-                    "pitch": 0.17,
-                    "yaw": -14.59
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -19.97
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3452,14 +3452,14 @@
             {
                 "name": "cardboard_box(8)",
                 "position": [
-                    0.909,
-                    1.428,
-                    0.925
+                    0.922,
+                    1.42,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.09,
-                    "pitch": 0.02,
-                    "yaw": 170.25
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": 166.48
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3600,7 +3600,7 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.912,
+                    0.911,
                     -0.005
                 ],
                 "rotation_degrees": {
@@ -3632,14 +3632,14 @@
             {
                 "name": "PR2_ROBOT1",
                 "position": [
-                    -0.369,
-                    -0.615,
+                    -0.368,
+                    -0.616,
                     -0.005
                 ],
                 "rotation_degrees": {
-                    "roll": 0.11,
-                    "pitch": 0.14,
-                    "yaw": 179.85
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": 179.87
                 },
                 "size": null,
                 "describe": "PR2机器人",
@@ -3659,14 +3659,14 @@
             {
                 "name": "cardboard_box(1)",
                 "position": [
-                    -1.026,
-                    -0.439,
-                    1.379
+                    -1.054,
+                    -0.446,
+                    0.999
                 ],
                 "rotation_degrees": {
-                    "roll": -7.05,
-                    "pitch": -28.94,
-                    "yaw": -168.94
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": -86.65
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3687,9 +3687,9 @@
             {
                 "name": "cardboard_box(2)",
                 "position": [
-                    -1.074,
+                    -1.076,
                     -0.726,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
@@ -3716,13 +3716,13 @@
                 "name": "cardboard_box(3)",
                 "position": [
                     0.415,
-                    -1.646,
-                    0.925
+                    -1.65,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": -0.0,
-                    "yaw": -119.54
+                    "yaw": -119.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3743,14 +3743,14 @@
             {
                 "name": "cardboard_box(4)",
                 "position": [
-                    1.161,
+                    1.163,
                     0.83,
-                    0.924
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": 0.01,
                     "pitch": 0.01,
-                    "yaw": 132.9
+                    "yaw": 132.87
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3771,14 +3771,14 @@
             {
                 "name": "cardboard_box(5)",
                 "position": [
-                    1.087,
-                    0.983,
-                    0.025
+                    -0.301,
+                    1.548,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.0,
-                    "pitch": -0.0,
-                    "yaw": 117.09
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 77.52
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3800,13 +3800,13 @@
                 "name": "cardboard_box(6)",
                 "position": [
                     0.564,
-                    -1.651,
-                    0.924
+                    -1.655,
+                    0.999
                 ],
                 "rotation_degrees": {
                     "roll": -0.0,
                     "pitch": 0.0,
-                    "yaw": -7.54
+                    "yaw": -7.56
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3827,14 +3827,14 @@
             {
                 "name": "cardboard_box(7)",
                 "position": [
-                    -0.691,
-                    -1.678,
-                    0.925
+                    -0.65,
+                    -1.683,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.22,
-                    "pitch": 0.27,
-                    "yaw": -14.49
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": -19.97
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -3855,14 +3855,14 @@
             {
                 "name": "cardboard_box(8)",
                 "position": [
-                    0.909,
-                    1.428,
-                    0.924
+                    0.922,
+                    1.42,
+                    1.0
                 ],
                 "rotation_degrees": {
-                    "roll": -0.65,
-                    "pitch": -0.31,
-                    "yaw": 170.26
+                    "roll": -0.0,
+                    "pitch": 0.0,
+                    "yaw": 166.48
                 },
                 "size": [
                     "0.05,0.05,0.05"
@@ -4003,7 +4003,7 @@
                 "name": "PR2_ROBOT2",
                 "position": [
                     -0.396,
-                    0.912,
+                    0.911,
                     -0.005
                 ],
                 "rotation_degrees": {

@@ -1,4 +1,5 @@
 from utilities import MyCustomRobot
+import multiprocessing
 import json
 import time
 import requests
@@ -37,6 +38,24 @@ original_start = (-1.4, 0.9)  # 原始地图中的起始点
 # safety_radius = 1  # 安全膨胀半径，单位为精细化地图中的像素/格子 (允许小数点值)
 goal = None
 goal_yaw = None  # 添加目标偏航角变量，角度制，范围-180到180度
+
+# 文件路径
+FLAG_FILE = "terminate_flag.txt"
+
+
+def init_flag_file():
+    """初始化标志文件（无论是否存在，都设为 False）"""
+    with open(FLAG_FILE, "w") as f:  # 'w' 模式会覆盖原有内容
+        f.write("False")  # 强制写入 Fal
+
+
+# 程序启动时初始化
+init_flag_file()
+
+
+def get_process_info():
+    print(f"当前进程 ID (PID): {os.getpid()}")
+    print(f"父进程 ID (PPID): {os.getppid()}")
 
 
 def name2id(robot_name, nodes_list):
@@ -762,6 +781,8 @@ supervisor = Supervisor()
 
 # 获取当前世界的仿真步长
 vacuum = robot.getDevice("right_gripper_l_finger_vacuum")
+pick_finished = False
+place_finished = False
 
 
 # --- 辅助函数 ---
@@ -816,39 +837,119 @@ def get_actual_joint_positions(sensors):
 
 
 def set_arm_joint_positions_with_feedback(
-    motors, sensors, targets, tolerance=0.01, max_steps=1000, special_joints=None
+    motors,
+    sensors,
+    targets,
+    tolerance=0.01,
+    max_steps=1000,
+    num_interpolation_points=100,
+    slowdown_fraction=0.1,
+    slowdown_factor=3.0,
+    special_joints=None,  # special_joints = {0:0.9}时，表示关节 0 在前 90% 的运动时间内保持不动，只在最后 10% 的时间内开始运动。
+    print_interpolation_points=False,
 ):
-    """带反馈的关节位置控制，确保达到目标位置"""
-    if len(targets) != len(motors):
-        print(f"错误: 目标位置数量({len(targets)})与电机数量({len(motors)})不匹配")
-        return False, []  # 返回元组，避免后续解包错误
+    """带反馈控制的三次样条插值运动，支持特殊关节延迟和终点平滑减速"""
+
+    # ====== 1. 初始化检查 ======
+    if len(motors) != len(sensors) or len(motors) != len(targets):
+        print("错误: 电机、传感器和目标数量不匹配")
+        return False, []
+
+    if special_joints is None:
+        special_joints = {}
 
     print(f"设置关节到目标位置: {targets}")
 
-    # 执行闭环反馈控制
-    success = move_with_feedback(
-        motors,
-        sensors,
-        targets,
-        tolerance,
-        max_steps,
-        special_joints=special_joints,
-    )
-    robot.step(5 * timestep)
+    # ====== 2. 生成插值函数 ======
+    start_positions = [s.getValue() for s in sensors]
 
-    # 获取最终位置（无论成功与否）
+    # 使用非线性时间序列，在末段自动加密采样点实现减速
+    base_time = np.linspace(0, 1, num_interpolation_points)
+    slowdown_curve = base_time ** (1 + slowdown_factor)  # 时间非线性压缩，末端更密集
+
+    splines = []
+    for i in range(len(motors)):
+        if i in special_joints:
+            start_time = special_joints[i]
+            split_idx = int(start_time * num_interpolation_points)
+            split_idx = max(0, min(split_idx, num_interpolation_points - 1))
+
+            positions = np.zeros(num_interpolation_points)
+            positions[:split_idx] = start_positions[i]
+            positions[split_idx:] = np.linspace(
+                start_positions[i], targets[i], num_interpolation_points - split_idx
+            )
+            cs = CubicSpline(base_time, positions)
+        else:
+            positions = np.linspace(
+                start_positions[i], targets[i], num_interpolation_points
+            )
+            cs = CubicSpline(base_time, positions)
+        splines.append(cs)
+
+    # 打印插值点（可选）
+    if print_interpolation_points:
+        for i in range(len(motors)):
+            print(f"\n关节 {i+1} 的插值点:")
+            for t in np.linspace(0, 1, 10):
+                print(f"time={t:.2f}, pos={splines[i](t):.4f}")
+
+    # ====== 3. 执行运动控制 ======
+    for step_idx, t in enumerate(slowdown_curve):
+        # 设定每个关节目标
+        for j, motor in enumerate(motors):
+            motor.setPosition(float(splines[j](t)))
+
+        robot.step(timestep)
+
+        # === 误差检测：运动过程中提前达标则结束 ===
+        current_positions = [s.getValue() for s in sensors]
+        errors = [
+            abs(current - target) for current, target in zip(current_positions, targets)
+        ]
+        if max(errors) < tolerance:
+            print(f"提前结束: 所有关节误差小于 {tolerance}")
+            robot.step(5 * timestep)
+            current = get_actual_joint_positions(sensors)
+            print(f"成功到达目标位置，实际位置: {current}")
+            return True, current
+
+        # === 步数上限检查 ===
+        if step_idx >= max_steps:
+            print(f"提前结束: 达到最大步数 {max_steps}")
+            robot.step(5 * timestep)
+            current = get_actual_joint_positions(sensors)
+            print(f"未能精确到达目标位置，实际位置: {current}")
+            return False, current
+
+    # ====== 4. 运动结束后强制检查最终位置 ======
+    print("插值运动完成，检查最终位置...")
+    final_positions = [s.getValue() for s in sensors]
+    final_errors = [
+        abs(current - target) for current, target in zip(final_positions, targets)
+    ]
+
+    # 打印最终误差详情
+    for j in range(len(final_errors)):
+        print(
+            f"关节 {j+1}: 目标={targets[j]:.4f}, 实际={final_positions[j]:.4f}, 误差={final_errors[j]:.4f}"
+        )
+
+    robot.step(5 * timestep)
     current = get_actual_joint_positions(sensors)
 
-    if success:
+    # 判断是否所有关节误差都小于阈值
+    if max(final_errors) < tolerance:
+        print("所有关节均达到目标位置")
         print(f"成功到达目标位置，实际位置: {current}")
+        return True, current
     else:
+        print(f"最终位置误差超过阈值 {tolerance}，未达标")
         print(f"未能精确到达目标位置，实际位置: {current}")
-
-    # print(f"success={success}, current={current}")
-    return success, current
+        return False, current
 
 
-def move_with_feedback_supervisor(
+def set_arm_joint_positions_with_feedback_supervisor(
     motors, sensors, targets, position_fields, tolerance, robot_id=1
 ):
     """使用特权接口,去除误差"""
@@ -900,7 +1001,9 @@ def move_with_feedback_supervisor(
             error = abs(target - actual)
             status = "OK" if error <= tolerance else "FAIL"
             current_status.append(status)
-            print(f"关节 {j+1}: 目标={target}, 实际={actual}, 误差={error} [{status}]")
+            print(
+                f"关节 {j+1}: 目标={target:.4f}, 实际={actual:.4f}, 误差={error:.4f} [{status}]"
+            )
 
         # 判断是否所有关节都达标
         if all(s == "OK" for s in current_status):
@@ -913,87 +1016,6 @@ def move_with_feedback_supervisor(
 
     current = get_actual_joint_positions(sensors)
     return current
-
-
-def move_with_feedback(
-    motors,
-    sensors,
-    targets,
-    tolerance=0.01,
-    max_steps=1000,
-    num_interpolation_points=100,
-    slowdown_fraction=0.1,
-    slowdown_factor=3.0,
-    special_joints=None,
-    print_interpolation_points=False,
-):
-    """带反馈控制的三次样条插值运动，支持特殊关节延迟和终点平滑减速"""
-
-    # ====== 1. 初始化检查 ======
-    if len(motors) != len(sensors) or len(motors) != len(targets):
-        print("错误: 电机、传感器和目标数量不匹配")
-        return False
-
-    if special_joints is None:
-        special_joints = {}
-
-    print("开始执行插值运动...")
-
-    # ====== 2. 生成插值函数 ======
-    start_positions = [s.getValue() for s in sensors]
-
-    # 使用非线性时间序列，在末段自动加密采样点实现减速
-    base_time = np.linspace(0, 1, num_interpolation_points)
-    slowdown_curve = base_time ** (1 + slowdown_factor)  # 时间非线性压缩，末端更密集
-
-    splines = []
-    for i in range(len(motors)):
-        if i in special_joints:
-            start_time = special_joints[i]
-            split_idx = int(start_time * num_interpolation_points)
-            split_idx = max(0, min(split_idx, num_interpolation_points - 1))
-
-            positions = np.zeros(num_interpolation_points)
-            positions[:split_idx] = start_positions[i]
-            positions[split_idx:] = np.linspace(
-                start_positions[i], targets[i], num_interpolation_points - split_idx
-            )
-            cs = CubicSpline(base_time, positions)
-        else:
-            positions = np.linspace(
-                start_positions[i], targets[i], num_interpolation_points
-            )
-            cs = CubicSpline(base_time, positions)
-        splines.append(cs)
-
-    # 打印插值点（可选）
-    if print_interpolation_points:
-        for i in range(len(motors)):
-            print(f"\n关节 {i+1} 的插值点:")
-            for t in np.linspace(0, 1, 10):
-                print(f"time={t:.2f}, pos={splines[i](t):.4f}")
-
-    # ====== 3. 执行运动控制 ======
-    for step_idx, t in enumerate(slowdown_curve):
-        # 设定每个关节目标
-        for j, motor in enumerate(motors):
-            motor.setPosition(float(splines[j](t)))
-
-        robot.step(timestep)
-
-        # === 误差检测 ===
-        errors = [abs(s.getValue() - targets[j]) for j, s in enumerate(sensors)]
-        if max(errors) < tolerance:
-            print(f"提前结束: 所有关节误差小于 {tolerance}")
-            return True
-
-        # === 步数上限 ===
-        if step_idx >= max_steps:
-            print(f"提前结束: 达到最大步数 {max_steps}")
-            return False
-
-    print("运动完成")
-    return True
 
 
 def set_gripper_position(gripper_motors_list, positions=None, default_position=0.0):
@@ -1072,20 +1094,23 @@ def close_gripper(
     left_touch_sensor,
     right_touch_sensor,
     close_position=[0.25],  # 夹爪完全闭合的目标位置（列表形式）
-    step=0.01,  # 每次闭合的步长
+    fast_step=0.05,  # 快速闭合阶段的步长（更大）
+    slow_step=0.001,  # 精细调整阶段的步长（原step）
+    switch_threshold=0.1,  # 切换到精细调整的位置阈值
     touch_threshold=0,  # 触摸传感器触发阈值
 ):
     """
-    闭合夹爪，直到达到目标位置或检测到接触（无最大步骤限制）
+    闭合夹爪，先快速接近再精细调整（两阶段策略）
 
     参数:
         gripper_motors: 夹爪电机列表
-        left_touch_sensor: 左指尖触摸传感器（rightArmLeftFingerTouchSensor）
-        right_touch_sensor: 右指尖触摸传感器（rightArmRightFingerTouchSensor）
-        close_position: 完全闭合的目标位置（列表形式，与电机数量对应）
-        step: 每次闭合的步长
-        touch_threshold: 触摸传感器触发阈值（检测到物体时停止）
-
+        left_touch_sensor: 左指尖触摸传感器
+        right_touch_sensor: 右指尖触摸传感器
+        close_position: 完全闭合的目标位置
+        fast_step: 快速阶段步长（建议0.03-0.1）
+        slow_step: 精细阶段步长（建议0.005-0.02）
+        switch_threshold: 距离目标位置小于该值时切换到精细调整
+        touch_threshold: 触摸传感器触发阈值
     返回:
         dict: 包含闭合结果的字典
     """
@@ -1094,37 +1119,38 @@ def close_gripper(
         print("错误: 未提供夹爪电机")
         return {"success": False, "reason": "未提供夹爪电机"}
 
-    # 确保目标位置列表与电机数量匹配
     if len(close_position) != len(gripper_motors):
-        print(
-            f"错误: 目标位置数量 ({len(close_position)}) 与电机数量 ({len(gripper_motors)}) 不匹配"
-        )
+        print(f"错误: 目标位置数量与电机数量不匹配")
         return {"success": False, "reason": "目标位置与电机数量不匹配"}
 
     # 启用触摸传感器
     left_touch_sensor.enable(timestep)
     right_touch_sensor.enable(timestep)
 
+    # 初始化参数
+    steps_taken = 0
+    current_step = fast_step  # 初始使用快速步长
+    stage = "快速闭合"
+
     # 确定每个电机的闭合方向
-    steps = []
+    base_directions = []
     for i, motor in enumerate(gripper_motors):
         current_pos = motor.getTargetPosition()
         if close_position[i] < current_pos:
-            steps.append(-abs(step))  # 负方向闭合
+            base_directions.append(-1)  # 负方向
         else:
-            steps.append(abs(step))  # 正方向闭合
-
-    steps_taken = 0
+            base_directions.append(1)  # 正方向
 
     try:
-        while True:  # 无限循环，直到达到目标或检测到接触
-            # 获取当前传感器值
+        while True:
+            # 获取传感器值
             left_touch = left_touch_sensor.getValue()
             right_touch = right_touch_sensor.getValue()
 
-            # 检查是否已接触物体（无法继续闭合）
+            # 检测到接触立即停止
             if left_touch > touch_threshold or right_touch > touch_threshold:
                 print(f"检测到接触 - 左: {left_touch:.2f}, 右: {right_touch:.2f}")
+                # 启动真空抓取器（保持原有逻辑）
                 rightArmLeftFingerVacuumGripper.enablePresence(timestep)
                 rightArmRightFingerVacuumGripper.enablePresence(timestep)
                 rightArmLeftFingerVacuumGripper.turnOn()
@@ -1142,30 +1168,48 @@ def close_gripper(
 
                 return {
                     "success": True,
-                    "reason": "检测到接触（无法继续闭合）",
+                    "reason": "检测到接触（停止闭合）",
                     "final_position": [
                         motor.getTargetPosition() for motor in gripper_motors
                     ],
                     "steps_taken": steps_taken,
+                    "stage": stage,
                 }
 
-            # 计算下一步位置
+            # 计算当前位置与目标的距离
+            current_positions = [motor.getTargetPosition() for motor in gripper_motors]
+            distances = [
+                abs(current_positions[i] - close_position[i])
+                for i in range(len(gripper_motors))
+            ]
+
+            # 切换阶段：当所有电机距离目标位置小于阈值时，改用精细步长
+            if (
+                all(d < switch_threshold for d in distances)
+                and current_step == fast_step
+            ):
+                current_step = slow_step
+                stage = "精细调整"
+                print(f"切换到{stage}阶段（步长: {current_step}）")
+
+            # 计算下一步位置（结合方向和当前步长）
             next_pos = [
-                gripper_motors[i].getTargetPosition() + steps[i]
+                current_positions[i] + (base_directions[i] * current_step)
                 for i in range(len(gripper_motors))
             ]
 
             # 检查是否已达到目标位置
             all_reached = True
             for i in range(len(gripper_motors)):
-                if (steps[i] > 0 and next_pos[i] < close_position[i]) or (
-                    steps[i] < 0 and next_pos[i] > close_position[i]
+                # 根据方向判断是否超过目标
+                if (base_directions[i] > 0 and next_pos[i] < close_position[i]) or (
+                    base_directions[i] < 0 and next_pos[i] > close_position[i]
                 ):
                     all_reached = False
                     break
 
             if all_reached:
-                # 设置到最终闭合位置
+                # 最终定位到目标位置
                 for i, motor in enumerate(gripper_motors):
                     motor.setPosition(close_position[i])
                 robot.step(timestep)
@@ -1175,9 +1219,10 @@ def close_gripper(
                     "reason": "达到目标位置",
                     "final_position": close_position,
                     "steps_taken": steps_taken,
+                    "stage": stage,
                 }
 
-            # 执行下一步闭合动作
+            # 执行下一步动作
             for i, motor in enumerate(gripper_motors):
                 motor.setPosition(next_pos[i])
 
@@ -1185,7 +1230,6 @@ def close_gripper(
             steps_taken += 1
 
     finally:
-        # 确保传感器持续启用
         left_touch_sensor.enable(timestep)
         right_touch_sensor.enable(timestep)
 
@@ -1326,48 +1370,55 @@ def run_arm_sequence(goal_arm):
 
 
 def run_arm_pick(goal_arm, robot_id):
+    global pick_finished
     # 初始化变量
     current_left = None
     current_right = None
     success_left = False
     success_right = False
-    # print("\n--- 开始UrdfArm右臂抓取放置任务 ---")
-    print("pick步骤0:升高腰部，回到安全高度")
-    # print("goal_arm", goal_arm)
-    # set_arm_joint_positions_with_feedback(
-    #     yao_motors, yao_sensors, yao_highteset_pose, tolerance=0.01, max_steps=200
-    # )
-    # robot.step(2 * MOVE_DURATION_STEPS)
+    pick_finished = False
 
-    # # 1. 移动右臂到初始姿态并打开右夹爪
+    with open("terminate_flag.txt", "r") as f:
+        flag = f.read() == "True"
+        # print("111读取文件的结果:", flag)
+    if flag:
+        with open("terminate_flag.txt", "w") as f:
+            f.write("False")
+            return None, None
+
+    # 1. 移动右臂到初始姿态并打开右夹爪
     if goal_arm == "left" or goal_arm == "both":
         print("pick步骤1: 移动左臂到初始姿态并打开夹爪")
         set_gripper_position(left_gripper_motors, OPEN_GRIPPER_POS)
-        robot.step(MOVE_DURATION_STEPS)
-        # time.sleep(1)
     if goal_arm == "right" or goal_arm == "both":
         print("pick步骤1: 移动右臂到初始姿态并打开夹爪")
         set_gripper_position(right_gripper_motors, OPEN_GRIPPER_POS)
-        robot.step(MOVE_DURATION_STEPS)
-        # time.sleep(1)
 
-    robot.step(MOVE_DURATION_STEPS)
+    robot.step(10 * timestep)
+
+    with open("terminate_flag.txt", "r") as f:
+        flag = f.read() == "True"
+        # print("222读取文件的结果:", flag)
+    if flag:
+        with open("terminate_flag.txt", "w") as f:
+            f.write("False")
+            return None, None
 
     # 3. 移动右臂到抓取姿态
     if goal_arm == "left" or goal_arm == "both":
-        print("pick步骤3: 移动zuo臂到抓取姿态（靠近物体）")
+        print("pick步骤2: 移动左臂到抓取姿态（靠近物体）")
         success_left, current_left = set_arm_joint_positions_with_feedback(
             left_arm_motors,
             left_arm_sensors,
             grasp_left_arm_pose,
             tolerance=0.001,
             max_steps=2000,
-            special_joints={0: 0, 1: 0.9, 2: 0.1, 3: 0.1, 4: 0.1, 5: 0, 6: 0},
+            special_joints={0: 0.1, 1: 0.7, 2: 0.1, 3: 0.1, 4: 0.1, 5: 0.1, 6: 0.5},
         )
         # time.sleep(10)
         robot.step(MOVE_DURATION_STEPS)
         # 执行特权到位
-        current_left = move_with_feedback_supervisor(
+        current_left = set_arm_joint_positions_with_feedback_supervisor(
             left_arm_motors,
             left_arm_sensors,
             grasp_left_arm_pose,
@@ -1376,19 +1427,19 @@ def run_arm_pick(goal_arm, robot_id):
             robot_id=robot_id,
         )
     if goal_arm == "right" or goal_arm == "both":
-        print("pick步骤3: 移动右臂到抓取姿态（靠近物体）")
+        print("pick步骤2: 移动右臂到抓取姿态（靠近物体）")
         success_right, current_right = set_arm_joint_positions_with_feedback(
             right_arm_motors,
             right_arm_sensors,
             grasp_right_arm_pose,
             tolerance=0.001,
             max_steps=2000,
-            special_joints={0: 0, 1: 0.9, 2: 0.1, 3: 0.1, 4: 0.1, 5: 0, 6: 0},
+            special_joints={0: 0.1, 1: 0.7, 2: 0.1, 3: 0.1, 4: 0.1, 5: 0.1, 6: 0.5},
         )
         # print("没有微调前的位置", current_right)
         # time.sleep(10)
         robot.step(MOVE_DURATION_STEPS)
-        current_right = move_with_feedback_supervisor(
+        current_right = set_arm_joint_positions_with_feedback_supervisor(
             right_arm_motors,
             right_arm_sensors,
             grasp_right_arm_pose,
@@ -1398,41 +1449,60 @@ def run_arm_pick(goal_arm, robot_id):
         )
         # print("微调后的位置", current_right)
 
-    # print("pick步骤4: 移动腰部到初始位置/最低位置")
-    # set_arm_joint_positions_with_feedback(yao_motors,yao_sensors,yao_lowest_pose,tolerance=0.02,max_steps=200,)
-    print("--------------------")
-    # robot.step(5*MOVE_DURATION_STEPS)
+    with open("terminate_flag.txt", "r") as f:
+        flag = f.read() == "True"
+        # print("333读取文件的结果:", flag)
+    if flag:
+        with open("terminate_flag.txt", "w") as f:
+            f.write("False")
+            return None, None
+
     # 4. 夹紧物体
-    print("pick步骤5: 关闭右夹爪抓取物体")
-    print(right_arm_touch_sensor)
-    if right_arm_touch_sensor is not None:
-        right_arm_touch_sensor.enable(timestep)
-        rightArmLeftFingerTouchSensor.enable(timestep)
-        rightArmRightFingerTouchSensor.enable(timestep)
-        while robot.step(timestep) != -1:
-            # BUMPER 类型: 返回 0 或 1
-            value = right_arm_touch_sensor.getValue()
-            print("接触状态:", "触碰" if value > 0 else "未触碰")
-            if value > 0:
-                break
+    print("pick步骤3: 关闭夹爪抓取物体")
+    # print(right_arm_touch_sensor)
+    if goal_arm == "right" or goal_arm == "both":
+        if right_arm_touch_sensor is not None:
+            right_arm_touch_sensor.enable(timestep)
+            rightArmLeftFingerTouchSensor.enable(timestep)
+            rightArmRightFingerTouchSensor.enable(timestep)
+            while robot.step(timestep) != -1:
+                # print("444terminate_pick_operate", terminate_pick_operate)
+                with open("terminate_flag.txt", "r") as f:
+                    flag = f.read() == "True"
+                    # print("444读取文件的结果:", flag)
+                if flag:
+                    with open("terminate_flag.txt", "w") as f:
+                        f.write("False")
+                        return None, None
+                # BUMPER 类型: 返回 0 或 1
+                value = right_arm_touch_sensor.getValue()
+                print("接触状态:", "触碰" if value > 0 else "未触碰")
+                if value > 0:
+                    break
 
-    # if goal_arm == "left" or goal_arm == "both":
-    #     set_gripper_position(left_gripper_motors, CLOSE_GRIPPER_POS)
-    # if goal_arm == "right" or goal_arm == "both":
-    #     set_gripper_position(right_gripper_motors, CLOSE_GRIPPER_POS)
-    close_gripper(
-        gripper_motors=right_gripper_motors,
-        left_touch_sensor=rightArmLeftFingerTouchSensor,
-        right_touch_sensor=rightArmRightFingerTouchSensor,
-        close_position=CLOSE_GRIPPER_POS,
-        step=0.005,
-    )
-    # right_arm_touch_sensor.enable(timestep)
+        # if goal_arm == "left" or goal_arm == "both":
+        #     set_gripper_position(left_gripper_motors, CLOSE_GRIPPER_POS)
+        # if goal_arm == "right" or goal_arm == "both":
+        #     set_gripper_position(right_gripper_motors, CLOSE_GRIPPER_POS)
+        close_gripper(
+            gripper_motors=right_gripper_motors,
+            left_touch_sensor=rightArmLeftFingerTouchSensor,
+            right_touch_sensor=rightArmRightFingerTouchSensor,
+            close_position=CLOSE_GRIPPER_POS,
+        )
 
-    robot.step(MOVE_DURATION_STEPS)
+    robot.step(timestep)
     # time.sleep(1)
 
-    print("pick步骤7: 抬起物体（回到save姿态）")
+    with open("terminate_flag.txt", "r") as f:
+        flag = f.read() == "True"
+        # print("555读取文件的结果:", flag)
+    if flag:
+        with open("terminate_flag.txt", "w") as f:
+            f.write("False")
+            return None, None
+
+    print("pick步骤4: 抬起物体（回到save姿态）")
     if goal_arm == "left" or goal_arm == "both":
         set_arm_joint_positions_with_feedback(
             left_arm_motors,
@@ -1440,27 +1510,25 @@ def run_arm_pick(goal_arm, robot_id):
             save_left_arm_pose,
             tolerance=0.001,
             max_steps=1000,
-            special_joints={0: 0.5, 1: 0.1, 2: 0.9, 3: 0.9, 4: 0.9, 5: 0.9, 6: 0.5},
+            special_joints={0: 0.9, 1: 0.1, 2: 0.9, 3: 0.9, 4: 0.9, 5: 0.1, 6: 0.5},
+            num_interpolation_points=2,
         )
+        robot.step(MOVE_DURATION_STEPS)
     if goal_arm == "right" or goal_arm == "both":
         set_arm_joint_positions_with_feedback(
             right_arm_motors,
             right_arm_sensors,
             save_right_arm_pose,
             tolerance=0.001,
-            max_steps=1000,
-            special_joints={0: 0.5, 1: 0.1, 2: 0.9, 3: 0.9, 4: 0.9, 5: 0.9, 6: 0.5},
+            max_steps=10000,
+            # special_joints={1: 0.1},
+            num_interpolation_points=2,
         )
+        robot.step(MOVE_DURATION_STEPS)
 
-    print("pick步骤6:升高腰部，回到安全高度")
-    # set_arm_joint_positions_with_feedback(
-    #     yao_motors,
-    #     yao_sensors,
-    #     yao_highteset_pose,
-    #     tolerance=0.02,
-    #     max_steps=200,
-    # )
-    robot.step(MOVE_DURATION_STEPS)
+    robot.step(10 * timestep)
+
+    pick_finished = True
 
     return current_left, current_right
 
@@ -1472,19 +1540,17 @@ def run_arm_place(goal_arm, robot_id):
     success_left = False
     success_right = False
     # print("\n--- 开始UrdfArm右臂抓取放置任务 ---")
-    print("place步骤0:升高腰部，回到安全高度")
-    set_arm_joint_positions_with_feedback(
-        yao_motors,
-        yao_sensors,
-        yao_highteset_pose,
-        tolerance=0.01,
-        max_steps=200,
-    )
-    robot.step(2 * MOVE_DURATION_STEPS)
+    with open("terminate_flag.txt", "r") as f:
+        flag = f.read() == "True"
+        print("111读取文件的结果:", flag)
+    if flag:
+        with open("terminate_flag.txt", "w") as f:
+            f.write("False")
+            return None, None
 
     # 7. 移动右臂到放置姿态
     if goal_arm == "left" or goal_arm == "both":
-        print("place步骤1: 移动zuo臂到放置姿态（目标位置）")
+        print("place步骤1: 移动左臂到放置姿态（目标位置）")
         # move_robot_linear(dx=-0.5, dy=0.0, dz=0.0)
         robot.step(MOVE_DURATION_STEPS)  # 等待一步让仿真更新
         success_left, current_left = set_arm_joint_positions_with_feedback(
@@ -1493,10 +1559,11 @@ def run_arm_place(goal_arm, robot_id):
             place_left_arm_pose,
             tolerance=0.001,
             max_steps=2000,
+            special_joints={0: 0.1, 1: 0.7, 2: 0.1, 3: 0.1, 4: 0.1, 5: 0.1, 6: 0.5},
         )
         robot.step(MOVE_DURATION_STEPS)
         # 执行特权到位
-        current_left = move_with_feedback_supervisor(
+        current_left = set_arm_joint_positions_with_feedback_supervisor(
             left_arm_motors,
             left_arm_sensors,
             place_left_arm_pose,
@@ -1512,12 +1579,13 @@ def run_arm_place(goal_arm, robot_id):
             right_arm_motors,
             right_arm_sensors,
             place_right_arm_pose,
-            tolerance=0.01,
+            tolerance=0.001,
             max_steps=2000,
+            special_joints={0: 0.1, 1: 0.7, 2: 0.1, 3: 0.1, 4: 0.1, 5: 0.1, 6: 0.5},
         )
         robot.step(MOVE_DURATION_STEPS)
         # 执行特权到位
-        current_right = move_with_feedback_supervisor(
+        current_right = set_arm_joint_positions_with_feedback_supervisor(
             right_arm_motors,
             right_arm_sensors,
             place_right_arm_pose,
@@ -1525,26 +1593,34 @@ def run_arm_place(goal_arm, robot_id):
             tolerance=0.0001,
             robot_id=robot_id,
         )
-    # time.sleep(1)
 
-    # print("place步骤2: 移动腰部到初始位置/最低位置")
-    # set_arm_joint_positions_with_feedback(yao_motors,yao_sensors,yao_lowest_pose,tolerance=0.02,max_steps=200,)
+    with open("terminate_flag.txt", "r") as f:
+        flag = f.read() == "True"
+        print("222读取文件的结果:", flag)
+    if flag:
+        with open("terminate_flag.txt", "w") as f:
+            f.write("False")
+            return None, None
 
     # 8. 松开物体
-    print("place步骤3: 打开夹爪释放物体")
-    # vacuum.enablePresence(timestep)
-    # vacuum.turnOff()
+    print("place步骤2: 打开夹爪释放物体")
 
     if goal_arm == "left" or goal_arm == "both":
         set_gripper_position(left_gripper_motors, OPEN_GRIPPER_POS)
     if goal_arm == "right" or goal_arm == "both":
         set_gripper_position(right_gripper_motors, OPEN_GRIPPER_POS)
 
-    # robot.step(MOVE_DURATION_STEPS)
-    # time.sleep(1)
-    # set_gripper_position(right_gripper_motors, INIT_GRIPPER_POS)
-    # set_gripper_position(left_gripper_motors, INIT_GRIPPER_POS)
-    print("place步骤4: 抬起手臂（回到save姿态）")
+    robot.step(100 * timestep)
+
+    with open("terminate_flag.txt", "r") as f:
+        flag = f.read() == "True"
+        print("333读取文件的结果:", flag)
+    if flag:
+        with open("terminate_flag.txt", "w") as f:
+            f.write("False")
+            return None, None
+
+    print("place步骤3: 抬起手臂（回到save姿态）")
     if goal_arm == "left" or goal_arm == "both":
         set_arm_joint_positions_with_feedback(
             left_arm_motors,
@@ -1564,15 +1640,13 @@ def run_arm_place(goal_arm, robot_id):
             special_joints={0: 0.9, 1: 0.5, 2: 0.9, 3: 0.9, 4: 0.9, 5: 0.9, 6: 0.5},
         )
 
-    print("place步骤5:升高腰部，回到安全高度")
-    set_arm_joint_positions_with_feedback(
-        yao_motors,
-        yao_sensors,
-        yao_highteset_pose,
-        tolerance=0.02,
-        max_steps=200,
-    )
-    robot.step(2 * MOVE_DURATION_STEPS)
+    with open("terminate_flag.txt", "r") as f:
+        flag = f.read() == "True"
+        print("444读取文件的结果:", flag)
+    if flag:
+        with open("terminate_flag.txt", "w") as f:
+            f.write("False")
+            return None, None
 
     print("\n--- 抓取放置任务完成 ---")
 
@@ -1581,136 +1655,36 @@ def run_arm_place(goal_arm, robot_id):
 
 def get_pick_result(goal_arm="both"):
     """
-    根据指定机械臂判断抓取是否成功，通过检查夹爪关节位置是否处于关闭状态
+    根据指定机械臂判断抓取是否成功，用全局变量
     TODO:需要修改判断逻辑
 
     Args:
         goal_arm: 目标机械臂，可选"left"、"right"或"both"，默认"right"
     """
+    global pick_finished
     results = {}
-
-    # 处理单个机械臂的检查逻辑
-    def check_arm(arm_name):
-        if arm_name == "left":
-            gripper_sensors = left_gripper_sensors
-            close_positions = CLOSE_GRIPPER_POS
-        elif arm_name == "right":
-            gripper_sensors = right_gripper_sensors
-            close_positions = CLOSE_GRIPPER_POS
-        else:
-            print(f"错误: 不支持的机械臂类型: {arm_name}")
-            return False
-
-        # 检查传感器是否存在
-        if not gripper_sensors:
-            print(f"错误: 未找到{arm_name}夹爪位置传感器，无法判断抓取状态")
-            return False
-
-        # 获取夹爪当前关节位置
-        current_positions = [sensor.getValue() for sensor in gripper_sensors]
-        print(
-            f"{arm_name}夹爪当前关节位置: {[round(pos, 4) for pos in current_positions]}"
-        )
-
-        # 定义位置偏差阈值（允许的最大偏差弧度）
-        position_threshold = 0.1
-
-        # 检查每个关节是否接近关闭位置
-        is_closed = True
-        for i, pos in enumerate(current_positions):
-            if i < len(close_positions):
-                close_pos = close_positions[i]
-                if abs(pos - close_pos) > position_threshold:
-                    is_closed = False
-                    break
-            else:
-                print(f"警告: 关闭位置定义不足，缺少第{i}个关节的目标值")
-                is_closed = False
-                break
-
-        # 生成结果信息
-        status = "成功" if is_closed else "失败"
-        print(
-            f"{arm_name}机械臂抓取结果: {status} (夹爪{'已关闭' if is_closed else '未关闭'})"
-        )
-        return is_closed
-
-    # 根据goal_arm参数执行不同的检查策略
-    if goal_arm == "both":
-        results["left"] = check_arm("left")
-        results["right"] = check_arm("right")
-        # 只有当左右机械臂都成功时，总结果才为True
-        total_result = all(results.values())
-        print(f"双机械臂抓取总结果: {'成功' if total_result else '失败'}")
-        return total_result
+    if pick_finished:
+        pick_finished = False
+        return True
     else:
-        return check_arm(goal_arm)
+        return False
 
 
 def get_place_result(goal_arm="both"):
     """
-    根据指定机械臂判断放置操作是否成功（夹爪是否处于打开状态）
+    根据指定机械臂判断抓取是否成功，用全局变量
     TODO:需要修改判断逻辑
 
     Args:
         goal_arm: 目标机械臂，可选"left"、"right"或"both"，默认"right"
     """
+    global place_finished
     results = {}
-
-    # 处理单个机械臂的检查逻辑
-    def check_arm(arm_name):
-        if arm_name == "left":
-            gripper_sensors = left_gripper_sensors
-        elif arm_name == "right":
-            gripper_sensors = right_gripper_sensors
-        else:
-            print(f"错误: 不支持的机械臂类型: {arm_name}")
-            return False
-
-        # 检查传感器是否存在
-        if not gripper_sensors:
-            print(f"错误: 未找到{arm_name}夹爪位置传感器，无法判断放置状态")
-            return False
-
-        # 获取夹爪当前关节位置
-        current_positions = [sensor.getValue() for sensor in gripper_sensors]
-        print(
-            f"{arm_name}夹爪当前关节位置: {[round(pos, 4) for pos in current_positions]}"
-        )
-
-        # 定义位置偏差阈值（允许的最大偏差弧度）
-        position_threshold = 0.1
-
-        # 检查每个关节是否接近打开位置
-        is_open = True
-        for i, pos in enumerate(current_positions):
-            if i < len(OPEN_GRIPPER_POS):
-                open_pos = OPEN_GRIPPER_POS[i]
-                if abs(pos - open_pos) > position_threshold:
-                    is_open = False
-                    break
-            else:
-                print(f"警告: 打开位置定义不足，缺少第{i}个关节的目标值")
-                is_open = False
-                break
-
-        # 生成结果信息
-        status = "成功" if is_open else "失败"
-        print(
-            f"{arm_name}机械臂放置结果: {status} (夹爪{'已打开' if is_open else '未打开'})"
-        )
-        return is_open
-
-    # 根据goal_arm参数执行不同的检查策略
-    if goal_arm == "both":
-        results["left"] = check_arm("left")
-        results["right"] = check_arm("right")
-        # 只有当左右机械臂都成功打开时，总结果才为True
-        total_result = all(results.values())
-        print(f"双机械臂放置总结果: {'成功' if total_result else '失败'}")
-        return total_result
+    if place_finished:
+        place_finished = False
+        return True
     else:
-        return check_arm(goal_arm)
+        return False
 
 
 def arm_to_go(goal_arm="both"):
@@ -1780,7 +1754,7 @@ right_gripper_joint_names = [
     "r_finger_gripper_motor::l_finger",
     # "r_finger_gripper_motor::r_finger",
     # "r_finger_gripper_motor::l_finger_tip",
-    # "r_finger_gripper_motor::r_finger_tip"
+    # "r_finger_gripper_motor::r_finger_tip",
 ]
 
 
@@ -1799,6 +1773,8 @@ right_arm_motors, right_arm_sensors = get_motors_and_sensors(right_arm_joint_nam
 right_gripper_motors, right_gripper_sensors = get_motors_and_sensors(
     right_gripper_joint_names
 )
+print("right_gripper_motors", right_gripper_motors)
+print("right_gripper_sensors", right_gripper_sensors)
 # print("right_arm_motors",right_arm_motors)
 # print("right_arm_sensors",right_arm_sensors)
 head_motors, head_sensors = get_motors_and_sensors(head_joint_names)
@@ -1937,39 +1913,39 @@ current_step_index = 0
 goal_received = False
 last_goal_timestamp = None  # 添加时间戳跟踪
 rotation_test_done = False  # 用于标记旋转测试是否已完成
-# touch_sensor = robot.getDevice("right_suction_touch_sensor")
-# touch_sensor.enable(timestep)
 counter_1 = 0
 while robot.step(timestep) != -1:
     try:
-        # touchValues = touch_sensor.getValue()  # 返回标量值，适用于默认类型
-        # if touchValues > 0:
-        #     print("Robot is touching an object.")
-        # else:
-        #     print("no touch")
-        # time.sleep(0.015)
-        # counter_1 = counter_1 + 1
-        # if counter_1 == 100:
-        #     counter_1 = 0
-        #     continue
         response = requests.get(WEB_SERVER_URL)
         if response.status_code == 200:
             command_data = response.json()
             # print("command_data", command_data)
             # print("robot_id", robot_id)
+
+            if command_data is None:
+                with open("terminate_flag.txt", "w") as f:
+                    f.write("True")
+                with open("terminate_flag.txt", "r") as f:
+                    flag = f.read() == "True"
+                    # print("000读取文件的结果:", flag)
+                status_info = {
+                    "status": "success",
+                    "task": "stop_pick",
+                }
+                send_robot_status(current_robot_position, status_info)
+                # print("操作已经停止，完成返回***************************")
+                continue
+
             source = command_data.get("source")
+
             get_robot_id = -1
             if source == "robot_goals":
                 get_robot_id = command_data.get("object_id")
             else:
                 get_robot_id = command_data.get("robot_id")
-
             if get_robot_id == robot_id:
                 print("对应上的id", get_robot_id, robot_id)
                 if source == "robot_goals":
-                    # logger.info(
-                    #     "---------------------------", command_data.get("goal", [])
-                    # )
                     if not command_data:  # 如果返回空数据，说明是停止命令
                         if goal_received:
                             logger.info("收到停止命令，清空当前路径和目标")
@@ -2242,6 +2218,8 @@ while robot.step(timestep) != -1:
                         current_left_joint, current_right_joint = run_arm_pick(
                             goal_arm, get_robot_id
                         )
+                        if current_left_joint is None and current_right_joint is None:
+                            continue
                         # print("current_left,current_right", current_left_joint, current_right_joint)
                         current_left_pos = []
                         current_right_pos = []
@@ -2282,7 +2260,7 @@ while robot.step(timestep) != -1:
                             current_right_rpy = result["right_rpy"]
 
                         res = get_pick_result(goal_arm)
-                        print("res-------------------------------", res)
+                        print("get_pick_result得到的结果:", res)
                         current_left_pos = convert_to_list(current_left_pos)
                         current_right_pos = convert_to_list(current_right_pos)
                         current_left_rpy = convert_to_list(current_left_rpy)
@@ -2352,6 +2330,8 @@ while robot.step(timestep) != -1:
                         current_left_joint, current_right_joint = run_arm_place(
                             goal_arm, get_robot_id
                         )
+                        if current_left_joint is None and current_right_joint is None:
+                            continue
                         current_left_pos = []
                         current_right_pos = []
                         current_left_rpy = []
@@ -2507,6 +2487,7 @@ while robot.step(timestep) != -1:
                             "current_right_rpy": current_right_rpy,
                         }
                     send_robot_status(current_robot_position, status_info)
+
     except requests.exceptions.ConnectionError:
         pass
     except json.JSONDecodeError:

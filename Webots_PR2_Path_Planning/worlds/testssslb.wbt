@@ -1,0 +1,263 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/CardboardBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/drinks/protos/Can.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/tables/protos/Table.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/WoodenBox.proto"
+EXTERNPROTO "../protos/Pr2.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/kitchen/breakfast/protos/BiscuitBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/apartment_structure/protos/Wall.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position -2.2186590824959226e-06 -2.3881283321023747e-05 31.105384788683445
+}
+TexturedBackgroundLight {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 27 18
+  floorTileSize 2 2
+}
+Table {
+  translation 0 5.42 0
+  rotation 0 0 1 1.5707996938995747
+}
+CardboardBox {
+  translation 0 5.5 0.79
+  name "pickbox1"
+  size 0.1 0.1 0.1
+}
+Can {
+  translation 0 5.76 0.8
+  name "pickcan"
+}
+WoodenBox {
+  translation 0.48 5.33 0.8
+  name "pickbox2"
+  size 0.1 0.1 0.1
+}
+Table {
+  translation -4.16 0.28998 0
+  rotation 0 0 1 3.141592653589793
+  name "table(1)"
+}
+WoodenBox {
+  translation -4.21 0.56 0.8
+  name "pickbox2(1)"
+  size 0.1 0.1 0.1
+}
+WoodenBox {
+  translation -3.9 0.89 0.8
+  name "pickbox2(2)"
+  size 0.1 0.1 0.1
+}
+CardboardBox {
+  translation -4.16 -0.26 0.79
+  name "pickbox1(1)"
+  size 0.1 0.1 0.1
+}
+Table {
+  translation 4.25 -0.689997 0
+  rotation 0 0 1 1.5707996938995747
+  name "table(2)"
+}
+Can {
+  translation 4.75 -0.63 0.8
+  name "pickcan(1)"
+}
+Can {
+  translation 3.92 -0.75 0.8
+  name "pickcan(2)"
+}
+Can {
+  translation 4.34 -0.56 0.8
+  name "pickcan(3)"
+}
+Table {
+  translation -1.86 -4.72999 0
+  rotation 0 0 1 1.5707996938995747
+  name "table(3)"
+}
+BiscuitBox {
+  translation -2.07 -4.54 0.75
+}
+BiscuitBox {
+  translation -2.18 -4.87 0.75
+  name "biscuit box(1)"
+}
+BiscuitBox {
+  translation -1.18 -4.69 0.75
+  name "biscuit box(2)"
+}
+Wall {
+  translation -6 5.1 0
+  size 0.9 1 2.4
+}
+Wall {
+  translation -6 -0.95 0
+  name "wall(1)"
+  size 0.9 1 2.4
+}
+Wall {
+  translation -6 -7.01 0
+  name "wall(2)"
+  size 0.9 1 2.4
+}
+Wall {
+  translation 6.34 5.1 0
+  name "wall(3)"
+  size 0.9 1 2.4
+}
+Wall {
+  translation 6.31 -0.95 0
+  name "wall(4)"
+  size 0.9 1 2.4
+}
+Wall {
+  translation 6.02 -7.01 0
+  name "wall(5)"
+  size 0.9 1 2.4
+}
+Wall {
+  translation 0.81997 -7.26994 0
+  rotation 0 0 1 -1.5707996938995747
+  name "wall(7)"
+  size 0.7 4 2.4
+}
+Wall {
+  translation -10.8 0.14002 0
+  rotation 0 0 1 -3.141592653589793
+  name "wall(8)"
+  size 0.7 6 2.4
+}
+Wall {
+  translation 9.46997 -0.39996 0
+  rotation 0 0 -1 3.67802e-06
+  name "wall(9)"
+  size 0.7 4 2.4
+}
+Pr2 {
+  translation -1.20268 0.899529 0.01
+}
+DEF label_1 Solid {
+  translation 0.8 0 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "../protos/stl/num_pic/01.png"
+          ]
+        }
+      }
+      geometry Cylinder {
+        height 0.001
+        radius 0.27
+      }
+    }
+  ]
+  name "label_1"
+}
+DEF label_2 Solid {
+  translation 4 -1.7 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "../protos/stl/num_pic/02.png"
+          ]
+        }
+      }
+      geometry Cylinder {
+        height 0.001
+        radius 0.27
+      }
+    }
+  ]
+  name "label_2"
+}
+DEF label_3 Solid {
+  translation -3.6 0 0
+  children [
+    Shape {
+      appearance Appearance {
+        material Material {
+        }
+        texture ImageTexture {
+          url [
+            "../protos/stl/num_pic/03.png"
+          ]
+        }
+      }
+      geometry Cylinder {
+        height 0.001
+        radius 0.27
+      }
+    }
+  ]
+  name "label_3"
+}
+DEF floor Solid {
+  translation -4.5 -2.7 0
+  children [
+    Pose {
+      translation 4.5 2.7 0
+    }
+    Shape {
+      appearance Appearance {
+        material Material {
+          diffuseColor 0.3 0.3 0.3
+        }
+      }
+      geometry Mesh {
+        url [
+          "../protos/stl_whell/s2floors(1).STL"
+        ]
+      }
+    }
+  ]
+  name "floor"
+  description "9/5.4/0//地板//灰色//None//0/0/0//4"
+  boundingObject Mesh {
+    url [
+      "../protos/stl_whell/s2floors(1).STL"
+    ]
+  }
+}
+DEF SUPERVISOR Robot {
+  children [
+    Camera {
+      translation 0.29281275432535836 0.6631143647963142 16.134634289208737
+      rotation 0.5822612112348909 -0.5881728864363943 -0.5612704673794606 4.155327132529761
+      name "camera_rgb"
+      width 640
+      height 480
+      recognition Recognition {
+      }
+    }
+    RangeFinder {
+      translation 0.29281275432535836 0.6631143647963142 16.134634289208737
+      rotation 0.5822612112348909 -0.5881728864363943 -0.5612704673794606 4.155327132529761
+      name "camera_dpt"
+      width 640
+      height 480
+      minRange 12
+      maxRange 40
+      resolution 1
+    }
+  ]
+  name "supervisor_robot"
+  controller "supervisor_monitor"
+  supervisor TRUE
+}
