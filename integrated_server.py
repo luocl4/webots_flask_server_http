@@ -1896,7 +1896,7 @@ def pick_set_goal():
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
 
-        required_fields = ["id", "robot_id"]
+        required_fields = ["id", "robot_id", "object_id"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400
@@ -2021,7 +2021,7 @@ def place_set_goal():
         if not data:
             return jsonify({"code": 400, "message": "参数为空"}), 400
 
-        required_fields = ["id", "robot_id"]
+        required_fields = ["id", "robot_id", "object_id"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"code": 400, "message": f"缺少参数: {field}"}), 400

@@ -92,6 +92,180 @@ def get_callable_methods(obj):
     return methods
 
 
+# def get_node_properties(node_webots_object):
+#     """
+#     Extracts relevant properties from a Webots node object.
+#     Returns a dictionary.
+#     """
+#     if not node_webots_object:
+#         return None
+
+#     Type_name = node_webots_object.getTypeName()
+
+#     # 获取节点名称（即 DEF 名称）
+#     node_def_name = node_webots_object.getDef()
+#     if not node_def_name:  # 确保 DEF 存在
+#         print(f"Supervisor WARNING: Node found without DEF name. Skipping.")
+#         return None
+
+#     position = node_webots_object.getPosition()
+
+#     # 获取旋转矩阵
+#     rotation_matrix = node_webots_object.getOrientation()
+
+#     # 处理万向锁问题 (gimbal lock)
+#     if abs(rotation_matrix[6]) >= 0.99999:  # 当 R31 接近 ±1 时发生万向锁
+#         # 万向锁发生，roll 和 yaw 合并为一个自由度
+#         roll_rad = 0.0  # 设置 roll 为 0
+#         # 特殊情况处理
+#         if rotation_matrix[6] > 0:  # R31 = 1
+#             pitch_rad = -math.pi / 2  # -90度
+#             yaw_rad = -math.atan2(rotation_matrix[1], rotation_matrix[4])
+#         else:  # R31 = -1
+#             pitch_rad = math.pi / 2  # 90度
+#             yaw_rad = math.atan2(rotation_matrix[1], rotation_matrix[4])
+#     else:
+#         # 正常情况，没有万向锁
+#         pitch_rad = -math.asin(rotation_matrix[6])  # 从 R31 提取 pitch
+#         cos_pitch = math.cos(pitch_rad)
+
+#         # 计算 roll
+#         roll_rad = math.atan2(
+#             rotation_matrix[7] / cos_pitch, rotation_matrix[8] / cos_pitch
+#         )
+
+#         # 计算 yaw
+#         yaw_rad = math.atan2(
+#             rotation_matrix[3] / cos_pitch, rotation_matrix[0] / cos_pitch
+#         )
+
+#     # 转换为角度
+#     roll_degrees = math.degrees(roll_rad)
+#     pitch_degrees = math.degrees(pitch_rad)
+#     yaw_degrees = math.degrees(yaw_rad)
+
+#     # 确保角度在 -180 到 180 度范围内
+#     roll_degrees = ((roll_degrees + 180) % 360) - 180
+#     pitch_degrees = ((pitch_degrees + 180) % 360) - 180
+#     yaw_degrees = ((yaw_degrees + 180) % 360) - 180
+
+#     if Type_name == "Solid":
+#         # 使用缓存的描述信息，避免重复读取字段
+#         if node_def_name not in solid_describe_cache:
+#             # 第一次读取，获取并缓存描述信息
+#             result = get_describe_from_solid(node_webots_object)
+#             solid_describe_cache[node_def_name] = result
+#             # print(f"Supervisor INFO: 缓存 {node_def_name} 的描述信息")
+#         else:
+#             # 使用缓存的描述信息
+#             result = solid_describe_cache[node_def_name]
+#         if result:
+#             color_value = result["color"]
+#             size_value = result["size"].split("/") if result["size"] else [0, 0, 0]
+#             describe_value = result["description"]
+#             ability_value = (
+#                 result["ability_code"].split("/") if result["ability_code"] else []
+#             )
+#             origin_pos_str = result["origin_pos"]
+#             obj_type = result["obj_type"]
+
+#             # 处理位置偏移量（只在第一次计算）
+#             if node_def_name not in solid_position_offsets:
+#                 # 第一次读取，计算偏移量
+#                 if origin_pos_str:
+#                     try:
+#                         origin_pos = [float(x) for x in origin_pos_str.split("/")]
+#                         if len(origin_pos) >= 3:
+#                             # 计算偏移量 = 当前位置 - 原始位置
+#                             offset = [
+#                                 position[0] - origin_pos[0],
+#                                 position[1] - origin_pos[1],
+#                                 position[2] - origin_pos[2],
+#                             ]
+#                             solid_position_offsets[node_def_name] = offset
+#                             # print(
+#                             #     f"Supervisor INFO: 计算 {node_def_name} 位置偏移量: {offset}"
+#                             # )
+#                         else:
+#                             solid_position_offsets[node_def_name] = [0, 0, 0]
+#                     except (ValueError, IndexError) as e:
+#                         print(
+#                             f"Supervisor WARNING: 解析 {node_def_name} 原始位置失败: {e}"
+#                         )
+#                         solid_position_offsets[node_def_name] = [0, 0, 0]
+#                 else:
+#                     solid_position_offsets[node_def_name] = [0, 0, 0]
+
+#             # 应用偏移量修正位置
+#             offset = solid_position_offsets[node_def_name]
+#             corrected_position = [
+#                 position[0] - offset[0],
+#                 position[1] - offset[1],
+#                 position[2] - offset[2],
+#             ]
+#             position = corrected_position
+#         else:
+#             size_value = [0, 0, 0]
+#             describe_value = "无法获取描述"
+#             ability_value = []
+#     elif (
+#         Type_name == "PlasticFruitBox"
+#         or Type_name == "CardboardBox"
+#         or Type_name == "PlasticCrate"
+#     ):
+#         # 使用缓存的描述信息，避免重复读取字段
+#         if node_def_name not in solid_describe_cache:
+#             # 第一次读取，获取并缓存描述信息
+#             result = get_describe_from_solid(node_webots_object)
+#             solid_describe_cache[node_def_name] = result
+#             # print(f"Supervisor INFO: 缓存 {node_def_name} 的描述信息")
+#         else:
+#             # 使用缓存的描述信息
+#             result = solid_describe_cache[node_def_name]
+#         # print(result)
+#         if result:
+#             color_value = result["color"]
+#             size_value = result["size"].split("/") if result["size"] else [0, 0, 0]
+#             describe_value = result["description"]
+#             ability_value = (
+#                 result["ability_code"].split("/") if result["ability_code"] else []
+#             )
+#             obj_type = result["obj_type"]
+#         else:
+#             size_value = [0, 0, 0]
+#             describe_value = "无法获取描述"
+#             ability_value = []
+#     elif Type_name == "urdf_arm":
+#         describe_value, ability_value, size_value = get_obj_describe(
+#             node_webots_object
+#         )  # 获取 describe 字段
+#         if ability_value:
+#             ability_value = parse_ability(ability_value)
+#         obj_type = "1"
+#     else:
+#         size_value = get_obj_size(node_webots_object)  # 获取 size 字段
+#         describe_value, ability_value, _ = get_obj_describe(
+#             node_webots_object
+#         )  # 获取 describe 字段
+#         if ability_value:
+#             ability_value = parse_ability(ability_value)
+#         obj_type = "1"
+
+#     return {
+#         "name": node_def_name,  # 使用 DEF 名称作为标识符
+#         "position": [round(p, 3) for p in position],  # 保留三位小数，方便阅读
+#         "rotation_degrees": {
+#             "roll": round(roll_degrees, 2),
+#             "pitch": round(pitch_degrees, 2),
+#             "yaw": round(yaw_degrees, 2),
+#         },
+#         "size": size_value,
+#         "describe": describe_value,
+#         "ability": ability_value,
+#         "obj_type": obj_type,
+#     }
+
+
 def get_node_properties(node_webots_object):
     """
     Extracts relevant properties from a Webots node object.
@@ -101,6 +275,11 @@ def get_node_properties(node_webots_object):
         return None
 
     Type_name = node_webots_object.getTypeName()
+    # 初始化默认值
+    obj_type = "1"  # 默认类型
+    size_value = [0, 0, 0]
+    describe_value = "无法获取描述"
+    ability_value = []
 
     # 获取节点名称（即 DEF 名称）
     node_def_name = node_webots_object.getDef()
@@ -204,10 +383,6 @@ def get_node_properties(node_webots_object):
                 position[2] - offset[2],
             ]
             position = corrected_position
-        else:
-            size_value = [0, 0, 0]
-            describe_value = "无法获取描述"
-            ability_value = []
     elif (
         Type_name == "PlasticFruitBox"
         or Type_name == "CardboardBox"
@@ -231,17 +406,12 @@ def get_node_properties(node_webots_object):
                 result["ability_code"].split("/") if result["ability_code"] else []
             )
             obj_type = result["obj_type"]
-        else:
-            size_value = [0, 0, 0]
-            describe_value = "无法获取描述"
-            ability_value = []
     elif Type_name == "urdf_arm":
         describe_value, ability_value, size_value = get_obj_describe(
             node_webots_object
         )  # 获取 describe 字段
         if ability_value:
             ability_value = parse_ability(ability_value)
-        obj_type = "1"
     else:
         size_value = get_obj_size(node_webots_object)  # 获取 size 字段
         describe_value, ability_value, _ = get_obj_describe(
@@ -249,7 +419,6 @@ def get_node_properties(node_webots_object):
         )  # 获取 describe 字段
         if ability_value:
             ability_value = parse_ability(ability_value)
-        obj_type = "1"
 
     return {
         "name": node_def_name,  # 使用 DEF 名称作为标识符
