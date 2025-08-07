@@ -1594,6 +1594,8 @@ def run_arm_place(goal_arm, robot_id):
             robot_id=robot_id,
         )
 
+    robot.step(10 * timestep)
+
     with open("terminate_flag.txt", "r") as f:
         flag = f.read() == "True"
         print("222读取文件的结果:", flag)
@@ -1610,7 +1612,10 @@ def run_arm_place(goal_arm, robot_id):
     if goal_arm == "right" or goal_arm == "both":
         set_gripper_position(right_gripper_motors, OPEN_GRIPPER_POS)
 
-    robot.step(100 * timestep)
+    rightArmLeftFingerVacuumGripper.turnOff()
+    rightArmRightFingerVacuumGripper.turnOff()
+
+    # robot.step(100 * timestep)
 
     with open("terminate_flag.txt", "r") as f:
         flag = f.read() == "True"
@@ -1619,6 +1624,8 @@ def run_arm_place(goal_arm, robot_id):
         with open("terminate_flag.txt", "w") as f:
             f.write("False")
             return None, None
+
+    robot.step(10 * timestep)
 
     print("place步骤3: 抬起手臂（回到save姿态）")
     if goal_arm == "left" or goal_arm == "both":

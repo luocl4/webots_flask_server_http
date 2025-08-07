@@ -1366,7 +1366,7 @@ PROTO Pr2 [
                       jointParameters HingeJointParameters {
                         axis 0.0 0.0 1.0
                         anchor 0.0 -0.188 0.0
-                        dampingConstant 0.1
+                        dampingConstant 10
                         staticFriction 0.0
                       }
                       device [

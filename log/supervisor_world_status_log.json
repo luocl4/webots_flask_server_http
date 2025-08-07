@@ -1,1 +1,2632 @@
-[]
+[
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.496,
+                    -0.573,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.15,
+                    "pitch": 0.09,
+                    "yaw": 89.27
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -0.315,
+                    0.076,
+                    1.394
+                ],
+                "rotation_degrees": {
+                    "roll": 6.36,
+                    "pitch": 29.2,
+                    "yaw": -81.78
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.072,
+                    -0.681,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.01,
+                    "yaw": 91.34
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    1.181,
+                    -0.269,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    0.378,
+                    1.514,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    -0.151,
+                    1.502,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    -0.258,
+                    -1.627,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    0.292,
+                    -1.614,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    1.147,
+                    0.371,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.911,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.496,
+                    -0.573,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.15,
+                    "pitch": 0.09,
+                    "yaw": 89.27
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -0.315,
+                    0.076,
+                    1.394
+                ],
+                "rotation_degrees": {
+                    "roll": 6.37,
+                    "pitch": 29.2,
+                    "yaw": -81.83
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.072,
+                    -0.681,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.01,
+                    "yaw": 91.34
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    1.181,
+                    -0.269,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    0.378,
+                    1.514,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    -0.151,
+                    1.502,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    -0.258,
+                    -1.627,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    0.292,
+                    -1.614,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    1.147,
+                    0.371,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.911,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.496,
+                    -0.573,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.15,
+                    "pitch": 0.09,
+                    "yaw": 89.27
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -0.314,
+                    0.076,
+                    1.393
+                ],
+                "rotation_degrees": {
+                    "roll": 6.4,
+                    "pitch": 29.2,
+                    "yaw": -81.9
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.072,
+                    -0.681,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.01,
+                    "yaw": 91.34
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    1.181,
+                    -0.269,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    0.378,
+                    1.514,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    -0.151,
+                    1.502,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    -0.258,
+                    -1.627,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    0.292,
+                    -1.614,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    1.147,
+                    0.371,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.911,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.496,
+                    -0.573,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.24,
+                    "pitch": -0.01,
+                    "yaw": 89.06
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -0.382,
+                    0.185,
+                    1.149
+                ],
+                "rotation_degrees": {
+                    "roll": 13.64,
+                    "pitch": 0.53,
+                    "yaw": -10.82
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": true,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.072,
+                    -0.681,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.01,
+                    "yaw": 91.34
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    1.181,
+                    -0.269,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    0.378,
+                    1.514,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    -0.151,
+                    1.502,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    -0.258,
+                    -1.627,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    0.292,
+                    -1.614,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    1.147,
+                    0.371,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.911,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.496,
+                    -0.574,
+                    -0.004
+                ],
+                "rotation_degrees": {
+                    "roll": 0.05,
+                    "pitch": -0.45,
+                    "yaw": 89.05
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -0.436,
+                    0.173,
+                    1.057
+                ],
+                "rotation_degrees": {
+                    "roll": 4.9,
+                    "pitch": -0.3,
+                    "yaw": -1.26
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": true,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.072,
+                    -0.681,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.01,
+                    "yaw": 91.34
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    1.181,
+                    -0.269,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    0.378,
+                    1.514,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    -0.151,
+                    1.502,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    -0.258,
+                    -1.627,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    0.292,
+                    -1.614,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    1.147,
+                    0.371,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.911,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.496,
+                    -0.574,
+                    -0.004
+                ],
+                "rotation_degrees": {
+                    "roll": 0.05,
+                    "pitch": -0.63,
+                    "yaw": 89.04
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -0.437,
+                    0.168,
+                    1.065
+                ],
+                "rotation_degrees": {
+                    "roll": 5.48,
+                    "pitch": -0.32,
+                    "yaw": -1.21
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": true,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.072,
+                    -0.681,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.01,
+                    "yaw": 91.34
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    1.181,
+                    -0.269,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    0.378,
+                    1.514,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    -0.151,
+                    1.502,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    -0.258,
+                    -1.627,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    0.292,
+                    -1.614,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    1.147,
+                    0.371,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.911,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.496,
+                    -0.574,
+                    -0.004
+                ],
+                "rotation_degrees": {
+                    "roll": 0.05,
+                    "pitch": -0.66,
+                    "yaw": 89.03
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -0.437,
+                    0.166,
+                    1.067
+                ],
+                "rotation_degrees": {
+                    "roll": 5.65,
+                    "pitch": -0.32,
+                    "yaw": -1.22
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.072,
+                    -0.681,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.01,
+                    "yaw": 91.34
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    1.181,
+                    -0.269,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    0.378,
+                    1.514,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    -0.151,
+                    1.502,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    -0.258,
+                    -1.627,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    0.292,
+                    -1.614,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    1.147,
+                    0.371,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.911,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.496,
+                    -0.574,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.25,
+                    "pitch": 0.28,
+                    "yaw": 89.03
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -0.592,
+                    -0.042,
+                    1.386
+                ],
+                "rotation_degrees": {
+                    "roll": -33.05,
+                    "pitch": 3.91,
+                    "yaw": -32.77
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": true,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.072,
+                    -0.681,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.01,
+                    "yaw": 91.34
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    1.181,
+                    -0.269,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    0.378,
+                    1.514,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    -0.151,
+                    1.502,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    -0.258,
+                    -1.627,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    0.292,
+                    -1.614,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    1.147,
+                    0.371,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.911,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.496,
+                    -0.574,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.07,
+                    "yaw": 89.03
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -0.594,
+                    -0.072,
+                    1.391
+                ],
+                "rotation_degrees": {
+                    "roll": -23.53,
+                    "pitch": 32.57,
+                    "yaw": -51.44
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": true,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.072,
+                    -0.681,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.01,
+                    "yaw": 91.34
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    1.181,
+                    -0.269,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    0.378,
+                    1.514,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    -0.151,
+                    1.502,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    -0.258,
+                    -1.627,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    0.292,
+                    -1.614,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    1.147,
+                    0.371,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.911,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    },
+    {
+        "event_type": "world_status_update",
+        "data": [
+            {
+                "name": "PR2_ROBOT1",
+                "position": [
+                    -0.496,
+                    -0.574,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.01,
+                    "pitch": 0.06,
+                    "yaw": 89.03
+                },
+                "size": null,
+                "describe": "PR2机器人",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 1
+            },
+            {
+                "name": "cardboard_box(1)",
+                "position": [
+                    -0.603,
+                    -0.08,
+                    1.389
+                ],
+                "rotation_degrees": {
+                    "roll": -9.44,
+                    "pitch": 32.31,
+                    "yaw": -45.03
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": true,
+                "id": 2
+            },
+            {
+                "name": "cardboard_box(2)",
+                "position": [
+                    -1.072,
+                    -0.681,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.01,
+                    "yaw": 91.34
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 3
+            },
+            {
+                "name": "cardboard_box(3)",
+                "position": [
+                    1.181,
+                    -0.269,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 4
+            },
+            {
+                "name": "cardboard_box(4)",
+                "position": [
+                    0.378,
+                    1.514,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 5
+            },
+            {
+                "name": "cardboard_box(5)",
+                "position": [
+                    -0.151,
+                    1.502,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": -0.0,
+                    "yaw": 91.31
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 6
+            },
+            {
+                "name": "cardboard_box(6)",
+                "position": [
+                    -0.258,
+                    -1.627,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 7
+            },
+            {
+                "name": "cardboard_box(7)",
+                "position": [
+                    0.292,
+                    -1.614,
+                    0.996
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 8
+            },
+            {
+                "name": "cardboard_box(8)",
+                "position": [
+                    1.147,
+                    0.371,
+                    0.995
+                ],
+                "rotation_degrees": {
+                    "roll": -0.0,
+                    "pitch": 0.01,
+                    "yaw": 91.32
+                },
+                "size": [
+                    0,
+                    0,
+                    0
+                ],
+                "describe": "无法获取描述",
+                "ability": [],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 9
+            },
+            {
+                "name": "Table",
+                "position": [
+                    -0.5,
+                    0.2,
+                    0.175
+                ],
+                "rotation_degrees": {
+                    "roll": 0.0,
+                    "pitch": 0.0,
+                    "yaw": -0.0
+                },
+                "size": null,
+                "describe": null,
+                "ability": null,
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 14
+            },
+            {
+                "name": "PR2_ROBOT2",
+                "position": [
+                    -0.396,
+                    0.911,
+                    -0.005
+                ],
+                "rotation_degrees": {
+                    "roll": 0.02,
+                    "pitch": 0.05,
+                    "yaw": -86.53
+                },
+                "size": null,
+                "describe": "轮臂机器人带夹爪",
+                "ability": [
+                    "move",
+                    "left_grab",
+                    "right_grab",
+                    "both_grab",
+                    "left_place",
+                    "right_place",
+                    "both_place"
+                ],
+                "obj_type": "1",
+                "is_moving": false,
+                "id": 15
+            }
+        ],
+        "message": "World status updated by supervisor."
+    }
+]
