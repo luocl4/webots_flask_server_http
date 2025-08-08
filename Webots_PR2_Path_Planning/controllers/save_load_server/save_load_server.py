@@ -84,6 +84,7 @@ while supervisor.step(timestep) != -1:
                                         print(f"已保存对象 {object_name} 的状态: {state_name}")
                                     elif command == "load":
                                         node.loadState(state_name)
+                                        node.restartController()
                                         print(f"已加载对象 {object_name} 的状态: {state_name}")
                                     else:
                                         print(f"未知命令: {command}")
@@ -108,6 +109,7 @@ while supervisor.step(timestep) != -1:
                                 print(f"已保存对象 {obj} 的状态: {state_name}")
                             elif command == "load":
                                 node.loadState(state_name)
+                                node.restartController()
                                 print(f"已加载对象 {obj} 的状态: {state_name}")
                             else:
                                 print(f"未知命令: {command}")
